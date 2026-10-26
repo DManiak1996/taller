@@ -1,0 +1,260 @@
+{
+  "id": "s05-d05",
+  "semana": 5,
+  "dia": 5,
+  "titulo": "Para cada uno: for…of",
+  "objetivo": "Hoy aprendes a recorrer una lista con for…of, que te da cada dato sin contadores ni posiciones, y cuándo usarlo en vez del for clásico.",
+  "conceptos": [
+    "for-of"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const afectados = [120, 40, 300];\nlet total = 0;\nfor (const n of afectados) {\n  total = total + n;\n}\nconsole.log(total);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "afectados": "[120, 40, 300]"
+          },
+          "salida": [],
+          "nota": "Personas afectadas por tres brechas."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "0"
+          },
+          "salida": [],
+          "nota": "El acumulador, a 0."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "0",
+            "n": "120"
+          },
+          "salida": [],
+          "nota": "`for (const n of afectados)` se lee «para cada n de afectados». En la primera vuelta, n es el primer dato: 120."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "120",
+            "n": "120"
+          },
+          "salida": [],
+          "nota": "Lo suma."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "120",
+            "n": "40"
+          },
+          "salida": [],
+          "nota": "Siguiente vuelta: n pasa a ser el segundo dato, 40."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "160",
+            "n": "40"
+          },
+          "salida": [],
+          "nota": "Lo suma."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "160",
+            "n": "300"
+          },
+          "salida": [],
+          "nota": "n es el tercero, 300."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "460",
+            "n": "300"
+          },
+          "salida": [],
+          "nota": "Lo suma. No quedan más datos: el bucle termina solo."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "afectados": "[120, 40, 300]",
+            "total": "460"
+          },
+          "salida": [
+            "460"
+          ],
+          "nota": "Total de personas afectadas."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`for…of` te da **cada dato**, uno por vuelta, en orden. No hay contador, ni length, ni posiciones: no hay dónde equivocarse por uno. Se usa `const` porque en cada vuelta n es una caja nueva."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const b = [\"contrato\", \"ley\"];\nfor (const x of b) {\n  console.log(\"Base:\", x);\n}",
+      "salida": [
+        "Base: contrato",
+        "Base: ley"
+      ],
+      "nota": "Funciona igual con textos. El nombre de la caja lo eliges tú: `x`, `base`, `n`…"
+    },
+    {
+      "tipo": "texto",
+      "texto": "¿Cuál usar? Si solo necesitas los datos, `for…of`: es más corto y más difícil de estropear. Si necesitas la **posición** (por ejemplo, para escribir «1.», «2.»…), el for clásico. Al revisar código de una IA, un for clásico que solo usa `lista[i]` se podría simplificar."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al redactar el apartado 11 de una EIPD, DeIure recorre las medidas de seguridad una a una con for…of para colocar cada una en su grupo.",
+      "codigo": "for (const medida of medidas) {",
+      "fichero": "DeIure/src/lib/apartado-11-compiler.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d05-r1",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const m = [2, 5, 1];\nfor (const x of m) {\n  console.log(x * 10);\n}",
+      "opciones": [
+        {
+          "texto": "20\n50\n10",
+          "correcta": true,
+          "siEliges": "Eso es: cada dato, multiplicado por 10, en orden."
+        },
+        {
+          "texto": "0\n10\n20",
+          "siEliges": "for…of da los datos, no las posiciones."
+        },
+        {
+          "texto": "80",
+          "siEliges": "No hay acumulador: escribe en cada vuelta."
+        }
+      ],
+      "pistas": [
+        "¿Qué vale x en cada vuelta?",
+        "2, luego 5, luego 1.",
+        "Cada uno por 10."
+      ],
+      "explicacion": "for…of da los datos en el mismo orden en que están en la lista."
+    },
+    {
+      "id": "s05-d05-r2",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba cada nombre de la lista.",
+      "codigo": "const d = [\"Ana\", \"Eva\"];\nfor (const x ___ d) {\n  console.log(x);\n}",
+      "salidaEsperada": [
+        "Ana",
+        "Eva"
+      ],
+      "opciones": [
+        {
+          "texto": "of",
+          "correcta": true,
+          "siEliges": "Correcto: «para cada x de d»."
+        },
+        {
+          "texto": "in",
+          "siEliges": "for…in existe, pero da las posiciones: escribiría 0 y 1. Una confusión muy común."
+        },
+        {
+          "texto": "de",
+          "siEliges": "Las palabras del lenguaje están en inglés: daría error."
+        }
+      ],
+      "pistas": [
+        "Es una palabra inglesa de dos letras.",
+        "Significa «de».",
+        "of."
+      ],
+      "explicacion": "of da los datos; in, las posiciones. Una IA que confunde las dos produce un programa que funciona pero escribe números en vez de nombres."
+    },
+    {
+      "ref": "s05-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d05-x1",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const l = [];\nfor (const x of l) {\n  console.log(x);\n}\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Fin",
+          "correcta": true,
+          "siEliges": "Eso es: la lista está vacía, así que el bucle no da ninguna vuelta."
+        },
+        {
+          "texto": "undefined\nFin",
+          "siEliges": "Con la lista vacía no hay ningún dato que escribir: cero vueltas."
+        },
+        {
+          "texto": "❌ Error en la línea 2",
+          "siEliges": "Recorrer una lista vacía no da error: simplemente no entra."
+        }
+      ],
+      "pistas": [
+        "¿Cuántos datos tiene l?",
+        "Ninguno.",
+        "¿Cuántas vueltas da el bucle?"
+      ],
+      "explicacion": "Un for…of da tantas vueltas como datos tiene la lista, también cero."
+    },
+    {
+      "id": "s05-d05-x2",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const r = [3, 1];\nlet dias = 0;\nfor (const n of r) {\n  dias = dias + n;\n}\nconsole.log(dias);",
+      "opciones": [
+        {
+          "texto": "4",
+          "correcta": true,
+          "siEliges": "Eso es: 3 + 1."
+        },
+        {
+          "texto": "2",
+          "siEliges": "Eso es r.length. Aquí se suman los datos."
+        },
+        {
+          "texto": "1",
+          "siEliges": "dias acumula: no se queda con el último."
+        }
+      ],
+      "pistas": [
+        "dias empieza en 0.",
+        "Suma cada dato.",
+        "0 + 3 + 1."
+      ],
+      "explicacion": "Sumar con for…of es más corto que con el for clásico y da lo mismo."
+    }
+  ]
+}

@@ -168,7 +168,7 @@
       "concepto": "if-else",
       "tema": "rgpd",
       "tipo": "hueco",
-      "enunciado": "La IA ha puesto la condición al revés y dice «Fuera de plazo» con 10 días. Completa con el signo correcto (el plazo es de 30 días).",
+      "enunciado": "La IA ha puesto la condición al revés y dice «Fuera de plazo» con 10 días. Completa con el signo correcto (el plazo interno es de 30 días).",
       "codigo": "const dias = 10;\nif (dias ___ 30) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
       "salidaEsperada": [
         "En plazo"

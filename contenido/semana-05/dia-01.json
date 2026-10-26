@@ -1,0 +1,195 @@
+{
+  "id": "s05-d01",
+  "semana": 5,
+  "dia": 1,
+  "titulo": "Varias cosas en una caja: listas",
+  "objetivo": "Hoy aprendes a guardar varios datos en orden dentro de una sola caja, una lista, y a pedirle uno o preguntarle cuántos tiene.",
+  "conceptos": [
+    "arrays"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const plazos = [72, 30, 15];\nconsole.log(plazos);",
+      "salida": [
+        "[ 72, 30, 15 ]"
+      ],
+      "nota": "Una **lista** (en inglés, «array») va entre corchetes, con los datos separados por comas. Aquí, tres plazos en horas y días. Al escribirla, la consola pone espacios junto a los corchetes: es solo su forma de enseñarla."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const plazos = [72, 30, 15];\nconsole.log(plazos[0]);\nconsole.log(plazos.length);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "plazos": "[72, 30, 15]"
+          },
+          "salida": [],
+          "nota": "Una sola caja con tres datos dentro, en orden."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "plazos": "[72, 30, 15]"
+          },
+          "salida": [
+            "72"
+          ],
+          "nota": "`plazos[0]` pide el dato de la **posición 0**, que es el primero."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "plazos": "[72, 30, 15]"
+          },
+          "salida": [
+            "72",
+            "3"
+          ],
+          "nota": "`.length` («longitud») dice cuántos datos tiene la lista."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Una lista es como un **libro de registro**: entradas numeradas, una detrás de otra. Puede guardar números, textos o lo que quieras, y crecer o encoger. Para mil interesados no necesitas mil cajas: te basta una lista."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure guarda los niveles de impacto de un riesgo en una lista, ordenados de menor a mayor. Al ser una lista, el orden importa: «limitado» va antes que «significativo».",
+      "codigo": "const ESCALA_IMPACTO = [\n  'muy_limitado',\n  'limitado',\n  'significativo',\n  'muy_significativo',\n] as const satisfies readonly Impacto[];",
+      "fichero": "DeIure/src/lib/eipd-residual-estimator.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d01-r1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const bases = [\n  \"consentimiento\",\n  \"contrato\",\n  \"obligación legal\",\n];\nconsole.log(bases[0]);\nconsole.log(bases.length);",
+      "opciones": [
+        {
+          "texto": "consentimiento\n3",
+          "correcta": true,
+          "siEliges": "Eso es: la posición 0 es la primera, y hay tres bases."
+        },
+        {
+          "texto": "contrato\n3",
+          "siEliges": "La posición 0 es la primera, no la segunda."
+        },
+        {
+          "texto": "consentimiento\n2",
+          "siEliges": "length cuenta los datos que hay: tres."
+        }
+      ],
+      "pistas": [
+        "Una lista se puede escribir en varias líneas: es la misma lista.",
+        "[0] es la primera posición.",
+        "length cuenta cuántos datos hay."
+      ],
+      "explicacion": "Escribir una lista larga en varias líneas, una por dato, la hace más fácil de leer."
+    },
+    {
+      "id": "s05-d01-r2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba cuántos datos tiene la lista.",
+      "codigo": "const d = [10, 20, 30];\nconsole.log(d.___);",
+      "salidaEsperada": [
+        "3"
+      ],
+      "opciones": [
+        {
+          "texto": "length",
+          "correcta": true,
+          "siEliges": "Correcto: length, «longitud»."
+        },
+        {
+          "texto": "size",
+          "siEliges": "size existe en otros lenguajes, pero en una lista de TypeScript da undefined."
+        },
+        {
+          "texto": "count",
+          "siEliges": "count no existe en las listas: da undefined."
+        }
+      ],
+      "pistas": [
+        "Es una palabra inglesa.",
+        "Significa «longitud».",
+        "length."
+      ],
+      "explicacion": "Si pides algo que la lista no tiene, como .size, no da error: da undefined. Por eso conviene probar el código."
+    },
+    {
+      "ref": "s05-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d01-x1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const v = [];\nconsole.log(v.length);",
+      "opciones": [
+        {
+          "texto": "0",
+          "correcta": true,
+          "siEliges": "Eso es: una lista vacía tiene 0 datos."
+        },
+        {
+          "texto": "1",
+          "siEliges": "Los corchetes no cuentan como dato: está vacía."
+        },
+        {
+          "texto": "[]",
+          "siEliges": "length no enseña la lista: cuenta sus datos."
+        }
+      ],
+      "pistas": [
+        "¿Qué hay entre los corchetes?",
+        "Nada: es una lista vacía.",
+        "¿Cuántos datos tiene una lista vacía?"
+      ],
+      "explicacion": "Muchas listas empiezan vacías y se van llenando. Lo verás en unos días."
+    },
+    {
+      "id": "s05-d01-x2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const n = [5, 8];\nconsole.log(n[0] + n[1]);",
+      "opciones": [
+        {
+          "texto": "13",
+          "correcta": true,
+          "siEliges": "Eso es: 5 + 8."
+        },
+        {
+          "texto": "58",
+          "siEliges": "Son números, no textos: + suma."
+        },
+        {
+          "texto": "[ 5, 8 ]",
+          "siEliges": "n[0] y n[1] son los datos sueltos, no la lista."
+        }
+      ],
+      "pistas": [
+        "¿Qué vale n[0]? ¿Y n[1]?",
+        "5 y 8.",
+        "Son números: se suman."
+      ],
+      "explicacion": "Cada dato de la lista se usa como cualquier otra caja."
+    }
+  ]
+}

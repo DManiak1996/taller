@@ -1,0 +1,152 @@
+{
+  "id": "s05-d07",
+  "semana": 5,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: listas frente a diccionarios",
+  "objetivo": "Hoy aprendes que la forma de guardar los datos decide cuánto cuesta encontrarlos, comparando una lista con un diccionario.",
+  "conceptos": [
+    "estructuras-datos"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "La semana pasada viste que dos algoritmos pueden dar el mismo resultado y tardar muy distinto. Hoy, la otra mitad: **cómo guardas los datos** decide cuánto cuesta encontrarlos. A eso se le llama **estructura de datos**."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const r = [\"Luis\", \"Marta\", \"Ana\"];\nlet pasos = 0;\nfor (const n of r) {\n  pasos = pasos + 1;\n  if (n === \"Ana\") {\n    console.log(\"Ana en\", pasos);\n  }\n}",
+      "salida": [
+        "Ana en 3"
+      ],
+      "nota": "Una lista es el **libro de registro numerado**: todo en orden, entrada tras entrada. Para encontrar a Ana sin saber su número, hay que mirar una a una. Aquí, 3 pasos; con 1000 nombres, hasta 1000."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const ficha = { nombre: \"Ana\" };\nconsole.log(ficha.nombre);",
+      "salida": [
+        "Ana"
+      ],
+      "nota": "Un **diccionario** guarda cada dato con un **nombre** (una clave) y va directo a él, como el **índice alfabético** de expedientes: buscas «Ana» y te dice dónde está, sin pasar por los demás. En TypeScript se escribe con llaves. Lo verás pronto: hoy solo quédate con la idea."
+    },
+    {
+      "tipo": "texto",
+      "texto": "El coste: buscar a Ana en una lista de 1000 puede llevar 1000 pasos; en un diccionario, uno. Ninguna es mejor siempre: la lista guarda el **orden**; el diccionario encuentra **por nombre**. Si una IA busca una y otra vez en una lista enorme, pregúntale si no le iría mejor un diccionario."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Para no repetir un aviso, DeIure guarda los ya dados en un Set, una estructura que, como un diccionario, contesta de un golpe si algo ya está, sin recorrer nada.",
+      "codigo": "if (avisadas.has(clave)) return;\navisadas.add(clave);",
+      "fichero": "DeIure/src/lib/eipd-residual-estimator.ts"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "grep -n nombre hola.ts",
+      "salida": [
+        "1:const nombre = \"Daniel\";",
+        "2:console.log(\"Hola,\", nombre);"
+      ],
+      "nota": "**Comando de la semana: grep.** Busca un texto dentro de ficheros y enseña las líneas donde aparece. `-n` añade el número de línea; `-i` no distingue mayúsculas de minúsculas; `-r` busca en una carpeta entera. **Minirreto en tu Mac:** en `practica`, escribe `grep -n nombre hola.ts`. Deben salir las dos líneas de tu programa con su número delante (con tu nombre, si lo cambiaste con nano). Prueba después `grep -n hola hola.ts` y luego `grep -ni hola hola.ts`: ¿por qué la primera no encuentra nada y la segunda sí?"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d07-r1",
+      "semana": 5,
+      "concepto": "estructuras-datos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const r = [\"Eva\", \"Ana\", \"Luis\"];\nfor (let i = 0; i < r.length; i++) {\n  if (r[i] === \"Luis\") {\n    console.log(\"Posición\", i);\n  }\n}",
+      "opciones": [
+        {
+          "texto": "Posición 2",
+          "correcta": true,
+          "siEliges": "Eso es: Luis es el tercero, y las posiciones empiezan en 0."
+        },
+        {
+          "texto": "Posición 3",
+          "siEliges": "Es el tercero, pero las posiciones se cuentan desde 0."
+        },
+        {
+          "texto": "Posición 0\nPosición 1\nPosición 2",
+          "siEliges": "El console.log está dentro del if: solo escribe cuando encuentra a Luis."
+        }
+      ],
+      "pistas": [
+        "¿En qué posición está Luis?",
+        "Eva 0, Ana 1…",
+        "Luis, 2."
+      ],
+      "explicacion": "Buscar en una lista con el for clásico te da también la posición. Aun así, ha mirado los tres nombres."
+    },
+    {
+      "id": "s05-d07-r2",
+      "semana": 5,
+      "concepto": "estructuras-datos",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que avise una sola vez, al encontrar a Ana.",
+      "codigo": "const r = [\"Eva\", \"Ana\", \"Luis\"];\nfor (const n of r) {\n  if (n ___ \"Ana\") {\n    console.log(\"Encontrada\");\n  }\n}",
+      "salidaEsperada": [
+        "Encontrada"
+      ],
+      "opciones": [
+        {
+          "texto": "===",
+          "correcta": true,
+          "siEliges": "Correcto: compara si n es igual a «Ana»."
+        },
+        {
+          "texto": "!==",
+          "siEliges": "Avisaría con todos los que no son Ana: dos veces."
+        },
+        {
+          "texto": "=",
+          "siEliges": "Un solo = guarda, no compara: intentaría cambiar n, que es const, y daría error."
+        }
+      ],
+      "pistas": [
+        "Hay que comparar, no guardar.",
+        "Para comparar si son iguales se usan tres signos.",
+        "===."
+      ],
+      "explicacion": "= guarda; === compara. Confundirlos es de los fallos más antiguos de la programación."
+    },
+    {
+      "ref": "s05-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d07-x1",
+      "semana": 5,
+      "concepto": "estructuras-datos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Buscas a Marta, que no está. ¿Qué escribe este programa?",
+      "codigo": "const r = [\"Eva\", \"Ana\", \"Luis\"];\nlet pasos = 0;\nfor (const n of r) {\n  pasos = pasos + 1;\n}\nconsole.log(pasos);",
+      "opciones": [
+        {
+          "texto": "3",
+          "correcta": true,
+          "siEliges": "Eso es: para saber que no está, hay que mirar todos."
+        },
+        {
+          "texto": "0",
+          "siEliges": "Para saber que no está tiene que recorrerlos: pasos suma 1 por nombre."
+        },
+        {
+          "texto": "1",
+          "siEliges": "pasos acumula una vez por vuelta, y hay tres vueltas."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas vueltas da el bucle?",
+        "Una por nombre.",
+        "Tres."
+      ],
+      "explicacion": "Lo que no está es lo más caro de buscar en una lista: obliga a mirarlo todo."
+    }
+  ]
+}

@@ -54,7 +54,7 @@
       "concepto": "comparaciones",
       "tema": "rgpd",
       "tipo": "predecir",
-      "enunciado": "El plazo para responder es de 30 días. ¿Qué escribe este programa?",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días para responder. ¿Qué escribe este programa?",
       "codigo": "const dias = 30;\nconsole.log(dias > 30);\nconsole.log(dias >= 30);",
       "opciones": [
         {

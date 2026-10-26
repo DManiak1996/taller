@@ -110,13 +110,13 @@
         "console.log(\"Detectar la brecha\");",
         "console.log(\"Contenerla\");",
         "console.log(\"Evaluar el riesgo\");",
-        "console.log(\"Notificar en 72 horas\");"
+        "console.log(\"Notificar (máx. 72 h)\");"
       ],
       "salidaEsperada": [
         "Detectar la brecha",
         "Contenerla",
         "Evaluar el riesgo",
-        "Notificar en 72 horas"
+        "Notificar (máx. 72 h)"
       ],
       "pistas": [
         "Fíjate en lo que tiene que escribir: la primera línea de la salida es la primera del programa.",
