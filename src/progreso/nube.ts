@@ -51,3 +51,48 @@ export async function comprobarCodigo(email: string, codigo: string) {
 export async function cerrarSesion() {
   await nube?.auth.signOut()
 }
+
+// ---- Avisos push (el de las 20:00 si no has hecho el reto) ----
+
+function base64AUint8(b64: string): Uint8Array<ArrayBuffer> {
+  const relleno = '='.repeat((4 - (b64.length % 4)) % 4)
+  const binario = atob((b64 + relleno).replace(/-/g, '+').replace(/_/g, '/'))
+  const bytes = new Uint8Array(new ArrayBuffer(binario.length))
+  for (let i = 0; i < binario.length; i++) bytes[i] = binario.charCodeAt(i)
+  return bytes
+}
+
+export const avisosPosibles = () => typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window
+
+/** ¿Este dispositivo ya tiene los avisos activados? */
+export async function avisosActivados(): Promise<boolean> {
+  if (!avisosPosibles()) return false
+  const registro = await navigator.serviceWorker.getRegistration()
+  return Boolean(await registro?.pushManager.getSubscription())
+}
+
+/** Pide permiso, suscribe este dispositivo y lo guarda en Supabase. Debe llamarse al tocar un botón. */
+export async function activarAvisos(): Promise<void> {
+  if (!nube) throw new Error('La nube no está configurada')
+  if (!avisosPosibles()) throw new Error('Este navegador no admite avisos. En el iPhone, abre el taller desde el icono de la pantalla de inicio.')
+  const permiso = await Notification.requestPermission()
+  if (permiso !== 'granted') throw new Error('Sin permiso para avisar. Se puede cambiar en Ajustes › Notificaciones › Taller.')
+  const { data: publica, error } = await nube.rpc('vapid_publica')
+  if (error) throw error
+  if (!publica) throw new Error('Los avisos aún no están preparados en el servidor. Prueba mañana.')
+  const registro = await navigator.serviceWorker.ready
+  const suscripcion =
+    (await registro.pushManager.getSubscription()) ??
+    (await registro.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64AUint8(publica as string) }))
+  const datos = suscripcion.toJSON()
+  const { error: e2 } = await nube.from('suscripciones').upsert({ endpoint: datos.endpoint, datos }, { onConflict: 'endpoint', ignoreDuplicates: true })
+  if (e2) throw e2
+}
+
+export async function desactivarAvisos(): Promise<void> {
+  const registro = await navigator.serviceWorker.getRegistration()
+  const suscripcion = await registro?.pushManager.getSubscription()
+  if (!suscripcion) return
+  await nube?.from('suscripciones').delete().eq('endpoint', suscripcion.endpoint)
+  await suscripcion.unsubscribe()
+}
