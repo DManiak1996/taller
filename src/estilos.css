@@ -174,7 +174,6 @@ button.linea:hover { background: var(--pri-t); }
 
 /* ---- Esquema (diagrama de flujo) ---- */
 .esquema .caja { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; }
-.esquema .flecha { display: flex; justify-content: center; height: 28px; }
 
 /* ---- Inicio: racha de la semana ---- */
 .semana { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
@@ -238,11 +237,39 @@ button.linea:hover { background: var(--pri-t); }
 .pto.si { background: var(--pri); border-color: var(--pri); }
 
 /* ---- Esquema numerado y terminal ---- */
-.esquema { list-style: none; margin: 0; padding: 0; }
+.esquema { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 26px; }
+/* Flechas entre cajas solo con CSS: VoiceOver lee los pasos y nada más */
+.esquema > li { position: relative; }
+.esquema > li + li::before { content: ""; position: absolute; left: 50%; top: -22px; width: 2px; height: 16px; margin-left: -1px; background: var(--pri); }
+.esquema > li + li::after { content: ""; position: absolute; left: 50%; top: -10px; width: 8px; height: 8px; margin-left: -5px; border-right: 2px solid var(--pri); border-bottom: 2px solid var(--pri); transform: rotate(45deg); }
 .esquema .caja { display: flex; gap: 12px; align-items: flex-start; }
 .esquema .n { width: 28px; height: 28px; flex: none; border-radius: 14px; background: var(--pri-t); color: var(--pri); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
-.esquema .flecha { color: var(--pri); }
 .terminal-orden::before { content: '$ '; color: #8FA3FF; opacity: 1; }
 .cursor { display: inline-block; width: .6em; height: 1.1em; background: var(--consola-txt); vertical-align: text-bottom; opacity: .8; }
 .pastilla { font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--con-t); color: var(--con); }
 .pestana { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-codigo); font-size: 14px; color: var(--suave); }
+
+/* Aviso neutro de «sin conexión»: informa, no bloquea */
+.sin-conexion {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 8px 20px 0;
+  padding: 12px 14px;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  background: var(--sup);
+  color: var(--tinta);
+  font-size: 15px;
+  line-height: 1.4;
+}
+.sin-conexion svg { flex: none; margin-top: 1px; color: var(--suave); }
+
+/* Entrar: email y contraseña (el llavero de iOS los propone y los guarda) */
+.campo label { font-size: 15px; font-weight: 800; }
+.entrada { min-height: 56px; width: 100%; box-sizing: border-box; padding: 0 16px; border-radius: 14px; border: 2px solid var(--borde); background: var(--sup); color: var(--tinta); font: inherit; font-size: 19px; }
+.entrada:focus { outline: none; border-color: var(--pri); }
+.con-ojo { position: relative; }
+.con-ojo .entrada { padding-right: 56px; }
+.ojo { position: absolute; top: 6px; right: 6px; }
+.btn-texto { background: transparent; color: var(--pri); min-height: 44px; font-size: 16px; font-weight: 700; border: none; }

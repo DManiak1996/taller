@@ -1,10 +1,25 @@
+import { useEffect, useState } from 'react'
 import type { DiaListo } from '../contenido/cargar'
 import { useProgreso } from '../progreso/almacen'
-import { hechoHoy, hoy, racha, repasoDeHoy, repasos } from '../progreso/modelo'
+import { hechoHoy, hoy, racha, repasoDeHoy } from '../progreso/modelo'
 import { Codigo, Icono, Texto } from '../ui/basicos'
 import { SemanaRacha } from './Cierre'
 
 const NOMBRE_DIA = new Intl.DateTimeFormat('es-ES', { weekday: 'long', timeZone: 'Europe/Madrid' })
+
+function useConexion() {
+  const [enLinea, setEnLinea] = useState(() => typeof navigator === 'undefined' || navigator.onLine)
+  useEffect(() => {
+    const cambiar = () => setEnLinea(navigator.onLine)
+    window.addEventListener('online', cambiar)
+    window.addEventListener('offline', cambiar)
+    return () => {
+      window.removeEventListener('online', cambiar)
+      window.removeEventListener('offline', cambiar)
+    }
+  }, [])
+  return enLinea
+}
 
 function codigoDe(dia: DiaListo): string | undefined {
   const p = dia.leccion.find((x) => x.tipo === 'pasoapaso' || x.tipo === 'codigo')
@@ -18,7 +33,9 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
   const hecho = hechoHoy(p, fechaHoy)
   const dias = racha(p, fechaHoy)
   const rota = dias === 0 && p.sesiones.length > 0 // racha rota, sin culpa: no se enseñan los días perdidos
-  const hayRepaso = Boolean(repasoDeHoy(p, fechaHoy)) || repasos(p).size > 0 || p.intentos.length > 0
+  const hayRepaso = Boolean(repasoDeHoy(p, fechaHoy)) || p.intentos.length > 0
+  const repasoPendiente = Boolean(repasoDeHoy(p, fechaHoy)) // con el reto hecho, solo se ofrece repasar si toca
+  const enLinea = useConexion()
   const codigo = dia && codigoDe(dia)
   const dia1 = NOMBRE_DIA.format(new Date())
 
@@ -41,6 +58,15 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
         </nav>
       </header>
 
+      {!enLinea && (
+        <p className="sin-conexion" role="status">
+          <Icono nombre="sinred" tam={20} />
+          <span>
+            <strong>Sin conexión.</strong> Puedes hacer el reto igual: lo guardo cuando vuelva internet.
+          </span>
+        </p>
+      )}
+
       <main className="cuerpo" style={{ justifyContent: 'center', gap: 28 }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {hecho ? (
@@ -48,16 +74,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
               <span style={{ width: 64, height: 64, borderRadius: 32, background: 'var(--ok)', color: 'var(--fondo)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Icono nombre="bien" tam={34} grosor={3} />
               </span>
-              <h1 className="h1 grande">Hecho por hoy</h1>
-              <p className="txt" style={{ color: 'var(--suave)' }}>
-                {dia ? (
-                  <>
-                    Mañana toca: <strong>{dia.titulo}</strong>
-                  </>
-                ) : (
-                  'Has terminado todo lo que hay por ahora.'
-                )}
-              </p>
+              <h1 className="h1 grande">Reto de hoy, hecho</h1>
             </>
           ) : dia ? (
             <>
@@ -87,7 +104,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             <span className="punto hoy" style={{ width: 40, height: 40, borderRadius: 20, flex: 'none' }} />
             <div>
               <p style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>Retomas hoy</p>
-              <p className="peq">Con el reto de hoy vuelves a tener racha.</p>
+              <p className="peq">Un reto y la racha vuelve a empezar.</p>
             </div>
           </section>
         ) : (
@@ -108,9 +125,9 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             <Icono nombre="flecha" />
           </button>
         )}
-        {hecho && hayRepaso && (
+        {hecho && repasoPendiente && (
           <button type="button" className="btn btn-sec" onClick={empezar}>
-            Repasar algo más
+            Repasar un poco más
           </button>
         )}
       </footer>

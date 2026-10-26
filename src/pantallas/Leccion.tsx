@@ -78,11 +78,6 @@ function Contenido({ p }: { p: Pantalla }) {
           <ol className="esquema">
             {p.pasos.map((caja, i) => (
               <li key={i}>
-                {i > 0 && (
-                  <div className="flecha">
-                    <Icono nombre="abajo" />
-                  </div>
-                )}
                 <div className="caja">
                   <span className="n">{i + 1}</span>
                   <div>
