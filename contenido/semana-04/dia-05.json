@@ -1,0 +1,175 @@
+{
+  "id": "s04-d05",
+  "semana": 4,
+  "dia": 5,
+  "titulo": "Hacia atrás y de dos en dos",
+  "objetivo": "Hoy aprendes a hacer bucles que cuentan hacia atrás o dan saltos, cambiando el paso del for.",
+  "conceptos": [
+    "bucle-for"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "for (let i = 3; i >= 1; i--) {\n  console.log(i);\n}\nconsole.log(\"¡Plazo cerrado!\");",
+      "salida": [
+        "3",
+        "2",
+        "1",
+        "¡Plazo cerrado!"
+      ],
+      "nota": "Una cuenta atrás: empieza en 3, sigue **mientras** i >= 1 y en cada vuelta `i--` resta 1. Al contar hacia atrás, la condición mira hacia abajo: `>=` en vez de `<=`."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "for (let i = 0; i < 6; i = i + 2) {\n  console.log(i);\n}",
+      "salida": [
+        "0",
+        "2",
+        "4"
+      ],
+      "nota": "El paso puede ser cualquier cambio: aquí `i = i + 2` salta de dos en dos. El 6 no sale porque `6 < 6` es false."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Para revisar cualquier for, haz siempre tres preguntas: ¿**dónde empieza**? ¿**dónde para** (y el último entra o no)? ¿**cuánto cambia** en cada vuelta? Con esas tres respuestas sabes todos los valores que tomará el contador."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Para contar las páginas de un PDF, DeIure lee el fichero a trozos de 8192 bytes: el contador `offset` (posición) avanza de 8192 en 8192. `+=` suma sobre lo que ya hay.",
+      "codigo": "for (let offset = 0; offset < bytes.length; offset += 8192)",
+      "fichero": "DeIure/src/lib/pdf-page-count.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s04-d05-r1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 10; i > 0; i = i - 3) {\n  console.log(i);\n}",
+      "opciones": [
+        {
+          "texto": "10\n7\n4\n1",
+          "correcta": true,
+          "siEliges": "Eso es: resta 3 cada vez. Después del 1 vendría -2, que ya no es > 0."
+        },
+        {
+          "texto": "10\n7\n4",
+          "siEliges": "¿1 > 0? Sí: el 1 también sale."
+        },
+        {
+          "texto": "7\n4\n1",
+          "siEliges": "El primer valor es el del inicio, 10, y se escribe antes de restar."
+        }
+      ],
+      "pistas": [
+        "Empieza en 10 y resta 3 cada vuelta.",
+        "10, 7, 4, 1… ¿y luego?",
+        "-2 no es mayor que 0: ahí para."
+      ],
+      "explicacion": "El paso se aplica al final de cada vuelta: el primer valor siempre es el del inicio."
+    },
+    {
+      "id": "s04-d05-r2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa el paso para que escriba 5, 3 y 1.",
+      "codigo": "for (let i = 5; i >= 1; ___) {\n  console.log(i);\n}",
+      "salidaEsperada": [
+        "5",
+        "3",
+        "1"
+      ],
+      "opciones": [
+        {
+          "texto": "i = i - 2",
+          "correcta": true,
+          "siEliges": "Correcto: baja de dos en dos."
+        },
+        {
+          "texto": "i--",
+          "siEliges": "i-- resta 1: escribiría 5, 4, 3, 2 y 1."
+        },
+        {
+          "texto": "i = i - 3",
+          "siEliges": "Bajaría de tres en tres: 5 y 2."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto hay del 5 al 3?",
+        "Baja 2 cada vez.",
+        "Restar 2: i = i - 2."
+      ],
+      "explicacion": "El paso decide de cuánto en cuánto cambia el contador."
+    },
+    {
+      "ref": "s04-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s04-d05-x1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 1; i <= 8; i = i * 2) {\n  console.log(i);\n}",
+      "opciones": [
+        {
+          "texto": "1\n2\n4\n8",
+          "correcta": true,
+          "siEliges": "Eso es: duplica cada vez, y el 8 entra porque es <=."
+        },
+        {
+          "texto": "1\n2\n3\n4\n5\n6\n7\n8",
+          "siEliges": "El paso es i * 2, no i++: duplica."
+        },
+        {
+          "texto": "2\n4\n8",
+          "siEliges": "El primer valor es el del inicio, 1."
+        }
+      ],
+      "pistas": [
+        "Mira el paso: no es i++.",
+        "Multiplica por 2 cada vuelta.",
+        "1, 2, 4, 8… y 16 ya no es <= 8."
+      ],
+      "explicacion": "El paso puede ser cualquier cálculo, también multiplicar."
+    },
+    {
+      "id": "s04-d05-x2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 2; i >= 0; i--) {\n  console.log(i);\n}\nconsole.log(\"¡Ya!\");",
+      "opciones": [
+        {
+          "texto": "2\n1\n0\n¡Ya!",
+          "correcta": true,
+          "siEliges": "Eso es: con >= 0, el 0 también entra."
+        },
+        {
+          "texto": "2\n1\n¡Ya!",
+          "siEliges": "¿0 >= 0? Sí: el 0 también sale."
+        },
+        {
+          "texto": "2\n¡Ya!\n1\n¡Ya!\n0\n¡Ya!",
+          "siEliges": "«¡Ya!» está fuera del bucle: sale una vez, al final."
+        }
+      ],
+      "pistas": [
+        "Cuenta hacia atrás desde 2.",
+        "¿El 0 cumple i >= 0?",
+        "Sí. Y después, la línea de fuera."
+      ],
+      "explicacion": ">= incluye el límite; > lo deja fuera. Mira siempre si el último valor entra."
+    }
+  ]
+}

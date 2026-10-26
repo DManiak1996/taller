@@ -1,0 +1,379 @@
+[
+  {
+    "id": "s04-rev-1",
+    "tipo": "razon",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten cuántas veces imprime este bucle el recordatorio. ¿Quién tiene razón?",
+    "codigo": "for (let i = 1; i <= 3; i++) {\n  console.log(\"Recordatorio\");\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Lo imprime 3 veces.",
+        "porque": "`i` vale 1, 2 y 3. Cuando llega a 4, `i <= 3` ya no se cumple y el bucle para."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Lo imprime 4 veces.",
+        "porque": "Los bucles siempre cuentan desde el 0: 0, 1, 2 y 3."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Aquí el bucle empieza en 1, porque así lo dice `let i = 1`.",
+      "Marta": "Muchos bucles empiezan en 0, pero no siempre: este empieza donde dice `let i = 1`. Cuenta 1, 2 y 3.",
+      "ninguno": "Esta vez sí acierta una. Apunta en una lista los valores de `i`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Mira la primera parte del `for`: ¿con qué valor empieza `i`?",
+      "El bucle repite mientras la condición del medio se cumpla.",
+      "Apunta los valores de `i`: 1, 2, 3… ¿y 4?"
+    ],
+    "explicacion": "Lo imprime 3 veces. Para saber cuántas vueltas da un `for`, mira dónde empieza (`i = 1`), dónde para (`i <= 3`) y cuánto avanza (`i++`, de uno en uno). Son las tres partes que tienes que revisar en cualquier bucle."
+  },
+  {
+    "id": "s04-rev-2",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime los días 1 a 5 del plazo». Toca la línea que está mal.",
+    "codigo": "for (let dia = 1; dia < 5; dia++) {\n  console.log(`Día ${dia}`);\n}",
+    "lineasFallo": [
+      1
+    ],
+    "opciones": [
+      {
+        "texto": "Para en el 4: con `<` el 5 se queda fuera. Tenía que ser `dia <= 5`.",
+        "correcta": true,
+        "siEliges": "Exacto. Es el fallo de la semana: una vuelta de menos por culpa de `<` frente a `<=`."
+      },
+      {
+        "texto": "Tiene que empezar en 0: `let dia = 0`.",
+        "siEliges": "Entonces imprimiría un «Día 0», que no existe. El inicio está bien; mira dónde para."
+      },
+      {
+        "texto": "`dia++` tendría que ser `dia + 1`.",
+        "siEliges": "`dia + 1` calcula el siguiente, pero no lo guarda: el bucle no avanzaría nunca. `dia++` está bien."
+      }
+    ],
+    "arreglo": "for (let dia = 1; dia <= 5; dia++) {\n  console.log(`Día ${dia}`);\n}",
+    "pistas": [
+      "¿Cuál es el último día que imprime?",
+      "`<` es «menor que»: el propio 5 no entra.",
+      "¿Es 5 menor que 5?"
+    ],
+    "explicacion": "Imprime del `Día 1` al `Día 4`. Falta el último. Las vueltas de más o de menos son el fallo más típico de los bucles. Revisa siempre la primera y la última vuelta: ¿empieza y acaba donde debe?"
+  },
+  {
+    "id": "s04-rev-3",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Muestra las horas acumuladas tras cada turno de 8 horas: 8, 16 y 24». Toca la línea que está mal.",
+    "codigo": "for (let t = 1; t <= 3; t++) {\n  let total = 0;\n  total = total + 8;\n  console.log(total);\n}",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "`total` se crea dentro del bucle, así que vuelve a 0 en cada vuelta. Hay que crearlo antes del `for`.",
+        "correcta": true,
+        "siEliges": "Exacto. Lo que tiene que acumularse vuelta a vuelta se crea fuera del bucle, antes de empezar."
+      },
+      {
+        "texto": "Tenía que ser `total = 8`.",
+        "siEliges": "Así siempre valdría 8, que es justo lo que ya pasa. Fíjate en dónde se pone a 0."
+      },
+      {
+        "texto": "El `console.log` tiene que ir fuera del bucle.",
+        "siEliges": "Entonces solo imprimiría una vez, y se pide el total tras cada turno. El fallo está antes."
+      }
+    ],
+    "arreglo": "let total = 0;\nfor (let t = 1; t <= 3; t++) {\n  total = total + 8;\n  console.log(total);\n}",
+    "pistas": [
+      "¿Qué imprime? ¿Pasa alguna vez de 8?",
+      "Todo lo que está entre las llaves del `for` se repite en cada vuelta.",
+      "¿Qué le pasa a `total` al empezar cada vuelta?"
+    ],
+    "explicacion": "Imprime `8`, `8` y `8`. En cada vuelta se crea un `total` nuevo a 0, así que nunca acumula. Regla para revisar: el acumulador se crea **antes** del bucle y se actualiza **dentro**."
+  },
+  {
+    "id": "s04-rev-4",
+    "tipo": "razon",
+    "semana": 4,
+    "concepto": "bucle-while",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "let horas = 0;\nwhile (horas < 72) {\n  horas = horas + 24;\n}\nconsole.log(horas);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `96`.",
+        "porque": "Un `while` siempre da una vuelta de más antes de parar."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `72`.",
+        "porque": "Al llegar a 72, `horas < 72` ya no se cumple y el bucle para."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "El `while` no da vueltas de más: antes de cada vuelta mira la condición. Con 72, `72 < 72` es falso y para.",
+      "Marta": "Correcto: 0, 24, 48 y 72. Con 72 la condición ya no se cumple.",
+      "ninguno": "Una de las dos acierta. Apunta el valor de `horas` tras cada vuelta."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Apunta el valor de `horas` tras cada vuelta.",
+      "El `while` comprueba la condición **antes** de cada vuelta.",
+      "Cuando `horas` vale 72, ¿se cumple `horas < 72`?"
+    ],
+    "explicacion": "Imprime `72`: 0, 24, 48, 72 y para. El `while` pregunta antes de cada vuelta. Seguir las vueltas a mano, apuntando el valor de la variable, es la mejor forma de revisar un bucle. Es lo mismo que hace el visualizador."
+  },
+  {
+    "id": "s04-rev-5",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Haz una cuenta atrás 3, 2, 1 y luego imprime ¡Enviado!». Toca la línea que está mal.",
+    "codigo": "for (let i = 3; i > 1; i--) {\n  console.log(i);\n}\nconsole.log(\"¡Enviado!\");",
+    "lineasFallo": [
+      1
+    ],
+    "opciones": [
+      {
+        "texto": "Para antes del 1: con `i > 1`, el 1 no entra. Tenía que ser `i >= 1`.",
+        "correcta": true,
+        "siEliges": "Exacto. La misma vuelta de menos de siempre, ahora contando hacia atrás."
+      },
+      {
+        "texto": "Para contar hacia atrás hay que usar `i++`.",
+        "siEliges": "`i++` suma 1, así que `i` crecería sin parar. Para bajar se usa `i--`, como está."
+      },
+      {
+        "texto": "«¡Enviado!» tiene que ir dentro del bucle.",
+        "siEliges": "Entonces se imprimiría en cada vuelta. Tiene que salir una vez, al final, como está."
+      }
+    ],
+    "arreglo": "for (let i = 3; i >= 1; i--) {\n  console.log(i);\n}\nconsole.log(\"¡Enviado!\");",
+    "pistas": [
+      "¿Qué números imprime? ¿Falta alguno?",
+      "`i--` resta 1 en cada vuelta. El bucle sigue mientras `i > 1`.",
+      "Cuando `i` vale 1, ¿se cumple `i > 1`?"
+    ],
+    "explicacion": "Imprime `3`, `2` y `¡Enviado!`. Se salta el 1. Contando hacia atrás pasa lo mismo que hacia delante: comprueba siempre la última vuelta."
+  },
+  {
+    "id": "s04-rev-6",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-while",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Calcula cuántos días son 72 horas, de 24 en 24». Al ejecutarlo, no termina nunca. Toca la línea que está mal.",
+    "codigo": "let horas = 0;\nlet dias = 0;\nwhile (horas < 72) {\n  dias = dias + 1;\n}\nconsole.log(dias);",
+    "lineasFallo": [
+      3,
+      4
+    ],
+    "opciones": [
+      {
+        "texto": "`horas` nunca cambia, así que `horas < 72` se cumple siempre. Falta `horas = horas + 24` dentro del bucle.",
+        "correcta": true,
+        "siEliges": "Exacto. Si nada de lo que hay dentro del bucle cambia la condición, el bucle no termina nunca."
+      },
+      {
+        "texto": "Tenía que ser `horas <= 72`.",
+        "siEliges": "Con `<=` tampoco pararía: `horas` sigue valiendo 0 para siempre. Mira qué cambia en cada vuelta."
+      },
+      {
+        "texto": "`dias` tendría que ser `const`.",
+        "siEliges": "`dias` cambia en cada vuelta, así que tiene que ser `let`. El problema es la variable que **no** cambia."
+      }
+    ],
+    "arreglo": "let horas = 0;\nlet dias = 0;\nwhile (horas < 72) {\n  horas = horas + 24;\n  dias = dias + 1;\n}\nconsole.log(dias);",
+    "lanzaError": true,
+    "pistas": [
+      "¿Qué variable aparece en la condición del `while`?",
+      "Para que un bucle termine, algo de dentro tiene que acercar la condición a falso.",
+      "¿Cambia `horas` en alguna vuelta?"
+    ],
+    "explicacion": "Es un bucle infinito: `horas` vale 0 para siempre y el programa no llega al `console.log`. El taller lo corta y te avisa con «Demasiadas vueltas»; un servidor de verdad se quedaría colgado. Al revisar un `while`, busca dentro la línea que cambia la variable de la condición."
+  },
+  {
+    "id": "s04-rev-7",
+    "tipo": "razon",
+    "semana": 4,
+    "concepto": "algoritmos",
+    "tema": "neutro",
+    "enunciado": "Este algoritmo cuenta cuántas veces hay que partir 10 por la mitad hasta que quede 1 o menos. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "let n = 10;\nlet pasos = 0;\nwhile (n > 1) {\n  n = n / 2;\n  pasos = pasos + 1;\n}\nconsole.log(pasos);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `3`.",
+        "porque": "10, 5 y 2: tres pasos."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `5`.",
+        "porque": "Hasta llegar a 1 desde 10 hay cinco mitades."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "La IA se ha saltado los decimales: 5 / 2 es 2.5, no 2. Sigue partiendo hasta que quede 1 o menos.",
+      "Marta": "Cuéntalo vuelta a vuelta: 10, 5, 2.5, 1.25 y 0.625. Son cuatro mitades, no cinco.",
+      "ninguno": "Exacto. 10 → 5 → 2.5 → 1.25 → 0.625: cuatro pasos."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Apunta `n` tras cada vuelta. Ojo: dividir puede dar decimales.",
+      "El bucle sigue mientras `n` sea mayor que 1.",
+      "10, 5, 2.5… ¿cuántas vueltas hasta bajar de 1?"
+    ],
+    "explicacion": "Imprime `4`. Ahora imagina que buscas un dato en una lista ordenada y, en cada paso, descartas la mitad de los datos que te quedan por mirar. Con 1.000 datos te bastan unos 10 pasos, y con un millón, unos 20. Muchos algoritmos rápidos funcionan así. Contar los pasos es la forma de medir si un código es eficiente."
+  },
+  {
+    "id": "s04-rev-x1",
+    "tipo": "razon",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué números imprime este bucle. ¿Quién tiene razón?",
+    "codigo": "for (let i = 0; i < 3; i++) {\n  console.log(i);\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `1`, `2` y `3`.",
+        "porque": "Da tres vueltas, así que cuenta hasta 3."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `0`, `1` y `2`.",
+        "porque": "Empieza en 0 y para antes de llegar a 3."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Da tres vueltas, sí, pero empezando en 0: 0, 1 y 2. El 3 ya no cumple `i < 3`.",
+      "Marta": "Correcto. Tres vueltas, de 0 a 2. Es la forma más habitual de escribir un `for`.",
+      "ninguno": "Una de las dos acierta. ¿Con qué valor empieza `i`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Con qué valor empieza `i`?",
+      "El bucle sigue mientras `i < 3`.",
+      "¿Cumple 3 la condición `i < 3`?"
+    ],
+    "explicacion": "Imprime `0`, `1` y `2`. Tres vueltas, pero empezando en 0. Lo verás muchísimo, sobre todo con listas, la semana que viene."
+  },
+  {
+    "id": "s04-rev-x2",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-for",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Suma 3 turnos de 8 horas». Tenía que salir 24. Toca la línea que está mal.",
+    "codigo": "let total = 1;\nfor (let t = 1; t <= 3; t++) {\n  total = total + 8;\n}\nconsole.log(total);",
+    "lineasFallo": [
+      1
+    ],
+    "opciones": [
+      {
+        "texto": "El total empieza en 1. Para sumar desde cero, tiene que empezar en 0.",
+        "correcta": true,
+        "siEliges": "Exacto. Un acumulador para sumar empieza en 0."
+      },
+      {
+        "texto": "El bucle tiene que empezar en `t = 0`.",
+        "siEliges": "Así daría 4 vueltas y sumaría un turno de más. Las vueltas están bien; mira el valor inicial del total."
+      },
+      {
+        "texto": "Tenía que ser `total = total * 8`.",
+        "siEliges": "Multiplicar daría 512. Sumar 8 en cada vuelta es correcto; el problema es desde dónde empieza."
+      }
+    ],
+    "arreglo": "let total = 0;\nfor (let t = 1; t <= 3; t++) {\n  total = total + 8;\n}\nconsole.log(total);",
+    "pistas": [
+      "¿Qué imprime? ¿Cuánto se pasa?",
+      "Un acumulador tiene que empezar en un valor que no estropee la suma.",
+      "¿Con qué valor empieza `total`?"
+    ],
+    "explicacion": "Imprime `25` en lugar de `24`. Un error de uno en el valor inicial es difícil de ver a simple vista. Por eso conviene probar con un caso que sepas calcular de cabeza."
+  },
+  {
+    "id": "s04-rev-x3",
+    "tipo": "fallo",
+    "semana": 4,
+    "concepto": "bucle-while",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Cuenta atrás desde 3 y luego imprime Despegue». No termina nunca. Toca la línea que está mal.",
+    "codigo": "let i = 3;\nwhile (i > 0) {\n  i = i + 1;\n}\nconsole.log(\"Despegue\");",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Suma en vez de restar: `i` crece y nunca baja de 0. Tenía que ser `i = i - 1`.",
+        "correcta": true,
+        "siEliges": "Exacto. El paso va en la dirección contraria y la condición nunca deja de cumplirse."
+      },
+      {
+        "texto": "Tenía que ser `i >= 0`.",
+        "siEliges": "Con `>=` seguiría sin terminar: `i` sube sin parar. Mira hacia dónde se mueve `i`."
+      },
+      {
+        "texto": "Un `while` no puede contar hacia atrás; hace falta un `for`.",
+        "siEliges": "Un `while` puede contar en cualquier dirección. El problema es hacia dónde se mueve `i`."
+      }
+    ],
+    "arreglo": "let i = 3;\nwhile (i > 0) {\n  i = i - 1;\n}\nconsole.log(\"Despegue\");",
+    "lanzaError": true,
+    "pistas": [
+      "Apunta `i` en las primeras vueltas: 3, 4…",
+      "Para que el bucle termine, `i` tiene que acercarse a 0.",
+      "¿Suma o resta la línea 3?"
+    ],
+    "explicacion": "Es un bucle infinito: `i` vale 3, 4, 5… y nunca deja de ser mayor que 0. Cuando revises un bucle, pregúntate siempre: ¿la variable de la condición se acerca al final?"
+  },
+  {
+    "id": "s04-rev-x4",
+    "tipo": "razon",
+    "semana": 4,
+    "concepto": "bucle-while",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "let horas = 80;\nwhile (horas < 72) {\n  horas = horas + 1;\n}\nconsole.log(horas);",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `81`.",
+        "porque": "Un `while` siempre da al menos una vuelta."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `80`.",
+        "porque": "La condición no se cumple ni la primera vez, así que no entra en el bucle."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. El `while` pregunta antes de entrar. Si la respuesta es no, se salta el bucle entero.",
+      "Marta": "El `while` pregunta **antes** de cada vuelta, también antes de la primera. Con 80, `80 < 72` es falso y no entra.",
+      "ninguno": "Esta vez sí acierta una. ¿Se cumple `80 < 72`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Se cumple la condición con 80?",
+      "El `while` comprueba la condición antes de cada vuelta, también antes de la primera.",
+      "Si no entra nunca, ¿cambia `horas`?"
+    ],
+    "explicacion": "Imprime `80`. Un `while` puede dar cero vueltas. Cuando revises un bucle, piensa también en ese caso: ¿qué pasa si no hay nada que repetir?"
+  }
+]
