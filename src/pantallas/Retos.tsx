@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Opcion, Reto } from '../contenido/cargar'
 import { ejecutar } from '../sandbox/ejecutar'
 import type { Resultado } from '../sandbox/tipos'
-import { Codigo, Consola, Icono, Texto, type MarcaLinea } from '../ui/basicos'
+import { Codigo, Consola, Icono, LineaSalida, Texto, type MarcaLinea } from '../ui/basicos'
 import { Visualizador } from '../ui/Visualizador'
 
 export interface ResultadoReto {
@@ -275,8 +275,8 @@ function Opciones({
             {comoSalida ? (
               <span className="salida">
                 {o.texto.split('\n').map((l, k) => (
-                  <span key={k} className={l.startsWith('❌') ? 'err' : undefined}>
-                    {l}
+                  <span key={k}>
+                    <LineaSalida texto={l} />
                     {'\n'}
                   </span>
                 ))}

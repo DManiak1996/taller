@@ -36,13 +36,11 @@ const guardar = (codigo: string) => {
 }
 
 // Colores de los tokens del taller, así el editor se ve igual en modo claro y oscuro.
+// Colores de Diseño: los de significado (partes del for, acierto y fallo) no se usan para la sintaxis.
 const colores = HighlightStyle.define([
-  { tag: [t.keyword, t.controlKeyword, t.definitionKeyword, t.moduleKeyword, t.operatorKeyword], color: 'var(--ini)', fontWeight: '600' },
-  { tag: [t.string, t.special(t.string)], color: 'var(--ok)' },
-  { tag: [t.number, t.bool, t.null], color: 'var(--con)' },
-  { tag: [t.lineComment, t.blockComment], color: 'var(--suave)', fontStyle: 'italic' },
-  { tag: [t.function(t.variableName), t.function(t.propertyName)], color: 'var(--pri)' },
-  { tag: t.typeName, color: 'var(--pas)' },
+  { tag: [t.keyword, t.controlKeyword, t.definitionKeyword, t.moduleKeyword, t.operatorKeyword], color: 'var(--tinta)', fontWeight: '700' },
+  { tag: [t.string, t.special(t.string)], color: 'var(--sx-cadena)' },
+  { tag: [t.lineComment, t.blockComment], color: 'var(--sx-comentario)', fontStyle: 'italic' },
 ])
 
 const tema = EditorView.theme({
@@ -55,7 +53,7 @@ const tema = EditorView.theme({
   '.cm-activeLineGutter': { backgroundColor: 'transparent', color: 'var(--tinta)' },
   '.cm-selectionBackground, &.cm-focused .cm-selectionBackground': { backgroundColor: 'var(--pri-t) !important' },
   '.cm-cursor': { borderLeftColor: 'var(--tinta)', borderLeftWidth: '2px' },
-  '.cm-matchingBracket': { backgroundColor: 'var(--con-t)', outline: '1px solid var(--con)' },
+  '.cm-matchingBracket': { backgroundColor: 'var(--pri-t)', outline: '1px solid var(--pri)' },
 })
 
 const esMac = typeof navigator !== 'undefined' && /Mac/.test(navigator.platform)
@@ -136,7 +134,7 @@ export function ZonaLibre({ volver }: { volver: () => void }) {
             {error && (
               <>
                 <div className="err">
-                  ❌ {error.linea ? `Línea ${error.linea}: ` : ''}
+                  <Icono nombre="cerrar" tam={14} grosor={3} /> {error.linea ? `Línea ${error.linea}: ` : ''}
                   {error.explicacion}
                 </div>
                 {/Error$/.test(error.nombre) && error.mensaje !== error.nombre && (

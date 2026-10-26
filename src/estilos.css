@@ -311,9 +311,26 @@ button.linea:hover { background: var(--pri-t); }
 .md-aviso strong { font-weight: 800; }
 .md-codigo { margin: 0; background: var(--code); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; font-family: var(--f-codigo); font-size: 15px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
 .md-hr { border: none; border-top: 1px solid var(--borde); margin: 4px 0; width: 100%; }
-.tarjeta.guia.cerrada { cursor: default; color: var(--suave); box-shadow: none; }
-.tarjeta.guia.cerrada .guia-tit { display: flex; align-items: center; gap: 8px; }
-.enlace-fuera { color: var(--pri); }
+.guia-cab { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.guia-cab .guia-tit { flex: 1; min-width: 0; }
+.insignia { flex: none; width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--pri-t); color: var(--pri); font-weight: 800; font-size: 15px; }
+.insignia.cerrada { background: var(--borde); color: var(--suave); }
+.tarjeta.guia.cerrada { cursor: default; box-shadow: none; }
+.tarjeta.guia.cerrada .guia-tit { color: var(--suave); }
+.cerrada-pie { display: flex; align-items: center; gap: 8px; color: var(--suave); padding-left: 40px; }
+.pastilla.suave { background: var(--fondo); color: var(--suave); border: 1px solid var(--borde); }
+.pastilla.pri { background: var(--pri-t); color: var(--pri); }
+.docs { display: flex; flex-direction: column; gap: 12px; }
+.tarjeta.doc { flex-direction: row; align-items: center; gap: 12px; text-decoration: none; color: var(--tinta); }
+.tarjeta.doc > svg { flex: none; color: var(--pri); }
+.doc-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.doc-tit { font-size: 17px; font-weight: 700; }
+.entre-temas { display: flex; gap: 12px; margin-top: 12px; }
+.entre-temas .btn { flex: 0 0 calc(50% - 6px); min-height: 56px; }
+.entre-temas .siguiente { margin-left: auto; }
+.entre-temas .siguiente svg { transform: rotate(180deg); }
+.err svg { display: inline; vertical-align: -1px; }
+.enlace-fuera { color: var(--pri); text-decoration: underline; }
 .enlace-fuera svg { display: inline; vertical-align: -1px; margin-left: 3px; }
 .oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .md-desplegable { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); }

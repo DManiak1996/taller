@@ -9,34 +9,81 @@ import { leerGuia, leerLinea, type Bloque, type Guia } from '../ui/markdown'
 const ficheros = import.meta.glob<string>('../../contenido/biblioteca/**/*.md', { eager: true, query: '?raw', import: 'default' })
 
 interface Entrada extends Guia {
-  /** Número del tema (tema-03-… es el 3), o null si no es del temario. */
-  tema: number | null
-  enTemario: boolean
+  /** Lo que va en la insignia: «3» para tema-03-…, «T» para tema-T-…; null si no es un tema. */
+  tema: string | null
 }
 
 export const guias: Entrada[] = Object.entries(ficheros).map(([ruta, md]) => {
   const id = ruta.split('/').pop()!.replace(/\.md$/, '')
-  const num = id.match(/^tema-(\d+)/)?.[1]
-  return { ...leerGuia(id, md), tema: num ? Number(num) : null, enTemario: ruta.includes('/temario/') }
+  const tema = ruta.includes('/temario/') ? (id.match(/^tema-([^-]+)/)?.[1].replace(/^0+(?=\d)/, '') ?? '') : null
+  const g = leerGuia(id, md)
+  // La insignia ya dice el número: «Tema 3. Decisiones» se queda en «Decisiones».
+  return { ...g, titulo: tema !== null ? g.titulo.replace(/^tema\s+\w+\s*[.:·-]\s*/i, '') : g.titulo, tema }
 })
 
-// El temario va por número de tema (un tema sin número, como «Tema T», se coloca con `orden`). Las
-// chuletas, por semana. Todo se abre al llegar a su semana (cabecera `semana`).
+// El temario va por número de tema; un tema sin número (como «Tema T») se coloca con su `orden`. Cada
+// tema y cada chuleta se abren al llegar a su semana (cabecera `semana`).
 const semanaDe = (g: Entrada) => g.semana || Number(g.id.match(/^chuleta-semana-(\d+)$/)?.[1] ?? 0)
-const clave = (g: Entrada) => g.tema ?? g.orden
+const clave = (g: Entrada) => (g.tema && /^\d+$/.test(g.tema) ? Number(g.tema) : g.orden)
 const porOrden = (a: Entrada, b: Entrada) => clave(a) - clave(b) || a.titulo.localeCompare(b.titulo, 'es', { numeric: true })
 const esChuleta = (g: Entrada) => /^chuleta-semana-\d+$/.test(g.id)
+const temario = guias.filter((g) => g.tema !== null).sort(porOrden)
 
-function secciones(semana: number) {
-  const abierta = (g: Entrada) => semanaDe(g) <= semana
-  const temario = guias.filter((g) => g.enTemario).sort(porOrden)
-  return {
-    temario: temario.filter(abierta),
-    // El siguiente tema cerrado se enseña con candado, para que se vea lo que viene.
-    proximo: temario.find((g) => !abierta(g)),
-    chuletas: guias.filter((g) => esChuleta(g) && abierta(g)).sort((a, b) => semanaDe(a) - semanaDe(b)),
-    otras: guias.filter((g) => !g.enTemario && !esChuleta(g) && abierta(g)).sort(porOrden),
-  }
+// «Documentación oficial»: el nombre del sitio sale de la dirección.
+const SITIOS: [RegExp, string][] = [
+  [/developer\.mozilla\.org/, 'MDN'],
+  [/typescriptlang\.org/, 'TypeScript'],
+  [/nodejs\.org/, 'Node.js'],
+  [/git-scm\.com/, 'Git'],
+  [/github\.com|docs\.github\.com/, 'GitHub'],
+]
+const sitio = (url: string) => SITIOS.find(([r]) => r.test(url))?.[1] ?? url.replace(/^https?:\/\/(www\.)?/, '').split('/')[0]
+
+/** Un recurso de la lista «Documentación oficial»: `[Título](url)` y, si se quiere, «en español» o «en inglés». */
+function recurso(item: string) {
+  const m = item.match(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/)
+  if (!m) return null
+  const resto = item.replace(m[0], '').toLowerCase()
+  const espanol = /en español/.test(resto) || (!/en inglés/.test(resto) && /\/es(-[A-Z]{2})?\//.test(m[2]))
+  return { titulo: m[1], url: m[2], sitio: sitio(m[2]), idioma: espanol ? 'en español' : 'en inglés' }
+}
+
+function Documentacion({ items }: { items: string[] }) {
+  return (
+    <div className="docs">
+      {items.map((it, i) => {
+        const r = recurso(it)
+        if (!r) return null
+        return (
+          <a key={i} className="tarjeta doc" href={r.url} target="_blank" rel="noopener noreferrer" aria-label={`${r.sitio}: ${r.titulo}, ${r.idioma} (se abre en otra pestaña)`}>
+            <span className="doc-texto">
+              <span className="kicker">{r.sitio}</span>
+              <span className="doc-tit">{r.titulo}</span>
+              <span className="pastilla suave">{r.idioma}</span>
+            </span>
+            <Icono nombre="externo" tam={20} />
+          </a>
+        )
+      })}
+    </div>
+  )
+}
+
+/** Los bloques de un tema, con la lista que sigue a «Documentación oficial» en tarjetas-enlace. */
+function Contenido({ bloques, abrir }: { bloques: Bloque[]; abrir: (id: string) => void }) {
+  return (
+    <>
+      {bloques.map((b, i) => {
+        const anterior = bloques[i - 1]
+        if (b.tipo === 'lista' && anterior?.tipo === 'titulo' && /^documentación oficial$/i.test(anterior.texto.trim())) return <Documentacion key={i} items={b.items} />
+        return <Pintar key={i} b={b} abrir={abrir} />
+      })}
+    </>
+  )
+}
+
+function Insignia({ g, cerrado = false }: { g: Entrada; cerrado?: boolean }) {
+  return <span className={`insignia${cerrado ? ' cerrada' : ''}`}>{g.tema}</span>
 }
 
 const TERMINAL = new Set(['bash', 'sh', 'shell', 'zsh', 'terminal', 'console'])
@@ -68,10 +115,10 @@ function Linea({ texto, abrir, enlaces = true }: { texto: string; abrir: (id: st
               )
             if (!/^https?:\/\//.test(t.destino)) return <Fragment key={i}>{t.texto}</Fragment>
             return (
-              <a key={i} href={t.destino} target="_blank" rel="noreferrer" className="enlace-fuera">
+              <a key={i} href={t.destino} target="_blank" rel="noopener noreferrer" className="enlace-fuera">
                 {t.texto}
                 <Icono nombre="externo" tam={14} />
-                <span className="oculto"> (se abre fuera de la app)</span>
+                <span className="oculto"> (se abre en otra pestaña)</span>
               </a>
             )
           }
@@ -183,10 +230,14 @@ function Pintar({ b, abrir }: { b: Bloque; abrir: (id: string) => void }) {
   }
 }
 
-function Tarjeta({ g, abrir }: { g: Entrada; abrir: (id: string) => void }) {
+function Tarjeta({ g, abrir, semana }: { g: Entrada; abrir: (id: string) => void; semana?: number }) {
   return (
     <button type="button" className="tarjeta guia" onClick={() => abrir(g.id)}>
-      <span className="guia-tit">{g.titulo}</span>
+      <span className="guia-cab">
+        {g.tema !== null && <Insignia g={g} />}
+        <span className="guia-tit">{g.titulo}</span>
+        {semana !== undefined && g.semana === semana && <span className="pastilla pri">Esta semana</span>}
+      </span>
       {g.descripcion && (
         <span className="peq">
           <Linea texto={g.descripcion} abrir={abrir} enlaces={false} />
@@ -200,45 +251,69 @@ function Tarjeta({ g, abrir }: { g: Entrada; abrir: (id: string) => void }) {
 export function Biblioteca({ volver, semana }: { volver: () => void; semana: number }) {
   const [abierta, setAbierta] = useState<string | null>(null)
   const guia = guias.find((g) => g.id === abierta)
-  const { temario, proximo, chuletas, otras } = secciones(semana)
+  const abiertoYa = (g: Entrada) => semanaDe(g) <= semana
+  const chuletas = guias.filter((g) => esChuleta(g) && abiertoYa(g)).sort((a, b) => semanaDe(a) - semanaDe(b))
+  const otras = guias.filter((g) => g.tema === null && !esChuleta(g) && abiertoYa(g)).sort(porOrden)
+  const hayTemario = temario.length > 0
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [abierta])
 
+  // Navegación al pie de un tema: el anterior siempre; el siguiente, solo si ya se ha abierto.
+  const pos = guia?.tema != null ? temario.indexOf(guia) : -1
+  const anterior = pos > 0 ? temario[pos - 1] : undefined
+  const siguiente = pos >= 0 && temario[pos + 1] && abiertoYa(temario[pos + 1]) ? temario[pos + 1] : undefined
+
   return (
     <div className="app ancha">
       <header className="top">
-        <button type="button" className="icono" aria-label={guia ? 'Volver a la biblioteca' : 'Volver'} onClick={() => (guia ? setAbierta(null) : volver())}>
+        <button type="button" className="icono" aria-label={guia ? (hayTemario ? 'Volver al temario' : 'Volver a la biblioteca') : 'Volver'} onClick={() => (guia ? setAbierta(null) : volver())}>
           <Icono nombre="atras" tam={24} />
         </button>
       </header>
       <main className="cuerpo md-guia">
         {guia ? (
           <>
-            <p className="kicker">{guia.enTemario ? (guia.tema !== null ? `Temario · tema ${guia.tema}` : 'Temario') : 'Biblioteca'}</p>
+            <p className="kicker">{guia.tema !== null ? `Tema ${guia.tema}` : 'Biblioteca'}</p>
             <h1 className="h1">{guia.titulo}</h1>
-            {guia.bloques.map((b, i) => (
-              <Pintar key={i} b={b} abrir={setAbierta} />
-            ))}
+            <Contenido bloques={guia.bloques} abrir={setAbierta} />
+            {(anterior || siguiente) && (
+              <nav className="entre-temas" aria-label="Otros temas">
+                {anterior && (
+                  <button type="button" className="btn btn-sec" onClick={() => setAbierta(anterior.id)}>
+                    <Icono nombre="atras" tam={20} /> Tema {anterior.tema}
+                  </button>
+                )}
+                {siguiente && (
+                  <button type="button" className="btn btn-sec siguiente" onClick={() => setAbierta(siguiente.id)}>
+                    Tema {siguiente.tema} <Icono nombre="atras" tam={20} />
+                  </button>
+                )}
+              </nav>
+            )}
           </>
         ) : (
           <>
-            <h1 className="h1">Biblioteca</h1>
-            <p className="peq">El temario y las guías, para consultar cuando quieras. Se leen también sin conexión.</p>
+            <h1 className="h1">{hayTemario ? 'Temario' : 'Biblioteca'}</h1>
+            <p className="peq">Para consultar cuando quieras. Se lee también sin conexión; solo los enlaces de fuera necesitan internet.</p>
             {guias.length === 0 && <p className="txt">Todavía no hay temas. Los primeros llegan pronto.</p>}
-            {(temario.length > 0 || proximo) && (
-              <section className="seccion-guias">
-                <h2 className="md-h3">Temario</h2>
-                {temario.map((g) => (
-                  <Tarjeta key={g.id} g={g} abrir={setAbierta} />
-                ))}
-                {proximo && (
-                  <div className="tarjeta guia cerrada" aria-disabled="true">
-                    <span className="guia-tit">
-                      <Icono nombre="candado" tam={18} /> {proximo.titulo}
-                    </span>
-                    <span className="peq">Se abre en la semana {semanaDe(proximo)}.</span>
-                  </div>
+            {hayTemario && (
+              <section className="seccion-guias" aria-label="Temas">
+                {temario.map((g) =>
+                  abiertoYa(g) ? (
+                    <Tarjeta key={g.id} g={g} abrir={setAbierta} semana={semana} />
+                  ) : (
+                    <div key={g.id} className="tarjeta guia cerrada" aria-disabled="true" aria-label={`Tema ${g.tema}, se abre la semana ${semanaDe(g)}`}>
+                      <span className="guia-cab" aria-hidden="true">
+                        <Insignia g={g} cerrado />
+                        <span className="guia-tit">{g.titulo}</span>
+                      </span>
+                      <span className="cerrada-pie" aria-hidden="true">
+                        <Icono nombre="candado" tam={16} />
+                        <span className="pastilla suave">Llega la semana {semanaDe(g)}</span>
+                      </span>
+                    </div>
+                  ),
                 )}
               </section>
             )}

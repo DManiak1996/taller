@@ -31,6 +31,10 @@
   --con: #8A5A00;  --con-t: #FAEFD2;   /* condición: i <= 3    */
   --pas: #AE1358;  --pas-t: #FBE3EE;   /* paso:      i++       */
 
+  /* Colores de sintaxis del editor (Zona libre). Nunca --ini/--con/--pas (partes del for) ni --ok/--mal (acierto/fallo). */
+  --sx-cadena: #0F6A8A;    /* textos entre comillas, 5.9:1 sobre --code */
+  --sx-comentario: var(--suave);
+
   /* Consola (salida del programa): oscura en los dos modos */
   --consola: #15171C;
   --consola-txt: #E8EAEE;
@@ -43,7 +47,7 @@
   --t-boton: 18px;    /* peso 800 */
   --t-peq: 15px;
   --t-kicker: 13px;   /* peso 800, mayúsculas, espaciado .07em */
-  --t-codigo: 16px;   /* interlineado 1.75; ninguna línea de código pasa de ~30 caracteres en el iPhone */
+  --t-codigo: 16px;   /* interlineado 1.75; 15px si alguna línea no cabe. Sin scroll horizontal: ver guia.md, regla 6 */
 
   /* Forma y espacio */
   --r-boton: 16px;
@@ -56,6 +60,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="claro"]) {
+    --sx-cadena: #7CCBE0;
     --fondo: #0F1115; --sup: #191C22; --code: #14161B;
     --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
     --pri: #7C95FF; --pri-txt: #0B0D12; --pri-t: #1E2747;
@@ -65,6 +70,7 @@
   }
 }
 :root[data-tema="oscuro"] {
+  --sx-cadena: #7CCBE0;
   --fondo: #0F1115; --sup: #191C22; --code: #14161B;
   --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
   --pri: #7C95FF; --pri-txt: #0B0D12; --pri-t: #1E2747;

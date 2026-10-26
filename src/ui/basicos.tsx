@@ -52,6 +52,17 @@ export function Icono({ nombre, tam = 22, grosor = 2.5 }: { nombre: keyof typeof
   )
 }
 
+/** Una línea de salida: si el contenido la empieza con ❌, se pinta el icono de aspa en su lugar. */
+export function LineaSalida({ texto }: { texto: string }) {
+  if (!texto.startsWith('❌')) return <>{texto}</>
+  return (
+    <span className="err">
+      <Icono nombre="cerrar" tam={14} grosor={3} />
+      {texto.slice(1).trimStart() && ' ' + texto.slice(1).trimStart()}
+    </span>
+  )
+}
+
 /** Colorea las tres partes de la cabecera de un for: inicio, condición y paso. */
 function lineaConFor(texto: string, foco?: string): ReactNode {
   const m = texto.match(/^(\s*for\s*\()([^;]*)(;\s*)([^;]*)(;\s*)([^)]*)(\).*)$/)
@@ -209,7 +220,11 @@ export function Consola({ salida, error, titulo = 'Lo que imprime', vacia = '(no
         <div key={i}>{s}</div>
       ))}
       {salida.length === 0 && !error && <div className="vacia">{vacia}</div>}
-      {error && <div className="err">❌ {error}</div>}
+      {error && (
+        <div className="err">
+          <Icono nombre="cerrar" tam={14} grosor={3} /> {error}
+        </div>
+      )}
     </div>
   )
 }
