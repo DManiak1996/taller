@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { pantallaActual } from './actualizar'
 import { Cuenta } from './pantallas/Cuenta'
 import { Inicio } from './pantallas/Inicio'
 import { Mapa } from './pantallas/Mapa'
@@ -13,6 +14,7 @@ export default function App() {
   const [vista, setVista] = useState<Vista>('inicio')
   const [sesion, setSesion] = useState(0) // cambia en cada sesión para empezarla de cero
   const inicio = () => setVista('inicio')
+  useEffect(() => pantallaActual(vista === 'inicio'), [vista])
 
   switch (vista) {
     case 'sesion': {

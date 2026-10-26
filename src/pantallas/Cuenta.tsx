@@ -111,6 +111,7 @@ export function Cuenta({ volver }: { volver: () => void }) {
             </p>
           )}
           <p className="peq">Solo guardamos tu email y tus respuestas, en un servidor de la Unión Europea.</p>
+          <p className="peq">Versión del {__VERSION__}</p>
         </main>
         <footer className="pie">
           <button type="submit" form="entrar" className="btn btn-pri" disabled={!listo || enviando}>
@@ -209,6 +210,7 @@ export function Cuenta({ volver }: { volver: () => void }) {
             Descargar mis datos (JSON)
           </button>
         </section>
+        <p className="peq" style={{ textAlign: 'center' }}>Versión del {__VERSION__}</p>
       </main>
     </div>
   )
