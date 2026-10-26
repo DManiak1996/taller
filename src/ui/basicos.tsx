@@ -39,6 +39,8 @@ const TRAZOS = {
   llaves: <path d="M8 4H7a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-1" />,
   libro: <path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5zM4 21a2 2 0 0 1 2-2h13v2H6" />,
   cuidado: <path d="M12 3L2 20h20L12 3zM12 10v4M12 17h.01" />,
+  externo: <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />,
+  candado: <path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3" />,
   sinred: <path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01M3 3l18 18" />,
 }
 
@@ -47,6 +49,17 @@ export function Icono({ nombre, tam = 22, grosor = 2.5 }: { nombre: keyof typeof
     <svg width={tam} height={tam} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={grosor} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       {TRAZOS[nombre]}
     </svg>
+  )
+}
+
+/** Una línea de salida: si el contenido la empieza con ❌, se pinta el icono de aspa en su lugar. */
+export function LineaSalida({ texto }: { texto: string }) {
+  if (!texto.startsWith('❌')) return <>{texto}</>
+  return (
+    <span className="err">
+      <Icono nombre="cerrar" tam={14} grosor={3} />
+      {texto.slice(1).trimStart() && ' ' + texto.slice(1).trimStart()}
+    </span>
   )
 }
 
@@ -207,7 +220,11 @@ export function Consola({ salida, error, titulo = 'Lo que imprime', vacia = '(no
         <div key={i}>{s}</div>
       ))}
       {salida.length === 0 && !error && <div className="vacia">{vacia}</div>}
-      {error && <div className="err">❌ {error}</div>}
+      {error && (
+        <div className="err">
+          <Icono nombre="cerrar" tam={14} grosor={3} /> {error}
+        </div>
+      )}
     </div>
   )
 }

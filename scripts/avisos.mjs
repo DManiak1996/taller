@@ -49,6 +49,10 @@ function semanaIso(fecha) {
   return `${jueves.getUTCFullYear()}-S${String(n).padStart(2, '0')}`
 }
 
+// El reto empezó el lunes 26 de octubre de 2026: esa semana es la 1 (coincide con la ISO 2026-S44).
+const PRIMER_DIA = '2026-10-26'
+const semanaDelReto = (fecha) => Math.floor((Date.parse(fecha) - Date.parse(PRIMER_DIA)) / (7 * 86_400_000)) + 1
+
 /** Las claves de push se crean la primera vez que corre el aviso y ya no cambian. */
 async function clavesPush() {
   paso = 'claves push'
@@ -98,7 +102,7 @@ async function resumenSemanal() {
   paso = 'resumen'
   const resumen = await rpc('resumen_taller', { clave: TALLER_CLAVE })
   const semana = semanaIso(fecha)
-  const contenido = JSON.stringify({ semana, generado: new Date().toISOString(), ...resumen }, null, 2) + '\n'
+  const contenido = JSON.stringify({ semana, semana_del_reto: semanaDelReto(fecha), generado: new Date().toISOString(), ...resumen }, null, 2) + '\n'
 
   paso = 'subir a misiones'
   const ruta = `progreso/${semana}.json`

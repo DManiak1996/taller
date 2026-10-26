@@ -124,7 +124,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
           </button>
           <button type="button" className="atajo" onClick={() => irA('biblioteca')}>
             <Icono nombre="libro" tam={hecho ? 20 : 18} />
-            Biblioteca
+            Temario
           </button>
         </nav>
       </main>

@@ -1,5 +1,6 @@
 // Un lector de Markdown pequeño para las guías de la Biblioteca. Solo entiende lo que usan los
-// profesores: títulos, párrafos, listas, tablas, citas, separadores y bloques de código.
+// profesores: títulos, párrafos, listas, tablas, citas, separadores, bloques de código y desplegables
+// (<details> con su <summary>, para esconder la respuesta de «Búscalo tú»).
 // Devuelve bloques (datos), no HTML: la página los pinta con React, sin innerHTML.
 
 export type Bloque =
@@ -10,12 +11,15 @@ export type Bloque =
   | { tipo: 'cita'; texto: string; aviso: boolean }
   | { tipo: 'codigo'; lenguaje: string; codigo: string }
   | { tipo: 'separador' }
+  | { tipo: 'desplegable'; resumen: string; bloques: Bloque[] }
 
 export interface Guia {
   id: string
   titulo: string
   descripcion: string
   orden: number
+  /** Semana del reto a partir de la cual se puede abrir (cabecera `semana`); 0 si siempre. */
+  semana: number
   bloques: Bloque[]
 }
 
@@ -44,6 +48,26 @@ export function leerMarkdown(md: string): Bloque[] {
       while (i < lineas.length && !lineas[i].trim().startsWith(valla[1])) codigo.push(lineas[i++])
       i++ // la valla de cierre
       bloques.push({ tipo: 'codigo', lenguaje: valla[2].toLowerCase(), codigo: codigo.join('\n') })
+      continue
+    }
+    if (/^\s*<details>/i.test(l)) {
+      // Lo de dentro es Markdown normal; puede haber desplegables dentro de otros.
+      const dentro = [l.replace(/^\s*<details>/i, '')]
+      let nivel = 1
+      i++
+      while (i < lineas.length) {
+        const linea = lineas[i++]
+        nivel += (linea.match(/<details>/gi) ?? []).length
+        if (/<\/details>/i.test(linea) && --nivel === 0) {
+          dentro.push(linea.replace(/<\/details>.*$/i, ''))
+          break
+        }
+        dentro.push(linea)
+      }
+      let cuerpo = dentro.join('\n')
+      const sum = cuerpo.match(/^\s*<summary>([\s\S]*?)<\/summary>/i)
+      if (sum) cuerpo = cuerpo.slice(sum[0].length)
+      bloques.push({ tipo: 'desplegable', resumen: sum?.[1].trim() || 'Ver la respuesta', bloques: leerMarkdown(cuerpo) })
       continue
     }
     const titulo = l.match(/^(#{1,6})\s+(.*)$/)
@@ -92,14 +116,14 @@ export function leerMarkdown(md: string): Bloque[] {
       continue
     }
     const texto: string[] = []
-    while (i < lineas.length && lineas[i].trim() && !/^(#{1,6}\s|\s*(```|~~~)|\s*>|\s*\||\s*(?:[-*+]|\d+[.)])\s)/.test(lineas[i])) texto.push(lineas[i++].trim())
+    while (i < lineas.length && lineas[i].trim() && !/^(#{1,6}\s|\s*(```|~~~)|\s*>|\s*\||\s*(?:[-*+]|\d+[.)])\s|\s*<details>)/i.test(lineas[i])) texto.push(lineas[i++].trim())
     if (texto.length) bloques.push({ tipo: 'parrafo', texto: texto.join(' ') })
     else i++
   }
   return bloques
 }
 
-/** Una guía: frontmatter opcional (titulo, descripcion, orden) y el cuerpo en Markdown. */
+/** Una guía: frontmatter opcional (titulo, descripcion, orden, semana) y el cuerpo en Markdown. */
 export function leerGuia(id: string, md: string): Guia {
   const fm = md.match(/^---\n([\s\S]*?)\n---\n?/)
   const datos: Record<string, string> = {}
@@ -114,7 +138,7 @@ export function leerGuia(id: string, md: string): Guia {
     bloques = bloques.slice(1) // el título ya va en la cabecera de la página
   }
   const descripcion = datos.descripcion ?? (bloques.find((b) => b.tipo === 'parrafo') as { texto: string } | undefined)?.texto ?? ''
-  return { id, titulo: titulo || id, descripcion, orden: Number(datos.orden ?? 100), bloques }
+  return { id, titulo: titulo || id, descripcion, orden: Number(datos.orden ?? 100), semana: Number(datos.semana ?? 0) || 0, bloques }
 }
 
 export type Trozo = { tipo: 'texto' | 'negrita' | 'cursiva' | 'codigo'; texto: string } | { tipo: 'enlace'; texto: string; destino: string }
@@ -135,4 +159,13 @@ export function leerLinea(texto: string): Trozo[] {
   }
   if (desde < texto.length) trozos.push({ tipo: 'texto', texto: texto.slice(desde) })
   return trozos
+}
+
+/** En un tema, lo que va tras el `---` de «Búscalo tú» es la respuesta: se esconde en un desplegable. */
+export function plegarRespuesta(bloques: Bloque[]): Bloque[] {
+  const busca = bloques.findIndex((b) => b.tipo === 'titulo' && /^búscalo tú$/i.test(b.texto.trim()))
+  if (busca < 0) return bloques
+  const corte = bloques.findIndex((b, i) => i > busca && b.tipo === 'separador')
+  if (corte < 0 || corte === bloques.length - 1) return bloques
+  return [...bloques.slice(0, corte), { tipo: 'desplegable', resumen: 'Ver la respuesta', bloques: bloques.slice(corte + 1) }]
 }
