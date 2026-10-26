@@ -33,7 +33,7 @@
     },
     {
       "tipo": "texto",
-      "texto": "En TypeScript puedes escribir el tipo junto a la caja: `const afectados: number = 150;`. Si después alguien, o una IA, intenta guardar ahí un texto, el editor lo subraya en rojo **antes de ejecutar**. Para eso sirve el «Type» de TypeScript."
+      "texto": "En TypeScript puedes escribir el tipo junto a la caja: `let afectados: number = 150;`. Si después alguien, o una IA, intenta guardar ahí un texto (`afectados = \"muchos\";`), el editor lo subraya en rojo **antes de ejecutar**. Para eso sirve el «Type» de TypeScript."
     },
     {
       "tipo": "deiure",
@@ -86,7 +86,7 @@
       "concepto": "tipos",
       "tema": "rgpd",
       "tipo": "ordenar",
-      "enunciado": "En España, desde los 14 años se puede consentir el tratamiento de datos. Ordena las líneas para que escriba esto. Ojo: sobra una.",
+      "enunciado": "En España, un menor puede consentir el tratamiento de sus datos desde los 14 años (art. 7 LOPDGDD). Ordena las líneas para que escriba esto. Ojo: sobra una.",
       "lineas": [
         "const edad = 14;",
         "console.log(typeof edad);",

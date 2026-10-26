@@ -17,15 +17,16 @@ Cada dato tiene un **tipo**, igual que en un expediente no es lo mismo una fecha
 **Pantalla 2 · codigo**
 
 ```ts
-const responsable = "Clínica Arga"; // texto
-const afectados = 150; // número
-const notificada = true; // verdadero o falso
-console.log(responsable, afectados, notificada);
+// texto, número y verdadero o falso
+const nombre = "Clínica Arga";
+const total = 150;
+const avisada = true;
+console.log(nombre, total, avisada);
 ```
 
 Salida: `Clínica Arga 150 true`
 
-Lo que va detrás de `//` es un **comentario**: una nota para personas que el ordenador ignora. `true` (verdadero) y `false` (falso) van **sin comillas**.
+La primera línea empieza por `//`: es un **comentario**, una nota para personas que el ordenador ignora. `true` (verdadero) y `false` (falso) van **sin comillas**.
 
 **Pantalla 3 · codigo**
 
@@ -42,7 +43,7 @@ Salida: `number` / `string` / `boolean` / `string`
 
 **Pantalla 4 · texto**
 
-En TypeScript puedes escribir el tipo junto a la caja: `const afectados: number = 150;`. Si después alguien, o una IA, intenta guardar ahí un texto, el editor lo subraya en rojo **antes de ejecutar**. Para eso sirve el «Type» de TypeScript.
+En TypeScript puedes escribir el tipo junto a la caja: `let afectados: number = 150;`. Si después alguien, o una IA, intenta guardar ahí un texto (`afectados = "muchos";`), el editor lo subraya en rojo **antes de ejecutar**. Para eso sirve el «Type» de TypeScript.
 
 **Pantalla 5 · deiure**
 
@@ -94,7 +95,7 @@ Explicación: Imprime `false`. Parece el valor falso, pero es el texto «false»
 
 #### Reto 3 · Ordena las líneas · `s02-d01-r2` · concepto tipos
 
-En España, desde los 14 años se puede consentir el tratamiento de datos. Ordena las líneas para que escriba esto. Ojo: sobra una.
+En España, un menor puede consentir el tratamiento de sus datos desde los 14 años (art. 7 LOPDGDD). Ordena las líneas para que escriba esto. Ojo: sobra una.
 
 Líneas (orden correcto):
 
@@ -404,9 +405,9 @@ Explicación: Basta con que uno de los dos sea texto para que + pegue. Es el fal
 Le pediste a la IA: «Suma los días laborables y los del fin de semana». Tenía que salir 7. Toca la línea que está mal.
 
 ```ts
-const diasLaborables = "5";
-const diasFinde = 2;
-console.log(diasLaborables + diasFinde);
+const laborables = "5";
+const finde = 2;
+console.log(laborables + finde);
 ```
 
 - ✅ `El 5 está entre comillas, así que es texto. Texto + número pega uno detrás de otro en vez de sumar.`: Eso es. `"5" + 2` da `"52"`. Es el fallo de la semana: quítale las comillas al 5.
@@ -440,22 +441,22 @@ Explicación: Pegar texto con + es como ir escribiendo una frase a trozos: el or
 
 #### Repaso 1 · Rellena el hueco · `s02-d03-x1` · concepto texto-mas-numero
 
-Completa para que escriba «Plazo: 30 días».
+Completa para que escriba «30 días».
 
 ```ts
 const dias = 30;
-console.log("Plazo: " + ___ + " días");
+console.log(___ + " días");
 ```
 
-Objetivo: `Plazo: 30 días`
+Objetivo: `30 días`
 
-- ✅ `dias`: Correcto: el contenido de la caja, pegado entre los dos textos.
+- ✅ `dias`: Correcto: el contenido de la caja, pegado delante del texto.
 - ▫️ `"dias"`: Con comillas pegaría la palabra «dias».
 - ▫️ `Dias`: El nombre tiene que ser exacto: Dias con mayúscula no existe.
 
 Pistas: 1) Hay que pegar el contenido de una caja. 2) Las cajas se usan por su nombre, sin comillas. 3) La caja se llama dias.
 
-Explicación: Aquí + pega a propósito: texto, número y texto forman una frase. Fíjate en los espacios dentro de las comillas.
+Explicación: Aquí + pega a propósito: número y texto forman una frase. Fíjate en el espacio dentro de las comillas, delante de «días».
 
 #### Repaso 2 · ¿Qué imprime? · `s02-d03-x2` · concepto texto-mas-numero
 
@@ -503,24 +504,24 @@ Explicación: Imprime `33`. Primero `1 + 2` da 3 (dos números: suma). Después 
 **Pantalla 1 · codigo**
 
 ```ts
-const nombre = "Laura";
+const quien = "Laura";
 const dias = 30;
-console.log(`${nombre} tiene ${dias} días para responder`);
+console.log(`${quien}, ${dias} días`);
 ```
 
-Salida: `Laura tiene 30 días para responder`
+Salida: `Laura, 30 días`
 
-Una **plantilla** va entre **comillas invertidas** (en el teclado del Mac, la tecla a la derecha de la P). Dentro, `${...}` es un hueco donde se mete el valor de una caja.
+Una **plantilla** va entre **comillas invertidas** (en el teclado español del Mac, la tecla a la derecha de la P; es una tecla muerta: púlsala y después la barra espaciadora, o saldrá una `à`). Dentro, `${...}` es un hueco donde se mete el valor de una caja.
 
 **Pantalla 2 · codigo**
 
 ```ts
-const total = 8;
-console.log("Total: " + total + " solicitudes");
-console.log(`Total: ${total} solicitudes`);
+const n = 8;
+console.log("Total: " + n + " casos");
+console.log(`Total: ${n} casos`);
 ```
 
-Salida: `Total: 8 solicitudes` / `Total: 8 solicitudes`
+Salida: `Total: 8 casos` / `Total: 8 casos`
 
 Hacen lo mismo. La plantilla se lee mejor porque el texto se ve tal cual va a quedar, con sus espacios.
 
@@ -582,17 +583,17 @@ La IA y Marta discuten qué imprime este aviso. ¿Quién tiene razón?
 
 ```ts
 const horas = 72;
-console.log('Tienes ${horas} horas para notificar la brecha');
+console.log('Tienes ${horas} horas');
 ```
 
-- Marta: Imprime `Tienes ${horas} horas para notificar la brecha`, tal cual. (Las plantillas solo funcionan con comillas invertidas, y aquí son comillas simples.)
-- La IA: Imprime `Tienes 72 horas para notificar la brecha`. (`${horas}` mete el valor de la variable dentro del texto.)
+- Marta: Imprime `Tienes ${horas} horas`, tal cual. (Las plantillas solo funcionan con comillas invertidas, y aquí son comillas simples.)
+- La IA: Imprime `Tienes 72 horas`. (`${horas}` mete el valor de la variable dentro del texto.)
 
 Correcta: Marta
 
 Pistas: 1) Mira con lupa las comillas de la línea 2. 2) `${...}` solo funciona dentro de comillas invertidas: `` ` ``. 3) ¿Son invertidas las comillas de la línea 2?
 
-Explicación: Imprime `Tienes ${horas} horas para notificar la brecha`, con el `${horas}` a la vista. Las comillas simples `'` y las invertidas `` ` `` se parecen mucho, pero solo las invertidas hacen de plantilla. En el iPhone están en el teclado de símbolos, junto a la tilde.
+Explicación: Imprime `Tienes ${horas} horas`, con el `${horas}` a la vista. Las comillas simples `'` y las invertidas `` ` `` se parecen mucho, pero solo las invertidas hacen de plantilla.
 
 #### Reto 3 · Ordena las líneas · `s02-d04-r2` · concepto plantillas-texto
 
@@ -618,21 +619,21 @@ Explicación: Una caja que se calcula con otra tiene que ir después de ella. Y 
 
 #### Repaso 1 · Rellena el hueco · `s02-d04-x1` · concepto plantillas-texto
 
-Completa para que escriba «Notificar a la AEPD».
+Completa para que escriba «Avisar a la AEPD».
 
 ```ts
-const autoridad = "AEPD";
-console.log(`Notificar a la ___`);
+const quien = "la AEPD";
+console.log(`Avisar a ___`);
 ```
 
-Objetivo: `Notificar a la AEPD`
+Objetivo: `Avisar a la AEPD`
 
-- ✅ `${autoridad}`: Correcto: el hueco completo, con $ y llaves.
-- ▫️ `autoridad`: Sin ${...}, dentro de la plantilla es solo la palabra «autoridad».
-- ▫️ `{autoridad}`: Falta el $ delante de las llaves: lo escribiría tal cual.
-- ▫️ `$autoridad`: Faltan las llaves: el hueco es ${...} entero.
+- ✅ `${quien}`: Correcto: el hueco completo, con $ y llaves.
+- ▫️ `quien`: Sin ${...}, dentro de la plantilla es solo la palabra «quien».
+- ▫️ `{quien}`: Falta el $ delante de las llaves: lo escribiría tal cual.
+- ▫️ `$quien`: Faltan las llaves: el hueco es ${...} entero.
 
-Pistas: 1) Dentro de una plantilla, el valor de una caja va en un hueco. 2) El hueco se escribe con $, llave de abrir, nombre y llave de cerrar. 3) Es ${autoridad}.
+Pistas: 1) Dentro de una plantilla, el valor de una caja va en un hueco. 2) El hueco se escribe con $, llave de abrir, nombre y llave de cerrar. 3) Es ${quien}.
 
 Explicación: El hueco tiene tres piezas: $, llaves y el nombre. Si falta una, el programa escribe el texto tal cual, sin avisar.
 
@@ -658,17 +659,17 @@ Explicación: Una plantilla es texto salvo lo que va dentro de ${...}, que es c�
 Le pediste a la IA: «Imprime cuántas horas quedan para notificar la brecha». Toca la línea que está mal.
 
 ```ts
-const horasQueQuedan = 22;
-console.log(`Quedan {horasQueQuedan} horas para notificar.`);
+const horas = 22;
+console.log(`Quedan {horas} horas`);
 ```
 
-- ✅ `Falta el `$` delante de la llave: tenía que ser `${horasQueQuedan}`.`: Bien visto. Sin el `$`, las llaves son solo dos caracteres más del texto.
+- ✅ `Falta el `$` delante de la llave: tenía que ser `${horas}`.`: Bien visto. Sin el `$`, las llaves son solo dos caracteres más del texto.
 - ▫️ `Las comillas invertidas no valen: tienen que ser normales.`: Al revés: las invertidas son justo las que hacen falta para una plantilla. Mira lo que hay justo antes de la llave.
 - ▫️ `No se puede poner un número dentro de un texto.`: Con una plantilla sí se puede. El problema es cómo se ha escrito el hueco.
 
-Pistas: 1) ¿Qué imprime? ¿Sale el 22? 2) El hueco de una plantilla se escribe `${...}`: un dólar y dos llaves. 3) Compara `{horasQueQuedan}` con `${horasQueQuedan}`.
+Pistas: 1) ¿Qué imprime? ¿Sale el 22? 2) El hueco de una plantilla se escribe `${...}`: un dólar y dos llaves. 3) Compara `{horas}` con `${horas}`.
 
-Explicación: Imprime `Quedan {horasQueQuedan} horas para notificar.`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves.
+Explicación: Imprime `Quedan {horas} horas`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves.
 
 ---
 
@@ -685,32 +686,32 @@ Casi todo programa pequeño tiene tres partes: **datos** (lo que sabes), **cálc
 **Pantalla 2 · pasoapaso**
 
 ```ts
-const solicitudes = 4;
-const minutosPorSolicitud = 15;
-const total = solicitudes * minutosPorSolicitud;
-console.log(`Hoy: ${solicitudes} solicitudes, ${total} minutos`);
+const casos = 4;
+const minutosPorCaso = 15;
+const total = casos * minutosPorCaso;
+console.log(`Hoy: ${total} min`);
 ```
 
-- Línea 1: {"solicitudes":"4"} · Dato: hoy hay 4 solicitudes.
-- Línea 2: {"solicitudes":"4","minutosPorSolicitud":"15"} · Dato: cada una lleva 15 minutos.
-- Línea 3: {"solicitudes":"4","minutosPorSolicitud":"15","total":"60"} · Cálculo: 4 × 15 = 60.
-- Línea 4: {"solicitudes":"4","minutosPorSolicitud":"15","total":"60"} · Mensaje: una plantilla con dos huecos.
+- Línea 1: {"casos":"4"} · Dato: hoy hay 4 solicitudes por atender.
+- Línea 2: {"casos":"4","minutosPorCaso":"15"} · Dato: cada una lleva 15 minutos.
+- Línea 3: {"casos":"4","minutosPorCaso":"15","total":"60"} · Cálculo: 4 × 15 = 60.
+- Línea 4: {"casos":"4","minutosPorCaso":"15","total":"60"} · Mensaje: una plantilla con el resultado.
 
 **Pantalla 3 · texto**
 
-Fíjate en el nombre `minutosPorSolicitud`: varias palabras juntas, con mayúscula al empezar cada una nueva (se llama **camelCase**, porque las mayúsculas parecen jorobas). Un nombre largo y claro es mejor que `m`: el código se lee muchas más veces de las que se escribe.
+Fíjate en el nombre `minutosPorCaso`: varias palabras juntas, con mayúscula al empezar cada una nueva (se llama **camelCase**, porque las mayúsculas parecen jorobas). Un nombre largo y claro es mejor que `m`: el código se lee muchas más veces de las que se escribe.
 
 **Pantalla 4 · codigo**
 
 ```ts
 const facturacion = 2_000_000;
-const multa = facturacion * 0.04;
-console.log(`Hasta el 4 %: ${multa} euros`);
+const parte = facturacion * 0.04;
+console.log(`4 %: ${parte} euros`);
 ```
 
-Salida: `Hasta el 4 %: 80000 euros`
+Salida: `4 %: 80000 euros`
 
-Mismas tres partes con una multa del RGPD: dato, cálculo (el 4 % es multiplicar por 0.04) y mensaje.
+Las mismas tres partes con un dato del RGPD: el 4 % de la facturación (multiplicar por 0.04). Ojo: el art. 83.5 fija el tope en 20 millones o el 4 % del volumen de negocio anual mundial, **el que sea mayor**, así que aquí el tope serían 20 millones. Elegir «el mayor» es una decisión, y eso llega la semana que viene.
 
 **Pantalla 5 · deiure**
 
@@ -731,14 +732,14 @@ const days = (Date.parse(to) - Date.parse(from)) / 86_400_000;
 ```ts
 const horas = 72;
 const dias = horas / 24;
-console.log(`${horas} horas son ${dias} días`);
+console.log(`Son ${dias} días`);
 ```
 
-- ✅ `72 horas son 3 días`: Eso es: dos huecos, cada uno con su caja.
-- ▫️ `72 horas son 72 días`: El segundo hueco es dias, que vale 72 / 24.
-- ▫️ `${horas} horas son ${dias} días`: Son comillas invertidas: es una plantilla y rellena los huecos.
+- ✅ `Son 3 días`: Eso es: el hueco se rellena con dias, que vale 72 / 24.
+- ▫️ `Son 72 días`: El hueco es dias, no horas: vale 72 / 24.
+- ▫️ `Son ${dias} días`: Son comillas invertidas: es una plantilla y rellena los huecos.
 
-Pistas: 1) Calcula primero cuánto vale dias. 2) 72 / 24 = 3. Luego rellena cada hueco con su caja. 3) El primer hueco es 72 y el segundo, 3.
+Pistas: 1) Calcula primero cuánto vale dias. 2) 72 / 24 = 3. Luego rellena el hueco. 3) El hueco vale 3.
 
 Explicación: Datos (horas), cálculo (dias) y mensaje (la plantilla).
 
@@ -747,18 +748,19 @@ Explicación: Datos (horas), cálculo (dias) y mensaje (la plantilla).
 Le pediste a la IA: «Imprime un aviso que diga quién tiene que responder a quién». Toca la línea que está mal.
 
 ```ts
-const solicitante = "Ana Pérez";
-const responsable = "Clínica Ribera";
-console.log(`${responsable} tiene que responder a ${responsable} en un mes.`);
+const persona = "Ana Pérez";
+const clinica = "Clínica Ribera";
+const frase = `responde a ${clinica}`;
+console.log(`${clinica} ${frase}`);
 ```
 
-- ✅ `Usa `responsable` dos veces. La segunda tenía que ser `solicitante`.`: Bien visto. Es un fallo de copiar y pegar, muy típico de la IA y de las personas.
+- ✅ `En la frase usa `clinica` otra vez. Tenía que ser `persona`.`: Bien visto. Es un fallo de copiar y pegar, muy típico de la IA y de las personas.
 - ▫️ `No se pueden meter dos `${}` en la misma plantilla.`: Se pueden meter todos los que quieras. Fíjate en qué variable va dentro de cada uno.
 - ▫️ `Falta un `+` para unir los textos.`: Con plantillas no hace falta `+`: el texto y los datos van juntos entre las comillas invertidas.
 
-Pistas: 1) Lee en voz alta lo que imprimiría la línea 3. 2) Cada `${...}` mete el valor de la variable que tiene dentro. 3) ¿Se usa `solicitante` en algún sitio?
+Pistas: 1) Lee en voz alta lo que imprimiría la línea 4. 2) Cada `${...}` mete el valor de la variable que tiene dentro. 3) ¿Se usa `persona` en algún sitio?
 
-Explicación: Imprime `Clínica Ribera tiene que responder a Clínica Ribera en un mes.` No hay error, pero el mensaje no tiene sentido. Una pista de revisor: si creas una variable y luego no se usa en ningún sitio, algo suele estar mal.
+Explicación: Imprime `Clínica Ribera responde a Clínica Ribera`. No hay error, pero el mensaje no tiene sentido. Una pista de revisor: si creas una variable y luego no se usa en ningún sitio, algo suele estar mal.
 
 #### Reto 3 · Ordena las líneas · `s02-d05-r2` · concepto operaciones
 
@@ -770,10 +772,10 @@ Líneas (orden correcto):
 let minutos = 0;
 minutos = minutos + 15;
 minutos = minutos * 2;
-console.log(`Total: ${minutos} minutos`);
+console.log(`Total: ${minutos} min`);
 ```
 
-Objetivo: `Total: 30 minutos`
+Objetivo: `Total: 30 min`
 
 Pistas: 1) 30 = (0 + 15) × 2. ¿Qué va antes? 2) Primero se suma 15 y después se duplica. 3) let, sumar, multiplicar, mensaje.
 
@@ -786,20 +788,21 @@ Explicación: Si se multiplica primero, 0 × 2 = 0, y luego + 15 daría 15. El o
 Hay que enviar una carta a cada afectado por una brecha, a 2 euros cada una. Completa para que escriba «Coste: 300 euros».
 
 ```ts
-const afectados = 150;
-const porCarta = 2;
-console.log(`Coste: ${___} euros`);
+const cartas = 150;
+const precio = 2;
+const coste = ___;
+console.log(`Coste: ${coste} euros`);
 ```
 
 Objetivo: `Coste: 300 euros`
 
-- ✅ `afectados * porCarta`: Correcto: 150 cartas por 2 euros.
-- ▫️ `afectados + porCarta`: Eso suma: saldría 152.
-- ▫️ `"afectados * porCarta"`: Con comillas, el hueco escribiría ese texto en vez de calcular.
+- ✅ `cartas * precio`: Correcto: 150 cartas por 2 euros.
+- ▫️ `cartas + precio`: Eso suma: saldría 152.
+- ▫️ `"cartas * precio"`: Con comillas, coste sería ese texto y no un cálculo.
 
 Pistas: 1) ¿Cuánto cuestan 150 cartas a 2 euros? 2) Hay que multiplicar las dos cajas. 3) Multiplicar es *.
 
-Explicación: Dentro del hueco va el cálculo, sin comillas.
+Explicación: El cálculo va sin comillas. Guardarlo en una caja (coste) antes del mensaje deja cada línea corta y clara.
 
 #### Repaso 2 · Rellena el hueco · `s02-d05-x2` · concepto texto-mas-numero
 
@@ -844,16 +847,16 @@ Salida: `53` / `8`
 **Pantalla 2 · pasoapaso**
 
 ```ts
-const delFormulario = "120";
-const afectados = Number(delFormulario);
+const texto = "120";
+const afectados = Number(texto);
 const total = afectados + 30;
 console.log(total);
 ```
 
-- Línea 1: {"delFormulario":"\"120\""} · Llega del formulario como texto: "120".
-- Línea 2: {"delFormulario":"\"120\"","afectados":"120"} · Lo convierte: ahora es el número 120, sin comillas.
-- Línea 3: {"delFormulario":"\"120\"","afectados":"120","total":"150"} · Número + número: suma.
-- Línea 4: {"delFormulario":"\"120\"","afectados":"120","total":"150"} · 150, como debía ser.
+- Línea 1: {"texto":"\"120\""} · Llega del formulario como texto: "120".
+- Línea 2: {"texto":"\"120\"","afectados":"120"} · Lo convierte: ahora es el número 120, sin comillas.
+- Línea 3: {"texto":"\"120\"","afectados":"120","total":"150"} · Número + número: suma.
+- Línea 4: {"texto":"\"120\"","afectados":"120","total":"150"} · 150, como debía ser.
 
 **Pantalla 3 · codigo**
 
@@ -910,19 +913,19 @@ Explicación: Number() quita las «comillas» por dentro: el texto pasa a ser un
 Le pediste a la IA: «Suma los afectados que llegan del formulario web a los 30 que ya teníamos». Los formularios siempre entregan los datos como texto. Toca la línea que está mal.
 
 ```ts
-const afectadosFormulario = "120";
-const afectadosPrevios = 30;
-const total = afectadosFormulario + afectadosPrevios;
-console.log(`Total de afectados: ${total}`);
+const dato = "120"; // del formulario
+const previos = 30;
+const total = dato + previos;
+console.log(`Afectados: ${total}`);
 ```
 
-- ✅ ``afectadosFormulario` es texto. Hay que convertirlo con `Number()` antes de sumar.`: Exacto: `Number(afectadosFormulario) + afectadosPrevios` da 150.
+- ✅ ``dato` es texto. Hay que convertirlo con `Number()` antes de sumar.`: Exacto: `Number(dato) + previos` da 150.
 - ▫️ `Hay que quitar las comillas de la línea 1.`: En este ejemplo funcionaría, pero el dato llega así del formulario y no lo puedes cambiar. Lo que sí puedes hacer es convertirlo antes de sumar.
 - ▫️ `Una plantilla no puede mostrar números.`: Las plantillas muestran números sin problema. El fallo está antes, en la suma.
 
-Pistas: 1) ¿Qué tipo de dato es `afectadosFormulario`? 2) Texto + número pega en vez de sumar. Para sumar, primero hay que convertir el texto en número. 3) ¿Qué hace `Number("120")`?
+Pistas: 1) ¿Qué tipo de dato es `dato`? 2) Texto + número pega en vez de sumar. Para sumar, primero hay que convertir el texto en número. 3) ¿Qué hace `Number("120")`?
 
-Explicación: Imprime `Total de afectados: 12030`. Lo que llega de fuera (un formulario, un fichero, una web) suele llegar como texto. Antes de calcular con ello, conviértelo con `Number()`. Imagina este número en una notificación a la autoridad de control.
+Explicación: Imprime `Afectados: 12030`. Lo que llega de fuera (un formulario, un fichero, una web) suele llegar como texto. Antes de calcular con ello, conviértelo con `Number()`. Imagina este número en una notificación a la autoridad de control.
 
 #### Reto 3 · Ordena las líneas · `s02-d06-r2` · concepto convertir-numero
 
@@ -1109,10 +1112,10 @@ Líneas (orden correcto):
 ```ts
 const letra = "A";
 const codigo = letra.charCodeAt(0);
-console.log(`${letra} es el ${codigo}`);
+console.log(`${letra}: ${codigo}`);
 ```
 
-Objetivo: `A es el 65`
+Objetivo: `A: 65`
 
 Pistas: 1) codigo se calcula a partir de letra. 2) Primero letra, luego codigo y luego el mensaje. 3) Empieza por const letra = "A";
 
@@ -1125,7 +1128,9 @@ Explicación: Datos, cálculo y mensaje, como el día 5, ahora con el número de
 Completa para comprobar que la B va justo detrás de la A en la tabla, y que escriba 1.
 
 ```ts
-console.log("B".charCodeAt(0) ___ "A".charCodeAt(0));
+const b = "B".charCodeAt(0);
+const a = "A".charCodeAt(0);
+console.log(b ___ a);
 ```
 
 Objetivo: `1`

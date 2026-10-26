@@ -14,7 +14,7 @@
       "salida": [
         "Laura, 30 días"
       ],
-      "nota": "Una **plantilla** va entre **comillas invertidas** (en el teclado del Mac, la tecla a la derecha de la P). Dentro, `${...}` es un hueco donde se mete el valor de una caja."
+      "nota": "Una **plantilla** va entre **comillas invertidas** (en el teclado español del Mac, la tecla a la derecha de la P; es una tecla muerta: púlsala y después la barra espaciadora, o saldrá una `à`). Dentro, `${...}` es un hueco donde se mete el valor de una caja."
     },
     {
       "tipo": "codigo",

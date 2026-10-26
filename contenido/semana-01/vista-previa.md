@@ -76,7 +76,7 @@ Le pediste a la IA: «Imprime primero el aviso de brecha y después la fecha lí
 
 ```ts
 console.log("Fecha límite: 72 horas");
-console.log("AVISO: brecha de seguridad");
+console.log("AVISO: hay una brecha");
 ```
 
 - ✅ `Las líneas están al revés: el programa las ejecuta de arriba abajo, así que imprime primero la fecha.`: Exacto. El código funciona, pero no hace lo que pediste. Revisar no es solo ver si funciona: es comprobar que hace **lo que se pidió**.
@@ -97,10 +97,10 @@ Líneas (orden correcto):
 console.log("Detectar la brecha");
 console.log("Contenerla");
 console.log("Evaluar el riesgo");
-console.log("Notificar a la autoridad en 72 horas");
+console.log("Notificar en 72 horas");
 ```
 
-Objetivo: `Detectar la brecha` / `Contenerla` / `Evaluar el riesgo` / `Notificar a la autoridad en 72 horas`
+Objetivo: `Detectar la brecha` / `Contenerla` / `Evaluar el riesgo` / `Notificar en 72 horas`
 
 Pistas: 1) Fíjate en lo que tiene que escribir: la primera línea de la salida es la primera del programa. 2) Cada console.log produce una línea de salida, en el mismo orden. 3) Empieza por console.log("Detectar la brecha");
 
@@ -113,15 +113,15 @@ Explicación: El orden del programa es el orden de la salida. Por eso, si una IA
 Completa el programa para que escriba las dos líneas.
 
 ```ts
-console.log("Solicitud de acceso recibida");
+console.log("Solicitud recibida");
 ___
 ```
 
-Objetivo: `Solicitud de acceso recibida` / `Plazo para responder: un mes`
+Objetivo: `Solicitud recibida` / `Plazo: un mes`
 
-- ✅ `console.log("Plazo para responder: un mes");`: Correcto: la orden completa, con el texto entre comillas.
-- ▫️ `console("Plazo para responder: un mes");`: Falta `.log`. La orden completa es `console.log`.
-- ▫️ `log("Plazo para responder: un mes");`: Falta `console.` delante. El ordenador no sabe qué es `log` a secas.
+- ✅ `console.log("Plazo: un mes");`: Correcto: la orden completa, con el texto entre comillas.
+- ▫️ `console("Plazo: un mes");`: Falta `.log`. La orden completa es `console.log`.
+- ▫️ `log("Plazo: un mes");`: Falta `console.` delante. El ordenador no sabe qué es `log` a secas.
 
 Pistas: 1) Mira cómo está escrita la primera línea. 2) La orden para escribir es siempre `console.log(...)`, entera. 3) Copia la forma de la línea 1 y cambia solo el texto.
 
@@ -840,17 +840,17 @@ Dentro de `console.log` puedes poner varias cosas separadas por **comas**. Las e
 
 ```ts
 const persona = "Laura";
-let solicitudes = 1;
-console.log(persona, "ha hecho", solicitudes, "solicitud");
-solicitudes = 2;
-console.log(persona, "ha hecho", solicitudes, "solicitudes");
+let total = 1;
+console.log(persona, "pidió", total);
+total = 2;
+console.log(persona, "pidió", total);
 ```
 
 - Línea 1: {"persona":"\"Laura\""} · Caja persona, con «Laura». No va a cambiar: const.
-- Línea 2: {"persona":"\"Laura\"","solicitudes":"1"} · Caja solicitudes, con un 1. Va a cambiar: let.
-- Línea 3: {"persona":"\"Laura\"","solicitudes":"1"} · Junta cuatro cosas en una línea: dos cajas y dos textos.
-- Línea 4: {"persona":"\"Laura\"","solicitudes":"2"} · Llega otra solicitud: la caja pasa a 2.
-- Línea 5: {"persona":"\"Laura\"","solicitudes":"2"} · Mismo mensaje, valor nuevo.
+- Línea 2: {"persona":"\"Laura\"","total":"1"} · Caja total: las solicitudes que ha hecho Laura. Va a cambiar: let.
+- Línea 3: {"persona":"\"Laura\"","total":"1"} · Junta tres cosas en una línea: dos cajas y un texto.
+- Línea 4: {"persona":"\"Laura\"","total":"2"} · Llega otra solicitud: la caja pasa a 2.
+- Línea 5: {"persona":"\"Laura\"","total":"2"} · La misma línea de código, con el valor nuevo.
 
 **Pantalla 3 · codigo**
 
@@ -881,13 +881,13 @@ console.log('[DEBUG formatZodErrors] Error message:', errorMessage);
 
 ```ts
 const dias = 30;
-console.log("Respuesta en", dias, "días");
+console.log("Quedan", dias, "días");
 ```
 
-- ✅ `Respuesta en 30 días`: Eso es: tres cosas en una línea, separadas por espacios.
-- ▫️ `Respuesta en dias días`: dias sin comillas es la caja: escribe su contenido, 30.
-- ▫️ `Respuesta en ⏎ 30 ⏎ días`: Un solo console.log escribe una sola línea, aunque lleve comas.
-- ▫️ `Respuesta en30días`: Las comas se convierten en espacios en la salida.
+- ✅ `Quedan 30 días`: Eso es: tres cosas en una línea, separadas por espacios.
+- ▫️ `Quedan dias días`: dias sin comillas es la caja: escribe su contenido, 30.
+- ▫️ `Quedan ⏎ 30 ⏎ días`: Un solo console.log escribe una sola línea, aunque lleve comas.
+- ▫️ `Quedan30días`: Las comas se convierten en espacios en la salida.
 
 Pistas: 1) Hay un solo console.log. ¿Cuántas líneas saldrán? 2) Cada coma se convierte en un espacio, y las cajas se sustituyen por lo que llevan dentro. 3) La caja dias tiene un 30.
 
@@ -895,20 +895,20 @@ Explicación: Con comas, console.log junta textos y valores en una línea. Es la
 
 #### Reto 2 · Rellena el hueco · `s01-d06-r2` · concepto console-log
 
-Completa para que escriba «Notificar a la AEPD».
+Completa para que escriba «Avisar a la AEPD».
 
 ```ts
-const autoridad = "AEPD";
-console.log("Notificar a la", ___);
+const quien = "la AEPD";
+console.log("Avisar a", ___);
 ```
 
-Objetivo: `Notificar a la AEPD`
+Objetivo: `Avisar a la AEPD`
 
-- ✅ `autoridad`: Correcto: la caja, sin comillas, y console.log pone el espacio.
-- ▫️ `"autoridad"`: Con comillas escribiría «Notificar a la autoridad».
+- ✅ `quien`: Correcto: la caja, sin comillas, y console.log pone el espacio.
+- ▫️ `"quien"`: Con comillas escribiría «Avisar a quien».
 - ▫️ `AEPD`: Sin comillas, el ordenador busca una caja llamada AEPD, y no existe.
 
-Pistas: 1) Lo que falta es el contenido de una caja. 2) Se escribe el nombre de la caja, sin comillas. 3) La caja se llama autoridad.
+Pistas: 1) Lo que falta es el contenido de una caja. 2) Se escribe el nombre de la caja, sin comillas. 3) La caja se llama quien.
 
 Explicación: Texto fijo con comillas, valor guardado sin ellas, y una coma entre los dos.
 
@@ -1086,13 +1086,13 @@ Repaso de la semana: ordena las líneas para que escriba exactamente esto. Ojo: 
 Líneas (orden correcto):
 
 ```ts
-let restantes = 30;
-console.log("Quedan", restantes, "días");
-restantes = 10;
-console.log("Quedan", restantes, "días");
+let dias = 30;
+console.log("Quedan", dias, "días");
+dias = 10;
+console.log("Quedan", dias, "días");
 ```
 
-Sobran: `const restantes = 30;`
+Sobran: `const dias = 30;`
 
 Objetivo: `Quedan 30 días` / `Quedan 10 días`
 
@@ -1108,29 +1108,29 @@ Este es el fichero aviso.ts. ¿Qué aparece en la terminal al escribir node avis
 
 ```ts
 const plazo = 72;
-console.log("Notifica en", plazo, "horas");
+console.log("Plazo:", plazo, "horas");
 console.log("Fin");
 ```
 
-- ✅ `Notifica en 72 horas ⏎ Fin`: Eso es: una línea por cada console.log, con el valor de la caja.
+- ✅ `Plazo: 72 horas ⏎ Fin`: Eso es: una línea por cada console.log, con el valor de la caja.
 - ▫️ `aviso.ts`: La terminal no repite el nombre del fichero: muestra lo que escribe console.log.
-- ▫️ `Notifica en plazo horas ⏎ Fin`: plazo va sin comillas: es la caja, y dentro hay un 72.
-- ▫️ `Notifica en 72 horas`: La línea 3 también es un console.log: falta «Fin».
+- ▫️ `Plazo: plazo horas ⏎ Fin`: plazo va sin comillas: es la caja, y dentro hay un 72.
+- ▫️ `Plazo: 72 horas`: La línea 3 también es un console.log: falta «Fin».
 
-Pistas: 1) En la terminal solo aparece lo que escribe console.log. 2) Hay dos console.log: dos líneas de salida. 3) La primera es «Notifica en 72 horas».
+Pistas: 1) En la terminal solo aparece lo que escribe console.log. 2) Hay dos console.log: dos líneas de salida. 3) La primera es «Plazo: 72 horas».
 
 Explicación: Ejecutar un fichero en la terminal es lo mismo que has hecho toda la semana en el taller: la salida es lo que escriben los console.log.
 
 #### Repaso 2 · Rellena el hueco · `s01-d07-x2` · concepto terminal
 
-Completa para que escriba «Ejecuta: node hola.ts».
+Completa para que escriba la orden «node hola.ts».
 
 ```ts
 const archivo = "hola.ts";
-console.log("Ejecuta: node", ___);
+console.log("node", ___);
 ```
 
-Objetivo: `Ejecuta: node hola.ts`
+Objetivo: `node hola.ts`
 
 - ✅ `archivo`: Correcto: la caja archivo contiene «hola.ts».
 - ▫️ `"archivo"`: Con comillas escribiría la palabra «archivo».
