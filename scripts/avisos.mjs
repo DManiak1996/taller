@@ -49,15 +49,8 @@ function semanaIso(fecha) {
   return `${jueves.getUTCFullYear()}-S${String(n).padStart(2, '0')}`
 }
 
-async function recordatorio() {
-  const { fecha, hora } = madrid()
-  if (hora < 20 || hora >= 22) return ok('ok (fuera de hora)')
-  paso = 'resumen'
-  const resumen = await rpc('resumen_taller', { clave: TALLER_CLAVE })
-  if (resumen.hecho_hoy) return ok()
-  paso = 'una vez'
-  if (!(await rpc('avisar_una_vez', { clave: TALLER_CLAVE, tipo: 'recordatorio', fecha }))) return ok()
-
+/** Las claves de push se crean la primera vez que corre el aviso y ya no cambian. */
+async function clavesPush() {
   paso = 'claves push'
   let push = await rpc('datos_push', { clave: TALLER_CLAVE })
   if (!push.publica) {
@@ -65,6 +58,20 @@ async function recordatorio() {
     await rpc('guardar_vapid', { clave: TALLER_CLAVE, publica: nuevas.publicKey, privada: nuevas.privateKey })
     push = await rpc('datos_push', { clave: TALLER_CLAVE })
   }
+  return push
+}
+
+async function recordatorio() {
+  const { fecha, hora } = madrid()
+  await clavesPush() // también fuera de hora, para que la web pueda activar los avisos cuanto antes
+  if (hora < 20 || hora >= 22) return ok('ok (fuera de hora)')
+  paso = 'resumen'
+  const resumen = await rpc('resumen_taller', { clave: TALLER_CLAVE })
+  if (resumen.hecho_hoy) return ok()
+  paso = 'una vez'
+  if (!(await rpc('avisar_una_vez', { clave: TALLER_CLAVE, tipo: 'recordatorio', fecha }))) return ok()
+
+  const push = await clavesPush()
   webpush.setVapidDetails('https://dmaniak1996.github.io/taller/', push.publica, push.privada)
 
   paso = 'enviar'
