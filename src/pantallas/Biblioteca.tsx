@@ -1,23 +1,43 @@
-// Biblioteca: guías para consultar cuando quieras, también sin conexión (van dentro de la app).
-// Cada guía es un .md de contenido/biblioteca/ que preparan los profesores.
+// Biblioteca: el temario y las guías para consultar cuando quieras, también sin conexión (van dentro
+// de la app). Cada tema o guía es un .md de contenido/biblioteca/ que preparan los profesores; los
+// temas, en contenido/biblioteca/temario/tema-NN-nombre.md.
 
 import { Fragment, useEffect, useState } from 'react'
 import { Icono } from '../ui/basicos'
 import { leerGuia, leerLinea, type Bloque, type Guia } from '../ui/markdown'
 
-const ficheros = import.meta.glob<string>('../../contenido/biblioteca/*.md', { eager: true, query: '?raw', import: 'default' })
+const ficheros = import.meta.glob<string>('../../contenido/biblioteca/**/*.md', { eager: true, query: '?raw', import: 'default' })
 
-export const guias: Guia[] = Object.entries(ficheros)
-  .map(([ruta, md]) => leerGuia(ruta.split('/').pop()!.replace(/\.md$/, ''), md))
-  .sort((a, b) => a.orden - b.orden || a.titulo.localeCompare(b.titulo, 'es'))
+interface Entrada extends Guia {
+  /** Número del tema (tema-03-… es el 3), o null si no es del temario. */
+  tema: number | null
+  enTemario: boolean
+}
 
-// Primero las chuletas de cada semana (Fundamentos deja una por semana: chuleta-semana-NN.md), por
-// número de semana y solo hasta la semana en la que va; después, el resto de guías.
-const semanaDe = (g: Guia) => Number(g.id.match(/^chuleta-semana-(\d+)$/)?.[1] ?? 0)
-const secciones = (semana: number): [string, Guia[]][] => [
-  ['Chuletas de cada semana', guias.filter((g) => semanaDe(g) > 0 && semanaDe(g) <= semana).sort((a, b) => semanaDe(a) - semanaDe(b))],
-  ['Guías', guias.filter((g) => !semanaDe(g))],
-]
+export const guias: Entrada[] = Object.entries(ficheros).map(([ruta, md]) => {
+  const id = ruta.split('/').pop()!.replace(/\.md$/, '')
+  const num = id.match(/^tema-(\d+)/)?.[1]
+  return { ...leerGuia(id, md), tema: num ? Number(num) : null, enTemario: ruta.includes('/temario/') }
+})
+
+// El temario va por número de tema (un tema sin número, como «Tema T», se coloca con `orden`). Las
+// chuletas, por semana. Todo se abre al llegar a su semana (cabecera `semana`).
+const semanaDe = (g: Entrada) => g.semana || Number(g.id.match(/^chuleta-semana-(\d+)$/)?.[1] ?? 0)
+const clave = (g: Entrada) => g.tema ?? g.orden
+const porOrden = (a: Entrada, b: Entrada) => clave(a) - clave(b) || a.titulo.localeCompare(b.titulo, 'es', { numeric: true })
+const esChuleta = (g: Entrada) => /^chuleta-semana-\d+$/.test(g.id)
+
+function secciones(semana: number) {
+  const abierta = (g: Entrada) => semanaDe(g) <= semana
+  const temario = guias.filter((g) => g.enTemario).sort(porOrden)
+  return {
+    temario: temario.filter(abierta),
+    // El siguiente tema cerrado se enseña con candado, para que se vea lo que viene.
+    proximo: temario.find((g) => !abierta(g)),
+    chuletas: guias.filter((g) => esChuleta(g) && abierta(g)).sort((a, b) => semanaDe(a) - semanaDe(b)),
+    otras: guias.filter((g) => !g.enTemario && !esChuleta(g) && abierta(g)).sort(porOrden),
+  }
+}
 
 const TERMINAL = new Set(['bash', 'sh', 'shell', 'zsh', 'terminal', 'console'])
 
@@ -39,7 +59,7 @@ function Linea({ texto, abrir, enlaces = true }: { texto: string; abrir: (id: st
           case 'enlace': {
             if (!enlaces) return <Fragment key={i}>{t.texto}</Fragment>
             // Un enlace a otra guía (otra.md) se abre aquí mismo; el resto, fuera.
-            const otra = t.destino.match(/^(?:\.\/)?([\w-]+)\.md$/)
+            const otra = t.destino.match(/^(?:\.{0,2}\/)*(?:[\w-]+\/)*([\w-]+)\.md(?:#.*)?$/)
             if (otra && guias.some((g) => g.id === otra[1]))
               return (
                 <button key={i} type="button" className="enlace-guia" onClick={() => abrir(otra[1])}>
@@ -48,8 +68,10 @@ function Linea({ texto, abrir, enlaces = true }: { texto: string; abrir: (id: st
               )
             if (!/^https?:\/\//.test(t.destino)) return <Fragment key={i}>{t.texto}</Fragment>
             return (
-              <a key={i} href={t.destino} target="_blank" rel="noreferrer">
+              <a key={i} href={t.destino} target="_blank" rel="noreferrer" className="enlace-fuera">
                 {t.texto}
+                <Icono nombre="externo" tam={14} />
+                <span className="oculto"> (se abre fuera de la app)</span>
               </a>
             )
           }
@@ -144,13 +166,41 @@ function Pintar({ b, abrir }: { b: Bloque; abrir: (id: string) => void }) {
       )
     case 'separador':
       return <hr className="md-hr" />
+    case 'desplegable':
+      return (
+        <details className="md-desplegable">
+          <summary>
+            <Icono nombre="abajo" tam={18} />
+            <Linea texto={b.resumen} abrir={abrir} />
+          </summary>
+          <div className="md-desplegable-dentro">
+            {b.bloques.map((x, i) => (
+              <Pintar key={i} b={x} abrir={abrir} />
+            ))}
+          </div>
+        </details>
+      )
   }
+}
+
+function Tarjeta({ g, abrir }: { g: Entrada; abrir: (id: string) => void }) {
+  return (
+    <button type="button" className="tarjeta guia" onClick={() => abrir(g.id)}>
+      <span className="guia-tit">{g.titulo}</span>
+      {g.descripcion && (
+        <span className="peq">
+          <Linea texto={g.descripcion} abrir={abrir} enlaces={false} />
+        </span>
+      )}
+    </button>
+  )
 }
 
 /** semana: la del próximo día que le toca (Infinity si ya lo ha hecho todo). */
 export function Biblioteca({ volver, semana }: { volver: () => void; semana: number }) {
   const [abierta, setAbierta] = useState<string | null>(null)
   const guia = guias.find((g) => g.id === abierta)
+  const { temario, proximo, chuletas, otras } = secciones(semana)
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [abierta])
@@ -165,7 +215,7 @@ export function Biblioteca({ volver, semana }: { volver: () => void; semana: num
       <main className="cuerpo md-guia">
         {guia ? (
           <>
-            <p className="kicker">Biblioteca</p>
+            <p className="kicker">{guia.enTemario ? (guia.tema !== null ? `Temario · tema ${guia.tema}` : 'Temario') : 'Biblioteca'}</p>
             <h1 className="h1">{guia.titulo}</h1>
             {guia.bloques.map((b, i) => (
               <Pintar key={i} b={b} abrir={setAbierta} />
@@ -174,25 +224,39 @@ export function Biblioteca({ volver, semana }: { volver: () => void; semana: num
         ) : (
           <>
             <h1 className="h1">Biblioteca</h1>
-            <p className="peq">Guías para consultar cuando quieras. Funcionan también sin conexión.</p>
-            {guias.length === 0 && <p className="txt">Todavía no hay guías. Las primeras llegan pronto.</p>}
-            {secciones(semana).map(
-              ([nombre, lista]) =>
-                lista.length > 0 && (
-                  <section key={nombre} className="seccion-guias">
-                    <h2 className="md-h3">{nombre}</h2>
-                    {lista.map((g) => (
-                      <button key={g.id} type="button" className="tarjeta guia" onClick={() => setAbierta(g.id)}>
-                        <span className="guia-tit">{g.titulo}</span>
-                        {g.descripcion && (
-                          <span className="peq">
-                            <Linea texto={g.descripcion} abrir={setAbierta} enlaces={false} />
-                          </span>
-                        )}
-                      </button>
-                    ))}
-                  </section>
-                ),
+            <p className="peq">El temario y las guías, para consultar cuando quieras. Se leen también sin conexión.</p>
+            {guias.length === 0 && <p className="txt">Todavía no hay temas. Los primeros llegan pronto.</p>}
+            {(temario.length > 0 || proximo) && (
+              <section className="seccion-guias">
+                <h2 className="md-h3">Temario</h2>
+                {temario.map((g) => (
+                  <Tarjeta key={g.id} g={g} abrir={setAbierta} />
+                ))}
+                {proximo && (
+                  <div className="tarjeta guia cerrada" aria-disabled="true">
+                    <span className="guia-tit">
+                      <Icono nombre="candado" tam={18} /> {proximo.titulo}
+                    </span>
+                    <span className="peq">Se abre en la semana {semanaDe(proximo)}.</span>
+                  </div>
+                )}
+              </section>
+            )}
+            {chuletas.length > 0 && (
+              <section className="seccion-guias">
+                <h2 className="md-h3">Chuletas de cada semana</h2>
+                {chuletas.map((g) => (
+                  <Tarjeta key={g.id} g={g} abrir={setAbierta} />
+                ))}
+              </section>
+            )}
+            {otras.length > 0 && (
+              <section className="seccion-guias">
+                <h2 className="md-h3">Guías</h2>
+                {otras.map((g) => (
+                  <Tarjeta key={g.id} g={g} abrir={setAbierta} />
+                ))}
+              </section>
             )}
           </>
         )}

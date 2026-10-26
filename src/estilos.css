@@ -311,5 +311,16 @@ button.linea:hover { background: var(--pri-t); }
 .md-aviso strong { font-weight: 800; }
 .md-codigo { margin: 0; background: var(--code); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; font-family: var(--f-codigo); font-size: 15px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
 .md-hr { border: none; border-top: 1px solid var(--borde); margin: 4px 0; width: 100%; }
+.tarjeta.guia.cerrada { cursor: default; color: var(--suave); box-shadow: none; }
+.tarjeta.guia.cerrada .guia-tit { display: flex; align-items: center; gap: 8px; }
+.enlace-fuera { color: var(--pri); }
+.enlace-fuera svg { display: inline; vertical-align: -1px; margin-left: 3px; }
+.oculto { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.md-desplegable { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); }
+.md-desplegable summary { display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 16px; font-weight: 700; color: var(--pri); cursor: pointer; list-style: none; }
+.md-desplegable summary::-webkit-details-marker { display: none; }
+.md-desplegable summary svg { flex: none; transition: transform 0.2s; }
+.md-desplegable[open] summary svg { transform: rotate(180deg); }
+.md-desplegable-dentro { display: flex; flex-direction: column; gap: 14px; padding: 0 16px 16px; }
 .enlace-guia { background: none; border: none; padding: 0; font: inherit; color: var(--pri); text-decoration: underline; cursor: pointer; }
 .md-tabla code { white-space: nowrap; }
