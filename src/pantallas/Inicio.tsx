@@ -17,6 +17,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
   const fechaHoy = hoy()
   const hecho = hechoHoy(p, fechaHoy)
   const dias = racha(p, fechaHoy)
+  const rota = dias === 0 && p.sesiones.length > 0 // racha rota, sin culpa: no se enseñan los días perdidos
   const hayRepaso = Boolean(repasoDeHoy(p, fechaHoy)) || repasos(p).size > 0 || p.intentos.length > 0
   const codigo = dia && codigoDe(dia)
   const dia1 = NOMBRE_DIA.format(new Date())
@@ -44,12 +45,14 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {hecho ? (
             <>
-              <p className="kicker">Hoy</p>
+              <span style={{ width: 64, height: 64, borderRadius: 32, background: 'var(--ok)', color: 'var(--fondo)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Icono nombre="bien" tam={34} grosor={3} />
+              </span>
               <h1 className="h1 grande">Hecho por hoy</h1>
               <p className="txt" style={{ color: 'var(--suave)' }}>
                 {dia ? (
                   <>
-                    Mañana: <strong>{dia.titulo}</strong>
+                    Mañana toca: <strong>{dia.titulo}</strong>
                   </>
                 ) : (
                   'Has terminado todo lo que hay por ahora.'
@@ -79,13 +82,23 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
 
         {!hecho && codigo && <Codigo codigo={codigo} etiqueta="El código de hoy" />}
 
-        <section aria-label="Tu racha" className="tarjeta">
-          <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
-            <p style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>{dias === 0 ? 'Empieza tu racha' : dias === 1 ? '1 día seguido' : `${dias} días seguidos`}</p>
-            <p className="peq">{hecho ? 'Hoy, hecho' : 'Hoy te toca'}</p>
-          </div>
-          <SemanaRacha fechaHoy={fechaHoy} />
-        </section>
+        {rota ? (
+          <section aria-label="Tu racha" className="tarjeta" style={{ flexDirection: 'row', alignItems: 'center', gap: 14 }}>
+            <span className="punto hoy" style={{ width: 40, height: 40, borderRadius: 20, flex: 'none' }} />
+            <div>
+              <p style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>Retomas hoy</p>
+              <p className="peq">Con el reto de hoy vuelves a tener racha.</p>
+            </div>
+          </section>
+        ) : (
+          <section aria-label="Tu racha" className="tarjeta">
+            <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+              <p style={{ margin: 0, fontSize: 17, fontWeight: 800 }}>{dias === 0 ? 'Empieza tu racha' : dias === 1 ? '1 día seguido' : `${dias} días seguidos`}</p>
+              <p className="peq">{hecho ? 'Hoy, hecho' : 'Hoy te toca'}</p>
+            </div>
+            <SemanaRacha fechaHoy={fechaHoy} />
+          </section>
+        )}
       </main>
 
       <footer className="pie">
@@ -97,7 +110,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
         )}
         {hecho && hayRepaso && (
           <button type="button" className="btn btn-sec" onClick={empezar}>
-            Repasar algo
+            Repasar algo más
           </button>
         )}
       </footer>

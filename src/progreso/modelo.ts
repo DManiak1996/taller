@@ -110,6 +110,25 @@ export function repasos(p: Progreso): Map<string, Repaso> {
   return estado
 }
 
+/** Conceptos que entraron en repaso y aguantaron hasta el de los 7 días. */
+export function repasosSuperados(p: Progreso): Set<string> {
+  const nivel = new Map<string, number>()
+  const superados = new Set<string>()
+  for (const i of [...p.intentos].sort((a, b) => a.momento.localeCompare(b.momento))) {
+    if (fallado(i)) {
+      nivel.set(i.concepto, 0)
+      superados.delete(i.concepto)
+    } else if (nivel.has(i.concepto) && i.modo === 'repaso') {
+      const n = nivel.get(i.concepto)! + 1
+      if (n >= INTERVALOS.length) {
+        nivel.delete(i.concepto)
+        superados.add(i.concepto)
+      } else nivel.set(i.concepto, n)
+    }
+  }
+  return superados
+}
+
 /** El repaso que toca hoy (el más antiguo), si hay alguno. */
 export function repasoDeHoy(p: Progreso, fechaHoy: string): Repaso | undefined {
   return [...repasos(p).values()].filter((r) => r.toca <= fechaHoy).sort((a, b) => a.toca.localeCompare(b.toca))[0]

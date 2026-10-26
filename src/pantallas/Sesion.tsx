@@ -72,7 +72,7 @@ export function Sesion({ dia, alSalir, alVerMapa }: { dia: DiaListo | null; alSa
   return (
     <div className="app">
       {cabecera}
-      {paso.tipo === 'leccion' && dia && <Leccion titulo={dia.titulo} pantallas={dia.leccion} alTerminar={avanzar} />}
+      {paso.tipo === 'leccion' && dia && <Leccion titulo={dia.titulo} pildora={dia.pildora} pantallas={dia.leccion} alTerminar={avanzar} />}
       {paso.tipo === 'reto' && (
         <RetoPantalla key={paso.reto.id} reto={paso.reto} kicker={`Reto ${paso.n} de ${dia?.retos.length ?? 3}`} alTerminar={guardar(paso.reto, 'reto')} />
       )}

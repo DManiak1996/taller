@@ -68,23 +68,16 @@ interface MarcoProps {
   verPasoAPaso?: string // código para el visualizador desde la hoja de «Todavía no»
   alTerminar: (r: ResultadoReto) => void
   textoTerminar?: string
+  soloQuedaUna?: boolean // ya no hay nada que probar: solo se ofrece ver la solución
 }
 
-function MarcoReto({ reto, kicker, chip, listo, comprobar, reiniciar, solucion, cuerpo, verPasoAPaso, alTerminar, textoTerminar = 'Continuar' }: MarcoProps) {
+function MarcoReto({ reto, kicker, chip, listo, comprobar, reiniciar, solucion, cuerpo, verPasoAPaso, alTerminar, textoTerminar = 'Continuar', soloQuedaUna }: MarcoProps) {
   const [estado, setEstado] = useState<Estado>('eligiendo')
   const [fallos, setFallos] = useState(0)
   const [pistas, setPistas] = useState(0)
   const [mensaje, setMensaje] = useState('')
   const [pasoAPaso, setPasoAPaso] = useState(false)
   const terminar = () => alTerminar({ fallos, pistas, solucion: estado === 'solucion' })
-
-  if (pasoAPaso && verPasoAPaso) {
-    return (
-      <main className="cuerpo">
-        <Visualizador codigo={verPasoAPaso} alTerminar={() => setPasoAPaso(false)} textoFin="Volver al reto" />
-      </main>
-    )
-  }
 
   return (
     <>
@@ -112,6 +105,20 @@ function MarcoReto({ reto, kicker, chip, listo, comprobar, reiniciar, solucion, 
           </section>
         ))}
       </main>
+
+      {pasoAPaso && verPasoAPaso && (
+        <div className="velo" onClick={(e) => e.target === e.currentTarget && setPasoAPaso(false)}>
+          <div className="hoja" role="dialog" aria-modal="true" aria-label="Paso a paso">
+            <span className="asa" aria-hidden="true" />
+            <div style={{ display: 'flex', justifyContent: 'flex-end', margin: '-8px -8px -16px 0' }}>
+              <button type="button" className="icono" aria-label="Volver al reto" onClick={() => setPasoAPaso(false)}>
+                <Icono nombre="cerrar" tam={24} grosor={2.25} />
+              </button>
+            </div>
+            <Visualizador codigo={verPasoAPaso} alTerminar={() => setPasoAPaso(false)} textoFin="Volver al reto" />
+          </div>
+        </div>
+      )}
 
       {estado === 'eligiendo' && (
         <footer className="pie">
@@ -176,20 +183,27 @@ function MarcoReto({ reto, kicker, chip, listo, comprobar, reiniciar, solucion, 
               <p className="fb-txt">
                 <Texto>{mensaje}</Texto>
               </p>
+              {fallos === 1 && (
+                <p className="fb-txt" style={{ color: 'var(--suave)' }}>
+                  Este concepto vuelve mañana en el repaso.
+                </p>
+              )}
             </div>
           </div>
-          <button
-            type="button"
-            className="btn btn-pri"
-            onClick={() => {
-              reiniciar()
-              setEstado('eligiendo')
-            }}
-          >
-            Intentar otra vez
-          </button>
-          {fallos >= 3 ? (
-            <button type="button" className="btn btn-sec" onClick={() => setEstado('solucion')}>
+          {!soloQuedaUna && (
+            <button
+              type="button"
+              className="btn btn-pri"
+              onClick={() => {
+                reiniciar()
+                setEstado('eligiendo')
+              }}
+            >
+              Intentar otra vez
+            </button>
+          )}
+          {fallos >= 3 || soloQuedaUna ? (
+            <button type="button" className={`btn ${soloQuedaUna ? 'btn-pri' : 'btn-sec'}`} onClick={() => setEstado('solucion')}>
               Ver la solución
             </button>
           ) : (
@@ -524,43 +538,77 @@ function Fallo({ reto, ...resto }: Comunes & { reto: Extract<Reto, { tipo: 'fall
   )
 }
 
+const inicial = (quien: string) => (/\bIA\b/.test(quien) ? 'IA' : quien.trim()[0]?.toUpperCase() ?? '?')
+
 function Razon({ reto, ...resto }: Comunes & { reto: Extract<Reto, { tipo: 'razon' }> }) {
   const [elegida, setElegida] = useState<string | null>(null)
+  const [descartadas, setDescartadas] = useState<string[]>([])
   const ejecucion = useEjecucion(reto.comprobar ? reto.codigo : null)
-  const nombre = (q: string) => (q === 'ninguno' ? 'Ninguno de los dos' : q)
+  const claves = [...reto.opiniones.map((o) => o.quien), 'ninguno']
+  const nombre = (q: string) => (q === 'ninguno' ? 'Ninguna de las dos' : q)
   return (
     <MarcoReto
       {...resto}
       reto={reto}
       listo={elegida !== null}
-      comprobar={() => ({ ok: elegida === reto.correcta, mensaje: reto.siEliges[elegida!] ?? '' })}
+      comprobar={() => {
+        const ok = elegida === reto.correcta
+        if (!ok) setDescartadas([...descartadas, elegida!])
+        return { ok, mensaje: reto.siEliges[elegida!] ?? '' }
+      }}
       reiniciar={() => setElegida(null)}
-      solucion={reto.correcta === 'ninguno' ? 'No tiene razón ninguno' : `Tiene razón ${reto.correcta}`}
+      soloQuedaUna={claves.length - descartadas.length <= 1}
+      solucion={reto.correcta === 'ninguno' ? 'No tiene razón ninguna de las dos' : `Tiene razón ${reto.correcta}`}
       cuerpo={(estado) => {
         const resuelto = estado === 'ok' || estado === 'solucion'
-        const clase = (q: string) =>
-          resuelto && q === reto.correcta ? ' bien' : estado === 'mal' && q === elegida ? ' mal' : elegida === q ? ' elegida' : ''
         return (
           <>
             <Codigo codigo={reto.codigo} />
             <div className="opciones" role="group" aria-label="Opiniones">
-              {[...reto.opiniones.map((o) => o.quien), 'ninguno'].map((q) => {
+              {claves.map((q) => {
                 const o = reto.opiniones.find((x) => x.quien === q)
+                const descartada = descartadas.includes(q)
+                const clase = resuelto && q === reto.correcta ? ' bien' : estado === 'mal' && q === elegida ? ' mal' : descartada ? ' descartada' : elegida === q ? ' elegida' : ''
                 return (
-                  <button key={q} type="button" className={`opcion${clase(q)}`} aria-pressed={elegida === q} disabled={estado !== 'eligiendo'} onClick={() => setElegida(q)}>
-                    <span className="persona">
-                      <span className="quien">{nombre(q)}</span>
-                      {o && (
-                        <span>
-                          «<Texto>{o.dice}</Texto>»
+                  <button
+                    key={q}
+                    type="button"
+                    className={`opcion${clase}`}
+                    aria-pressed={elegida === q}
+                    disabled={estado !== 'eligiendo' || descartada}
+                    onClick={() => setElegida(q)}
+                    style={o ? undefined : { minHeight: 56, justifyContent: 'center', fontWeight: 800 }}
+                  >
+                    {o ? (
+                      <span style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+                        <span className={`insignia${inicial(q) === 'IA' ? ' ia' : ''}`} aria-hidden="true">
+                          {inicial(q)}
                         </span>
-                      )}
-                      {o && resuelto && (
-                        <span className="peq">
-                          <Texto>{o.porque}</Texto>
+                        <span className="persona">
+                          <span className="kicker">{q} dice</span>
+                          <span style={{ fontSize: 18 }}>
+                            <Texto>{o.dice}</Texto>
+                          </span>
+                          {resuelto && (
+                            <span className="peq">
+                              <Texto>{o.porque}</Texto>
+                            </span>
+                          )}
                         </span>
-                      )}
-                    </span>
+                      </span>
+                    ) : (
+                      nombre(q)
+                    )}
+                    {(descartada || (estado === 'mal' && q === elegida)) && (
+                      <span className="marca" style={{ background: 'var(--mal)' }} aria-label="Descartada">
+                        <Icono nombre="cerrar" tam={14} grosor={3.5} />
+                      </span>
+                    )}
+                    {resuelto && q === reto.correcta && (
+                      <span className="marca" style={{ background: 'var(--ok)' }} aria-label="Correcta">
+                        <Icono nombre="bien" tam={14} grosor={3.5} />
+                      </span>
+                    )}
                   </button>
                 )
               })}
