@@ -4,7 +4,7 @@
 
 import { Fragment, useEffect, useState } from 'react'
 import { Icono } from '../ui/basicos'
-import { leerGuia, leerLinea, type Bloque, type Guia } from '../ui/markdown'
+import { leerGuia, leerLinea, plegarRespuesta, type Bloque, type Guia } from '../ui/markdown'
 
 const ficheros = import.meta.glob<string>('../../contenido/biblioteca/**/*.md', { eager: true, query: '?raw', import: 'default' })
 
@@ -18,15 +18,19 @@ export const guias: Entrada[] = Object.entries(ficheros).map(([ruta, md]) => {
   const tema = ruta.includes('/temario/') ? (id.match(/^tema-([^-]+)/)?.[1].replace(/^0+(?=\d)/, '') ?? '') : null
   const g = leerGuia(id, md)
   // La insignia ya dice el número: «Tema 3. Decisiones» se queda en «Decisiones».
-  return { ...g, titulo: tema !== null ? g.titulo.replace(/^tema\s+\w+\s*[.:·-]\s*/i, '') : g.titulo, tema }
+  if (tema === null) return { ...g, tema }
+  return {
+    ...g,
+    titulo: g.titulo.replace(/^tema\s+\w+\s*[.:·-]\s*/i, ''),
+    bloques: plegarRespuesta(g.bloques),
+    tema,
+  }
 })
 
 // El temario va por número de tema; un tema sin número (como «Tema T») se coloca con su `orden`. Cada
-// tema y cada chuleta se abren al llegar a su semana (cabecera `semana`).
-const semanaDe = (g: Entrada) => g.semana || Number(g.id.match(/^chuleta-semana-(\d+)$/)?.[1] ?? 0)
+// tema se abre al llegar a su semana (cabecera `semana`).
 const clave = (g: Entrada) => (g.tema && /^\d+$/.test(g.tema) ? Number(g.tema) : g.orden)
 const porOrden = (a: Entrada, b: Entrada) => clave(a) - clave(b) || a.titulo.localeCompare(b.titulo, 'es', { numeric: true })
-const esChuleta = (g: Entrada) => /^chuleta-semana-\d+$/.test(g.id)
 const temario = guias.filter((g) => g.tema !== null).sort(porOrden)
 
 // «Documentación oficial»: el nombre del sitio sale de la dirección.
@@ -45,7 +49,12 @@ function recurso(item: string) {
   if (!m) return null
   const resto = item.replace(m[0], '').toLowerCase()
   const espanol = /en español/.test(resto) || (!/en inglés/.test(resto) && /\/es(-[A-Z]{2})?\//.test(m[2]))
-  return { titulo: m[1], url: m[2], sitio: sitio(m[2]), idioma: espanol ? 'en español' : 'en inglés' }
+  return {
+    titulo: m[1],
+    url: m[2],
+    sitio: sitio(m[2]),
+    idioma: espanol ? 'en español' : 'en inglés',
+  }
 }
 
 function Documentacion({ items }: { items: string[] }) {
@@ -99,7 +108,7 @@ function Linea({ texto, abrir, enlaces = true }: { texto: string; abrir: (id: st
             return <em key={i}>{t.texto}</em>
           case 'codigo':
             return (
-              <code key={i} className="ic">
+              <code key={i} className={t.texto.length <= 16 ? 'ic corto' : 'ic'}>
                 {t.texto}
               </code>
             )
@@ -251,9 +260,8 @@ function Tarjeta({ g, abrir, semana }: { g: Entrada; abrir: (id: string) => void
 export function Biblioteca({ volver, semana }: { volver: () => void; semana: number }) {
   const [abierta, setAbierta] = useState<string | null>(null)
   const guia = guias.find((g) => g.id === abierta)
-  const abiertoYa = (g: Entrada) => semanaDe(g) <= semana
-  const chuletas = guias.filter((g) => esChuleta(g) && abiertoYa(g)).sort((a, b) => semanaDe(a) - semanaDe(b))
-  const otras = guias.filter((g) => g.tema === null && !esChuleta(g) && abiertoYa(g)).sort(porOrden)
+  const abiertoYa = (g: Entrada) => g.semana <= semana
+  const otras = guias.filter((g) => g.tema === null && abiertoYa(g)).sort(porOrden)
   const hayTemario = temario.length > 0
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -303,26 +311,18 @@ export function Biblioteca({ volver, semana }: { volver: () => void; semana: num
                   abiertoYa(g) ? (
                     <Tarjeta key={g.id} g={g} abrir={setAbierta} semana={semana} />
                   ) : (
-                    <div key={g.id} className="tarjeta guia cerrada" aria-disabled="true" aria-label={`Tema ${g.tema}, se abre la semana ${semanaDe(g)}`}>
+                    <div key={g.id} className="tarjeta guia cerrada" aria-disabled="true" aria-label={`Tema ${g.tema}, se abre la semana ${g.semana}`}>
                       <span className="guia-cab" aria-hidden="true">
                         <Insignia g={g} cerrado />
                         <span className="guia-tit">{g.titulo}</span>
                       </span>
                       <span className="cerrada-pie" aria-hidden="true">
                         <Icono nombre="candado" tam={16} />
-                        <span className="pastilla suave">Llega la semana {semanaDe(g)}</span>
+                        <span className="pastilla suave">Llega la semana {g.semana}</span>
                       </span>
                     </div>
                   ),
                 )}
-              </section>
-            )}
-            {chuletas.length > 0 && (
-              <section className="seccion-guias">
-                <h2 className="md-h3">Chuletas de cada semana</h2>
-                {chuletas.map((g) => (
-                  <Tarjeta key={g.id} g={g} abrir={setAbierta} />
-                ))}
               </section>
             )}
             {otras.length > 0 && (

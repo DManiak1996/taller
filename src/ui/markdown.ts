@@ -160,3 +160,12 @@ export function leerLinea(texto: string): Trozo[] {
   if (desde < texto.length) trozos.push({ tipo: 'texto', texto: texto.slice(desde) })
   return trozos
 }
+
+/** En un tema, lo que va tras el `---` de «Búscalo tú» es la respuesta: se esconde en un desplegable. */
+export function plegarRespuesta(bloques: Bloque[]): Bloque[] {
+  const busca = bloques.findIndex((b) => b.tipo === 'titulo' && /^búscalo tú$/i.test(b.texto.trim()))
+  if (busca < 0) return bloques
+  const corte = bloques.findIndex((b, i) => i > busca && b.tipo === 'separador')
+  if (corte < 0 || corte === bloques.length - 1) return bloques
+  return [...bloques.slice(0, corte), { tipo: 'desplegable', resumen: 'Ver la respuesta', bloques: bloques.slice(corte + 1) }]
+}

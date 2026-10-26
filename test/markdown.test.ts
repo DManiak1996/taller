@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { leerGuia, leerLinea, leerMarkdown } from '../src/ui/markdown'
+import { leerGuia, leerLinea, leerMarkdown, plegarRespuesta } from '../src/ui/markdown'
 
 const ejemplo = `# La terminal, bien explicada
 
@@ -103,5 +103,19 @@ describe('desplegables y temario', () => {
   it('la cabecera semana dice desde cuándo se abre', () => {
     expect(leerGuia('tema-03-if', '---\nsemana: 3\n---\n# Tema 3. Decisiones\n\nTexto').semana).toBe(3)
     expect(leerGuia('otra', '# Otra').semana).toBe(0)
+  })
+})
+
+describe('respuesta de «Búscalo tú»', () => {
+  it('lo que va tras el --- de «Búscalo tú» queda plegado', () => {
+    const b = plegarRespuesta(leerMarkdown('## Ejemplos\n\nA\n\n---\n\nB\n\n## Búscalo tú\n\n¿Pregunta?\n\n---\n\n**Respuesta:** esta.'))
+    expect(b.map((x) => x.tipo)).toEqual(['titulo', 'parrafo', 'separador', 'parrafo', 'titulo', 'parrafo', 'desplegable'])
+    expect(b[6]).toEqual({ tipo: 'desplegable', resumen: 'Ver la respuesta', bloques: [{ tipo: 'parrafo', texto: '**Respuesta:** esta.' }] })
+  })
+  it('sin «Búscalo tú» o sin respuesta no cambia nada', () => {
+    const sin = leerMarkdown('A\n\n---\n\nB')
+    expect(plegarRespuesta(sin)).toEqual(sin)
+    const sinRespuesta = leerMarkdown('## Búscalo tú\n\n¿Pregunta?')
+    expect(plegarRespuesta(sinRespuesta)).toEqual(sinRespuesta)
   })
 })
