@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { sincronizarAhora, useEstadoNube, useProgreso } from '../progreso/almacen'
-import { activarAvisos, avisosActivados, avisosPosibles, cerrarSesion, crearCuenta, desactivarAvisos, entrar, nube } from '../progreso/nube'
+import { sincronizarAhora, ultimoErrorNube, useEstadoNube, useProgreso } from '../progreso/almacen'
+import { activarAvisos, avisosActivados, avisosPosibles, cerrarSesion, crearCuenta, desactivarAvisos, entrar, estadoAvisos, nube } from '../progreso/nube'
 import { Icono } from '../ui/basicos'
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
@@ -25,10 +25,15 @@ export function Cuenta({ volver }: { volver: () => void }) {
   const [aviso, setAviso] = useState('')
   const [usuario, setUsuario] = useState<string | null>(null)
   const [avisos, setAvisos] = useState(false)
+  const [servidorAvisos, setServidorAvisos] = useState<Awaited<ReturnType<typeof estadoAvisos>> | null>(null)
 
   useEffect(() => {
     void avisosActivados().then(setAvisos)
   }, [])
+
+  useEffect(() => {
+    if (usuario) void estadoAvisos().then(setServidorAvisos)
+  }, [usuario])
 
   useEffect(() => {
     nube?.auth.getUser().then(({ data }) => setUsuario(data.user?.email ?? null))
@@ -136,7 +141,9 @@ export function Cuenta({ volver }: { volver: () => void }) {
       </header>
       <main className="cuerpo">
         <h1 className="h1">Tus datos</h1>
-        <p className="txt">{TEXTO_ESTADO[estado]}</p>
+        <p className="txt" role={estado === 'error' ? 'alert' : undefined}>
+          {estado === 'error' ? `No se ha podido sincronizar. ${ultimoErrorNube()}` : TEXTO_ESTADO[estado]}
+        </p>
 
         {nube && usuario && (
           <section className="tarjeta">
@@ -157,13 +164,19 @@ export function Cuenta({ volver }: { volver: () => void }) {
           <section className="tarjeta">
             <p className="kicker">Aviso de las 20:00</p>
             <p className="txt" style={{ fontSize: 16 }}>
-              {avisos
-                ? 'Activado en este dispositivo. Solo llega si ese día aún no has hecho el reto.'
-                : avisosPosibles()
-                  ? 'Un aviso a las 20:00, solo los días en que aún no has hecho el reto.'
-                  : 'Para recibir avisos en el iPhone, abre el taller desde su icono en la pantalla de inicio (Safari › Compartir › Añadir a pantalla de inicio).'}
+              {servidorAvisos === null
+                ? 'Comprobando…'
+                : servidorAvisos === 'sin-configurar'
+                  ? 'Los avisos aún no están configurados.'
+                  : servidorAvisos === 'pendiente'
+                    ? 'Los avisos se están preparando. Estarán listos como mucho mañana.'
+                    : avisos
+                      ? 'Activado en este dispositivo. Solo llega si ese día aún no has hecho el reto.'
+                      : avisosPosibles()
+                        ? 'Un aviso a las 20:00, solo los días en que aún no has hecho el reto.'
+                        : 'Para recibir avisos en el iPhone, abre el taller desde su icono en la pantalla de inicio (Safari › Compartir › Añadir a pantalla de inicio).'}
             </p>
-            {avisosPosibles() && (
+            {servidorAvisos === 'listo' && avisosPosibles() && (
               <button
                 type="button"
                 className="btn btn-sec"

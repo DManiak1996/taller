@@ -43,6 +43,11 @@ create policy "guardar mis sesiones" on public.sesiones for insert to authentica
 create policy "ver mis intentos" on public.intentos for select to authenticated using (user_id = (select auth.uid()));
 create policy "guardar mis intentos" on public.intentos for insert to authenticated with check (user_id = (select auth.uid()));
 
+-- Permisos explícitos: con sesión se puede leer y añadir (RLS decide qué filas). Se dan aquí por si
+-- el proyecto no los concede solo a las tablas creadas desde el SQL Editor.
+grant usage on schema public to authenticated;
+grant select, insert on public.sesiones, public.intentos to authenticated;
+
 -- Nadie (ni anónimo ni con sesión) puede modificar ni borrar filas desde la web: el progreso solo crece.
 revoke update, delete on public.sesiones, public.intentos from anon, authenticated;
 revoke all on public.sesiones, public.intentos from anon;

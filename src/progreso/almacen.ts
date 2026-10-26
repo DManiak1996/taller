@@ -3,7 +3,7 @@
 
 import { useSyncExternalStore } from 'react'
 import { hoy, nuevoId, unir, vacio, type Intento, type Progreso } from './modelo'
-import { nube, sincronizar } from './nube'
+import { explicarErrorNube, nube, sincronizar } from './nube'
 
 const CLAVE = 'taller.progreso.v1'
 
@@ -32,6 +32,8 @@ function cambiar(nuevo: Progreso) {
 
 export type EstadoNube = 'sin-configurar' | 'sin-sesion' | 'sincronizando' | 'al-dia' | 'error'
 let estadoNube: EstadoNube = nube ? 'sin-sesion' : 'sin-configurar'
+let errorNube = '' // explicación en castellano del último fallo al sincronizar
+export const ultimoErrorNube = () => errorNube
 const oyentesNube = new Set<() => void>()
 const ponerEstadoNube = (e: EstadoNube) => {
   estadoNube = e
@@ -51,6 +53,7 @@ export function sincronizarAhora(): Promise<void> {
       ponerEstadoNube('al-dia')
     } catch (e) {
       console.warn('No se pudo sincronizar', e)
+      errorNube = explicarErrorNube(e)
       ponerEstadoNube('error')
     }
   })().finally(() => (enCurso = null))
