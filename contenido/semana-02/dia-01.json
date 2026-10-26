@@ -1,0 +1,179 @@
+{
+  "id": "s02-d01",
+  "semana": 2,
+  "dia": 1,
+  "titulo": "Tres tipos de dato",
+  "objetivo": "Hoy aprendes a reconocer los tres tipos de dato básicos (texto, número y verdadero o falso) y a preguntar a un programa de qué tipo es algo con typeof.",
+  "conceptos": [
+    "tipos"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Cada dato tiene un **tipo**, igual que en un expediente no es lo mismo una fecha que un nombre. Los tres básicos son **texto** (`string`), **número** (`number`) y **verdadero o falso** (`boolean`)."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "// texto, número y verdadero o falso\nconst nombre = \"Clínica Arga\";\nconst total = 150;\nconst avisada = true;\nconsole.log(nombre, total, avisada);",
+      "salida": [
+        "Clínica Arga 150 true"
+      ],
+      "nota": "La primera línea empieza por `//`: es un **comentario**, una nota para personas que el ordenador ignora. `true` (verdadero) y `false` (falso) van **sin comillas**."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(typeof 150);\nconsole.log(typeof \"Clínica Arga\");\nconsole.log(typeof true);\nconsole.log(typeof \"150\");",
+      "salida": [
+        "number",
+        "string",
+        "boolean",
+        "string"
+      ],
+      "nota": "`typeof` pregunta el tipo de un dato. Fíjate en el último: \"150\" lleva comillas, así que es texto aunque parezca un número."
+    },
+    {
+      "tipo": "texto",
+      "texto": "En TypeScript puedes escribir el tipo junto a la caja: `const afectados: number = 150;`. Si después alguien, o una IA, intenta guardar ahí un texto, el editor lo subraya en rojo **antes de ejecutar**. Para eso sirve el «Type» de TypeScript."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure usa un boolean como interruptor: con `false`, una función está apagada. Para encenderla bastaría con cambiar esta línea a `true`.",
+      "codigo": "export const EIPD_HIDDEN_GENERATION_ENABLED = false;",
+      "fichero": "DeIure/src/lib/apartado-generate-request.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d01-r1",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(typeof 72);\nconsole.log(typeof \"72\");",
+      "opciones": [
+        {
+          "texto": "number\nstring",
+          "correcta": true,
+          "siEliges": "Eso es: el primero es un número; el segundo lleva comillas y es texto."
+        },
+        {
+          "texto": "number\nnumber",
+          "siEliges": "El segundo 72 va entre comillas: para el programa es texto."
+        },
+        {
+          "texto": "string\nstring",
+          "siEliges": "El primero va sin comillas: es un número de verdad."
+        },
+        {
+          "texto": "72\n72",
+          "siEliges": "typeof no escribe el dato, sino su tipo."
+        }
+      ],
+      "pistas": [
+        "Compara las dos líneas: solo cambian las comillas.",
+        "Sin comillas es number; con comillas es string.",
+        "La primera línea de salida es number."
+      ],
+      "explicacion": "Las comillas deciden el tipo: 72 es un número y \"72\" es un texto. Esta diferencia es la raíz del fallo de esta semana."
+    },
+    {
+      "ref": "s02-rev-1"
+    },
+    {
+      "id": "s02-d01-r2",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "En España, desde los 14 años se puede consentir el tratamiento de datos. Ordena las líneas para que escriba esto. Ojo: sobra una.",
+      "lineas": [
+        "const edad = 14;",
+        "console.log(typeof edad);",
+        "console.log(edad);"
+      ],
+      "sobran": [
+        "const edad = \"14\";"
+      ],
+      "salidaEsperada": [
+        "number",
+        "14"
+      ],
+      "pistas": [
+        "La primera línea de la salida es el tipo de edad.",
+        "Si sale number, la edad se guardó sin comillas.",
+        "const edad = 14; y luego los dos console.log en el orden de la salida."
+      ],
+      "explicacion": "Las dos versiones de edad escriben 14, pero solo una es un número. typeof te dice cuál."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d01-x1",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el dato sea un verdadero o falso y el programa escriba «boolean».",
+      "codigo": "const consentimiento = ___;\nconsole.log(typeof consentimiento);",
+      "salidaEsperada": [
+        "boolean"
+      ],
+      "opciones": [
+        {
+          "texto": "true",
+          "correcta": true,
+          "siEliges": "Correcto: true, sin comillas, es un boolean."
+        },
+        {
+          "texto": "\"true\"",
+          "siEliges": "Con comillas es el texto «true», no un boolean."
+        },
+        {
+          "texto": "\"sí\"",
+          "siEliges": "Es un texto. Un boolean solo puede ser true o false, sin comillas."
+        },
+        {
+          "texto": "verdadero",
+          "siEliges": "El lenguaje solo entiende true y false, en inglés. verdadero sería el nombre de una caja que no existe."
+        }
+      ],
+      "pistas": [
+        "Un boolean solo tiene dos valores posibles.",
+        "Son true y false, en inglés y sin comillas.",
+        "La respuesta es la que no lleva comillas y está en inglés."
+      ],
+      "explicacion": "true y false son valores del lenguaje, no textos. Con comillas dejan de ser boolean."
+    },
+    {
+      "id": "s02-d01-x2",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const activo = false;\nconsole.log(activo, typeof activo);",
+      "opciones": [
+        {
+          "texto": "false boolean",
+          "correcta": true,
+          "siEliges": "Eso es: el dato y, separado por un espacio, su tipo."
+        },
+        {
+          "texto": "activo boolean",
+          "siEliges": "activo sin comillas es la caja: se escribe su contenido, false."
+        },
+        {
+          "texto": "false string",
+          "siEliges": "false sin comillas es un boolean."
+        }
+      ],
+      "pistas": [
+        "console.log escribe dos cosas separadas por un espacio.",
+        "La primera es el contenido de la caja; la segunda, su tipo.",
+        "El contenido es false, sin comillas."
+      ],
+      "explicacion": "Un boolean se escribe como true o false, y su tipo es boolean."
+    }
+  ]
+}

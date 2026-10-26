@@ -1,0 +1,214 @@
+{
+  "id": "s01-d03",
+  "semana": 1,
+  "dia": 3,
+  "titulo": "Guardar un dato con nombre: const",
+  "objetivo": "Hoy aprendes a guardar un dato con un nombre usando const y a usarlo después escribiendo ese nombre.",
+  "conceptos": [
+    "const",
+    "nombres-variables"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Una **variable** es una caja con etiqueta: guardas un dato dentro y luego lo pides por su nombre. La forma más sencilla de crear una es con `const`."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const plazo = 72;\nconsole.log(plazo);\nconsole.log(\"plazo\");",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "plazo": "72"
+          },
+          "salida": [],
+          "nota": "Crea una caja con la etiqueta plazo y guarda dentro el 72."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "plazo": "72"
+          },
+          "salida": [
+            "72"
+          ],
+          "nota": "Sin comillas, plazo es el nombre de la caja: escribe lo que hay dentro."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "plazo": "72"
+          },
+          "salida": [
+            "72",
+            "plazo"
+          ],
+          "nota": "Con comillas es solo texto: escribe la palabra plazo, tal cual."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Léelo así: `const plazo = 72;` significa «crea la caja **plazo** y guarda en ella **72**». Aquí el `=` no quiere decir «es igual a», sino **«guarda»**. Y el nombre tiene que escribirse siempre igual, con las mismas mayúsculas."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const responsable = \"Clínica Arga\";\nconsole.log(responsable);\nconsole.log(responsable);",
+      "salida": [
+        "Clínica Arga",
+        "Clínica Arga"
+      ],
+      "nota": "Una vez guardado, lo usas tantas veces como quieras sin volver a escribir el dato."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En DeIure, los días que algo pasa en la papelera antes de borrarse para siempre están guardados en una `const`. Si mañana fueran 60 días, se cambiaría solo esta línea y todo DeIure lo sabría. Para eso sirven los nombres. (`export` deja usarla desde otros ficheros; lo verás más adelante.)",
+      "codigo": "export const TRASH_RETENTION_DAYS = 30;",
+      "fichero": "DeIure/src/lib/trash-retention.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d03-r1",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa escriba «AEPD».",
+      "codigo": "const autoridad = \"AEPD\";\nconsole.log(___);",
+      "salidaEsperada": [
+        "AEPD"
+      ],
+      "opciones": [
+        {
+          "texto": "autoridad",
+          "correcta": true,
+          "siEliges": "Correcto: el nombre de la caja, sin comillas, para que escriba lo que hay dentro."
+        },
+        {
+          "texto": "\"autoridad\"",
+          "siEliges": "Con comillas escribiría la palabra «autoridad», no lo que hay dentro de la caja."
+        },
+        {
+          "texto": "AEPD",
+          "siEliges": "AEPD es lo que hay dentro, pero sin comillas el ordenador busca una caja llamada AEPD, y no existe."
+        },
+        {
+          "texto": "Autoridad",
+          "siEliges": "Casi: el nombre tiene que ser exacto. Autoridad con mayúscula es otro nombre, y no existe."
+        }
+      ],
+      "pistas": [
+        "Para sacar lo que hay en una caja, se usa su etiqueta.",
+        "La etiqueta va sin comillas y escrita exactamente igual que en la línea 1.",
+        "La caja se llama autoridad, en minúsculas."
+      ],
+      "explicacion": "Para usar un dato guardado escribes el nombre de la caja, sin comillas y tal cual lo creaste."
+    },
+    {
+      "ref": "s01-rev-3"
+    },
+    {
+      "id": "s01-d03-r3",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "const dias = 30;",
+        "console.log(dias);",
+        "console.log(\"días en la papelera\");"
+      ],
+      "sobran": [
+        "console.log(\"dias\");"
+      ],
+      "salidaEsperada": [
+        "30",
+        "días en la papelera"
+      ],
+      "pistas": [
+        "Antes de usar una caja, tiene que existir.",
+        "Primero se crea la const; luego se escribe su contenido, sin comillas.",
+        "Empieza por const dias = 30; y deja fuera la línea con \"dias\" entre comillas."
+      ],
+      "explicacion": "El orden importa también para las cajas: primero se crean y después se usan. Y console.log(dias) escribe 30, mientras que console.log(\"dias\") escribiría la palabra."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d03-x1",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const pais = \"España\";\nconsole.log(\"pais\");\nconsole.log(pais);",
+      "opciones": [
+        {
+          "texto": "pais\nEspaña",
+          "correcta": true,
+          "siEliges": "Eso es: primero el texto «pais» y después lo que hay en la caja pais."
+        },
+        {
+          "texto": "España\nEspaña",
+          "siEliges": "La línea 2 lleva comillas: escribe la palabra pais, no el contenido de la caja."
+        },
+        {
+          "texto": "pais\npais",
+          "siEliges": "La línea 3 no lleva comillas: es la caja, y dentro hay «España»."
+        },
+        {
+          "texto": "España\npais",
+          "siEliges": "El orden es el de las líneas: primero va la que tiene comillas."
+        }
+      ],
+      "pistas": [
+        "Hay dos console.log: uno con comillas y otro sin ellas.",
+        "Con comillas es texto tal cual; sin comillas es el contenido de la caja.",
+        "La primera línea de salida es «pais»."
+      ],
+      "explicacion": "pais y \"pais\" se parecen, pero no son lo mismo: uno es una caja, el otro un texto."
+    },
+    {
+      "id": "s01-d03-x2",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa escriba «Consentimiento».",
+      "codigo": "___ base = \"Consentimiento\";\nconsole.log(base);",
+      "salidaEsperada": [
+        "Consentimiento"
+      ],
+      "opciones": [
+        {
+          "texto": "const",
+          "correcta": true,
+          "siEliges": "Correcto: const crea la caja."
+        },
+        {
+          "texto": "Const",
+          "siEliges": "Las palabras del lenguaje van en minúscula. Const con mayúscula no existe."
+        },
+        {
+          "texto": "constante",
+          "siEliges": "El lenguaje solo entiende la palabra abreviada: const."
+        }
+      ],
+      "pistas": [
+        "Falta la palabra que crea la caja.",
+        "Es la palabra que has visto hoy, escrita exactamente igual.",
+        "Cinco letras, todas en minúscula."
+      ],
+      "explicacion": "const es una palabra reservada del lenguaje: se escribe siempre así, en minúsculas."
+    },
+    {
+      "ref": "s01-rev-x1"
+    },
+    {
+      "ref": "s01-rev-x4"
+    }
+  ]
+}

@@ -1,0 +1,205 @@
+{
+  "id": "s01-d07",
+  "semana": 1,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: del fichero a la pantalla",
+  "objetivo": "Hoy aprendes qué pasa dentro del ordenador cuando ejecutas un programa, y cómo lo ejecutarás tú en el Mac con la orden node.",
+  "conceptos": [
+    "ordenador",
+    "terminal"
+  ],
+  "leccion": [
+    {
+      "tipo": "terminal",
+      "fichero": {
+        "nombre": "hola.ts",
+        "codigo": "const nombre = \"Daniel\";\nconsole.log(\"Hola,\", nombre);"
+      },
+      "orden": "node hola.ts",
+      "salida": [
+        "Hola, Daniel"
+      ],
+      "nota": "Hasta hoy el taller ejecutaba el código por ti. En tu Mac lo harás desde la **terminal**, una ventana donde das órdenes escribiendo. `node hola.ts` quiere decir «Node, ejecuta este fichero»."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Qué pasa al pulsar Enter",
+      "pasos": [
+        {
+          "titulo": "hola.ts",
+          "texto": "Tu código. Para el ordenador, de momento es solo texto."
+        },
+        {
+          "titulo": "Node",
+          "texto": "Lee el fichero, le quita lo que es solo de TypeScript y queda JavaScript, el lenguaje que sabe ejecutar."
+        },
+        {
+          "titulo": "Procesador",
+          "texto": "El chip que ejecuta las órdenes, una detrás de otra, miles de millones por segundo."
+        },
+        {
+          "titulo": "Memoria",
+          "texto": "Donde viven tus cajas (las variables) mientras el programa funciona."
+        },
+        {
+          "titulo": "Terminal",
+          "texto": "Lo que escribe console.log aparece aquí."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const plazo: number = 72;\nconsole.log(plazo);",
+      "salida": [
+        "72"
+      ],
+      "nota": "Esto es TypeScript: `: number` es una nota que dice «aquí va un número». Sirve para que el editor te avise de errores, como el de la const del día 5. Node la borra antes de ejecutar, y queda `const plazo = 72;`, que es JavaScript."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Las cajas viven en la **memoria** solo mientras el programa funciona. Cuando termina, desaparecen. Por eso, para que un dato dure, hay que guardarlo en un fichero o en una **base de datos**. Así se guarda, por ejemplo, tu racha del taller."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure es lo mismo a lo grande. Cuando una IA te dice «ejecuta `npm run dev`», es una orden de terminal que acaba pidiendo a Node que ponga en marcha miles de ficheros. Y sus EIPD no se pierden al apagar porque se guardan en una base de datos (PostgreSQL), no en la memoria.",
+      "codigo": "\"dev\": \"next dev --webpack --port 3002\",",
+      "fichero": "DeIure/package.json"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d07-r1",
+      "semana": 1,
+      "concepto": "ordenador",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Ejecutas este fichero con node. ¿Qué aparece en la terminal?",
+      "codigo": "const plazo: number = 72;\nconsole.log(plazo);",
+      "opciones": [
+        {
+          "texto": "72",
+          "correcta": true,
+          "siEliges": "Eso es: Node quita `: number` y ejecuta el resto."
+        },
+        {
+          "texto": "number",
+          "siEliges": "`: number` es solo una nota para el editor. No se escribe en ningún sitio."
+        },
+        {
+          "texto": "plazo: number = 72",
+          "siEliges": "La terminal no enseña tu código: enseña lo que escribe console.log."
+        },
+        {
+          "texto": "❌ Error: Node no entiende TypeScript",
+          "siEliges": "Node quita los tipos antes de ejecutar, así que funciona."
+        }
+      ],
+      "pistas": [
+        "¿Qué hace Node con lo que es solo de TypeScript?",
+        "Lo quita. Queda const plazo = 72; console.log(plazo);",
+        "Sale lo que hay en la caja plazo."
+      ],
+      "explicacion": "Los tipos de TypeScript ayudan mientras escribes, pero no cambian lo que hace el programa: Node los borra y ejecuta JavaScript."
+    },
+    {
+      "ref": "s01-rev-7"
+    },
+    {
+      "id": "s01-d07-r3",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Repaso de la semana: ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "let dias = 30;",
+        "console.log(\"Quedan\", dias, \"días\");",
+        "dias = 10;",
+        "console.log(\"Quedan\", dias, \"días\");"
+      ],
+      "sobran": [
+        "const dias = 30;"
+      ],
+      "salidaEsperada": [
+        "Quedan 30 días",
+        "Quedan 10 días"
+      ],
+      "pistas": [
+        "El valor cambia de 30 a 10. ¿const o let?",
+        "Créala con let; el cambio va entre los dos console.log.",
+        "let, console.log, cambio, console.log. La const sobra."
+      ],
+      "explicacion": "Toda la semana en cuatro líneas: crear con let porque cambia, escribir con comas, cambiar sin repetir let y volver a escribir."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d07-x1",
+      "semana": 1,
+      "concepto": "terminal",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Este es el fichero aviso.ts. ¿Qué aparece en la terminal al escribir node aviso.ts?",
+      "codigo": "const plazo = 72;\nconsole.log(\"Plazo:\", plazo, \"horas\");\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Plazo: 72 horas\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: una línea por cada console.log, con el valor de la caja."
+        },
+        {
+          "texto": "aviso.ts",
+          "siEliges": "La terminal no repite el nombre del fichero: muestra lo que escribe console.log."
+        },
+        {
+          "texto": "Plazo: plazo horas\nFin",
+          "siEliges": "plazo va sin comillas: es la caja, y dentro hay un 72."
+        },
+        {
+          "texto": "Plazo: 72 horas",
+          "siEliges": "La línea 3 también es un console.log: falta «Fin»."
+        }
+      ],
+      "pistas": [
+        "En la terminal solo aparece lo que escribe console.log.",
+        "Hay dos console.log: dos líneas de salida.",
+        "La primera es «Plazo: 72 horas»."
+      ],
+      "explicacion": "Ejecutar un fichero en la terminal es lo mismo que has hecho toda la semana en el taller: la salida es lo que escriben los console.log."
+    },
+    {
+      "id": "s01-d07-x2",
+      "semana": 1,
+      "concepto": "terminal",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba la orden «node hola.ts».",
+      "codigo": "const archivo = \"hola.ts\";\nconsole.log(\"node\", ___);",
+      "salidaEsperada": [
+        "node hola.ts"
+      ],
+      "opciones": [
+        {
+          "texto": "archivo",
+          "correcta": true,
+          "siEliges": "Correcto: la caja archivo contiene «hola.ts»."
+        },
+        {
+          "texto": "\"archivo\"",
+          "siEliges": "Con comillas escribiría la palabra «archivo»."
+        },
+        {
+          "texto": "hola.ts",
+          "siEliges": "Sin comillas, el ordenador busca una caja llamada hola, y no existe."
+        }
+      ],
+      "pistas": [
+        "El nombre del fichero ya está guardado en una caja.",
+        "Usa la caja: su nombre, sin comillas.",
+        "La caja se llama archivo."
+      ],
+      "explicacion": "Lo mismo de toda la semana: el texto fijo entre comillas, el dato guardado por su nombre."
+    }
+  ]
+}

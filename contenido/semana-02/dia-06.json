@@ -1,0 +1,222 @@
+{
+  "id": "s02-d06",
+  "semana": 2,
+  "dia": 6,
+  "titulo": "Convertir texto en número",
+  "objetivo": "Hoy aprendes a convertir un texto en número con Number(), que es como se arregla el fallo \"5\" + 3, y a reconocer NaN cuando la conversión sale mal.",
+  "conceptos": [
+    "convertir-numero"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const recibidas = \"5\";\nconsole.log(recibidas + 3);\nconsole.log(Number(recibidas) + 3);",
+      "salida": [
+        "53",
+        "8"
+      ],
+      "nota": "`Number(...)` convierte un texto en número. Con eso, `+` vuelve a sumar."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const texto = \"120\";\nconst afectados = Number(texto);\nconst total = afectados + 30;\nconsole.log(total);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "texto": "\"120\""
+          },
+          "salida": [],
+          "nota": "Llega del formulario como texto: \"120\"."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "texto": "\"120\"",
+            "afectados": "120"
+          },
+          "salida": [],
+          "nota": "Lo convierte: ahora es el número 120, sin comillas."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "texto": "\"120\"",
+            "afectados": "120",
+            "total": "150"
+          },
+          "salida": [],
+          "nota": "Número + número: suma."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "texto": "\"120\"",
+            "afectados": "120",
+            "total": "150"
+          },
+          "salida": [
+            "150"
+          ],
+          "nota": "150, como debía ser."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(Number(\"abc\"));\nconsole.log(Number(\"abc\") + 3);",
+      "salida": [
+        "NaN",
+        "NaN"
+      ],
+      "nota": "Si el texto no es un número, sale **NaN** (Not a Number: «no es un número»). Y todo lo que se calcula con NaN da NaN. El programa no se para: hay que estar atento."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(Number(\"12.5\"));\nconsole.log(Number(\"12,5\"));",
+      "salida": [
+        "12.5",
+        "NaN"
+      ],
+      "nota": "Trampa española: nosotros escribimos 12,5, pero el programa espera **punto**. Con coma, NaN."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Los apartados de una EIPD tienen números (del 1 al 14) que a veces llegan como texto, por ejemplo \"07\". DeIure los convierte antes de compararlos:",
+      "codigo": "const num = Number(raw);",
+      "fichero": "DeIure/src/lib/eipd-state.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d06-r1",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(Number(\"7\") + 1);",
+      "opciones": [
+        {
+          "texto": "8",
+          "correcta": true,
+          "siEliges": "Eso es: Number convierte \"7\" en 7, y 7 + 1 suma."
+        },
+        {
+          "texto": "71",
+          "siEliges": "Eso pasaría sin Number(). Aquí el 7 ya es un número."
+        },
+        {
+          "texto": "NaN",
+          "siEliges": "\"7\" sí es un número escrito como texto, así que la conversión funciona."
+        }
+      ],
+      "pistas": [
+        "¿Qué hace Number() con \"7\"?",
+        "Lo convierte en el número 7. Número + número suma.",
+        "7 + 1."
+      ],
+      "explicacion": "Number() quita las «comillas» por dentro: el texto pasa a ser un número y + vuelve a sumar."
+    },
+    {
+      "ref": "s02-rev-6"
+    },
+    {
+      "id": "s02-d06-r2",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "El plazo llega de un formulario como texto. Ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "const texto = \"30\";",
+        "const dias = Number(texto);",
+        "console.log(dias + 1);"
+      ],
+      "sobran": [
+        "console.log(texto + 1);"
+      ],
+      "salidaEsperada": [
+        "31"
+      ],
+      "pistas": [
+        "Para sumar 1 hace falta un número, no un texto.",
+        "Primero el texto, luego la conversión, luego la suma.",
+        "La que sobra suma 1 al texto y saldría 301."
+      ],
+      "explicacion": "Convertir antes de calcular. Es el arreglo del fallo de la semana."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d06-x1",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "La edad llega como texto. Completa para que escriba 16.",
+      "codigo": "const edad = \"15\";\nconsole.log(___ + 1);",
+      "salidaEsperada": [
+        "16"
+      ],
+      "opciones": [
+        {
+          "texto": "Number(edad)",
+          "correcta": true,
+          "siEliges": "Correcto: convierte y luego suma."
+        },
+        {
+          "texto": "edad",
+          "siEliges": "edad es texto: + pegaría y saldría 151."
+        },
+        {
+          "texto": "number(edad)",
+          "siEliges": "Number se escribe con N mayúscula; number en minúscula no existe."
+        }
+      ],
+      "pistas": [
+        "edad es un texto. ¿Qué pasa si le sumas 1?",
+        "Hay que convertirlo primero en número.",
+        "Number, con N mayúscula."
+      ],
+      "explicacion": "Number() con mayúscula. Sin conversión, \"15\" + 1 da \"151\"."
+    },
+    {
+      "id": "s02-d06-x2",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(Number(\"12,5\"));",
+      "opciones": [
+        {
+          "texto": "NaN",
+          "correcta": true,
+          "siEliges": "Eso es: con coma no lo entiende como número."
+        },
+        {
+          "texto": "12.5",
+          "siEliges": "El programa espera punto decimal; con coma no sabe leerlo."
+        },
+        {
+          "texto": "125",
+          "siEliges": "No quita la coma: directamente no lo reconoce como número."
+        },
+        {
+          "texto": "12,5",
+          "siEliges": "Number() devuelve un número o NaN, nunca el texto tal cual."
+        }
+      ],
+      "pistas": [
+        "¿Qué separador decimal usa el programa?",
+        "Usa punto. Un texto con coma no es un número para él.",
+        "Cuando no es un número, sale NaN."
+      ],
+      "explicacion": "Los datos escritos a la española (12,5) hay que convertirlos con cuidado. Number() solo entiende el punto."
+    },
+    {
+      "ref": "s02-rev-x1"
+    }
+  ]
+}

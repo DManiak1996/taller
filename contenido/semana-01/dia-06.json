@@ -1,0 +1,222 @@
+{
+  "id": "s01-d06",
+  "semana": 1,
+  "dia": 6,
+  "titulo": "Mensajes con variables",
+  "objetivo": "Hoy aprendes a escribir en una sola línea un texto junto al valor de una variable, y por qué una variable no se puede usar antes de crearla.",
+  "conceptos": [
+    "console-log",
+    "orden-ejecucion"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const plazo = 72;\nconsole.log(\"Plazo:\", plazo, \"horas\");",
+      "salida": [
+        "Plazo: 72 horas"
+      ],
+      "nota": "Dentro de `console.log` puedes poner varias cosas separadas por **comas**. Las escribe en la misma línea, con un espacio entre cada una."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const persona = \"Laura\";\nlet total = 1;\nconsole.log(persona, \"pidió\", total);\ntotal = 2;\nconsole.log(persona, \"pidió\", total);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "persona": "\"Laura\""
+          },
+          "salida": [],
+          "nota": "Caja persona, con «Laura». No va a cambiar: const."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "persona": "\"Laura\"",
+            "total": "1"
+          },
+          "salida": [],
+          "nota": "Caja total: las solicitudes que ha hecho Laura. Va a cambiar: let."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "persona": "\"Laura\"",
+            "total": "1"
+          },
+          "salida": [
+            "Laura pidió 1"
+          ],
+          "nota": "Junta tres cosas en una línea: dos cajas y un texto."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "persona": "\"Laura\"",
+            "total": "2"
+          },
+          "salida": [
+            "Laura pidió 1"
+          ],
+          "nota": "Llega otra solicitud: la caja pasa a 2."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "persona": "\"Laura\"",
+            "total": "2"
+          },
+          "salida": [
+            "Laura pidió 1",
+            "Laura pidió 2"
+          ],
+          "nota": "La misma línea de código, con el valor nuevo."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"Plazo:\", plazo);\nconst plazo = 72;",
+      "salida": [],
+      "lanzaError": true,
+      "nota": "Al revés no funciona. En la línea 1 la caja aún no existe: **Cannot access 'plazo' before initialization** («no se puede usar plazo antes de crearla»)."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure usa esta misma forma para dejar mensajes de **depuración** (buscar fallos): un texto fijo, una coma y una variable.",
+      "codigo": "console.log('[DEBUG formatZodErrors] Error message:', errorMessage);",
+      "fichero": "DeIure/src/lib/validations.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d06-r1",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const dias = 30;\nconsole.log(\"Quedan\", dias, \"días\");",
+      "opciones": [
+        {
+          "texto": "Quedan 30 días",
+          "correcta": true,
+          "siEliges": "Eso es: tres cosas en una línea, separadas por espacios."
+        },
+        {
+          "texto": "Quedan dias días",
+          "siEliges": "dias sin comillas es la caja: escribe su contenido, 30."
+        },
+        {
+          "texto": "Quedan\n30\ndías",
+          "siEliges": "Un solo console.log escribe una sola línea, aunque lleve comas."
+        },
+        {
+          "texto": "Quedan30días",
+          "siEliges": "Las comas se convierten en espacios en la salida."
+        }
+      ],
+      "pistas": [
+        "Hay un solo console.log. ¿Cuántas líneas saldrán?",
+        "Cada coma se convierte en un espacio, y las cajas se sustituyen por lo que llevan dentro.",
+        "La caja dias tiene un 30."
+      ],
+      "explicacion": "Con comas, console.log junta textos y valores en una línea. Es la forma más rápida de comprobar qué hay en una caja."
+    },
+    {
+      "id": "s01-d06-r2",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba «Avisar a la AEPD».",
+      "codigo": "const quien = \"la AEPD\";\nconsole.log(\"Avisar a\", ___);",
+      "salidaEsperada": [
+        "Avisar a la AEPD"
+      ],
+      "opciones": [
+        {
+          "texto": "quien",
+          "correcta": true,
+          "siEliges": "Correcto: la caja, sin comillas, y console.log pone el espacio."
+        },
+        {
+          "texto": "\"quien\"",
+          "siEliges": "Con comillas escribiría «Avisar a quien»."
+        },
+        {
+          "texto": "AEPD",
+          "siEliges": "Sin comillas, el ordenador busca una caja llamada AEPD, y no existe."
+        }
+      ],
+      "pistas": [
+        "Lo que falta es el contenido de una caja.",
+        "Se escribe el nombre de la caja, sin comillas.",
+        "La caja se llama quien."
+      ],
+      "explicacion": "Texto fijo con comillas, valor guardado sin ellas, y una coma entre los dos."
+    },
+    {
+      "ref": "s01-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d06-x1",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "const titular = \"Pedro\";",
+        "console.log(\"Titular:\", titular);",
+        "console.log(\"Solicitud recibida\");"
+      ],
+      "sobran": [
+        "console.log(\"Titular:\", \"titular\");"
+      ],
+      "salidaEsperada": [
+        "Titular: Pedro",
+        "Solicitud recibida"
+      ],
+      "pistas": [
+        "Antes de usar titular, la caja tiene que existir.",
+        "Primero la const; luego el console.log que la usa, sin comillas.",
+        "La que sobra escribe la palabra «titular» en vez de «Pedro»."
+      ],
+      "explicacion": "Crear antes de usar, y sin comillas para el contenido de la caja."
+    },
+    {
+      "id": "s01-d06-x2",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "lanzaError": true,
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"Inicio\");\nconsole.log(\"Titular:\", titular);\nconst titular = \"Pedro\";",
+      "opciones": [
+        {
+          "texto": "Inicio\n❌ Error: no se puede usar titular antes de crearla",
+          "correcta": true,
+          "siEliges": "Eso es: «Inicio» sale y en la línea 2 la caja aún no existe."
+        },
+        {
+          "texto": "Inicio\nTitular: Pedro",
+          "siEliges": "La caja se crea en la línea 3, demasiado tarde para la línea 2."
+        },
+        {
+          "texto": "Inicio\nTitular: titular",
+          "siEliges": "Sin comillas, titular es una caja, no texto."
+        }
+      ],
+      "pistas": [
+        "¿En qué línea se crea titular?",
+        "Se ejecuta de arriba abajo: en la línea 2, titular todavía no existe.",
+        "Sale una línea y después el error."
+      ],
+      "explicacion": "Una caja solo existe desde la línea en que se crea. Usarla antes da error."
+    }
+  ]
+}

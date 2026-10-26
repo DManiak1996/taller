@@ -1,0 +1,383 @@
+[
+  {
+    "id": "s01-rev-1",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "orden-ejecucion",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime primero el aviso de brecha y después la fecha límite». Toca la línea que está mal.",
+    "codigo": "console.log(\"Fecha límite: 72 horas\");\nconsole.log(\"AVISO: hay una brecha\");",
+    "lineasFallo": [
+      1,
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Las líneas están al revés: el programa las ejecuta de arriba abajo, así que imprime primero la fecha.",
+        "correcta": true,
+        "siEliges": "Exacto. El código funciona, pero no hace lo que pediste. Revisar no es solo ver si funciona: es comprobar que hace **lo que se pidió**."
+      },
+      {
+        "texto": "Falta algo entre las dos líneas para que se ejecuten en orden.",
+        "siEliges": "No falta nada: el orden lo marca la posición de cada línea. La de arriba va primero, siempre."
+      },
+      {
+        "texto": "No se pueden poner dos `console.log` seguidos.",
+        "siEliges": "Sí se puede: cada `console.log` imprime una línea nueva. Puedes poner tantos como quieras."
+      }
+    ],
+    "arreglo": "console.log(\"AVISO: hay una brecha\");\nconsole.log(\"Fecha límite: 72 horas\");",
+    "pistas": [
+      "Lee la petición otra vez: ¿qué tenía que salir primero?",
+      "Un programa se ejecuta de arriba abajo, una línea detrás de otra.",
+      "Mira qué imprime la línea 1. ¿Es el aviso?"
+    ],
+    "explicacion": "El programa ejecuta las líneas en el orden en que están escritas. La IA puso la fecha arriba, así que sale primero. No da ningún error, y por eso es fácil que se te pase: **que funcione no significa que haga lo que pediste**."
+  },
+  {
+    "id": "s01-rev-2",
+    "tipo": "razon",
+    "semana": 1,
+    "concepto": "texto-comillas",
+    "tema": "neutro",
+    "enunciado": "La IA y tu compañera Marta no se ponen de acuerdo sobre qué pasa al ejecutar esta línea. ¿Quién tiene razón?",
+    "codigo": "console.log(Hola);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Hola`.",
+        "porque": "`console.log` imprime lo que pongas dentro del paréntesis."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "Sin comillas, el ordenador no lo lee como texto: busca algo que se llame `Hola`, y no existe."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "La IA suena convencida, pero se ha dejado algo: las comillas. Sin ellas, `Hola` no es texto, es un nombre que el programa busca y no encuentra.",
+      "Marta": "Bien visto. El texto siempre va entre comillas: `\"Hola\"`. Sin ellas, el programa busca algo llamado `Hola`, no lo encuentra y se para con un error.",
+      "ninguno": "Una de las dos acierta. Fíjate en lo que falta alrededor de `Hola`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en lo que hay alrededor de `Hola`… y en lo que no hay.",
+      "El texto va entre comillas. Lo que no lleva comillas, el programa lo busca como un nombre.",
+      "¿Hay algo en el programa que se llame `Hola`?"
+    ],
+    "explicacion": "Al ejecutarlo sale `ReferenceError: Hola is not defined`, que en castellano es «no existe nada llamado Hola». Acostúmbrate a leer estos mensajes: dicen qué ha fallado y en qué línea. Y una IA puede sonar muy segura y estar equivocada: **no se cree a nadie, se comprueba**."
+  },
+  {
+    "id": "s01-rev-3",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "const",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Guarda el nombre del responsable del tratamiento e imprímelo». Toca la línea que está mal.",
+    "codigo": "const responsable = \"Clínica Ribera\";\nconsole.log(\"responsable\");",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Con comillas imprime la palabra «responsable» tal cual. Para imprimir lo que guarda la variable, va sin comillas.",
+        "correcta": true,
+        "siEliges": "Eso es. `\"responsable\"` es un texto; `responsable` es el nombre de la caja donde guardaste «Clínica Ribera»."
+      },
+      {
+        "texto": "Una `const` no se puede imprimir; tendría que ser `let`.",
+        "siEliges": "Las dos se pueden imprimir. La diferencia entre `const` y `let` es otra: si luego se puede cambiar el valor."
+      },
+      {
+        "texto": "«Clínica Ribera» lleva tilde y eso da problemas.",
+        "siEliges": "Las tildes dentro de un texto no dan ningún problema. El fallo está en la otra línea."
+      }
+    ],
+    "arreglo": "const responsable = \"Clínica Ribera\";\nconsole.log(responsable);",
+    "pistas": [
+      "La línea 1 está bien. Mira la 2.",
+      "Entre comillas es texto tal cual. Sin comillas es el nombre de una variable.",
+      "¿Qué imprime `console.log(\"responsable\")`? ¿Es lo que pediste?"
+    ],
+    "explicacion": "El programa imprime `responsable`, no `Clínica Ribera`. No hay error, solo una salida equivocada. Es la diferencia entre `plazo` y `\"plazo\"`: con comillas es una palabra, sin comillas es lo que hay guardado con ese nombre."
+  },
+  {
+    "id": "s01-rev-4",
+    "tipo": "razon",
+    "semana": 1,
+    "concepto": "let",
+    "tema": "rgpd",
+    "enunciado": "Había 120 personas afectadas por una brecha y ahora sabemos que son 150. La IA y Marta discuten qué pasa con este código. ¿Quién tiene razón?",
+    "codigo": "let afectados = 120;\nlet afectados = 150;\nconsole.log(afectados);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "`let` crea una variable nueva, y ya existe una que se llama `afectados`. Para cambiarla se escribe `afectados = 150;`, sin `let`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `150`.",
+        "porque": "La segunda línea sustituye a la primera."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto, esta vez acierta la IA. `let` se escribe una sola vez, al crear la variable. Para cambiarla después, solo el nombre: `afectados = 150;`.",
+      "Marta": "La idea de Marta es buena (cambiar 120 por 150), pero el código está mal escrito: al repetir `let` intenta crear otra variable con el mismo nombre, y eso no se puede.",
+      "ninguno": "Una de las dos acierta. Fíjate en la palabra que se repite en las líneas 1 y 2."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Compara el principio de la línea 1 y el de la línea 2.",
+      "`let` crea una variable. Una variable solo se crea una vez.",
+      "¿Se pueden tener dos variables que se llamen igual?"
+    ],
+    "explicacion": "Al ejecutarlo sale `SyntaxError: Identifier 'afectados' has already been declared`: «ya existe algo llamado afectados». Crear una variable (`let afectados = 120;`) y cambiarla (`afectados = 150;`) son cosas distintas, y se escriben distinto."
+  },
+  {
+    "id": "s01-rev-5",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "const",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Guarda el estado de la solicitud de acceso y cámbialo a respondida cuando la contestemos». Toca la línea que está mal.",
+    "codigo": "const estado = \"pendiente\";\nconsole.log(estado);\nestado = \"respondida\";\nconsole.log(estado);",
+    "lineasFallo": [
+      1,
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "`estado` se creó con `const`, y una `const` no se puede cambiar después. Tenía que ser `let`.",
+        "correcta": true,
+        "siEliges": "Exacto. Es uno de los fallos más típicos de la IA: elige `const` y luego intenta cambiar el valor."
+      },
+      {
+        "texto": "No se puede imprimir la misma variable dos veces.",
+        "siEliges": "Sí se puede, todas las veces que quieras. El problema es cambiar su valor."
+      },
+      {
+        "texto": "`\"respondida\"` tendría que ir sin comillas.",
+        "siEliges": "Es un texto, así que las comillas están bien. Fíjate en cómo se creó `estado`."
+      }
+    ],
+    "arreglo": "let estado = \"pendiente\";\nconsole.log(estado);\nestado = \"respondida\";\nconsole.log(estado);",
+    "lanzaError": true,
+    "pistas": [
+      "El valor de `estado` tiene que cambiar. Mira cómo se creó.",
+      "`const` es para valores que no cambian; `let`, para los que sí.",
+      "La línea 3 cambia el valor. ¿Lo permite la palabra de la línea 1?"
+    ],
+    "explicacion": "El programa imprime `pendiente` y luego se para con `TypeError: Assignment to constant variable` («asignar a una constante»). TypeScript lo avisa antes incluso de ejecutar. El fallo se escribe en la línea 1 (`const`) y explota en la 3: por eso vale tocar cualquiera de las dos."
+  },
+  {
+    "id": "s01-rev-6",
+    "tipo": "razon",
+    "semana": 1,
+    "concepto": "orden-ejecucion",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este código sobre una brecha. ¿Quién tiene razón?",
+    "codigo": "console.log(estado);\nlet estado = \"abierta\";",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `abierta`.",
+        "porque": "El programa ya conoce todas las variables antes de empezar."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "El código va de arriba abajo: en la línea 1, `estado` todavía no existe."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Suena razonable, pero no es así. El programa va línea a línea, y en la línea 1 todavía no ha creado `estado`.",
+      "Marta": "Correcto. Primero se crea la variable y después se usa. Al revés, error.",
+      "ninguno": "Una de las dos acierta. Piensa en qué línea se ejecuta primero."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Qué línea se ejecuta primero?",
+      "Una variable no existe hasta que se ejecuta la línea que la crea.",
+      "Cuando se ejecuta la línea 1, ¿se ha ejecutado ya la línea 2?"
+    ],
+    "explicacion": "Al ejecutarlo sale `ReferenceError: Cannot access 'estado' before initialization`: «no puedes usar estado antes de crearlo». Es la misma regla de siempre: **de arriba abajo**."
+  },
+  {
+    "id": "s01-rev-7",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "orden-ejecucion",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Cambia el estado de la brecha a notificada e imprímelo». Toca la línea que está mal.",
+    "codigo": "let estado = \"detectada\";\nconsole.log(estado);\nestado = \"notificada\";",
+    "lineasFallo": [
+      2,
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Imprime antes de cambiar el valor. Hay que cambiarlo primero e imprimir después.",
+        "correcta": true,
+        "siEliges": "Eso es. El programa imprime `detectada` y cambia el valor cuando ya no se va a imprimir nada más."
+      },
+      {
+        "texto": "Una variable creada con `let` no se puede cambiar.",
+        "siEliges": "Al revés: `let` es precisamente para las variables que cambian. La que no se puede cambiar es `const`."
+      },
+      {
+        "texto": "Tendría que ser `console.log(\"notificada\")`.",
+        "siEliges": "Eso imprimiría la palabra, pero sin usar la variable. Lo que se pidió es cambiar `estado` e imprimir su valor."
+      }
+    ],
+    "arreglo": "let estado = \"detectada\";\nestado = \"notificada\";\nconsole.log(estado);",
+    "pistas": [
+      "¿Qué imprime este programa? ¿Es lo que pediste?",
+      "El programa va de arriba abajo: `console.log` imprime el valor que hay **en ese momento**.",
+      "Cuando se ejecuta la línea 2, ¿qué vale `estado`?"
+    ],
+    "explicacion": "Imprime `detectada`, no `notificada`. No hay ningún error: el código funciona, pero hace las cosas en mal orden. Estos fallos silenciosos son los más peligrosos, porque nada te avisa."
+  },
+  {
+    "id": "s01-rev-x1",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "nombres-variables",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime cuántos meses hay para responder a una solicitud de acceso». Toca la línea que está mal.",
+    "codigo": "const mesesParaResponder = 1;\nconsole.log(mesesParaResponde);",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "El nombre está mal escrito: le falta la «r» final. Para el ordenador son dos nombres distintos.",
+        "correcta": true,
+        "siEliges": "Bien visto. Una sola letra basta para que el programa no encuentre la variable."
+      },
+      {
+        "texto": "El 1 tendría que ir entre comillas.",
+        "siEliges": "Es un número, así que va sin comillas. Compara letra a letra los dos nombres."
+      },
+      {
+        "texto": "`console.log` solo imprime texto, no números.",
+        "siEliges": "`console.log` imprime números sin problema. Compara letra a letra los dos nombres."
+      }
+    ],
+    "arreglo": "const mesesParaResponder = 1;\nconsole.log(mesesParaResponder);",
+    "lanzaError": true,
+    "pistas": [
+      "Compara el nombre de la línea 1 con el de la línea 2.",
+      "Los nombres tienen que ser exactamente iguales, letra a letra.",
+      "Lee despacio el final de cada nombre."
+    ],
+    "explicacion": "Al ejecutarlo sale `ReferenceError: mesesParaResponde is not defined`. TypeScript lo avisa antes y hasta sugiere el arreglo: `Did you mean 'mesesParaResponder'?` («¿querías decir…?»). Lee siempre el error entero: muchas veces trae la solución."
+  },
+  {
+    "id": "s01-rev-x2",
+    "tipo": "razon",
+    "semana": 1,
+    "concepto": "let",
+    "tema": "rgpd",
+    "enunciado": "El plazo para responder a una solicitud es de un mes, y se prorroga dos meses más. La IA escribió este código y Marta tiene dudas. ¿Quién tiene razón?",
+    "codigo": "let plazoMeses = 1;\nplazoMeses = 3;\nconsole.log(plazoMeses);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `3`.",
+        "porque": "La línea 2 cambia el valor, y `console.log` imprime el que hay en ese momento."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `1` y `3`.",
+        "porque": "La variable ha tenido dos valores, así que salen los dos."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Esta vez la IA acierta. Revisar también es saber reconocer cuándo algo está bien.",
+      "Marta": "Hay un solo `console.log`, así que se imprime una sola línea, con el valor que tiene la variable en ese momento: `3`.",
+      "ninguno": "Esta vez sí acierta alguien. Cuenta cuántos `console.log` hay."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Cuenta cuántos `console.log` hay.",
+      "Cada `console.log` imprime una línea, con el valor que tiene la variable en ese momento.",
+      "Cuando llega a la línea 3, ¿qué vale `plazoMeses`?"
+    ],
+    "explicacion": "Imprime solo `3`. La variable valía 1, pero la línea 2 la cambió antes de imprimirla. Y fíjate en que esta vez la IA tenía razón: no se trata de desconfiar de todo, sino de **comprobar**."
+  },
+  {
+    "id": "s01-rev-x3",
+    "tipo": "fallo",
+    "semana": 1,
+    "concepto": "const",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Cuenta las solicitudes: había 4 y ha llegado una más». Toca la línea que está mal.",
+    "codigo": "const solicitudes = 4;\nsolicitudes = 5;\nconsole.log(solicitudes);",
+    "lineasFallo": [
+      1,
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "`solicitudes` se creó con `const`, así que no se puede cambiar. Tenía que ser `let`.",
+        "correcta": true,
+        "siEliges": "Exacto. Si un valor va a cambiar, se crea con `let`."
+      },
+      {
+        "texto": "Para cambiar el valor hay que repetir `const`: `const solicitudes = 5;`",
+        "siEliges": "Eso intentaría crear otra variable con el mismo nombre, y también daría error. El problema está en cómo se creó."
+      },
+      {
+        "texto": "Los números no se pueden cambiar, solo los textos.",
+        "siEliges": "Se puede cambiar cualquier valor si la variable se creó con `let`."
+      }
+    ],
+    "arreglo": "let solicitudes = 4;\nsolicitudes = 5;\nconsole.log(solicitudes);",
+    "lanzaError": true,
+    "pistas": [
+      "El número de solicitudes tiene que cambiar. Mira cómo se creó la variable.",
+      "`const` es para lo que no cambia; `let`, para lo que sí.",
+      "¿Permite la palabra de la línea 1 lo que hace la línea 2?"
+    ],
+    "explicacion": "Al ejecutarlo sale `TypeError: Assignment to constant variable` y no se imprime nada. La regla de la semana: usa `const` por defecto y `let` solo cuando el valor vaya a cambiar."
+  },
+  {
+    "id": "s01-rev-x4",
+    "tipo": "razon",
+    "semana": 1,
+    "concepto": "nombres-variables",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué pasa con este código. ¿Quién tiene razón?",
+    "codigo": "const Responsable = \"Ana\";\nconsole.log(responsable);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Ana`.",
+        "porque": "Mayúsculas y minúsculas dan igual en los nombres."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "Para el ordenador, `Responsable` y `responsable` son dos nombres distintos."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "En castellano dan igual, pero en programación no: una mayúscula cambia el nombre.",
+      "Marta": "Correcto. Los nombres distinguen mayúsculas y minúsculas: `Responsable` no es `responsable`.",
+      "ninguno": "Una de las dos acierta. Compara la primera letra de cada nombre."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Compara la primera letra del nombre en cada línea.",
+      "El ordenador compara los nombres letra a letra, mayúsculas incluidas.",
+      "¿Existe algo que se llame exactamente `responsable`, en minúscula?"
+    ],
+    "explicacion": "Al ejecutarlo sale `ReferenceError: responsable is not defined`. Para el ordenador, una mayúscula es una letra distinta. Por convención, en TypeScript las variables empiezan en minúscula."
+  }
+]

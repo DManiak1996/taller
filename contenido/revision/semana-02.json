@@ -1,0 +1,377 @@
+[
+  {
+    "id": "s02-rev-1",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "tipos",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué pasa con este código. ¿Quién tiene razón?",
+    "codigo": "const notificada = \"false\";\nconsole.log(notificada);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "`false` es verdadero o falso, y eso nunca va entre comillas."
+      },
+      {
+        "quien": "Marta",
+        "dice": "No imprime nada.",
+        "porque": "El valor es falso, así que no hay nada que imprimir."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Las comillas no dan error: convierten `false` en un texto que dice «false». Se imprime sin problema.",
+      "Marta": "`console.log` imprime cualquier valor, también `false`. Y aquí, además, ni siquiera es falso: es un texto.",
+      "ninguno": "Exacto, ninguna acierta. Imprime `false`, pero como texto: entre comillas no es verdadero o falso, es una palabra."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en las comillas de la línea 1.",
+      "Todo lo que va entre comillas es texto, diga lo que diga.",
+      "Si `notificada` es un texto, ¿qué hace `console.log` con un texto?"
+    ],
+    "explicacion": "Imprime `false`. Parece el valor falso, pero es el texto «false», porque va entre comillas. En pantalla se ven igual; para el programa son tipos distintos, y la semana que viene verás que eso cambia las decisiones que toma. A veces ninguna de las dos opiniones es la buena: **compruébalo tú**."
+  },
+  {
+    "id": "s02-rev-2",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "operaciones",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Calcula la nota media de dos exámenes, un 6 y un 8». Tenía que salir 7. Toca la línea que está mal.",
+    "codigo": "const examen1 = 6;\nconst examen2 = 8;\nconst media = examen1 + examen2 / 2;\nconsole.log(media);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Primero se divide y luego se suma, como en matemáticas. Faltan paréntesis: `(examen1 + examen2) / 2`.",
+        "correcta": true,
+        "siEliges": "Exacto. Divide 8 entre 2 y suma 6: sale 10. Los paréntesis obligan a sumar primero."
+      },
+      {
+        "texto": "Para dividir hay que usar `:` en lugar de `/`.",
+        "siEliges": "En programación se divide con `/`. El símbolo está bien; el problema es en qué orden se hacen las operaciones."
+      },
+      {
+        "texto": "Las notas tendrían que ir entre comillas.",
+        "siEliges": "Con comillas serían textos, y entonces sí que no podrías calcular. Son números y van sin comillas."
+      }
+    ],
+    "arreglo": "const examen1 = 6;\nconst examen2 = 8;\nconst media = (examen1 + examen2) / 2;\nconsole.log(media);",
+    "pistas": [
+      "Calcula a mano lo que hace la línea 3. ¿Sale 7?",
+      "Como en matemáticas: primero multiplicaciones y divisiones, después sumas y restas.",
+      "¿Qué se divide entre 2: la suma o solo el segundo examen?"
+    ],
+    "explicacion": "Imprime `10`, no `7`. El programa divide primero (8 / 2 = 4) y luego suma (6 + 4). No da error, solo un número equivocado: por eso hay que **comprobar el resultado con un caso que sepas calcular a mano**."
+  },
+  {
+    "id": "s02-rev-3",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "texto-mas-numero",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Suma los días laborables y los del fin de semana». Tenía que salir 7. Toca la línea que está mal.",
+    "codigo": "const laborables = \"5\";\nconst finde = 2;\nconsole.log(laborables + finde);",
+    "lineasFallo": [
+      1,
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "El 5 está entre comillas, así que es texto. Texto + número pega uno detrás de otro en vez de sumar.",
+        "correcta": true,
+        "siEliges": "Eso es. `\"5\" + 2` da `\"52\"`. Es el fallo de la semana: quítale las comillas al 5."
+      },
+      {
+        "texto": "`console.log` no sabe hacer sumas: hay que guardar el resultado antes.",
+        "siEliges": "`console.log` puede imprimir una operación directamente. El problema está en lo que se suma."
+      },
+      {
+        "texto": "Hay que poner el número más grande primero.",
+        "siEliges": "El orden de una suma de números no cambia el resultado. Mira bien la línea 1."
+      }
+    ],
+    "arreglo": "const laborables = 5;\nconst finde = 2;\nconsole.log(laborables + finde);",
+    "pistas": [
+      "¿Qué imprime este código? Compáralo con lo que pediste.",
+      "`+` suma si los dos lados son números, y pega si uno de ellos es texto.",
+      "¿Qué tipo de dato es `\"5\"`?"
+    ],
+    "explicacion": "Imprime `52`, no `7`. Como `\"5\"` es texto, `+` lo pega con el 2 en vez de sumarlo. No hay ningún error que te avise: es uno de los fallos más típicos de la IA, y lo vas a volver a ver."
+  },
+  {
+    "id": "s02-rev-4",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "plantillas-texto",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este aviso. ¿Quién tiene razón?",
+    "codigo": "const horas = 72;\nconsole.log('Tienes ${horas} horas');",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `Tienes ${horas} horas`, tal cual.",
+        "porque": "Las plantillas solo funcionan con comillas invertidas, y aquí son comillas simples."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Tienes 72 horas`.",
+        "porque": "`${horas}` mete el valor de la variable dentro del texto."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Lo sería con comillas invertidas (`` ` ``). Con comillas simples, `${horas}` son solo letras dentro de un texto.",
+      "Marta": "Correcto. Fíjate siempre en el tipo de comillas: solo las invertidas (`` ` ``) convierten `${...}` en el valor.",
+      "ninguno": "Una de las dos acierta. Mira con lupa las comillas de la línea 2."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Mira con lupa las comillas de la línea 2.",
+      "`${...}` solo funciona dentro de comillas invertidas: `` ` ``.",
+      "¿Son invertidas las comillas de la línea 2?"
+    ],
+    "explicacion": "Imprime `Tienes ${horas} horas`, con el `${horas}` a la vista. Las comillas simples `'` y las invertidas `` ` `` se parecen mucho, pero solo las invertidas hacen de plantilla."
+  },
+  {
+    "id": "s02-rev-5",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "plantillas-texto",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime un aviso que diga quién tiene que responder a quién». Toca la línea que está mal.",
+    "codigo": "const persona = \"Ana Pérez\";\nconst clinica = \"Clínica Ribera\";\nconst frase = `responde a ${clinica}`;\nconsole.log(`${clinica} ${frase}`);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "En la frase usa `clinica` otra vez. Tenía que ser `persona`.",
+        "correcta": true,
+        "siEliges": "Bien visto. Es un fallo de copiar y pegar, muy típico de la IA y de las personas."
+      },
+      {
+        "texto": "No se pueden meter dos `${}` en la misma plantilla.",
+        "siEliges": "Se pueden meter todos los que quieras. Fíjate en qué variable va dentro de cada uno."
+      },
+      {
+        "texto": "Falta un `+` para unir los textos.",
+        "siEliges": "Con plantillas no hace falta `+`: el texto y los datos van juntos entre las comillas invertidas."
+      }
+    ],
+    "arreglo": "const persona = \"Ana Pérez\";\nconst clinica = \"Clínica Ribera\";\nconst frase = `responde a ${persona}`;\nconsole.log(`${clinica} ${frase}`);",
+    "pistas": [
+      "Lee en voz alta lo que imprimiría la línea 4.",
+      "Cada `${...}` mete el valor de la variable que tiene dentro.",
+      "¿Se usa `persona` en algún sitio?"
+    ],
+    "explicacion": "Imprime `Clínica Ribera responde a Clínica Ribera`. No hay error, pero el mensaje no tiene sentido. Una pista de revisor: si creas una variable y luego no se usa en ningún sitio, algo suele estar mal."
+  },
+  {
+    "id": "s02-rev-6",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "convertir-numero",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Suma los afectados que llegan del formulario web a los 30 que ya teníamos». Los formularios siempre entregan los datos como texto. Toca la línea que está mal.",
+    "codigo": "const dato = \"120\"; // del formulario\nconst previos = 30;\nconst total = dato + previos;\nconsole.log(`Afectados: ${total}`);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "`dato` es texto. Hay que convertirlo con `Number()` antes de sumar.",
+        "correcta": true,
+        "siEliges": "Exacto: `Number(dato) + previos` da 150."
+      },
+      {
+        "texto": "Hay que quitar las comillas de la línea 1.",
+        "siEliges": "En este ejemplo funcionaría, pero el dato llega así del formulario y no lo puedes cambiar. Lo que sí puedes hacer es convertirlo antes de sumar."
+      },
+      {
+        "texto": "Una plantilla no puede mostrar números.",
+        "siEliges": "Las plantillas muestran números sin problema. El fallo está antes, en la suma."
+      }
+    ],
+    "arreglo": "const dato = \"120\"; // del formulario\nconst previos = 30;\nconst total = Number(dato) + previos;\nconsole.log(`Afectados: ${total}`);",
+    "pistas": [
+      "¿Qué tipo de dato es `dato`?",
+      "Texto + número pega en vez de sumar. Para sumar, primero hay que convertir el texto en número.",
+      "¿Qué hace `Number(\"120\")`?"
+    ],
+    "explicacion": "Imprime `Afectados: 12030`. Lo que llega de fuera (un formulario, un fichero, una web) suele llegar como texto. Antes de calcular con ello, conviértelo con `Number()`. Imagina este número en una notificación a la autoridad de control."
+  },
+  {
+    "id": "s02-rev-7",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "bits-texto",
+    "tema": "neutro",
+    "enunciado": "`.length` cuenta cuántos caracteres tiene un texto. La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "console.log(\"España\".length);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `6`.",
+        "porque": "E, s, p, a, ñ, a: seis caracteres."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `7`.",
+        "porque": "La ñ ocupa dos bytes en el ordenador, así que cuenta doble."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `.length` cuenta caracteres, y la ñ es uno.",
+      "Marta": "Marta sabe algo cierto: guardada en un fichero, la ñ ocupa 2 bytes y «España» ocupa 7. Pero `.length` no cuenta bytes, cuenta caracteres.",
+      "ninguno": "Esta vez sí acierta una. Cuenta las letras una a una."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Cuenta las letras de «España» con el dedo.",
+      "`.length` cuenta caracteres, no bytes.",
+      "¿Cuántos caracteres es la ñ: uno o dos?"
+    ],
+    "explicacion": "Imprime `6`. Caracteres y bytes no son lo mismo: en un fichero, «España» ocupa 7 bytes, porque la ñ necesita 2. Cuando un programa lee esos bytes como si cada uno fuera una letra, salen cosas como «EspaÃ±a». Ese es el origen de las tildes rotas que habrás visto alguna vez."
+  },
+  {
+    "id": "s02-rev-x1",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "convertir-numero",
+    "tema": "rgpd",
+    "enunciado": "Alguien ha escrito el plazo con letras en un formulario. La IA y Marta discuten qué pasa. ¿Quién tiene razón?",
+    "codigo": "const horas = Number(\"setenta y dos\");\nconsole.log(horas);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `72`.",
+        "porque": "`Number()` entiende los números escritos con letras."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "Ese texto no es un número, así que el programa se para."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "`Number()` solo entiende cifras, como `\"72\"`. Con letras no sabe qué hacer.",
+      "Marta": "Casi, pero el programa no se para: sigue adelante con un valor especial que significa «esto no es un número».",
+      "ninguno": "Exacto. Imprime `NaN`, que significa «Not a Number», no es un número. Y el programa sigue como si nada."
+    },
+    "comprobar": true,
+    "pistas": [
+      "`Number()` convierte cifras escritas como texto, como `\"72\"`.",
+      "Cuando `Number()` no puede convertir algo, no da error: devuelve un valor especial.",
+      "Ese valor especial son tres letras y significa «no es un número»."
+    ],
+    "explicacion": "Imprime `NaN` (*Not a Number*). Ojo: no da error, así que el programa sigue y cualquier cálculo con `NaN` da `NaN`. Cuando conviertas un dato de fuera, comprueba que de verdad sale un número."
+  },
+  {
+    "id": "s02-rev-x2",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "operaciones",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Calcula cuántas horas son 3 días». Tenía que salir 72. Toca la línea que está mal.",
+    "codigo": "const horasPorDia = 24;\nconst dias = 3;\nconsole.log(horasPorDia + dias);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Suma en vez de multiplicar. Tenía que ser `horasPorDia * dias`.",
+        "correcta": true,
+        "siEliges": "Exacto. 3 días son 3 veces 24 horas: se multiplica con `*`."
+      },
+      {
+        "texto": "Para multiplicar hay que escribir `x`.",
+        "siEliges": "En programación se multiplica con `*`, no con `x`. Pero fíjate: esta línea no multiplica."
+      },
+      {
+        "texto": "Faltan paréntesis alrededor de la operación.",
+        "siEliges": "Aquí solo hay una operación, así que los paréntesis no cambian nada. Mira qué operación es."
+      }
+    ],
+    "arreglo": "const horasPorDia = 24;\nconst dias = 3;\nconsole.log(horasPorDia * dias);",
+    "pistas": [
+      "¿Qué imprime? ¿Se parece a 72?",
+      "`+` suma, `-` resta, `*` multiplica y `/` divide.",
+      "¿Cuántas veces 24 horas hay en 3 días?"
+    ],
+    "explicacion": "Imprime `27` en lugar de `72`. Un símbolo equivocado y el resultado no tiene nada que ver. Por eso las 72 horas del artículo 33 son un buen caso de prueba: sabes de memoria cuánto tiene que salir."
+  },
+  {
+    "id": "s02-rev-x3",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "texto-mas-numero",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime esta línea. ¿Quién tiene razón?",
+    "codigo": "console.log(1 + 2 + \"3\");",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `123`.",
+        "porque": "Como hay un texto, todo se pega."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `33`.",
+        "porque": "Se hace de izquierda a derecha: 1 + 2 son 3, y luego 3 pegado a \"3\" da \"33\"."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. El programa va paso a paso, de izquierda a derecha: primero suma dos números y luego pega el resultado al texto.",
+      "Marta": "Sería así si el texto estuviera al principio. Pero el programa va de izquierda a derecha, y 1 + 2 son dos números.",
+      "ninguno": "Esta vez sí acierta una. Hazlo paso a paso, de izquierda a derecha."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Hazlo paso a paso, de izquierda a derecha.",
+      "Número + número suma. Número + texto pega.",
+      "¿Cuánto es `1 + 2`? Y ahora, ¿qué pasa al juntarlo con `\"3\"`?"
+    ],
+    "explicacion": "Imprime `33`. Primero `1 + 2` da 3 (dos números: suma). Después `3 + \"3\"` da `\"33\"` (hay un texto: pega). El orden importa, y por eso con datos mezclados es mejor usar plantillas o convertir con `Number()`."
+  },
+  {
+    "id": "s02-rev-x4",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "plantillas-texto",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime cuántas horas quedan para notificar la brecha». Toca la línea que está mal.",
+    "codigo": "const horas = 22;\nconsole.log(`Quedan {horas} horas`);",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Falta el `$` delante de la llave: tenía que ser `${horas}`.",
+        "correcta": true,
+        "siEliges": "Bien visto. Sin el `$`, las llaves son solo dos caracteres más del texto."
+      },
+      {
+        "texto": "Las comillas invertidas no valen: tienen que ser normales.",
+        "siEliges": "Al revés: las invertidas son justo las que hacen falta para una plantilla. Mira lo que hay justo antes de la llave."
+      },
+      {
+        "texto": "No se puede poner un número dentro de un texto.",
+        "siEliges": "Con una plantilla sí se puede. El problema es cómo se ha escrito el hueco."
+      }
+    ],
+    "arreglo": "const horas = 22;\nconsole.log(`Quedan ${horas} horas`);",
+    "pistas": [
+      "¿Qué imprime? ¿Sale el 22?",
+      "El hueco de una plantilla se escribe `${...}`: un dólar y dos llaves.",
+      "Compara `{horas}` con `${horas}`."
+    ],
+    "explicacion": "Imprime `Quedan {horas} horas`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves."
+  }
+]

@@ -1,0 +1,247 @@
+[
+  {
+    "id": "orden-ejecucion",
+    "nombre": "El orden de ejecución",
+    "semana": 1
+  },
+  {
+    "id": "console-log",
+    "nombre": "Mostrar mensajes con console.log",
+    "semana": 1
+  },
+  {
+    "id": "texto-comillas",
+    "nombre": "El texto va entre comillas",
+    "semana": 1
+  },
+  {
+    "id": "const",
+    "nombre": "Guardar un dato fijo: const",
+    "semana": 1
+  },
+  {
+    "id": "let",
+    "nombre": "Guardar un dato que cambia: let",
+    "semana": 1
+  },
+  {
+    "id": "nombres-variables",
+    "nombre": "Nombres de variables",
+    "semana": 1
+  },
+  {
+    "id": "ordenador",
+    "nombre": "Qué hace el ordenador con tu programa",
+    "semana": 1
+  },
+  {
+    "id": "terminal",
+    "nombre": "La terminal",
+    "semana": 1
+  },
+  {
+    "id": "tipos",
+    "nombre": "Tipos: texto, número, verdadero o falso",
+    "semana": 2
+  },
+  {
+    "id": "operaciones",
+    "nombre": "Operaciones con números",
+    "semana": 2
+  },
+  {
+    "id": "plantillas-texto",
+    "nombre": "Plantillas de texto",
+    "semana": 2
+  },
+  {
+    "id": "texto-mas-numero",
+    "nombre": "Sumar texto y números",
+    "semana": 2
+  },
+  {
+    "id": "convertir-numero",
+    "nombre": "Convertir texto en número",
+    "semana": 2
+  },
+  {
+    "id": "bits-texto",
+    "nombre": "Bits, bytes y texto",
+    "semana": 2
+  },
+  {
+    "id": "comparaciones",
+    "nombre": "Comparaciones",
+    "semana": 3
+  },
+  {
+    "id": "if-else",
+    "nombre": "Decisiones con if y else",
+    "semana": 3
+  },
+  {
+    "id": "logicos",
+    "nombre": "Y, o, no: && || !",
+    "semana": 3
+  },
+  {
+    "id": "logica-booleana",
+    "nombre": "Lógica booleana",
+    "semana": 3
+  },
+  {
+    "id": "bucle-for",
+    "nombre": "Repetir con for",
+    "semana": 4
+  },
+  {
+    "id": "bucle-while",
+    "nombre": "Repetir con while",
+    "semana": 4
+  },
+  {
+    "id": "algoritmos",
+    "nombre": "Qué es un algoritmo",
+    "semana": 4
+  },
+  {
+    "id": "arrays",
+    "nombre": "Listas (arrays)",
+    "semana": 5
+  },
+  {
+    "id": "for-of",
+    "nombre": "Recorrer una lista con for...of",
+    "semana": 5
+  },
+  {
+    "id": "estructuras-datos",
+    "nombre": "Listas y diccionarios",
+    "semana": 5
+  },
+  {
+    "id": "funciones",
+    "nombre": "Funciones",
+    "semana": 6
+  },
+  {
+    "id": "parametros-return",
+    "nombre": "Parámetros y return",
+    "semana": 6
+  },
+  {
+    "id": "ambito",
+    "nombre": "Ámbito de las variables",
+    "semana": 6
+  },
+  {
+    "id": "descomposicion",
+    "nombre": "Dividir un problema en partes",
+    "semana": 6
+  },
+  {
+    "id": "objetos",
+    "nombre": "Objetos",
+    "semana": 7
+  },
+  {
+    "id": "metodos-array",
+    "nombre": "map, filter y find",
+    "semana": 7
+  },
+  {
+    "id": "referencias",
+    "nombre": "Copias y referencias",
+    "semana": 7
+  },
+  {
+    "id": "git",
+    "nombre": "Git: ramas, commits y diffs",
+    "semana": 8
+  },
+  {
+    "id": "tests",
+    "nombre": "Leer y escribir tests",
+    "semana": 8
+  },
+  {
+    "id": "programa-propio",
+    "nombre": "Tu primer programa propio",
+    "semana": 9
+  },
+  {
+    "id": "eficiencia",
+    "nombre": "Eficiencia",
+    "semana": 9
+  },
+  {
+    "id": "tipos-ts",
+    "nombre": "Tipos de TypeScript",
+    "semana": 10
+  },
+  {
+    "id": "errores",
+    "nombre": "Errores y try/catch",
+    "semana": 10
+  },
+  {
+    "id": "async-await",
+    "nombre": "Esperar con async y await",
+    "semana": 11
+  },
+  {
+    "id": "json",
+    "nombre": "JSON",
+    "semana": 11
+  },
+  {
+    "id": "http",
+    "nombre": "HTTP y APIs",
+    "semana": 12
+  },
+  {
+    "id": "redes",
+    "nombre": "Cómo viaja una petición",
+    "semana": 12
+  },
+  {
+    "id": "rutas-api",
+    "nombre": "Una ruta de API",
+    "semana": 13
+  },
+  {
+    "id": "cliente-servidor",
+    "nombre": "Cliente y servidor",
+    "semana": 13
+  },
+  {
+    "id": "sesiones-auditoria",
+    "nombre": "Sesiones, autenticación y auditoría",
+    "semana": 14
+  },
+  {
+    "id": "contrasenas",
+    "nombre": "Cómo se guarda una contraseña",
+    "semana": 14
+  },
+  {
+    "id": "react",
+    "nombre": "Componentes de React",
+    "semana": 15
+  },
+  {
+    "id": "navegador",
+    "nombre": "Cómo dibuja un navegador una página",
+    "semana": 15
+  },
+  {
+    "id": "sql",
+    "nombre": "Consultas SQL",
+    "semana": 16
+  },
+  {
+    "id": "indices",
+    "nombre": "Bases de datos e índices",
+    "semana": 16
+  }
+]

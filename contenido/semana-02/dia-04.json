@@ -1,0 +1,183 @@
+{
+  "id": "s02-d04",
+  "semana": 2,
+  "dia": 4,
+  "titulo": "Plantillas de texto",
+  "objetivo": "Hoy aprendes a escribir textos con datos dentro usando plantillas, la forma que más verás en DeIure.",
+  "conceptos": [
+    "plantillas-texto"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const quien = \"Laura\";\nconst dias = 30;\nconsole.log(`${quien}, ${dias} días`);",
+      "salida": [
+        "Laura, 30 días"
+      ],
+      "nota": "Una **plantilla** va entre **comillas invertidas** (en el teclado del Mac, la tecla a la derecha de la P). Dentro, `${...}` es un hueco donde se mete el valor de una caja."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const n = 8;\nconsole.log(\"Total: \" + n + \" casos\");\nconsole.log(`Total: ${n} casos`);",
+      "salida": [
+        "Total: 8 casos",
+        "Total: 8 casos"
+      ],
+      "nota": "Hacen lo mismo. La plantilla se lee mejor porque el texto se ve tal cual va a quedar, con sus espacios."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = 72;\nconsole.log(`Son ${horas / 24} días`);",
+      "salida": [
+        "Son 3 días"
+      ],
+      "nota": "Dentro de `${...}` también puede ir un cálculo."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = 72;\nconsole.log(\"Quedan ${horas} horas\");",
+      "salida": [
+        "Quedan ${horas} horas"
+      ],
+      "nota": "Con comillas normales, `${...}` no funciona: lo escribe tal cual. Es un fallo muy frecuente, y el programa no avisa."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure deja constancia de cada acción con una plantilla: qué se hizo, sobre qué y quién. Es el registro que sirve para demostrar el cumplimiento (la responsabilidad proactiva del artículo 5.2 del RGPD). Simplificado:",
+      "codigo": "console.log(`[AUDIT] ${actionType} ${entityType} by ${userName}`);",
+      "fichero": "DeIure/src/lib/audit-logger.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d04-r1",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const n = 3;\nconsole.log(`Brechas: ${n}`);\nconsole.log(\"Brechas: ${n}\");",
+      "opciones": [
+        {
+          "texto": "Brechas: 3\nBrechas: ${n}",
+          "correcta": true,
+          "siEliges": "Eso es: la plantilla rellena el hueco; las comillas normales lo copian tal cual."
+        },
+        {
+          "texto": "Brechas: 3\nBrechas: 3",
+          "siEliges": "La segunda línea usa comillas normales: ahí ${n} no es un hueco."
+        },
+        {
+          "texto": "Brechas: ${n}\nBrechas: ${n}",
+          "siEliges": "La primera línea sí es una plantilla (comillas invertidas): rellena el hueco."
+        }
+      ],
+      "pistas": [
+        "Mira qué comillas usa cada línea.",
+        "Solo las comillas invertidas convierten ${...} en un hueco.",
+        "La primera línea de salida es «Brechas: 3»."
+      ],
+      "explicacion": "Las comillas deciden: invertidas, plantilla con huecos; normales, texto tal cual."
+    },
+    {
+      "ref": "s02-rev-4"
+    },
+    {
+      "id": "s02-d04-r2",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "const horas = 48;",
+        "const dias = horas / 24;",
+        "console.log(`Quedan ${dias} días`);"
+      ],
+      "sobran": [
+        "console.log(\"Quedan ${dias} días\");"
+      ],
+      "salidaEsperada": [
+        "Quedan 2 días"
+      ],
+      "pistas": [
+        "dias se calcula a partir de horas. ¿Cuál tiene que existir antes?",
+        "Primero horas, luego dias, luego el mensaje con plantilla.",
+        "La que sobra usa comillas normales."
+      ],
+      "explicacion": "Una caja que se calcula con otra tiene que ir después de ella. Y el mensaje necesita comillas invertidas para rellenar el hueco."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d04-x1",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba «Avisar a la AEPD».",
+      "codigo": "const quien = \"la AEPD\";\nconsole.log(`Avisar a ___`);",
+      "salidaEsperada": [
+        "Avisar a la AEPD"
+      ],
+      "opciones": [
+        {
+          "texto": "${quien}",
+          "correcta": true,
+          "siEliges": "Correcto: el hueco completo, con $ y llaves."
+        },
+        {
+          "texto": "quien",
+          "siEliges": "Sin ${...}, dentro de la plantilla es solo la palabra «quien»."
+        },
+        {
+          "texto": "{quien}",
+          "siEliges": "Falta el $ delante de las llaves: lo escribiría tal cual."
+        },
+        {
+          "texto": "$quien",
+          "siEliges": "Faltan las llaves: el hueco es ${...} entero."
+        }
+      ],
+      "pistas": [
+        "Dentro de una plantilla, el valor de una caja va en un hueco.",
+        "El hueco se escribe con $, llave de abrir, nombre y llave de cerrar.",
+        "Es ${quien}."
+      ],
+      "explicacion": "El hueco tiene tres piezas: $, llaves y el nombre. Si falta una, el programa escribe el texto tal cual, sin avisar."
+    },
+    {
+      "id": "s02-d04-x2",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(`${2 + 3}`);\nconsole.log(`2 + 3`);",
+      "opciones": [
+        {
+          "texto": "5\n2 + 3",
+          "correcta": true,
+          "siEliges": "Eso es: lo de dentro del hueco se calcula; lo de fuera se copia."
+        },
+        {
+          "texto": "5\n5",
+          "siEliges": "La segunda plantilla no tiene hueco ${...}: se copia tal cual."
+        },
+        {
+          "texto": "2 + 3\n2 + 3",
+          "siEliges": "En la primera, 2 + 3 está dentro de un hueco: se calcula."
+        }
+      ],
+      "pistas": [
+        "¿Cuál de las dos tiene un hueco ${...}?",
+        "Dentro del hueco se calcula; fuera es texto.",
+        "La primera línea de salida es 5."
+      ],
+      "explicacion": "Una plantilla es texto salvo lo que va dentro de ${...}, que es código."
+    },
+    {
+      "ref": "s02-rev-x4"
+    }
+  ]
+}
