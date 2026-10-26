@@ -97,10 +97,10 @@ Líneas (orden correcto):
 console.log("Detectar la brecha");
 console.log("Contenerla");
 console.log("Evaluar el riesgo");
-console.log("Notificar en 72 horas");
+console.log("Notificar (máx. 72 h)");
 ```
 
-Objetivo: `Detectar la brecha` / `Contenerla` / `Evaluar el riesgo` / `Notificar en 72 horas`
+Objetivo: `Detectar la brecha` / `Contenerla` / `Evaluar el riesgo` / `Notificar (máx. 72 h)`
 
 Pistas: 1) Fíjate en lo que tiene que escribir: la primera línea de la salida es la primera del programa. 2) Cada console.log produce una línea de salida, en el mismo orden. 3) Empieza por console.log("Detectar la brecha");
 
