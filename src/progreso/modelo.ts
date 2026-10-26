@@ -62,6 +62,19 @@ export function racha(p: Progreso, fechaHoy: string): number {
 
 export const hechoHoy = (p: Progreso, fechaHoy: string) => p.sesiones.some((s) => s.fecha === fechaHoy)
 
+/** Como mucho se hacen 2 días de contenido por día de calendario (la racha sigue contando días de calendario). */
+export const MAX_DIAS_AL_DIA = 2
+
+/** Cuántos días de contenido distintos terminó en esa fecha (las sesiones de solo repaso no cuentan). */
+export const diasDeContenido = (p: Progreso, fecha: string) =>
+  new Set(p.sesiones.filter((s) => s.fecha === fecha && s.dia).map((s) => s.dia)).size
+
+/** Con el reto de hoy hecho, ¿puede seguir con el día siguiente? */
+export const puedeSeguir = (p: Progreso, fechaHoy: string) => {
+  const n = diasDeContenido(p, fechaHoy)
+  return n >= 1 && n < MAX_DIAS_AL_DIA
+}
+
 /** Lunes a domingo de la semana de hoy, y si ese día hubo sesión. */
 export function semanaActual(p: Progreso, fechaHoy: string) {
   const lunes = sumarDias(fechaHoy, -diaSemana(fechaHoy))

@@ -48,3 +48,18 @@ describe('progreso', () => {
     expect(unir(a, b).sesiones).toHaveLength(2)
   })
 })
+
+describe('dos días de contenido al día', () => {
+  const s = (dia: string | null, fecha: string) => ({ id: `${dia}-${fecha}`, dia, fecha, momento: fecha + 'T10:00:00Z' })
+  it('deja seguir tras el primero, no tras el segundo, y la racha cuenta días de calendario', async () => {
+    const { puedeSeguir, diasDeContenido } = await import('../src/progreso/modelo')
+    const f = '2026-10-26'
+    const uno: Progreso = { sesiones: [s('s01-d01', f)], intentos: [] }
+    const dos: Progreso = { sesiones: [s('s01-d01', f), s('s01-d02', f)], intentos: [] }
+    expect(puedeSeguir({ sesiones: [], intentos: [] }, f)).toBe(false)
+    expect(puedeSeguir(uno, f)).toBe(true)
+    expect(puedeSeguir(dos, f)).toBe(false)
+    expect(diasDeContenido({ sesiones: [s(null, f)], intentos: [] }, f)).toBe(0) // solo repaso no cuenta
+    expect(racha(dos, f)).toBe(1)
+  })
+})

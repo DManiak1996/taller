@@ -85,6 +85,24 @@ export function crearEntorno(maxPasos: number, maxVueltas: number) {
       explicacion = m[1] + ' no es una función, así que no se puede llamar con ().'
     } else if (/Cannot read propert(y|ies) of (undefined|null)/.test(mensaje)) {
       explicacion = 'Intentas leer algo dentro de un valor vacío (undefined o null).'
+    } else if (/Cannot set propert(y|ies) of (undefined|null)/.test(mensaje)) {
+      explicacion = 'Intentas guardar algo dentro de un valor vacío (undefined o null).'
+    } else if ((m = mensaje.match(/^(\S+) is not iterable/))) {
+      explicacion = m[1] + ' no es una lista, así que no se puede recorrer con for...of.'
+    } else if ((m = mensaje.match(/^(\S+) is not a constructor/))) {
+      explicacion = m[1] + ' no se puede usar con new.'
+    } else if (/Invalid array length/.test(mensaje)) {
+      explicacion = 'Has pedido una lista con un tamaño imposible (negativo o enorme).'
+    } else if (nombre === 'Error' && e instanceof Error) {
+      explicacion = 'El programa ha lanzado un error a propósito con este mensaje: «' + mensaje + '».'
+    } else if (nombre === 'TypeError') {
+      explicacion = 'Usas un valor de una forma que no admite (por ejemplo, llamar a algo que no es una función).'
+    } else if (nombre === 'RangeError') {
+      explicacion = 'Un número está fuera de lo que se permite.'
+    } else if (nombre === 'SyntaxError') {
+      explicacion = 'El código está mal escrito: falta o sobra algo.'
+    } else {
+      explicacion = 'El programa ha fallado con un error que el taller aún no sabe explicar.'
     }
     return { nombre, mensaje, explicacion }
   }
