@@ -1,0 +1,214 @@
+{
+  "id": "s03-d06",
+  "semana": 3,
+  "dia": 6,
+  "titulo": "Basta con una: || y !",
+  "objetivo": "Hoy aprendes a usar || cuando basta con que se cumpla una condición, y ! para darle la vuelta a un true o un false.",
+  "conceptos": [
+    "logicos"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const salud = true;\nconst menor = false;\nif (salud || menor) {\n  console.log(\"Más garantías\");\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "salud": "true"
+          },
+          "salida": [],
+          "nota": "El tratamiento incluye datos de salud (una categoría especial del art. 9 RGPD)."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "salud": "true",
+            "menor": "false"
+          },
+          "salida": [],
+          "nota": "No afecta a menores."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "salud": "true",
+            "menor": "false"
+          },
+          "salida": [],
+          "nota": "`||` significa «o»: basta con que una sea true. salud lo es."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "salud": "true",
+            "menor": "false"
+          },
+          "salida": [
+            "Más garantías"
+          ],
+          "nota": "Entra en el if."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`||` («o») da true si **al menos una** parte es true, y solo da false si fallan todas. Es un requisito **alternativo**: cualquiera de los supuestos basta. La barra `|` se escribe en el Mac con **Alt + 1**, dos veces."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const notificada = false;\nconsole.log(!notificada);\nconsole.log(!true);",
+      "salida": [
+        "true",
+        "false"
+      ],
+      "nota": "`!` significa «no»: le da la vuelta al valor. `!notificada` se lee «no notificada», y es true cuando la brecha **aún no** se ha notificado."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Resumen para revisar condiciones: `&&` cuando hacen falta **todas**; `||` cuando basta **una**; `!` para preguntar lo contrario. Si una IA cambia `&&` por `||`, el programa deja pasar casos que no debería, y no da ningún error."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure solo acepta números de apartado de la EIPD del 1 al 14. La condición se lee: «si **no** es un número entero, **o** es menor que 1, **o** mayor que 14, no vale».",
+      "codigo": "if (!Number.isInteger(num) || num < 1 || num > 14) return null;",
+      "fichero": "DeIure/src/lib/eipd-state.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d06-r1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = false;\nconst b = false;\nconsole.log(a || b);\nconsole.log(!a || b);",
+      "opciones": [
+        {
+          "texto": "false\ntrue",
+          "correcta": true,
+          "siEliges": "Eso es: las dos son false; pero !a es true, y con una basta."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "En la segunda, !a le da la vuelta a a: es true."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "En la primera, las dos son false: || da false."
+        }
+      ],
+      "pistas": [
+        "|| da false solo si todas las partes son false.",
+        "!a es lo contrario de a.",
+        "a es false, así que !a es true."
+      ],
+      "explicacion": "|| necesita al menos un true. ! convierte un false en true."
+    },
+    {
+      "id": "s03-d06-r2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que avise mientras la brecha NO esté notificada.",
+      "codigo": "const notificada = false;\nif (___) {\n  console.log(\"Notificar ya\");\n}",
+      "salidaEsperada": [
+        "Notificar ya"
+      ],
+      "opciones": [
+        {
+          "texto": "!notificada",
+          "correcta": true,
+          "siEliges": "Correcto: «no notificada» es true."
+        },
+        {
+          "texto": "notificada",
+          "siEliges": "notificada vale false: no entraría en el if."
+        },
+        {
+          "texto": "notificada === true",
+          "siEliges": "Eso pregunta si ya está notificada: es la condición al revés."
+        }
+      ],
+      "pistas": [
+        "Quieres entrar cuando notificada es false.",
+        "Para darle la vuelta a un valor se usa !.",
+        "Es !notificada."
+      ],
+      "explicacion": "! delante de un boolean pregunta lo contrario. Se lee «no»."
+    },
+    {
+      "ref": "s03-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d06-x1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Entre otros casos, el art. 35.3 RGPD exige EIPD si se tratan a gran escala categorías especiales de datos o si se observa sistemáticamente a gran escala una zona de acceso público. Completa para que escriba «Hacer EIPD».",
+      "codigo": "const especiales = false;\nconst zonaPublica = true;\nif (especiales ___ zonaPublica) {\n  console.log(\"Hacer EIPD\");\n}",
+      "salidaEsperada": [
+        "Hacer EIPD"
+      ],
+      "opciones": [
+        {
+          "texto": "||",
+          "correcta": true,
+          "siEliges": "Correcto: basta con uno de los dos supuestos."
+        },
+        {
+          "texto": "&&",
+          "siEliges": "Con && harían falta los dos, y aquí solo se da uno."
+        },
+        {
+          "texto": "o",
+          "siEliges": "En código, «o» no se escribe con letras: es ||."
+        }
+      ],
+      "pistas": [
+        "¿Hacen falta los dos supuestos o basta con uno?",
+        "Basta con uno: «o».",
+        "«o» se escribe con dos barras."
+      ],
+      "explicacion": "Supuestos alternativos, ||; requisitos acumulativos, &&."
+    },
+    {
+      "id": "s03-d06-x2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const cerrado = true;\nconsole.log(!cerrado);\nconsole.log(!!cerrado);",
+      "opciones": [
+        {
+          "texto": "false\ntrue",
+          "correcta": true,
+          "siEliges": "Eso es: ! le da la vuelta, y !! se la da dos veces."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "Dos ! se anulan: «no no cerrado» es «cerrado»."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "!cerrado es lo contrario de true: false."
+        }
+      ],
+      "pistas": [
+        "! le da la vuelta a true.",
+        "Dos ! le dan la vuelta dos veces.",
+        "Vuelve a quedar como estaba."
+      ],
+      "explicacion": "Como una doble negación en un texto legal: «no es incierto» significa «es cierto». En código lo verás, pero mejor evitarlo."
+    },
+    {
+      "ref": "s03-rev-x3"
+    }
+  ]
+}

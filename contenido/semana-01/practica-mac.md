@@ -8,39 +8,26 @@ Si algo no sale como aquí, no pasa nada: anota qué ves y lo miramos.
 
 ---
 
-## 1. Abre la terminal
+## 1. Comprueba tu Node
 
-Pulsa `Cmd + Espacio`, escribe **Terminal** y pulsa Enter. Se abre una ventana con texto y un cursor parpadeando. Ahí se dan las órdenes escribiendo.
-
-## 2. Comprueba si tienes Node
-
-Escribe esto y pulsa Enter:
+En la terminal:
 
 ```
 node --version
 ```
 
-- Si sale algo como `v24.11.0` y el primer número es **24 o mayor**, ya lo tienes: sigue al paso 3.
-- Si el número es más bajo (por ejemplo `v20.…` o `v22.…`), instala la versión nueva como se explica justo debajo.
-- Si sale `command not found: node`, no lo tienes. Ve a [nodejs.org](https://nodejs.org), descarga la versión **LTS** (la recomendada), abre el fichero `.pkg` y sigue el instalador. Después **cierra la terminal, ábrela otra vez** y repite `node --version`.
+- Si el primer número es **24 o mayor** (por ejemplo `v24.11.0`), sigue al paso 2.
+- Si es más bajo (`v20.…`, `v22.…`) o sale `command not found: node`, ve a [nodejs.org](https://nodejs.org), descarga la versión **LTS**, instala el `.pkg`, **cierra y vuelve a abrir la terminal** y repite `node --version`.
 
-## 3. Crea una carpeta para practicar
-
-En la terminal, una orden cada vez:
+## 2. Crea la carpeta y ábrela en VS Code
 
 ```
-mkdir practica
-cd practica
-pwd
+mkdir ~/practica
 ```
 
-- `mkdir practica` crea una carpeta llamada *practica*.
-- `cd practica` entra en ella.
-- `pwd` te dice dónde estás. Debería acabar en `/practica`.
+En VS Code (o Cursor): **File → Open Folder…** y elige `practica`. Después, en el menú de arriba, **Terminal → New Terminal**: se abre una terminal abajo, ya dentro de la carpeta. Así tienes en una sola ventana los ficheros (a la izquierda), el código (en el centro) y la terminal (abajo). A partir de aquí, todo se hace en esa terminal.
 
-## 4. Escribe tu programa
-
-Abre VS Code (o Cursor, si es el que usas). Menú **File → Open Folder…** y elige la carpeta `practica`, que está en tu carpeta de usuario.
+## 3. Escribe tu programa
 
 Crea un fichero nuevo llamado `hola.ts` y escribe esto **a mano**, sin copiar y pegar:
 
@@ -51,9 +38,9 @@ console.log("Hola,", nombre);
 
 Guarda con `Cmd + S`.
 
-## 5. Ejecútalo
+## 4. Ejecútalo
 
-Vuelve a la terminal (sigues dentro de `practica`) y escribe:
+En la terminal de VS Code:
 
 ```
 node hola.ts
@@ -67,9 +54,9 @@ Hola, Daniel
 
 Si además ves un aviso amarillo que menciona *ExperimentalWarning*, ignóralo: es Node avisando de que leer TypeScript directamente es una función reciente.
 
-Si sale `Unknown file extension ".ts"`, tu Node es antiguo: instala la versión LTS como en el paso 2.
+Si sale `Unknown file extension ".ts"`, tu Node es antiguo: instala la versión LTS como en el paso 1.
 
-## 6. Rómpelo a propósito
+## 5. Rómpelo a propósito
 
 Aprender a leer errores es la mitad del oficio. Haz cada cambio, guarda, ejecuta `node hola.ts` y lee el mensaje:
 
@@ -78,7 +65,3 @@ Aprender a leer errores es la mitad del oficio. Haz cada cambio, guarda, ejecuta
 3. Arréglalo cambiando **una sola palabra** en la línea 1 para que el cambio funcione, y añade otro `console.log` que escriba el nombre nuevo.
 
 Cuando el paso 3 escriba `Hola, Daniel` y después `Laura`, has terminado la semana 1.
-
----
-
-**Tres órdenes de terminal que ya conoces:** `pwd` (dónde estoy), `cd carpeta` (entrar en una carpeta), `node fichero.ts` (ejecutar un fichero). Una cuarta para curiosear: `ls` lista lo que hay en la carpeta en la que estás.

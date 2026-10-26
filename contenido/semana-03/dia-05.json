@@ -1,0 +1,202 @@
+{
+  "id": "s03-d05",
+  "semana": 3,
+  "dia": 5,
+  "titulo": "Dos requisitos a la vez: &&",
+  "objetivo": "Hoy aprendes a exigir dos condiciones a la vez con && y a comprobar que no falta ninguna.",
+  "conceptos": [
+    "logicos"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const edad = 15;\nconst marcada = true;\nconsole.log(edad >= 14 && marcada);",
+      "salida": [
+        "true"
+      ],
+      "nota": "`&&` significa «y»: da true solo si **las dos** partes son true. Aquí, una app que pide tener al menos 14 años **y** marcar la casilla de aceptación."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const edad = 13;\nconst marcada = true;\nif (edad >= 14 && marcada) {\n  console.log(\"Alta completa\");\n} else {\n  console.log(\"Faltan requisitos\");\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "edad": "13"
+          },
+          "salida": [],
+          "nota": "Tiene 13 años."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "edad": "13",
+            "marcada": "true"
+          },
+          "salida": [],
+          "nota": "Ha marcado la casilla."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "edad": "13",
+            "marcada": "true"
+          },
+          "salida": [],
+          "nota": "¿13 >= 14? No. Con una parte false, && ya es false, aunque la otra sea true."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "edad": "13",
+            "marcada": "true"
+          },
+          "salida": [
+            "Faltan requisitos"
+          ],
+          "nota": "Va al else."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Piensa en `&&` como **requisitos acumulativos**, igual que los del artículo 1261 del Código Civil para que haya contrato (consentimiento, objeto y causa): si falta uno, no hay contrato."
+    },
+    {
+      "tipo": "texto",
+      "texto": "El `&` se escribe en el Mac con **Mayúsculas + 6**, y hay que ponerlo dos veces. Al revisar código de una IA, comprueba que la condición pide **todos** los requisitos de la regla, ni uno menos."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Minimización de datos en DeIure: si una figura del apartado 4 es un interesado **y** además trae una referencia a su identidad, se rechaza, porque los interesados se describen como texto libre, sin identificarlos.",
+      "codigo": "if (figura.tipo === 'interesado' && figura.identity_ref) {",
+      "fichero": "DeIure/src/lib/apartado-input-schemas.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d05-r1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = 5;\nconsole.log(a > 3 && a < 10);\nconsole.log(a > 3 && a > 10);",
+      "opciones": [
+        {
+          "texto": "true\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: 5 está entre 3 y 10, pero no es mayor que 10."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "En la segunda, a > 10 es false, y con una parte false, && da false."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "En la primera se cumplen las dos partes: true."
+        }
+      ],
+      "pistas": [
+        "Evalúa cada parte por separado.",
+        "&& solo da true si las dos partes son true.",
+        "En la segunda, 5 > 10 es false."
+      ],
+      "explicacion": "a > 3 && a < 10 es la forma de preguntar «¿está entre 3 y 10?»."
+    },
+    {
+      "id": "s03-d05-r2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Una transferencia solo sigue adelante si hay contrato firmado y garantías. Completa para que escriba «Bloquear».",
+      "codigo": "const contrato = true;\nconst garantias = false;\nif (contrato ___ garantias) {\n  console.log(\"Seguir\");\n} else {\n  console.log(\"Bloquear\");\n}",
+      "salidaEsperada": [
+        "Bloquear"
+      ],
+      "opciones": [
+        {
+          "texto": "&&",
+          "correcta": true,
+          "siEliges": "Correcto: hacen falta las dos, y falta una."
+        },
+        {
+          "texto": "||",
+          "siEliges": "|| («o») daría true con una sola, y dejaría seguir sin garantías."
+        },
+        {
+          "texto": "y",
+          "siEliges": "En código, «y» no se escribe con letras: es &&."
+        }
+      ],
+      "pistas": [
+        "¿Hacen falta las dos cosas o basta con una?",
+        "Requisitos acumulativos: «y».",
+        "«y» se escribe con dos &."
+      ],
+      "explicacion": "Con &&, si falta un requisito, no se sigue. Elegir mal entre && y || deja pasar casos que no deberían."
+    },
+    {
+      "ref": "s03-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d05-x1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const x = true;\nconst y = true;\nconst z = false;\nconsole.log(x && y);\nconsole.log(x && z);",
+      "opciones": [
+        {
+          "texto": "true\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: x e y son true; z es false."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "z es false: x && z da false."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "x && y: los dos son true, así que da true."
+        }
+      ],
+      "pistas": [
+        "Mira qué vale cada caja.",
+        "&& da true solo si las dos son true.",
+        "La segunda tiene un false."
+      ],
+      "explicacion": "Basta con un false para que && sea false."
+    },
+    {
+      "id": "s03-d05-x2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "const n = 7;",
+        "const enRango = n > 0 && n < 10;",
+        "console.log(enRango);"
+      ],
+      "sobran": [
+        "const enRango = n > 0 && n > 10;"
+      ],
+      "salidaEsperada": [
+        "true"
+      ],
+      "pistas": [
+        "enRango se calcula a partir de n.",
+        "Primero n, luego el cálculo, luego el mensaje.",
+        "La que sobra pide que n sea mayor que 10."
+      ],
+      "explicacion": "El resultado de una comparación se puede guardar en una caja, como cualquier otro dato."
+    }
+  ]
+}

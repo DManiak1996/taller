@@ -1,0 +1,180 @@
+{
+  "id": "s03-d01",
+  "semana": 3,
+  "dia": 1,
+  "titulo": "Preguntas de sí o no",
+  "objetivo": "Hoy aprendes a comparar dos datos con ===, >, < y compañía, y que la respuesta siempre es true o false.",
+  "conceptos": [
+    "comparaciones"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Comparar es hacerle al programa una pregunta de sí o no: ¿es mayor?, ¿es igual? La respuesta siempre es un **boolean**: `true` o `false`. Es la base de toda decisión, que empieza mañana."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const edad = 15;\nconsole.log(edad > 14);\nconsole.log(edad < 14);\nconsole.log(edad >= 15);",
+      "salida": [
+        "true",
+        "false",
+        "true"
+      ],
+      "nota": "`>` mayor que, `<` menor que, `>=` mayor o igual, `<=` menor o igual. Como en matemáticas, pero el igual va **detrás**."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const estado = \"abierta\";\nconsole.log(estado === \"abierta\");\nconsole.log(estado !== \"abierta\");",
+      "salida": [
+        "true",
+        "false"
+      ],
+      "nota": "`===` pregunta «¿es igual?» y `!==`, «¿es distinto?». Son **tres** signos. Uno solo (`=`) no compara: guarda."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(5 === 5);\nconsole.log(\"5\" === 5);",
+      "salida": [
+        "true",
+        "false"
+      ],
+      "nota": "`===` también mira el tipo: el texto \"5\" no es el número 5. Existe un `==` de dos signos que mezcla tipos y da sorpresas; en este taller no se usa, y si lo ves en código de una IA, sospecha."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En el apartado 4 de la EIPD, DeIure pregunta si una figura es un interesado. La comparación da true o false, y con eso decide qué hacer.",
+      "codigo": "figura.tipo === 'interesado'",
+      "fichero": "DeIure/src/lib/apartado-input-schemas.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d01-r1",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "El plazo para responder es de 30 días. ¿Qué escribe este programa?",
+      "codigo": "const dias = 30;\nconsole.log(dias > 30);\nconsole.log(dias >= 30);",
+      "opciones": [
+        {
+          "texto": "false\ntrue",
+          "correcta": true,
+          "siEliges": "Eso es: 30 no es mayor que 30, pero sí es mayor o igual."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "30 > 30 es false: un número no es mayor que sí mismo."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": ">= incluye el igual: 30 >= 30 es true."
+        },
+        {
+          "texto": "30\n30",
+          "siEliges": "Una comparación no escribe el número, sino true o false."
+        }
+      ],
+      "pistas": [
+        "¿Es 30 mayor que 30?",
+        "> no incluye el igual; >= sí.",
+        "La primera es false."
+      ],
+      "explicacion": "La diferencia entre > y >= es justo el caso del límite. En plazos legales, ese día decide si llegas o no."
+    },
+    {
+      "id": "s03-d01-r2",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa pregunte si el país es España y escriba true.",
+      "codigo": "const pais = \"España\";\nconsole.log(pais ___ \"España\");",
+      "salidaEsperada": [
+        "true"
+      ],
+      "opciones": [
+        {
+          "texto": "===",
+          "correcta": true,
+          "siEliges": "Correcto: tres signos, «¿es igual?»."
+        },
+        {
+          "texto": "!==",
+          "siEliges": "Eso pregunta «¿es distinto?»: daría false."
+        },
+        {
+          "texto": "=",
+          "siEliges": "Un solo = intenta guardar, no comparar. Y como pais es const, falla."
+        }
+      ],
+      "pistas": [
+        "Quieres preguntar si son iguales.",
+        "La pregunta «¿es igual?» lleva tres signos.",
+        "Es ===."
+      ],
+      "explicacion": "= guarda, === compara. Confundirlos es uno de los fallos más típicos."
+    },
+    {
+      "ref": "s03-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d01-x1",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "const edad = 16;",
+        "console.log(edad >= 14);",
+        "console.log(edad >= 18);"
+      ],
+      "salidaEsperada": [
+        "true",
+        "false"
+      ],
+      "pistas": [
+        "16 es mayor o igual que 14, pero no que 18.",
+        "La comparación que da true va primero.",
+        "const, luego >= 14 y luego >= 18."
+      ],
+      "explicacion": "Con 16 años se puede consentir el tratamiento de datos en España (desde los 14), pero aún no se es mayor de edad."
+    },
+    {
+      "id": "s03-d01-x2",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"abc\" === \"ABC\");",
+      "opciones": [
+        {
+          "texto": "false",
+          "correcta": true,
+          "siEliges": "Eso es: para el programa, mayúsculas y minúsculas son letras distintas."
+        },
+        {
+          "texto": "true",
+          "siEliges": "Para una persona es la misma palabra; para el programa, no."
+        },
+        {
+          "texto": "abc",
+          "siEliges": "Una comparación da true o false."
+        }
+      ],
+      "pistas": [
+        "¿Son exactamente las mismas letras?",
+        "Mayúsculas y minúsculas cuentan como distintas.",
+        "No son iguales."
+      ],
+      "explicacion": "=== compara exactamente. Por eso, al buscar un nombre en una lista, una mayúscula de más hace que no aparezca."
+    },
+    {
+      "ref": "s03-rev-x4"
+    }
+  ]
+}

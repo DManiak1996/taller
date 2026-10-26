@@ -1,0 +1,241 @@
+{
+  "id": "s03-d02",
+  "semana": 3,
+  "dia": 2,
+  "titulo": "Decidir con if",
+  "objetivo": "Hoy aprendes a usar if para que el programa haga algo solo cuando se cumple una condición.",
+  "conceptos": [
+    "if-else"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Hasta ahora el programa ejecutaba todas las líneas. Con `if` («si») decide: **si** la condición es `true`, ejecuta lo que hay entre llaves `{ }`; si es `false`, se lo salta. Es una cláusula condicional: si se da el supuesto, se aplica la consecuencia."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const edad = 15;\nif (edad >= 14) {\n  console.log(\"Puede consentir\");\n}\nconsole.log(\"Fin\");",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "edad": "15"
+          },
+          "salida": [],
+          "nota": "Guarda la edad: 15."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "edad": "15"
+          },
+          "salida": [],
+          "nota": "Pregunta: ¿15 >= 14? Sí. Entra en las llaves."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "edad": "15"
+          },
+          "salida": [
+            "Puede consentir"
+          ],
+          "nota": "Ejecuta lo de dentro."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "edad": "15"
+          },
+          "salida": [
+            "Puede consentir",
+            "Fin"
+          ],
+          "nota": "Sale de las llaves y sigue con el resto."
+        }
+      ]
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const edad = 12;\nif (edad >= 14) {\n  console.log(\"Puede consentir\");\n}\nconsole.log(\"Fin\");",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "edad": "12"
+          },
+          "salida": [],
+          "nota": "Mismo programa, otra edad: 12."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "edad": "12"
+          },
+          "salida": [],
+          "nota": "¿12 >= 14? No. Se salta todo lo de dentro de las llaves."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "edad": "12"
+          },
+          "salida": [
+            "Fin"
+          ],
+          "nota": "La línea 3 no se ha ejecutado nunca."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "La forma: la condición va entre **paréntesis**, y lo que depende de ella, entre **llaves**, con dos espacios de sangría para que se vea qué está dentro. Lo que va después de la llave de cierre se ejecuta siempre."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure comprueba lo que le llega antes de guardarlo: si no es texto, lo rechaza. `throw` lanza un error y para; lo verás más adelante.",
+      "codigo": "if (typeof content !== 'string') throw policyError('WORKSPACE_CONTENT_INVALID');",
+      "fichero": "DeIure/src/lib/workspace-file-policy.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d02-r1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Una brecha sin personas afectadas. ¿Qué escribe este programa?",
+      "codigo": "const afectados = 0;\nif (afectados > 0) {\n  console.log(\"Notificar\");\n}\nconsole.log(\"Revisado\");",
+      "opciones": [
+        {
+          "texto": "Revisado",
+          "correcta": true,
+          "siEliges": "Eso es: 0 > 0 es false, así que se salta «Notificar»."
+        },
+        {
+          "texto": "Notificar\nRevisado",
+          "siEliges": "La condición es false (0 no es mayor que 0): lo de dentro no se ejecuta."
+        },
+        {
+          "texto": "Notificar",
+          "siEliges": "«Revisado» está fuera de las llaves: se ejecuta siempre."
+        }
+      ],
+      "pistas": [
+        "¿Es 0 mayor que 0?",
+        "Si la condición es false, se salta lo que hay entre llaves.",
+        "Solo se ejecuta la última línea."
+      ],
+      "explicacion": "Lo de dentro de las llaves depende de la condición; lo de fuera, no."
+    },
+    {
+      "id": "s03-d02-r2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Por debajo de 14 años hace falta el consentimiento de los padres. Completa para que este programa lo avise.",
+      "codigo": "const edad = 13;\nif (edad ___ 14) {\n  console.log(\"Avisar a los padres\");\n}",
+      "salidaEsperada": [
+        "Avisar a los padres"
+      ],
+      "opciones": [
+        {
+          "texto": "<",
+          "correcta": true,
+          "siEliges": "Correcto: 13 < 14 es true, así que avisa."
+        },
+        {
+          "texto": ">=",
+          "siEliges": "Eso pregunta si ya tiene 14 o más: es la condición al revés."
+        },
+        {
+          "texto": ">",
+          "siEliges": "13 > 14 es false: no avisaría."
+        },
+        {
+          "texto": "===",
+          "siEliges": "Solo avisaría si tuviera exactamente 14."
+        }
+      ],
+      "pistas": [
+        "¿Cuándo hay que avisar: por debajo o por encima de 14?",
+        "«Por debajo de» es «menor que».",
+        "Menor que es <."
+      ],
+      "explicacion": "Elegir el signo es traducir la norma a código. La condición al revés no da error: simplemente hace lo contrario."
+    },
+    {
+      "ref": "s03-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d02-x1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const n = 5;\nif (n === 5) {\n  console.log(\"Cinco\");\n}\nif (n > 5) {\n  console.log(\"Más\");\n}",
+      "opciones": [
+        {
+          "texto": "Cinco",
+          "correcta": true,
+          "siEliges": "Eso es: la primera condición es true y la segunda, false."
+        },
+        {
+          "texto": "Cinco\nMás",
+          "siEliges": "5 > 5 es false: el segundo bloque no se ejecuta."
+        },
+        {
+          "texto": "Más",
+          "siEliges": "5 === 5 es true: el primer bloque sí se ejecuta."
+        }
+      ],
+      "pistas": [
+        "Son dos if independientes. Evalúa cada condición por separado.",
+        "5 === 5 es true; 5 > 5 es false.",
+        "Solo se ejecuta el primer bloque."
+      ],
+      "explicacion": "Cada if hace su propia pregunta. Pueden cumplirse los dos, uno o ninguno."
+    },
+    {
+      "id": "s03-d02-x2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que solo escriba «Archivar» si el expediente está cerrado.",
+      "codigo": "const estado = \"cerrado\";\nif (___) {\n  console.log(\"Archivar\");\n}",
+      "salidaEsperada": [
+        "Archivar"
+      ],
+      "opciones": [
+        {
+          "texto": "estado === \"cerrado\"",
+          "correcta": true,
+          "siEliges": "Correcto: compara el estado con «cerrado»."
+        },
+        {
+          "texto": "estado = \"cerrado\"",
+          "siEliges": "Un solo = intenta guardar, y estado es const: falla."
+        },
+        {
+          "texto": "estado !== \"cerrado\"",
+          "siEliges": "Eso pregunta si NO está cerrado: no archivaría."
+        }
+      ],
+      "pistas": [
+        "Dentro del paréntesis va una pregunta de sí o no.",
+        "Para preguntar «¿es igual?» se usan tres signos.",
+        "estado === \"cerrado\"."
+      ],
+      "explicacion": "Dentro del if va siempre una comparación. Un = solo es el fallo de la semana."
+    },
+    {
+      "ref": "s03-rev-x1"
+    }
+  ]
+}

@@ -1,0 +1,193 @@
+{
+  "id": "s03-d07",
+  "semana": 3,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: lógica de verdadero y falso",
+  "objetivo": "Hoy aprendes a calcular cualquier combinación de &&, || y ! con tablas de verdad, la herramienta con la que se revisan condiciones complicadas.",
+  "conceptos": [
+    "logica-booleana"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "En 1854, George Boole demostró que se puede razonar con solo dos valores, verdadero y falso, y unas pocas operaciones. Por eso se llaman **booleanos**. Cada `if` de cada programa, y cada circuito del procesador, usa su lógica."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(true && true);\nconsole.log(true && false);\nconsole.log(false && true);\nconsole.log(false && false);",
+      "salida": [
+        "true",
+        "false",
+        "false",
+        "false"
+      ],
+      "nota": "Esto es la **tabla de verdad** de `&&`: todas las combinaciones posibles. Solo da true en la primera fila, cuando las dos son true."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(true || true);\nconsole.log(true || false);\nconsole.log(false || true);\nconsole.log(false || false);",
+      "salida": [
+        "true",
+        "true",
+        "true",
+        "false"
+      ],
+      "nota": "La de `||` es la imagen inversa: solo da false en la última fila, cuando las dos son false."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const a = true;\nconst b = false;\nconsole.log(!(a && b));\nconsole.log(!a || !b);",
+      "salida": [
+        "true",
+        "true"
+      ],
+      "nota": "Dos reglas para revisar código. 1) `&&` va antes que `||`, como `*` antes que `+`; si dudas, pon paréntesis. 2) **Ley de De Morgan**: «no (A y B)» es lo mismo que «(no A) o (no B)». Al negar, el «y» se convierte en «o». Es justo donde más se equivocan las IA."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure avisa si el campo del email del delegado de protección de datos existe pero está vacío: «el campo existe **y** **no** hay email».",
+      "codigo": "if (root.dpo.email !== undefined && !email) {",
+      "fichero": "DeIure/src/lib/apartado-04-normalizer.ts"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "cat hola.ts",
+      "salida": [
+        "const nombre = \"Daniel\";",
+        "console.log(\"Hola,\", nombre);"
+      ],
+      "nota": "**Comando de la semana: cat, less y nano.** `cat` vuelca un fichero en la terminal; `less` lo enseña página a página (sales con `q`); `nano` lo abre para editarlo sin salir de la terminal. **Minirreto en tu Mac:** en `practica`, haz `nano hola.ts`, cambia `\"Daniel\"` por otro nombre, guarda con `Ctrl + O` y Enter, sal con `Ctrl + X` y comprueba con `cat hola.ts` que el cambio está. Después, `node hola.ts` debe saludar al nombre nuevo."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d07-r1",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(true && !false);\nconsole.log(!(true || false));",
+      "opciones": [
+        {
+          "texto": "true\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: !false es true; y true || false es true, que negado da false."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "!false es true, así que la primera es true && true."
+        },
+        {
+          "texto": "true\ntrue",
+          "siEliges": "En la segunda, el ! niega todo el paréntesis, que vale true."
+        }
+      ],
+      "pistas": [
+        "Resuelve primero lo de dentro: !false y el paréntesis.",
+        "!false = true. (true || false) = true.",
+        "Luego: true && true, y !true."
+      ],
+      "explicacion": "Con expresiones largas, resuelve de dentro hacia fuera, como en matemáticas."
+    },
+    {
+      "id": "s03-d07-r2",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa con la operación cuya tabla de verdad da false en esta fila.",
+      "codigo": "const a = true;\nconst b = false;\nconsole.log(a ___ b);",
+      "salidaEsperada": [
+        "false"
+      ],
+      "opciones": [
+        {
+          "texto": "&&",
+          "correcta": true,
+          "siEliges": "Correcto: && necesita las dos true, y b es false."
+        },
+        {
+          "texto": "||",
+          "siEliges": "|| da true con que una sea true, y a lo es."
+        },
+        {
+          "texto": "!==",
+          "siEliges": "true !== false es true: son distintos."
+        }
+      ],
+      "pistas": [
+        "a es true y b es false.",
+        "¿Cuál de las dos tablas da false con una sola true?",
+        "La de «y»."
+      ],
+      "explicacion": "Con una parte true y otra false, && da false y || da true. Esa fila es la que distingue las dos tablas."
+    },
+    {
+      "ref": "s03-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d07-x1",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Ley de De Morgan. ¿Qué escribe este programa?",
+      "codigo": "const a = false;\nconst b = false;\nconsole.log(!(a || b));\nconsole.log(!a && !b);",
+      "opciones": [
+        {
+          "texto": "true\ntrue",
+          "correcta": true,
+          "siEliges": "Eso es: las dos expresiones son equivalentes, siempre dan lo mismo."
+        },
+        {
+          "texto": "true\nfalse",
+          "siEliges": "!a y !b son true, así que !a && !b es true."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "a || b es false, y negado es true."
+        }
+      ],
+      "pistas": [
+        "Calcula a || b y luego niégalo.",
+        "!a es true y !b es true.",
+        "Las dos líneas dan lo mismo."
+      ],
+      "explicacion": "«no (A o B)» es «(no A) y (no B)». Al negar, el «o» se convierte en «y»."
+    },
+    {
+      "id": "s03-d07-x2",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "&& va antes que ||. ¿Qué escribe este programa?",
+      "codigo": "console.log(false && true || true);",
+      "opciones": [
+        {
+          "texto": "true",
+          "correcta": true,
+          "siEliges": "Eso es: primero false && true = false; luego false || true = true."
+        },
+        {
+          "texto": "false",
+          "siEliges": "Eso sería false && (true || true). Sin paréntesis, && va primero."
+        },
+        {
+          "texto": "false && true || true",
+          "siEliges": "Sin comillas no es texto: se calcula."
+        }
+      ],
+      "pistas": [
+        "¿Qué se calcula antes, && o ||?",
+        "&& va antes, como * antes que +.",
+        "(false && true) || true."
+      ],
+      "explicacion": "Si una condición mezcla && y ||, pon paréntesis aunque no hagan falta: el siguiente que la lea, tú o una IA, no tendrá que adivinar."
+    }
+  ]
+}

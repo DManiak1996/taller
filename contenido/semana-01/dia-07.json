@@ -65,6 +65,14 @@
       "texto": "DeIure es lo mismo a lo grande. Cuando una IA te dice «ejecuta `npm run dev`», es una orden de terminal que acaba pidiendo a Node que ponga en marcha miles de ficheros. Y sus EIPD no se pierden al apagar porque se guardan en una base de datos (PostgreSQL), no en la memoria.",
       "codigo": "\"dev\": \"next dev --webpack --port 3002\",",
       "fichero": "DeIure/package.json"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "node -v",
+      "salida": [
+        "v24.11.0"
+      ],
+      "nota": "**Comando de la semana: opciones.** Lo que va detrás de un guion cambia lo que hace la orden. Casi todas tienen forma corta (`-v`) y larga (`--version`), y `--help` te enseña las que hay. **Minirreto en tu Mac:** escribe `node -v` y después `node --version`. Si las dos dan el mismo número, has comprobado que son la misma opción."
     }
   ],
   "retos": [
