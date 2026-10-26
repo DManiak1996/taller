@@ -1,0 +1,177 @@
+{
+  "id": "s05-d02",
+  "semana": 5,
+  "dia": 2,
+  "titulo": "Se empieza a contar en 0",
+  "objetivo": "Hoy aprendes por qué la primera posición de una lista es la 0, cómo pedir la última y qué pasa si pides una que no existe.",
+  "conceptos": [
+    "arrays"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const prob = [\n  \"baja\",\n  \"media\",\n  \"alta\",\n];\nconsole.log(prob[0]);\nconsole.log(prob[2]);",
+      "salida": [
+        "baja",
+        "alta"
+      ],
+      "nota": "Las posiciones se cuentan **desde 0**: «baja» está en la 0, «media» en la 1 y «alta» en la 2. Piensa en la posición como «cuántos pasos desde el principio»: el primero está a 0 pasos."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const prob = [\n  \"baja\",\n  \"media\",\n  \"alta\",\n];\nconsole.log(prob.length);\nconsole.log(prob[prob.length - 1]);",
+      "salida": [
+        "3",
+        "alta"
+      ],
+      "nota": "Hay 3 datos, pero el último está en la posición 2. Por eso el último siempre es `length - 1`."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const prob = [\n  \"baja\",\n  \"media\",\n  \"alta\",\n];\nconsole.log(prob[3]);",
+      "salida": [
+        "undefined"
+      ],
+      "nota": "La posición 3 no existe. El programa **no da error**: devuelve `undefined`, que significa «aquí no hay nada». Es un fallo silencioso: el programa sigue con un hueco donde esperabas un dato."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure lo deja escrito en un comentario junto a su escala de probabilidad: la posición 0 es el nivel 1. Las personas cuentan desde 1 y las listas desde 0, y hay que traducir.",
+      "codigo": "// el índice 0 es el nivel 1 (improbable / muy limitado), el suelo.\nconst ESCALA_PROBABILIDAD = ['improbable', 'baja', 'media', 'alta']",
+      "fichero": "DeIure/src/lib/eipd-residual-estimator.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d02-r1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const f = [\"A\", \"B\", \"C\", \"D\"];\nconsole.log(f[1]);\nconsole.log(f[4]);",
+      "opciones": [
+        {
+          "texto": "B\nundefined",
+          "correcta": true,
+          "siEliges": "Eso es: la posición 1 es la segunda, y la 4 no existe."
+        },
+        {
+          "texto": "A\nD",
+          "siEliges": "Se cuenta desde 0: f[1] es la B y f[4] estaría después de la D."
+        },
+        {
+          "texto": "B\n❌ Error en la línea 3",
+          "siEliges": "Pedir una posición que no existe no da error: da undefined."
+        }
+      ],
+      "pistas": [
+        "Numera las letras empezando por 0.",
+        "A es la 0, B la 1, C la 2, D la 3.",
+        "¿Hay algo en la 4?"
+      ],
+      "explicacion": "Con 4 datos, las posiciones válidas son de la 0 a la 3."
+    },
+    {
+      "id": "s05-d02-r2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba el último dato, el 9.",
+      "codigo": "const t = [3, 6, 9];\nconsole.log(t[___]);",
+      "salidaEsperada": [
+        "9"
+      ],
+      "opciones": [
+        {
+          "texto": "2",
+          "correcta": true,
+          "siEliges": "Correcto: tres datos, posiciones 0, 1 y 2."
+        },
+        {
+          "texto": "3",
+          "siEliges": "Hay 3 datos, pero la posición 3 no existe: daría undefined."
+        },
+        {
+          "texto": "t.length",
+          "siEliges": "t.length vale 3: daría undefined, igual que t[3]."
+        }
+      ],
+      "pistas": [
+        "¿En qué posición está el primero?",
+        "En la 0. Entonces, el tercero…",
+        "Es length - 1."
+      ],
+      "explicacion": "t[t.length] siempre da undefined: es una posición después del último."
+    },
+    {
+      "ref": "s05-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d02-x1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const l = [\"x\", \"y\"];\nconsole.log(l.length);\nconsole.log(l[l.length - 1]);",
+      "opciones": [
+        {
+          "texto": "2\ny",
+          "correcta": true,
+          "siEliges": "Eso es: 2 datos, y el último está en la posición 1."
+        },
+        {
+          "texto": "2\nundefined",
+          "siEliges": "l.length - 1 es 1, y en la 1 está la y."
+        },
+        {
+          "texto": "1\ny",
+          "siEliges": "length cuenta los datos: hay 2."
+        }
+      ],
+      "pistas": [
+        "¿Cuántos datos hay?",
+        "length - 1 es 1.",
+        "¿Qué hay en la posición 1?"
+      ],
+      "explicacion": "length cuenta desde 1; las posiciones, desde 0. Por eso el último es length - 1."
+    },
+    {
+      "id": "s05-d02-x2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = [7];\nconsole.log(a[0]);\nconsole.log(a[1]);",
+      "opciones": [
+        {
+          "texto": "7\nundefined",
+          "correcta": true,
+          "siEliges": "Eso es: solo hay un dato, en la posición 0."
+        },
+        {
+          "texto": "❌ Error en la línea 3",
+          "siEliges": "No da error: da undefined."
+        },
+        {
+          "texto": "undefined\n7",
+          "siEliges": "El único dato está en la posición 0."
+        }
+      ],
+      "pistas": [
+        "¿Cuántos datos hay?",
+        "Uno, en la posición 0.",
+        "La posición 1 no existe."
+      ],
+      "explicacion": "Una lista con un dato solo tiene la posición 0."
+    },
+    {
+      "ref": "s05-rev-x1"
+    }
+  ]
+}

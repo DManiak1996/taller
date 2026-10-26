@@ -1,0 +1,237 @@
+{
+  "id": "s05-d04",
+  "semana": 5,
+  "dia": 4,
+  "titulo": "Recorrer una lista con for",
+  "objetivo": "Hoy aprendes a pasar por todos los datos de una lista con un for y a evitar el error de uno con length.",
+  "conceptos": [
+    "arrays"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const t = [\"Ana\", \"Luis\"];\nfor (let i = 0; i < t.length; i++) {\n  console.log(i, t[i]);\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]"
+          },
+          "salida": [],
+          "nota": "Dos titulares de datos."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "0"
+          },
+          "salida": [],
+          "nota": "El contador empieza en 0, la primera posición."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "0"
+          },
+          "salida": [],
+          "nota": "¿0 < 2? Sí. (t.length vale 2.)"
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "0"
+          },
+          "salida": [
+            "0 Ana"
+          ],
+          "nota": "t[i] es t[0]: Ana."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "1"
+          },
+          "salida": [
+            "0 Ana"
+          ],
+          "nota": "i++: i vale 1."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "1"
+          },
+          "salida": [
+            "0 Ana"
+          ],
+          "nota": "¿1 < 2? Sí."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "1"
+          },
+          "salida": [
+            "0 Ana",
+            "1 Luis"
+          ],
+          "nota": "t[1]: Luis."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "2"
+          },
+          "salida": [
+            "0 Ana",
+            "1 Luis"
+          ],
+          "nota": "i vale 2."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "t": "[\"Ana\", \"Luis\"]",
+            "i": "2"
+          },
+          "salida": [
+            "0 Ana",
+            "1 Luis"
+          ],
+          "nota": "¿2 < 2? No: ya ha pasado por todos."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Memoriza este patrón: `for (let i = 0; i < lista.length; i++)`. Empieza en 0 (la primera posición) y para **antes** de length (la última es length - 1). Dentro, `lista[i]` es el dato de cada vuelta."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const t = [\"Ana\", \"Luis\"];\nfor (let i = 0; i <= t.length; i++) {\n  console.log(i, t[i]);\n}",
+      "salida": [
+        "0 Ana",
+        "1 Luis",
+        "2 undefined"
+      ],
+      "nota": "Con `<=` da una vuelta de más y pide t[2], que no existe: sale `undefined`, sin error. Es el error de uno de la semana pasada, ahora con listas. En una carta a los titulares, sería una carta a «undefined»."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Tras seudonimizar a los usuarios dados de baja, DeIure recorre la lista de resultados con este mismo patrón, uno por usuario.",
+      "codigo": "for (let i = 0; i < outcomes.length; i++) {",
+      "fichero": "DeIure/src/lib/pseudonymization.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d04-r1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const h = [8, 4, 6];\nlet total = 0;\nfor (let i = 0; i < h.length; i++) {\n  total = total + h[i];\n}\nconsole.log(total);",
+      "opciones": [
+        {
+          "texto": "18",
+          "correcta": true,
+          "siEliges": "Eso es: 8 + 4 + 6."
+        },
+        {
+          "texto": "12",
+          "siEliges": "Con i < h.length, i llega a 2: el 6 también se suma."
+        },
+        {
+          "texto": "3",
+          "siEliges": "Ese es h.length, el número de datos, no la suma."
+        }
+      ],
+      "pistas": [
+        "¿Qué valores toma i?",
+        "0, 1 y 2.",
+        "Suma h[0], h[1] y h[2]."
+      ],
+      "explicacion": "El acumulador de la semana pasada, ahora sumando los datos de una lista."
+    },
+    {
+      "id": "s05-d04-r2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba a cada titular una vez, sin ningún undefined.",
+      "codigo": "const t = [\"Ana\", \"Luis\"];\nfor (let i = 0; i ___ t.length; i++) {\n  console.log(t[i]);\n}",
+      "salidaEsperada": [
+        "Ana",
+        "Luis"
+      ],
+      "opciones": [
+        {
+          "texto": "<",
+          "correcta": true,
+          "siEliges": "Correcto: i vale 0 y 1, las dos posiciones que existen."
+        },
+        {
+          "texto": "<=",
+          "siEliges": "Daría una vuelta de más: Ana, Luis y undefined."
+        },
+        {
+          "texto": ">",
+          "siEliges": "¿0 > 2? No: no daría ninguna vuelta."
+        }
+      ],
+      "pistas": [
+        "La última posición es length - 1.",
+        "i tiene que parar antes de llegar a length.",
+        "«Menor que»."
+      ],
+      "explicacion": "Con listas, la condición casi siempre es i < lista.length. Si ves <= length en código de una IA, sospecha."
+    },
+    {
+      "ref": "s05-rev-4"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d04-x1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const n = [3, 5, 7, 9];\nfor (let i = 0; i < 2; i++) {\n  console.log(n[i]);\n}",
+      "opciones": [
+        {
+          "texto": "3\n5",
+          "correcta": true,
+          "siEliges": "Eso es: la condición es i < 2, no i < n.length. Solo pasa por los dos primeros."
+        },
+        {
+          "texto": "3\n5\n7\n9",
+          "siEliges": "La condición no usa length: para cuando i llega a 2."
+        },
+        {
+          "texto": "5\n7",
+          "siEliges": "i empieza en 0: el primero es n[0], el 3."
+        }
+      ],
+      "pistas": [
+        "Mira la condición con atención.",
+        "¿Usa n.length?",
+        "i vale 0 y 1."
+      ],
+      "explicacion": "Un número fijo en la condición solo funciona si la lista nunca cambia de tamaño. Con length, se adapta sola."
+    },
+    {
+      "ref": "s05-rev-x4"
+    }
+  ]
+}

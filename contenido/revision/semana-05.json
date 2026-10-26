@@ -1,0 +1,366 @@
+[
+  {
+    "id": "s05-rev-1",
+    "tipo": "fallo",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime el primer dato de la lista». Toca la línea que está mal.",
+    "codigo": "const datos = [\"email\", \"dni\", \"tel\"];\nconsole.log(datos[1]);",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "Las posiciones empiezan en 0. El primero es `datos[0]`; `datos[1]` es el segundo.",
+        "correcta": true,
+        "siEliges": "Exacto. En las listas se cuenta desde 0: el primero está en la posición 0."
+      },
+      {
+        "texto": "Para leer una posición se usan paréntesis: `datos(1)`.",
+        "siEliges": "Las posiciones de una lista se leen con corchetes, como está. El problema es el número."
+      },
+      {
+        "texto": "Una lista creada con `const` no se puede leer.",
+        "siEliges": "Una lista `const` se puede leer sin problema. Fíjate en el número entre corchetes."
+      }
+    ],
+    "arreglo": "const datos = [\"email\", \"dni\", \"tel\"];\nconsole.log(datos[0]);",
+    "pistas": [
+      "¿Qué imprime? ¿Es el primero?",
+      "En una lista, la primera posición es la 0.",
+      "Si el primero es el 0, ¿qué es el 1?"
+    ],
+    "explicacion": "Imprime `dni`, el segundo. La IA ha contado desde 1, como contaríamos tú y yo. En programación las posiciones empiezan en 0, y este despiste es de los más comunes."
+  },
+  {
+    "id": "s05-rev-2",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "const datos = [\"email\", \"dni\", \"tel\"];\nconsole.log(datos[datos.length]);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `tel`.",
+        "porque": "`length` es 3, y la lista tiene 3 datos: el 3 es el último."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "La posición 3 no existe, así que el programa se para."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Hay 3 datos, pero en las posiciones 0, 1 y 2. La posición 3 está fuera de la lista.",
+      "Marta": "La posición 3 no existe, sí, pero el programa no se para: devuelve un valor que significa «aquí no hay nada».",
+      "ninguno": "Exacto. Imprime `undefined`: la posición 3 está vacía, y no da ningún error."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuánto vale `datos.length`?",
+      "Con 3 datos, las posiciones son 0, 1 y 2.",
+      "¿Qué devuelve una posición que no existe: un error o algo especial?"
+    ],
+    "explicacion": "Imprime `undefined` («sin definir»). El último está en `datos.length - 1`, que es 2. Leer fuera de la lista no da error, y el `undefined` sigue adelante hasta que algo falla más tarde, lejos de donde nació. Por eso cuesta tanto encontrarlo."
+  },
+  {
+    "id": "s05-rev-3",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten si este código funciona. ¿Quién tiene razón?",
+    "codigo": "const brechas = [\"B-01\", \"B-02\"];\nbrechas.push(\"B-03\");\nconsole.log(brechas.length);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "`brechas` es una `const`, y una `const` no se puede cambiar."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `3`.",
+        "porque": "`const` impide cambiar la lista por otra, pero no lo que hay dentro."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Es una confusión muy común, también en las IA. `const` impide poner otra lista en su lugar, pero `push` no hace eso: añade a la misma lista.",
+      "Marta": "Correcto. La caja `brechas` sigue siendo la misma lista; solo ha crecido por dentro.",
+      "ninguno": "Una de las dos acierta. ¿`push` crea una lista nueva o añade a la que ya hay?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Qué hace `push`: crea una lista nueva o añade a la misma?",
+      "`const` impide escribir `brechas = ...` otra vez.",
+      "¿Aparece `brechas =` en alguna línea después de la 1?"
+    ],
+    "explicacion": "Imprime `3`. `const` impide volver a asignar (`brechas = [...]`), pero deja cambiar el contenido de la lista. Si una IA te dice que no puedes hacer `push` en una `const`, ya sabes que se equivoca."
+  },
+  {
+    "id": "s05-rev-4",
+    "tipo": "fallo",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Imprime los nombres del equipo». Al final sale algo raro. Toca la línea que está mal.",
+    "codigo": "const equipo = [\"Ana\", \"Luis\", \"Eva\"];\nconst total = equipo.length;\nfor (let i = 0; i <= total; i++) {\n  console.log(equipo[i]);\n}",
+    "lineasFallo": [3],
+    "opciones": [
+      {
+        "texto": "Da una vuelta de más: con `<=` llega a la posición 3, que no existe. Tenía que ser `i < total`.",
+        "correcta": true,
+        "siEliges": "Exacto. Con 3 nombres, las posiciones son 0, 1 y 2, así que `i` tiene que parar antes de 3."
+      },
+      {
+        "texto": "Tiene que empezar en `i = 1`.",
+        "siEliges": "Entonces se saltaría a Ana, que está en la posición 0. El inicio está bien; mira el final."
+      },
+      {
+        "texto": "`total` tendría que ser `equipo.length + 1`.",
+        "siEliges": "Eso añadiría otra vuelta de más. El problema ya es que sobra una."
+      }
+    ],
+    "arreglo": "const equipo = [\"Ana\", \"Luis\", \"Eva\"];\nconst total = equipo.length;\nfor (let i = 0; i < total; i++) {\n  console.log(equipo[i]);\n}",
+    "pistas": [
+      "¿Qué sale en la última línea?",
+      "Las posiciones van de 0 a `length - 1`.",
+      "Cuando `i` vale 3, ¿existe `equipo[3]`?"
+    ],
+    "explicacion": "Imprime `Ana`, `Luis`, `Eva` y `undefined`. Es el fallo de la semana: con listas, la condición del `for` es `i < length`, nunca `i <= length`."
+  },
+  {
+    "id": "s05-rev-5",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "for-of",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime este bucle. ¿Quién tiene razón?",
+    "codigo": "const equipo = [\"Ana\", \"Luis\", \"Eva\"];\nfor (const persona of equipo) {\n  console.log(persona);\n}",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `0`, `1` y `2`.",
+        "porque": "Un bucle recorre las posiciones de la lista."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Ana`, `Luis` y `Eva`.",
+        "porque": "`for...of` te da directamente cada elemento, no su posición."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Con `for...of`, `persona` vale cada nombre por turno. No hay posiciones que vigilar.",
+      "Marta": "Eso pasa con el `for` clásico y su `i`. `for...of` te da los elementos, no las posiciones.",
+      "ninguno": "Esta vez sí acierta una. ¿Qué vale `persona` en la primera vuelta?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "Lee la línea 2 en voz alta: «para cada persona de equipo».",
+      "`for...of` recorre los elementos, no las posiciones.",
+      "En la primera vuelta, ¿qué vale `persona`?"
+    ],
+    "explicacion": "Imprime `Ana`, `Luis` y `Eva`. Cuando no necesitas la posición, `for...of` es más corto y evita de raíz el error de la vuelta de más."
+  },
+  {
+    "id": "s05-rev-6",
+    "tipo": "fallo",
+    "semana": 5,
+    "concepto": "for-of",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Di si la lista incluye el DNI». Lo incluye, pero sale `false`. Toca la línea que está mal.",
+    "codigo": "const datos = [\"email\", \"dni\", \"tel\"];\nlet hay = false;\nfor (const dato of datos) {\n  hay = dato === \"dni\";\n}\nconsole.log(hay);",
+    "lineasFallo": [4],
+    "opciones": [
+      {
+        "texto": "En cada vuelta pisa el resultado anterior. Al final solo cuenta el último dato, `tel`.",
+        "correcta": true,
+        "siEliges": "Exacto. Encuentra el DNI en la segunda vuelta, pero en la tercera lo vuelve a poner a `false`. Arreglo: `if (dato === \"dni\") hay = true;`"
+      },
+      {
+        "texto": "Tenía que ser un solo `=`: `dato = \"dni\"`.",
+        "siEliges": "Eso intentaría cambiar el dato en vez de compararlo. Comparar con `===` está bien; el problema es lo que pasa después."
+      },
+      {
+        "texto": "`hay` tiene que empezar en `true`.",
+        "siEliges": "Entonces diría que lo hay aunque no estuviera. Sigue `hay` vuelta a vuelta."
+      }
+    ],
+    "arreglo": "const datos = [\"email\", \"dni\", \"tel\"];\nlet hay = false;\nfor (const dato of datos) {\n  if (dato === \"dni\") hay = true;\n}\nconsole.log(hay);",
+    "pistas": [
+      "Apunta el valor de `hay` después de cada vuelta.",
+      "Al buscar, cuando encuentras algo no hay que volver a perderlo.",
+      "¿Qué vale `hay` después de la vuelta de `tel`?"
+    ],
+    "explicacion": "Imprime `false`: `hay` vale `false`, `true` y otra vez `false`. Con este fallo, el programa solo acierta si lo que buscas es lo último de la lista. Un caso de prueba con el dato en medio lo destapa enseguida."
+  },
+  {
+    "id": "s05-rev-7",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "estructuras-datos",
+    "tema": "rgpd",
+    "enunciado": "Este código busca `tel` en una lista y cuenta cuántos datos mira. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const datos = [\"email\", \"dni\", \"tel\"];\nlet miradas = 0;\nlet hay = false;\nfor (const dato of datos) {\n  miradas++;\n  if (dato === \"tel\") hay = true;\n}\nconsole.log(hay, miradas);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `true 1`.",
+        "porque": "El ordenador va directo a `tel`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `true 3`.",
+        "porque": "Una lista se recorre de uno en uno: mira los tres."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "En una lista, el ordenador no sabe dónde está `tel` sin mirar. Va dato a dato, y aquí mira los tres.",
+      "Marta": "Correcto. Para buscar en una lista hay que mirar los datos uno a uno.",
+      "ninguno": "Una de las dos acierta. Cuenta las vueltas del bucle."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuántas vueltas da el bucle?",
+      "`miradas++` suma 1 en cada vuelta, encuentre o no.",
+      "¿Cuántos datos tiene la lista?"
+    ],
+    "explicacion": "Imprime `true 3`. Para buscar en una lista hay que mirar uno a uno: con un millón de datos, hasta un millón de miradas. La semana que viene verás los objetos, que funcionan como un diccionario: buscas por la palabra y vas directo a su valor, sin recorrer nada."
+  },
+  {
+    "id": "s05-rev-x1",
+    "tipo": "fallo",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime el último dato de la lista». Toca la línea que está mal.",
+    "codigo": "const datos = [\"email\", \"dni\", \"tel\"];\nconsole.log(datos[3]);",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "Con 3 datos, el último está en la posición 2. La 3 no existe.",
+        "correcta": true,
+        "siEliges": "Exacto. Lo más seguro es `datos[datos.length - 1]`, que vale aunque la lista crezca."
+      },
+      {
+        "texto": "Para el último hay que escribir `datos[-1]`.",
+        "siEliges": "En algunos lenguajes eso funciona, pero en TypeScript `datos[-1]` también da `undefined`."
+      },
+      {
+        "texto": "La lista tendría que tener 4 datos.",
+        "siEliges": "La lista está bien. El problema es en qué posición busca."
+      }
+    ],
+    "arreglo": "const datos = [\"email\", \"dni\", \"tel\"];\nconsole.log(datos[2]);",
+    "pistas": [
+      "¿Qué imprime? ¿Es `tel`?",
+      "Las posiciones van de 0 a `length - 1`.",
+      "Con 3 datos, ¿cuál es la última posición?"
+    ],
+    "explicacion": "Imprime `undefined`. El último de una lista de 3 está en la posición 2. Para no depender del tamaño, usa `datos[datos.length - 1]`."
+  },
+  {
+    "id": "s05-rev-x2",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué pasa con este código. ¿Quién tiene razón?",
+    "codigo": "const lista = [1, 2];\nlista = [1, 2, 3];\nconsole.log(lista);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "Aquí sí se intenta poner otra lista en una `const`, y eso no se puede."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `[ 1, 2, 3 ]`.",
+        "porque": "Si con `push` se puede cambiar una lista `const`, así también."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `push` cambia lo de dentro; `lista = ...` intenta poner otra lista en la caja, y eso una `const` no lo deja.",
+      "Marta": "No es lo mismo. `push` añade a la misma lista; `lista = [...]` pone una lista nueva, y eso una `const` no lo permite.",
+      "ninguno": "Esta vez sí acierta una. ¿La línea 2 añade a la lista o pone otra?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿La línea 2 usa `push` o `=`?",
+      "`const` impide volver a asignar con `=`.",
+      "¿Se crea la lista con `const` o con `let`?"
+    ],
+    "explicacion": "Da `TypeError: Assignment to constant variable`, el mismo error de la semana 1. Con listas, `const` deja cambiar el contenido (`push`, `lista[0] = ...`), pero no poner otra lista en su lugar."
+  },
+  {
+    "id": "s05-rev-x3",
+    "tipo": "fallo",
+    "semana": 5,
+    "concepto": "for-of",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Suma las horas de los tres turnos». Tenía que salir 90. Toca la línea que está mal.",
+    "codigo": "const horas = [10, 30, 50];\nlet total = 0;\nfor (const hora of horas) {\n  total = hora;\n}\nconsole.log(total);",
+    "lineasFallo": [4],
+    "opciones": [
+      {
+        "texto": "No suma: en cada vuelta sustituye el total. Tenía que ser `total = total + hora`.",
+        "correcta": true,
+        "siEliges": "Exacto. Para acumular hay que sumar lo nuevo a lo que ya había."
+      },
+      {
+        "texto": "`total` tiene que crearse dentro del bucle.",
+        "siEliges": "Así se reiniciaría en cada vuelta, como viste en la semana de bucles. Crearlo fuera está bien."
+      },
+      {
+        "texto": "Hay que usar un `for` clásico con `i`.",
+        "siEliges": "`for...of` vale perfectamente para sumar. El problema es la línea de dentro."
+      }
+    ],
+    "arreglo": "const horas = [10, 30, 50];\nlet total = 0;\nfor (const hora of horas) {\n  total = total + hora;\n}\nconsole.log(total);",
+    "pistas": [
+      "¿Qué imprime? ¿De dónde sale ese número?",
+      "Acumular es sumar lo nuevo a lo que ya había.",
+      "¿La línea 4 suma o sustituye?"
+    ],
+    "explicacion": "Imprime `50`, el último turno, en lugar de `90`. Cada vuelta tira lo anterior. Es el mismo despiste de la búsqueda de esta semana: lo que se acumula hay que construirlo sobre lo que ya había."
+  },
+  {
+    "id": "s05-rev-x4",
+    "tipo": "razon",
+    "semana": 5,
+    "concepto": "arrays",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime este bucle. ¿Quién tiene razón?",
+    "codigo": "const equipo = [\"Ana\", \"Luis\", \"Eva\"];\nconst total = equipo.length;\nfor (let i = 1; i < total; i++) {\n  console.log(equipo[i]);\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Luis` y `Eva`.",
+        "porque": "Empieza en la posición 1, así que se salta a Ana."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `Ana`, `Luis` y `Eva`.",
+        "porque": "Un `for` sobre una lista siempre la recorre entera."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. El `for` hace exactamente lo que dicen sus tres partes, y aquí empieza en 1.",
+      "Marta": "El `for` no sabe que quieres la lista entera: empieza donde le dices, aquí en la posición 1.",
+      "ninguno": "Esta vez sí acierta una. ¿En qué posición está Ana?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Con qué valor empieza `i`?",
+      "Ana está en la posición 0.",
+      "Si `i` empieza en 1, ¿se lee alguna vez `equipo[0]`?"
+    ],
+    "explicacion": "Imprime `Luis` y `Eva`. El primer elemento se queda fuera. Las vueltas de menos al principio son tan comunes como las de más al final: revisa siempre las dos puntas."
+  }
+]

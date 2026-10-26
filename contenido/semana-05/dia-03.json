@@ -1,0 +1,165 @@
+{
+  "id": "s05-d03",
+  "semana": 5,
+  "dia": 3,
+  "titulo": "Cambiar y añadir",
+  "objetivo": "Hoy aprendes a cambiar un dato de una lista y a añadir datos al final con push, y por qué una lista const sí se puede llenar.",
+  "conceptos": [
+    "arrays"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const bases = [\"consentimiento\"];\nbases.push(\"contrato\");\nconsole.log(bases);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "bases": "[\"consentimiento\"]"
+          },
+          "salida": [],
+          "nota": "Una lista con una base de legitimación."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "bases": "[\"consentimiento\", \"contrato\"]"
+          },
+          "salida": [],
+          "nota": "`push` («empujar») añade un dato **al final** de la lista."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "bases": "[\"consentimiento\", \"contrato\"]"
+          },
+          "salida": [
+            "[ 'consentimiento', 'contrato' ]"
+          ],
+          "nota": "La consola escribe los textos de una lista con comillas simples. Es lo mismo: solo cambia cómo los enseña."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const e = [\"abierta\", \"abierta\"];\ne[1] = \"cerrada\";\nconsole.log(e);",
+      "salida": [
+        "[ 'abierta', 'cerrada' ]"
+      ],
+      "nota": "Para cambiar un dato, se pone su posición a la izquierda del `=`, como con una caja normal."
+    },
+    {
+      "tipo": "texto",
+      "texto": "¿Y cómo se puede cambiar una lista `const`? Porque `const` fija **qué lista** hay en la caja, no lo que lleva dentro. Es como un expediente con su número fijo: puedes añadirle papeles, pero no cambiarlo por otro expediente. `e = []` sí daría error."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Un apartado 4 admite como mucho 50 figuras. Si llegan más de 50, DeIure añade un problema a su lista `issues` con push. Lo que va entre llaves es un objeto, una ficha con datos: lo verás pronto.",
+      "codigo": "if (rawFigures.length > 50) {\n  issues.push({ code: 'too_many_figures', path: ['figuras'] });\n}",
+      "fichero": "DeIure/src/lib/apartado-04-normalizer.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d03-r1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const l = [1, 2];\nl.push(3);\nl.push(4);\nconsole.log(l.length);",
+      "opciones": [
+        {
+          "texto": "4",
+          "correcta": true,
+          "siEliges": "Eso es: empezó con 2 y push añadió 2 más."
+        },
+        {
+          "texto": "2",
+          "siEliges": "push sí cambia la lista: le añade datos."
+        },
+        {
+          "texto": "[ 1, 2, 3, 4 ]",
+          "siEliges": "Se escribe l.length, no la lista: el número de datos."
+        }
+      ],
+      "pistas": [
+        "¿Cuántos datos tiene al principio?",
+        "Cada push añade uno.",
+        "2 + 2."
+      ],
+      "explicacion": "length cambia cada vez que la lista crece."
+    },
+    {
+      "id": "s05-d03-r2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para añadir a Luis a la lista de destinatarios.",
+      "codigo": "const d = [\"Ana\"];\nd.___(\"Luis\");\nconsole.log(d);",
+      "salidaEsperada": [
+        "[ 'Ana', 'Luis' ]"
+      ],
+      "opciones": [
+        {
+          "texto": "push",
+          "correcta": true,
+          "siEliges": "Correcto: push añade al final."
+        },
+        {
+          "texto": "add",
+          "siEliges": "add no existe en las listas: daría error."
+        },
+        {
+          "texto": "append",
+          "siEliges": "append existe en Python, que verás más adelante, pero no en las listas de TypeScript."
+        }
+      ],
+      "pistas": [
+        "Es una palabra inglesa que significa «empujar».",
+        "Empuja el dato al final.",
+        "push."
+      ],
+      "explicacion": "Cada lenguaje tiene sus nombres: Python usa append; TypeScript, push."
+    },
+    {
+      "ref": "s05-rev-3"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d03-x1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const n = [10, 20];\nn[0] = 5;\nconsole.log(n[0] + n[1]);",
+      "opciones": [
+        {
+          "texto": "25",
+          "correcta": true,
+          "siEliges": "Eso es: n[0] pasa a valer 5, y 5 + 20 = 25."
+        },
+        {
+          "texto": "30",
+          "siEliges": "La línea 2 cambia el 10 por un 5."
+        },
+        {
+          "texto": "❌ Error: n es const",
+          "siEliges": "const no impide cambiar lo de dentro de la lista."
+        }
+      ],
+      "pistas": [
+        "La línea 2 cambia un dato.",
+        "Ahora la lista es [5, 20].",
+        "5 + 20."
+      ],
+      "explicacion": "Cambiar un dato de una lista const está permitido; cambiar la lista entera, no."
+    },
+    {
+      "ref": "s05-rev-x2"
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "id": "s05-d06",
+  "semana": 5,
+  "dia": 6,
+  "titulo": "Sumar, contar y buscar",
+  "objetivo": "Hoy aprendes los tres usos más comunes de recorrer una lista: contar los que cumplen algo, buscar uno y quedarte con el mayor.",
+  "conceptos": [
+    "for-of"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const e = [40, 900, 15, 2000];\nlet grandes = 0;\nfor (const n of e) {\n  if (n > 100) {\n    grandes = grandes + 1;\n  }\n}\nconsole.log(grandes);",
+      "salida": [
+        "2"
+      ],
+      "nota": "**Contar**: un acumulador que suma 1, pero solo cuando se cumple el if. Aquí, cuántas brechas afectan a más de 100 personas."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const ids = [14, 27, 33];\nlet esta = false;\nfor (const id of ids) {\n  if (id === 27) {\n    esta = true;\n  }\n}\nconsole.log(esta);",
+      "salida": [
+        "true"
+      ],
+      "nota": "**Buscar**: una caja que empieza en false y pasa a true si aparece lo que buscas. Se le llama **bandera**: se levanta y ya no se baja."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const h = [8, 30, 12];\nlet max = 0;\nfor (const n of h) {\n  if (n > max) {\n    max = n;\n  }\n}\nconsole.log(max);",
+      "salida": [
+        "30"
+      ],
+      "nota": "**El mayor**: guarda el más grande visto hasta ahora y lo cambia cuando aparece uno mayor."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Casi todo lo que un programa hace con una lista es uno de estos patrones, o el de sumar. Al revisar código de una IA, pregunta: ¿la caja empieza en el valor correcto (0, false)? ¿Está **fuera** del bucle? ¿Acumula (`+ 1`, `+ n`) o pisa el valor en cada vuelta?"
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al estimar el riesgo residual, DeIure recorre las medidas de seguridad y avisa de las que no protegen frente a ninguna amenaza. Simplificado:",
+      "codigo": "for (const m of medidas) {\n  const lista = listaAmenazas(m);\n  if (lista.length === 0) {\n    avisar({ codigo: 'medida_sin_amenazas', medidaId: m.id });\n  }\n}",
+      "fichero": "DeIure/src/lib/eipd-residual-estimator.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s05-d06-r1",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = [5, 50, 500];\nlet s = 0;\nfor (const n of a) {\n  if (n >= 50) {\n    s = s + n;\n  }\n}\nconsole.log(s);",
+      "opciones": [
+        {
+          "texto": "550",
+          "correcta": true,
+          "siEliges": "Eso es: solo suma los que cumplen n >= 50: 50 + 500."
+        },
+        {
+          "texto": "555",
+          "siEliges": "El 5 no cumple n >= 50: no se suma."
+        },
+        {
+          "texto": "2",
+          "siEliges": "Eso sería contarlos. Aquí se suma n, no 1."
+        }
+      ],
+      "pistas": [
+        "¿Qué datos cumplen n >= 50?",
+        "50 y 500.",
+        "Y se suma n, no 1."
+      ],
+      "explicacion": "Sumar o contar depende de lo que se añade en cada vuelta: + n suma los datos; + 1 los cuenta."
+    },
+    {
+      "id": "s05-d06-r2",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "El plazo para contestar es de 30 días. Completa para contar las respuestas que llegaron fuera de plazo.",
+      "codigo": "const dias = [10, 35, 40];\nlet fuera = 0;\nfor (const d of dias) {\n  if (d ___ 30) {\n    fuera = fuera + 1;\n  }\n}\nconsole.log(fuera);",
+      "salidaEsperada": [
+        "2"
+      ],
+      "opciones": [
+        {
+          "texto": ">",
+          "correcta": true,
+          "siEliges": "Correcto: 35 y 40 pasan de 30."
+        },
+        {
+          "texto": "<",
+          "siEliges": "Contaría las que llegaron a tiempo: 1."
+        },
+        {
+          "texto": "===",
+          "siEliges": "Ninguna tardó exactamente 30 días: daría 0."
+        }
+      ],
+      "pistas": [
+        "Fuera de plazo es tardar más de 30 días.",
+        "«Más de» se escribe…",
+        "Mayor que."
+      ],
+      "explicacion": "Un contador con if: el if decide qué cuenta."
+    },
+    {
+      "ref": "s05-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s05-d06-x1",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const r = [\"alta\", \"baja\", \"alta\"];\nlet n = 0;\nfor (const x of r) {\n  if (x === \"alta\") {\n    n = n + 1;\n  }\n}\nconsole.log(n);",
+      "opciones": [
+        {
+          "texto": "2",
+          "correcta": true,
+          "siEliges": "Eso es: «alta» aparece dos veces."
+        },
+        {
+          "texto": "3",
+          "siEliges": "Cuenta solo los que son «alta», no todos."
+        },
+        {
+          "texto": "1",
+          "siEliges": "n acumula: no vuelve a 0 en cada vuelta."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas veces aparece «alta»?",
+        "En la posición 0 y en la 2.",
+        "Dos."
+      ],
+      "explicacion": "Contar textos funciona igual que contar números: if con === y + 1."
+    },
+    {
+      "ref": "s05-rev-x3"
+    }
+  ]
+}
