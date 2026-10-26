@@ -903,7 +903,7 @@ Explicación: Sumar o contar depende de lo que se añade en cada vuelta: + n sum
 
 #### Reto 2 · Rellena el hueco · `s05-d06-r2` · concepto for-of
 
-El plazo para contestar es de 30 días. Completa para contar las respuestas que llegaron fuera de plazo.
+Tu despacho se fija un plazo interno de 30 días para contestar. Completa para contar las respuestas que llegaron fuera de plazo.
 
 ```ts
 const dias = [10, 35, 40];

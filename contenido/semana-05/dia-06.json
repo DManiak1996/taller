@@ -80,7 +80,7 @@
       "concepto": "for-of",
       "tema": "rgpd",
       "tipo": "hueco",
-      "enunciado": "El plazo para contestar es de 30 días. Completa para contar las respuestas que llegaron fuera de plazo.",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días para contestar. Completa para contar las respuestas que llegaron fuera de plazo.",
       "codigo": "const dias = [10, 35, 40];\nlet fuera = 0;\nfor (const d of dias) {\n  if (d ___ 30) {\n    fuera = fuera + 1;\n  }\n}\nconsole.log(fuera);",
       "salidaEsperada": [
         "2"

@@ -64,7 +64,7 @@ figura.tipo === 'interesado'
 
 #### Reto 1 · ¿Qué imprime? · `s03-d01-r1` · concepto comparaciones
 
-El plazo para responder es de 30 días. ¿Qué escribe este programa?
+Tu despacho se fija un plazo interno de 30 días para responder. ¿Qué escribe este programa?
 
 ```ts
 const dias = 30;
@@ -508,7 +508,7 @@ Explicación: if (consiente) es lo mismo que preguntar si consiente es true. Un 
 
 #### Repaso 2 · Rellena el hueco · `s03-d03-x2` · concepto if-else
 
-La IA ha puesto la condición al revés y dice «Fuera de plazo» con 10 días. Completa con el signo correcto (el plazo es de 30 días).
+La IA ha puesto la condición al revés y dice «Fuera de plazo» con 10 días. Completa con el signo correcto (el plazo interno es de 30 días).
 
 ```ts
 const dias = 10;
