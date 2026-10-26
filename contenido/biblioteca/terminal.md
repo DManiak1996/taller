@@ -65,14 +65,14 @@ La terminal siempre está «dentro» de una carpeta, como tú en un despacho con
    └─ daniel           tu carpeta personal = ~
       ├─ Desktop
       ├─ Documents
-      └─ misiones      ← aquí harás las misiones
+      └─ practica      ← tu carpeta de prácticas
          └─ hola.ts
 ```
 
 Una **ruta** es la dirección de un archivo dentro de ese árbol. Hay dos formas de darla:
 
-- **Absoluta**: desde la raíz, empieza por `/`. `/Users/daniel/misiones/hola.ts` vale estés donde estés, como una dirección postal completa.
-- **Relativa**: desde donde estás ahora. Si ya estás en `~/misiones`, basta con `hola.ts`. Es como decir «el despacho de al lado».
+- **Absoluta**: desde la raíz, empieza por `/`. `/Users/daniel/practica/hola.ts` vale estés donde estés, como una dirección postal completa.
+- **Relativa**: desde donde estás ahora. Si ya estás en `~/practica`, basta con `hola.ts`. Es como decir «el despacho de al lado».
 
 Cuatro atajos que verás todo el rato:
 
@@ -83,7 +83,7 @@ Cuatro atajos que verás todo el rato:
 | `..` | la carpeta de arriba (la que contiene a esta) |
 | `/` | al principio, la raíz; en medio, separa carpetas |
 
-Para moverte: `pwd` te dice dónde estás (*print working directory*), `cd misiones` entra en una carpeta, `cd ..` sube un nivel y `cd` a secas te devuelve a `~`.
+Para moverte: `pwd` te dice dónde estás (*print working directory*), `cd practica` entra en una carpeta, `cd ..` sube un nivel y `cd` a secas te devuelve a `~`.
 
 ## Las 12 órdenes que más usarás
 
@@ -93,7 +93,7 @@ Con estas haces el 90 % del trabajo diario. El nombre casi siempre es una abrevi
 | --- | --- | --- | --- |
 | `pwd` | *print working directory* | Dice en qué carpeta estás | `pwd` |
 | `ls` | *list* | Lista lo que hay en la carpeta | `ls -la` |
-| `cd` | *change directory* | Entra en otra carpeta | `cd misiones` |
+| `cd` | *change directory* | Entra en otra carpeta | `cd practica` |
 | `mkdir` | *make directory* | Crea una carpeta | `mkdir pruebas` |
 | `touch` | tocar | Crea un archivo vacío | `touch notas.txt` |
 | `cat` | *concatenate* | Enseña el contenido de un archivo | `cat notas.txt` |
@@ -119,7 +119,7 @@ Cinco teclas que te ahorran mucho:
 
 | Tecla | Qué hace |
 | --- | --- |
-| Tab | Completa el nombre de un archivo o carpeta. Escribe `cd mis` y pulsa Tab |
+| Tab | Completa el nombre de un archivo o carpeta. Escribe `cd prac` y pulsa Tab |
 | Flecha arriba | Recupera la orden anterior, para repetirla o corregirla |
 | Ctrl + C | Cancela lo que se esté ejecutando. Tu botón de emergencia |
 | Ctrl + L | Limpia la pantalla (lo de antes no se pierde) |

@@ -40,7 +40,7 @@ export default function App() {
     case 'biblioteca':
       return (
         <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo la biblioteca…</p>}>
-          <Biblioteca volver={inicio} />
+          <Biblioteca volver={inicio} semana={diaDeHoy(tienda.obtener())?.semana ?? Infinity} />
         </Suspense>
       )
     case 'libre':
