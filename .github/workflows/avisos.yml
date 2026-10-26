@@ -1,0 +1,44 @@
+# Avisos del taller. Este repositorio es público: el script nunca imprime datos, solo «ok».
+# Las horas de cron van en UTC; el script mira la hora de Madrid y no avisa dos veces el mismo día,
+# así funciona igual en horario de verano y de invierno aunque GitHub se retrase un poco.
+name: Avisos
+
+on:
+  schedule:
+    - cron: '7 18,19 * * *'   # aviso de las 20:00 (Madrid), solo si hoy no hay reto hecho
+    - cron: '13 17,18 * * 0'  # domingo 19:00 (Madrid): resumen de la semana en el repo misiones
+  workflow_dispatch:
+    inputs:
+      modo:
+        description: recordatorio o resumen
+        default: recordatorio
+
+permissions:
+  contents: read
+  actions: write # para mantener activo este workflow programado
+
+jobs:
+  avisar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar web-push (solo eso, aparte del resto del proyecto)
+        run: mkdir -p /tmp/avisos && cp scripts/avisos.mjs /tmp/avisos/ && cd /tmp/avisos && npm init -y > /dev/null && npm install web-push@3.6.7 > /dev/null
+      - name: Aviso o resumen
+        env:
+          TALLER_CLAVE: ${{ secrets.TALLER_CLAVE }}
+          MISIONES_TOKEN: ${{ secrets.MISIONES_TOKEN }}
+          MODO: ${{ github.event_name == 'workflow_dispatch' && inputs.modo || (github.event.schedule == '13 17,18 * * 0' && 'resumen' || 'recordatorio') }}
+        run: node /tmp/avisos/avisos.mjs "$MODO"
+      - name: Mantener activo el workflow
+        # GitHub apaga los workflows programados tras 60 días sin actividad en el repositorio.
+        if: github.event.schedule == '13 17,18 * * 0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/avisos.yml/enable" > /dev/null && echo ok

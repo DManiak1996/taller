@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { sincronizarAhora, useEstadoNube, useProgreso } from '../progreso/almacen'
-import { cerrarSesion, comprobarCodigo, nube, pedirCodigo } from '../progreso/nube'
+import { activarAvisos, avisosActivados, avisosPosibles, cerrarSesion, comprobarCodigo, desactivarAvisos, nube, pedirCodigo } from '../progreso/nube'
 import { Icono } from '../ui/basicos'
 
 const TEXTO_ESTADO = {
@@ -19,6 +19,11 @@ export function Cuenta({ volver }: { volver: () => void }) {
   const [fase, setFase] = useState<'email' | 'codigo'>('email')
   const [aviso, setAviso] = useState('')
   const [usuario, setUsuario] = useState<string | null>(null)
+  const [avisos, setAvisos] = useState(false)
+
+  useEffect(() => {
+    void avisosActivados().then(setAvisos)
+  }, [])
 
   useEffect(() => {
     nube?.auth.getUser().then(({ data }) => setUsuario(data.user?.email ?? null))
@@ -56,6 +61,37 @@ export function Cuenta({ volver }: { volver: () => void }) {
                 Salir
               </button>
             </div>
+          </section>
+        )}
+
+        {nube && usuario && (
+          <section className="tarjeta">
+            <p className="kicker">Aviso de las 20:00</p>
+            <p className="txt" style={{ fontSize: 16 }}>
+              {avisos
+                ? 'Activado en este dispositivo. Solo llega si ese día aún no has hecho el reto.'
+                : avisosPosibles()
+                  ? 'Un aviso a las 20:00, solo los días en que aún no has hecho el reto.'
+                  : 'Para recibir avisos en el iPhone, abre el taller desde su icono en la pantalla de inicio (Safari › Compartir › Añadir a pantalla de inicio).'}
+            </p>
+            {avisosPosibles() && (
+              <button
+                type="button"
+                className="btn btn-sec"
+                onClick={async () => {
+                  setAviso('')
+                  try {
+                    if (avisos) await desactivarAvisos()
+                    else await activarAvisos()
+                    setAvisos(await avisosActivados())
+                  } catch (err) {
+                    setAviso((err as Error).message)
+                  }
+                }}
+              >
+                {avisos ? 'Quitar el aviso de este dispositivo' : 'Activar el aviso en este dispositivo'}
+              </button>
+            )}
           </section>
         )}
 
