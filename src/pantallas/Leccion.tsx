@@ -23,23 +23,36 @@ function Contenido({ p }: { p: Pantalla }) {
           )}
         </>
       )
-    case 'deiure':
+    case 'deiure': {
+      // linea y simplificado son opcionales y pueden no estar en el formato todavía
+      const extra = p as typeof p & { linea?: number; simplificado?: true }
       return (
         <>
           <p className="kicker">Esto está en DeIure</p>
           <p className="grande">
             <Texto>{p.texto}</Texto>
           </p>
+          {(p.fichero || extra.simplificado) && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              {p.fichero && (
+                <span className="pestana">
+                  {p.fichero}
+                  {extra.linea ? `, línea ${extra.linea}` : ''}
+                </span>
+              )}
+              {extra.simplificado && <span className="pastilla">simplificado</span>}
+            </div>
+          )}
           {p.codigo && <Codigo codigo={p.codigo} etiqueta="Código de DeIure" />}
-          {p.fichero && <p className="peq mono">{p.fichero}</p>}
         </>
       )
+    }
     case 'terminal':
       return (
         <>
           {p.fichero && (
             <>
-              <p className="kicker">{p.fichero.nombre}</p>
+              <span className="pestana">{p.fichero.nombre}</span>
               <Codigo codigo={p.fichero.codigo} etiqueta={`Fichero ${p.fichero.nombre}`} />
             </>
           )}
@@ -49,6 +62,7 @@ function Contenido({ p }: { p: Pantalla }) {
             {p.salida.map((s, i) => (
               <div key={i}>{s}</div>
             ))}
+            <span className="cursor" aria-hidden="true" />
           </div>
           {p.nota && (
             <p className="txt">
@@ -60,26 +74,29 @@ function Contenido({ p }: { p: Pantalla }) {
     case 'esquema':
       return (
         <>
-          {p.titulo && <p className="kicker">{p.titulo}</p>}
-          <div className="esquema">
+          {p.titulo && <h1 className="h1">{p.titulo}</h1>}
+          <ol className="esquema">
             {p.pasos.map((caja, i) => (
-              <div key={i}>
+              <li key={i}>
                 {i > 0 && (
                   <div className="flecha">
                     <Icono nombre="abajo" />
                   </div>
                 )}
                 <div className="caja">
-                  <p className="txt" style={{ fontWeight: 800 }}>
-                    {caja.titulo}
-                  </p>
-                  <p className="txt" style={{ fontSize: 16 }}>
-                    <Texto>{caja.texto}</Texto>
-                  </p>
+                  <span className="n">{i + 1}</span>
+                  <div>
+                    <p className="txt" style={{ fontWeight: 800, fontSize: 17 }}>
+                      {caja.titulo}
+                    </p>
+                    <p className="peq">
+                      <Texto>{caja.texto}</Texto>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              </li>
             ))}
-          </div>
+          </ol>
         </>
       )
     case 'pasoapaso':
@@ -87,7 +104,7 @@ function Contenido({ p }: { p: Pantalla }) {
   }
 }
 
-export function Leccion({ titulo, pantallas, alTerminar }: { titulo: string; pantallas: Pantalla[]; alTerminar: () => void }) {
+export function Leccion({ titulo, pildora, pantallas, alTerminar }: { titulo: string; pildora?: boolean; pantallas: Pantalla[]; alTerminar: () => void }) {
   const [n, setN] = useState(0)
   const p = pantallas[n]
   const ultima = n === pantallas.length - 1
@@ -97,9 +114,9 @@ export function Leccion({ titulo, pantallas, alTerminar }: { titulo: string; pan
     <>
       <main className="cuerpo" key={n}>
         <p className="kicker">
-          Lección · {n + 1} de {pantallas.length}
+          {pildora ? 'Píldora de informática' : 'Lección'} · {n + 1} de {pantallas.length}
         </p>
-        {n === 0 && <h1 className="h1">{titulo}</h1>}
+        {n === 0 && p.tipo !== 'esquema' && <h1 className="h1">{titulo.replace(/^Píldora:\s*/, '')}</h1>}
         {p.tipo === 'pasoapaso' ? (
           <Visualizador codigo={p.codigo} pasos={p.pasos} alTerminar={siguiente} textoFin={ultima ? 'Empezar los retos' : 'Entendido, sigo'} />
         ) : (

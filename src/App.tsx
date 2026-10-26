@@ -21,7 +21,7 @@ export default function App() {
       return <Sesion key={sesion} dia={yaHecho ? null : diaDeHoy(p)} alSalir={inicio} alVerMapa={() => setVista('mapa')} />
     }
     case 'mapa':
-      return <Mapa volver={inicio} />
+      return <Mapa volver={inicio} dia={diaDeHoy(tienda.obtener())} />
     case 'cuenta':
       return <Cuenta volver={inicio} />
     case 'misiones':

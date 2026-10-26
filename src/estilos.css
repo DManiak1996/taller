@@ -54,7 +54,8 @@ code, .mono { font-family: var(--f-codigo); }
 .txt { font-size: var(--t-cuerpo); line-height: 1.5; margin: 0; text-wrap: pretty; }
 .grande { font-size: 22px; line-height: 1.45; margin: 0; text-wrap: pretty; }
 .peq { font-size: var(--t-peq); line-height: 1.45; margin: 0; color: var(--suave); }
-.ic { font-family: var(--f-codigo); font-size: .9em; background: var(--code); border: 1px solid var(--borde); border-radius: 6px; padding: 0 4px; }
+.ic { font-family: var(--f-codigo); font-size: .92em; background: var(--fondo); border: 1px solid var(--borde); border-radius: 6px; padding: 0 4px; }
+strong { font-weight: 800; }
 
 /* ---- Código ---- */
 .codigo {
@@ -94,7 +95,6 @@ button.linea:hover { background: var(--pri-t); }
 .consola-tit { font-family: var(--f-texto); font-size: 12px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; opacity: .7; margin: 0 0 4px; }
 .consola .vacia { opacity: .55; }
 .consola .err { color: #FF9257; }
-.terminal-orden::before { content: '$ '; opacity: .6; }
 
 /* ---- Botones ---- */
 .btn {
@@ -173,9 +173,8 @@ button.linea:hover { background: var(--pri-t); }
 .chips { display: flex; flex-wrap: wrap; gap: 4px; }
 
 /* ---- Esquema (diagrama de flujo) ---- */
-.esquema { display: flex; flex-direction: column; align-items: stretch; gap: 0; }
 .esquema .caja { background: var(--sup); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; }
-.esquema .flecha { display: flex; justify-content: center; color: var(--suave); height: 28px; }
+.esquema .flecha { display: flex; justify-content: center; height: 28px; }
 
 /* ---- Inicio: racha de la semana ---- */
 .semana { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
@@ -207,3 +206,43 @@ button.linea:hover { background: var(--pri-t); }
 @media (prefers-reduced-motion: no-preference) {
   .opcion, .btn, .linea { transition: background-color .15s, border-color .15s; }
 }
+
+/* ---- Hoja modal (paso a paso desde un reto) ---- */
+.velo { position: fixed; inset: 0; background: rgba(5, 6, 10, .55); z-index: 10; display: flex; align-items: flex-end; justify-content: center; }
+.hoja {
+  width: 100%; max-width: 560px; max-height: 92dvh; overflow-y: auto; background: var(--fondo);
+  border-radius: 20px 20px 0 0; padding: 8px var(--margen) calc(20px + env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; gap: 14px;
+}
+.asa { width: 40px; height: 5px; border-radius: 3px; background: var(--borde); align-self: center; margin-top: 4px; }
+
+/* ---- ¿Quién tiene razón? ---- */
+.insignia { width: 36px; height: 36px; flex: none; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; color: var(--fondo); background: var(--pri); }
+.insignia.ia { background: var(--tinta); }
+.opcion.descartada { opacity: .55; border-color: var(--mal); }
+
+/* ---- Mapa por semanas ---- */
+.via { list-style: none; margin: 0; padding: 0; }
+.nodo { display: flex; gap: 14px; }
+.nodo .eje { display: flex; flex-direction: column; align-items: center; flex: none; width: 32px; }
+.nodo .circ { width: 28px; height: 28px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+.nodo .circ.completa { background: var(--ok); color: var(--fondo); }
+.nodo .circ.actual { border: 3px solid var(--pri); }
+.nodo .circ.futura { border: 2px solid var(--borde); }
+.nodo .raya { flex: 1; width: 2px; background: var(--borde); min-height: 16px; }
+.nodo .info { flex: 1; padding-bottom: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fila-concepto { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--sup); border: 1px solid var(--borde); }
+.fila-concepto.hoy { border: 2px solid var(--pri); }
+.puntos { display: flex; gap: 6px; flex: none; }
+.pto { width: 12px; height: 12px; border-radius: 6px; border: 2px solid var(--borde); box-sizing: border-box; }
+.pto.si { background: var(--pri); border-color: var(--pri); }
+
+/* ---- Esquema numerado y terminal ---- */
+.esquema { list-style: none; margin: 0; padding: 0; }
+.esquema .caja { display: flex; gap: 12px; align-items: flex-start; }
+.esquema .n { width: 28px; height: 28px; flex: none; border-radius: 14px; background: var(--pri-t); color: var(--pri); font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; }
+.esquema .flecha { color: var(--pri); }
+.terminal-orden::before { content: '$ '; color: #8FA3FF; opacity: 1; }
+.cursor { display: inline-block; width: .6em; height: 1.1em; background: var(--consola-txt); vertical-align: text-bottom; opacity: .8; }
+.pastilla { font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--con-t); color: var(--con); }
+.pestana { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-codigo); font-size: 14px; color: var(--suave); }
