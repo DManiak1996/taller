@@ -14,7 +14,11 @@ revoke all on public.ajustes from anon, authenticated;
 
 -- Genera una clave nueva (y anula la anterior). Ejecútala con:  select public.taller_nueva_clave();
 -- Copia el resultado y guárdalo donde se te indique. Aquí solo queda su huella (sha256), no la clave.
-create or replace function public.taller_nueva_clave()
+-- La clave queda atada a UNA persona (la dueña del taller): los avisos solo leen sus filas, aunque
+-- algún día hubiera más cuentas. Si hay una sola cuenta se elige sola; si hay varias, pasa su uuid:
+--   select public.taller_nueva_clave('uuid-de-la-cuenta');
+drop function if exists public.taller_nueva_clave();
+create or replace function public.taller_nueva_clave(dueno uuid default null)
 returns text
 language plpgsql
 security definer
@@ -23,13 +27,21 @@ as $$
 declare
   clave text := replace(gen_random_uuid()::text || gen_random_uuid()::text, '-', '');
 begin
+  if dueno is null then
+    if (select count(*) from auth.users) <> 1 then
+      raise exception 'Hay % cuentas: pasa el uuid de la tuya, select public.taller_nueva_clave(''uuid'');', (select count(*) from auth.users);
+    end if;
+    select id into dueno from auth.users;
+  elsif not exists (select 1 from auth.users where id = dueno) then
+    raise exception 'No hay ninguna cuenta con ese uuid';
+  end if;
   insert into public.ajustes (nombre, valor)
-  values ('clave_avisos', encode(sha256(convert_to(clave, 'UTF8')), 'hex'))
+  values ('clave_avisos', encode(sha256(convert_to(clave, 'UTF8')), 'hex')), ('usuario_avisos', dueno::text)
   on conflict (nombre) do update set valor = excluded.valor;
   return clave;
 end;
 $$;
-revoke all on function public.taller_nueva_clave() from public, anon, authenticated;
+revoke all on function public.taller_nueva_clave(uuid) from public, anon, authenticated;
 
 -- El resumen que leen los avisos. Fechas en hora de Madrid.
 create or replace function public.resumen_taller(clave text)
@@ -42,36 +54,37 @@ as $$
 declare
   hoy date := (now() at time zone 'Europe/Madrid')::date;
   esperada text;
+  u uuid := (select valor::uuid from public.ajustes where nombre = 'usuario_avisos');
   racha int := 0;
   d date;
 begin
   select valor into esperada from public.ajustes where nombre = 'clave_avisos';
-  if esperada is null or esperada <> encode(sha256(convert_to(clave, 'UTF8')), 'hex') then
+  if esperada is null or esperada <> encode(sha256(convert_to(clave, 'UTF8')), 'hex') or u is null then
     raise exception 'clave no válida' using errcode = '28000';
   end if;
 
-  d := case when exists (select 1 from public.sesiones where fecha = hoy) then hoy else hoy - 1 end;
-  while exists (select 1 from public.sesiones where fecha = d) loop
+  d := case when exists (select 1 from public.sesiones where user_id = u and fecha = hoy) then hoy else hoy - 1 end;
+  while exists (select 1 from public.sesiones where user_id = u and fecha = d) loop
     racha := racha + 1;
     d := d - 1;
   end loop;
 
   return json_build_object(
     'hoy', hoy,
-    'hecho_hoy', exists (select 1 from public.sesiones where fecha = hoy),
+    'hecho_hoy', exists (select 1 from public.sesiones where user_id = u and fecha = hoy),
     'racha', racha,
-    'ultimo_dia', (select dia from public.sesiones where dia is not null order by momento desc limit 1),
-    'ultima_sesion', (select max(fecha) from public.sesiones),
+    'ultimo_dia', (select dia from public.sesiones where user_id = u and dia is not null order by momento desc limit 1),
+    'ultima_sesion', (select max(fecha) from public.sesiones where user_id = u),
     'semana', json_build_object(
-      'dias_con_sesion', (select count(distinct fecha) from public.sesiones where fecha > hoy - 7),
-      'dias_hechos', (select coalesce(json_agg(distinct dia), '[]'::json) from public.sesiones where fecha > hoy - 7 and dia is not null),
-      'retos', (select count(*) from public.intentos where fecha > hoy - 7),
-      'a_la_primera', (select count(*) from public.intentos where fecha > hoy - 7 and fallos = 0 and not solucion),
-      'con_solucion', (select count(*) from public.intentos where fecha > hoy - 7 and solucion),
-      'pistas', (select coalesce(sum(pistas), 0) from public.intentos where fecha > hoy - 7),
+      'dias_con_sesion', (select count(distinct fecha) from public.sesiones where user_id = u and fecha > hoy - 7),
+      'dias_hechos', (select coalesce(json_agg(distinct dia), '[]'::json) from public.sesiones where user_id = u and fecha > hoy - 7 and dia is not null),
+      'retos', (select count(*) from public.intentos where user_id = u and fecha > hoy - 7),
+      'a_la_primera', (select count(*) from public.intentos where user_id = u and fecha > hoy - 7 and fallos = 0 and not solucion),
+      'con_solucion', (select count(*) from public.intentos where user_id = u and fecha > hoy - 7 and solucion),
+      'pistas', (select coalesce(sum(pistas), 0) from public.intentos where user_id = u and fecha > hoy - 7),
       'conceptos_fallados', (
         select coalesce(json_agg(c order by c), '[]'::json)
-        from (select distinct concepto as c from public.intentos where fecha > hoy - 7 and (fallos > 0 or solucion)) x
+        from (select distinct concepto as c from public.intentos where user_id = u and fecha > hoy - 7 and (fallos > 0 or solucion)) x
       )
     )
   );
@@ -97,6 +110,7 @@ create policy "ver mis suscripciones" on public.suscripciones for select to auth
 create policy "guardar mis suscripciones" on public.suscripciones for insert to authenticated with check (user_id = (select auth.uid()));
 create policy "borrar mis suscripciones" on public.suscripciones for delete to authenticated using (user_id = (select auth.uid()));
 revoke all on public.suscripciones from anon;
+grant select, insert, delete on public.suscripciones to authenticated;
 
 -- La clave pública de push la necesita la web para suscribirse: es pública por diseño.
 create or replace function public.vapid_publica()
@@ -125,7 +139,10 @@ begin
   return json_build_object(
     'publica', (select valor from public.ajustes where nombre = 'vapid_publica'),
     'privada', (select valor from public.ajustes where nombre = 'vapid_privada'),
-    'suscripciones', (select coalesce(json_agg(datos), '[]'::json) from public.suscripciones)
+    'suscripciones', (
+      select coalesce(json_agg(datos), '[]'::json) from public.suscripciones
+      where user_id = (select valor::uuid from public.ajustes where nombre = 'usuario_avisos')
+    )
   );
 end;
 $$;
@@ -151,7 +168,9 @@ returns void language plpgsql security definer set search_path = ''
 as $$
 begin
   perform public.comprobar_clave(clave);
-  delete from public.suscripciones s where s.endpoint = borrar_suscripcion.endpoint;
+  delete from public.suscripciones s
+  where s.endpoint = borrar_suscripcion.endpoint
+    and s.user_id = (select valor::uuid from public.ajustes where nombre = 'usuario_avisos');
 end;
 $$;
 revoke all on function public.borrar_suscripcion(text, text) from public;

@@ -9,6 +9,26 @@ const clave = import.meta.env.VITE_SUPABASE_KEY as string | undefined
 
 export const nube = url && clave ? createClient(url, clave, { auth: { persistSession: true, detectSessionInUrl: true, flowType: 'pkce' } }) : null
 
+/**
+ * Explica en castellano un error de Supabase, con lo que hay que hacer para arreglarlo.
+ * Nunca se enseña el mensaje original en inglés; el código sí, porque ayuda a diagnosticar.
+ */
+export function explicarErrorNube(e: unknown): string {
+  const { code, message, status } = (e ?? {}) as { code?: string; message?: string; status?: number }
+  const m = message ?? String(e)
+  if (code === 'PGRST205' || code === '42P01' || /could not find the table|does not exist/i.test(m))
+    return 'Faltan las tablas del progreso en Supabase. Hay que ejecutar supabase/esquema.sql en el SQL Editor.'
+  if (code === 'PGRST202' || /could not find the function/i.test(m))
+    return 'Falta una función en Supabase. Hay que ejecutar supabase/avisos.sql en el SQL Editor.'
+  if (code === '42501' || /permission denied/i.test(m))
+    return 'Supabase no da permiso para leer o guardar tu progreso. Hay que ejecutar otra vez supabase/esquema.sql (la versión nueva, que añade los permisos).'
+  if (code === 'PGRST301' || code === 'PGRST303' || status === 401 || /jwt/i.test(m)) return 'Tu sesión ha caducado. Sal y vuelve a entrar.'
+  if (code === '23503') return 'Tu cuenta ya no existe en Supabase. Sal y vuelve a entrar.'
+  if (code === '23514' || code === '22P02') return 'Supabase ha rechazado un dato del progreso porque no cumple las reglas de la tabla.'
+  if (e instanceof TypeError || /fetch|network|load failed/i.test(m)) return 'No se ha podido conectar con Supabase. Se reintentará cuando vuelva la conexión.'
+  return `Supabase ha devuelto un error que no conocemos${code ? ` (código ${code})` : ''}.`
+}
+
 /** Sube todo lo local (lo repetido se ignora) y devuelve todo lo que hay en la nube. */
 export async function sincronizar(local: Progreso): Promise<Progreso> {
   if (!nube) return local
@@ -49,7 +69,8 @@ const ERRORES_ACCESO: [RegExp, string][] = [
 
 function enCastellano(error: { message: string }): Error {
   const traduccion = ERRORES_ACCESO.find(([patron]) => patron.test(error.message))
-  return new Error(traduccion ? traduccion[1] : `No se ha podido entrar (${error.message}).`)
+  if (!traduccion) console.warn('Error al entrar', error)
+  return new Error(traduccion ? traduccion[1] : 'No se ha podido entrar. Prueba otra vez dentro de un rato.')
 }
 
 export async function entrar(email: string, contrasena: string) {
@@ -82,6 +103,17 @@ function base64AUint8(b64: string): Uint8Array<ArrayBuffer> {
 
 export const avisosPosibles = () => typeof window !== 'undefined' && 'serviceWorker' in navigator && 'PushManager' in window && 'Notification' in window
 
+/**
+ * ¿Están los avisos montados en Supabase? 'sin-configurar' si aún no se ejecutó avisos.sql,
+ * 'pendiente' si falta la primera ejecución del aviso (que crea las claves de push), 'listo' si se puede activar.
+ */
+export async function estadoAvisos(): Promise<'sin-configurar' | 'pendiente' | 'listo'> {
+  if (!nube) return 'sin-configurar'
+  const { data, error } = await nube.rpc('vapid_publica')
+  if (error) return 'sin-configurar'
+  return data ? 'listo' : 'pendiente'
+}
+
 /** ¿Este dispositivo ya tiene los avisos activados? */
 export async function avisosActivados(): Promise<boolean> {
   if (!avisosPosibles()) return false
@@ -96,15 +128,21 @@ export async function activarAvisos(): Promise<void> {
   const permiso = await Notification.requestPermission()
   if (permiso !== 'granted') throw new Error('Sin permiso para avisar. Se puede cambiar en Ajustes › Notificaciones › Taller.')
   const { data: publica, error } = await nube.rpc('vapid_publica')
-  if (error) throw error
+  if (error) throw new Error(explicarErrorNube(error))
   if (!publica) throw new Error('Los avisos aún no están preparados en el servidor. Prueba mañana.')
   const registro = await navigator.serviceWorker.ready
-  const suscripcion =
-    (await registro.pushManager.getSubscription()) ??
-    (await registro.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64AUint8(publica as string) }))
+  let suscripcion: PushSubscription
+  try {
+    suscripcion =
+      (await registro.pushManager.getSubscription()) ??
+      (await registro.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: base64AUint8(publica as string) }))
+  } catch (e) {
+    console.warn('No se pudo suscribir a los avisos', e)
+    throw new Error('El iPhone no ha dejado registrar este dispositivo para avisos. Prueba otra vez más tarde.')
+  }
   const datos = suscripcion.toJSON()
   const { error: e2 } = await nube.from('suscripciones').upsert({ endpoint: datos.endpoint, datos }, { onConflict: 'endpoint', ignoreDuplicates: true })
-  if (e2) throw e2
+  if (e2) throw new Error(explicarErrorNube(e2))
 }
 
 export async function desactivarAvisos(): Promise<void> {
