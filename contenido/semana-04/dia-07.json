@@ -1,0 +1,211 @@
+{
+  "id": "s04-d07",
+  "semana": 4,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: qué es un algoritmo",
+  "objetivo": "Hoy aprendes qué es un algoritmo, a escribirlo en pasos antes de programar y por qué dos algoritmos que dan el mismo resultado pueden tardar muy distinto.",
+  "conceptos": [
+    "algoritmos"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un **algoritmo** es una lista de pasos precisos que cualquiera puede seguir sin improvisar y que **termina**. Un protocolo de respuesta a brechas bien hecho lo es. Programar es escribir algoritmos en un idioma que entiende el ordenador; con bucles e if ya tienes las piezas."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Buscar el expediente 700 entre 1000 ordenados",
+      "pasos": [
+        {
+          "titulo": "Mitad",
+          "texto": "Abre el archivador por la mitad y mira qué número hay."
+        },
+        {
+          "titulo": "¿Es este?",
+          "texto": "Si es el 700, has terminado."
+        },
+        {
+          "titulo": "¿Antes o después?",
+          "texto": "Si el 700 va después, quédate con la mitad de detrás; si va antes, con la de delante."
+        },
+        {
+          "titulo": "Repite",
+          "texto": "Vuelve al primer paso con la mitad que te queda."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Eso de arriba es **pseudocódigo**: el algoritmo en tu idioma, antes de escribirlo en código. Compáralo con mirar los expedientes uno a uno: con 1000, puedes necesitar 1000 pasos; partiendo por la mitad, unos 10. Con un millón, un millón de pasos contra unos 20. Los dos funcionan, pero uno es muchísimo más **eficiente**."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "let n = 1000;\nlet pasos = 0;\nwhile (n > 1) {\n  n = n / 2;\n  pasos++;\n}\nconsole.log(pasos);",
+      "salida": [
+        "10"
+      ],
+      "nota": "¿Cuántas veces puedes partir 1000 por la mitad hasta quedarte con uno? 10. Por eso bastan unos 10 pasos. Al revisar código de una IA no basta con que funcione: un algoritmo lento puede tardar minutos con muchos datos."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Un algoritmo de DeIure: la baja de un usuario",
+      "pasos": [
+        {
+          "titulo": "Día 0",
+          "texto": "Baja lógica: la cuenta se desactiva, pero no se borra."
+        },
+        {
+          "titulo": "Reactivación",
+          "texto": "Hasta el día 30, el usuario puede recuperar su cuenta."
+        },
+        {
+          "titulo": "Día 30",
+          "texto": "Seudonimización: el nombre se cambia por un código y la clave se guarda aparte."
+        },
+        {
+          "titulo": "Tres años",
+          "texto": "Anonimización irreversible."
+        }
+      ]
+    },
+    {
+      "tipo": "terminal",
+      "orden": "ls copias",
+      "salida": [
+        "hola.ts"
+      ],
+      "nota": "**Comando de la semana: mkdir, cp, mv y rm.** `mkdir` crea una carpeta; `cp` copia un fichero; `mv` lo mueve o le cambia el nombre; `rm` lo borra, **sin pasar por la papelera**: no hay deshacer. **Minirreto en tu Mac:** en `practica`, haz `mkdir copias`, luego `cp hola.ts copias/` y `ls copias`: debe salir `hola.ts`. Después `mv copias/hola.ts copias/adios.ts` y otra vez `ls copias`: ahora debe salir `adios.ts`. Para terminar, `rm copias/adios.ts`."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s04-d07-r1",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Un algoritmo que busca el expediente 4 mirándolos uno a uno. ¿Qué escribe?",
+      "codigo": "const buscado = 4;\nfor (let i = 1; i <= 6; i++) {\n  if (i === buscado) {\n    console.log(\"Encontrado en\", i);\n  }\n}",
+      "opciones": [
+        {
+          "texto": "Encontrado en 4",
+          "correcta": true,
+          "siEliges": "Eso es: mira los 6, pero solo con el 4 la condición es true."
+        },
+        {
+          "texto": "Encontrado en 4\nEncontrado en 5\nEncontrado en 6",
+          "siEliges": "La condición es i === 4, no i >= 4: solo se cumple una vez."
+        },
+        {
+          "texto": "1\n2\n3\n4",
+          "siEliges": "El console.log está dentro del if: solo escribe cuando encuentra el 4."
+        }
+      ],
+      "pistas": [
+        "El for da 6 vueltas. ¿En cuántas se cumple el if?",
+        "Solo cuando i vale 4.",
+        "Escribe una sola línea."
+      ],
+      "explicacion": "Un if dentro de un for es la forma de buscar algo uno a uno. Fíjate: sigue mirando el 5 y el 6 aunque ya lo haya encontrado. Más adelante verás cómo parar antes."
+    },
+    {
+      "id": "s04-d07-r2",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Para medir cuánto trabaja un algoritmo, se cuentan sus pasos. Completa para que cuente las 8 vueltas.",
+      "codigo": "let pasos = 0;\nfor (let i = 1; i <= 8; i++) {\n  pasos = pasos ___ 1;\n}\nconsole.log(pasos);",
+      "salidaEsperada": [
+        "8"
+      ],
+      "opciones": [
+        {
+          "texto": "+",
+          "correcta": true,
+          "siEliges": "Correcto: suma 1 por vuelta, 8 en total."
+        },
+        {
+          "texto": "-",
+          "siEliges": "Restaría: acabaría en -8."
+        },
+        {
+          "texto": "*",
+          "siEliges": "0 × 1 sigue siendo 0: no contaría nada."
+        }
+      ],
+      "pistas": [
+        "Es un acumulador que empieza en 0.",
+        "En cada vuelta debe crecer 1.",
+        "Sumar."
+      ],
+      "explicacion": "Contar pasos es la forma más sencilla de comparar dos algoritmos: el que da menos, gana."
+    },
+    {
+      "ref": "s04-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s04-d07-x1",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Cuántas veces se puede partir 32 por la mitad hasta llegar a 1?",
+      "codigo": "let n = 32;\nlet pasos = 0;\nwhile (n > 1) {\n  n = n / 2;\n  pasos++;\n}\nconsole.log(pasos);",
+      "opciones": [
+        {
+          "texto": "5",
+          "correcta": true,
+          "siEliges": "Eso es: 32, 16, 8, 4, 2, 1. Cinco pasos."
+        },
+        {
+          "texto": "16",
+          "siEliges": "16 es la primera mitad, no el número de pasos."
+        },
+        {
+          "texto": "6",
+          "siEliges": "Cuenta los pasos, no los números: de 32 a 1 hay cinco divisiones."
+        }
+      ],
+      "pistas": [
+        "Apunta n después de cada vuelta.",
+        "16, 8, 4, 2, 1.",
+        "¿Cuántas divisiones has hecho?"
+      ],
+      "explicacion": "Partir por la mitad reduce muy deprisa: con 32 elementos, 5 pasos; con 1000, 10."
+    },
+    {
+      "id": "s04-d07-x2",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Buscar uno a uno entre 1000. ¿Qué escribe este programa?",
+      "codigo": "let pasos = 0;\nfor (let i = 1; i <= 1000; i++) {\n  pasos++;\n}\nconsole.log(pasos);",
+      "opciones": [
+        {
+          "texto": "1000",
+          "correcta": true,
+          "siEliges": "Eso es: una vuelta por expediente."
+        },
+        {
+          "texto": "10",
+          "siEliges": "Esos serían los pasos partiendo por la mitad, no mirando uno a uno."
+        },
+        {
+          "texto": "999",
+          "siEliges": "Con <=, el 1000 también da vuelta."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas vueltas da el for?",
+        "De 1 a 1000, los dos incluidos.",
+        "Una vuelta, un paso."
+      ],
+      "explicacion": "1000 pasos contra 10: el mismo resultado, cien veces más trabajo."
+    }
+  ]
+}

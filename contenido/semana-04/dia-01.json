@@ -1,0 +1,260 @@
+{
+  "id": "s04-d01",
+  "semana": 4,
+  "dia": 1,
+  "titulo": "Repetir sin copiar: for",
+  "objetivo": "Hoy aprendes a repetir un bloque de código las veces que quieras con for, sin copiar y pegar líneas.",
+  "conceptos": [
+    "bucle-for"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"Aviso enviado\");\nconsole.log(\"Aviso enviado\");\nconsole.log(\"Aviso enviado\");",
+      "salida": [
+        "Aviso enviado",
+        "Aviso enviado",
+        "Aviso enviado"
+      ],
+      "nota": "Avisar a 3 interesados de una brecha copiando la línea funciona. ¿Y si fueran 500? Para eso están los **bucles**: escribes el bloque una vez y le dices cuántas veces repetirlo."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "for (let i = 1; i <= 3; i++) {\n  console.log(\"Aviso\", i);\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "i": "1"
+          },
+          "salida": [],
+          "nota": "`let i = 1` crea un contador, i, que empieza en 1. Se hace una sola vez."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "1"
+          },
+          "salida": [],
+          "nota": "¿1 <= 3? Sí: entra en el bloque."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "i": "1"
+          },
+          "salida": [
+            "Aviso 1"
+          ],
+          "nota": "Primera vuelta."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "2"
+          },
+          "salida": [
+            "Aviso 1"
+          ],
+          "nota": "Al terminar el bloque vuelve arriba e i++ suma 1 a i: ahora vale 2."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "2"
+          },
+          "salida": [
+            "Aviso 1"
+          ],
+          "nota": "¿2 <= 3? Sí: otra vuelta."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "i": "2"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2"
+          ],
+          "nota": "Segunda vuelta."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "3"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2"
+          ],
+          "nota": "i++: i vale 3."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "3"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2"
+          ],
+          "nota": "¿3 <= 3? Sí: «menor o igual» incluye el 3."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "i": "3"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2",
+            "Aviso 3"
+          ],
+          "nota": "Tercera vuelta."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "4"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2",
+            "Aviso 3"
+          ],
+          "nota": "i++: i vale 4."
+        },
+        {
+          "linea": 1,
+          "variables": {
+            "i": "4"
+          },
+          "salida": [
+            "Aviso 1",
+            "Aviso 2",
+            "Aviso 3"
+          ],
+          "nota": "¿4 <= 3? No: el bucle termina. Tres vueltas."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`for` («para») repite el bloque entre llaves **mientras la condición sea true**. La caja `i` cuenta las vueltas, y dentro del bloque puedes usarla: por eso cada aviso lleva su número. Se suele llamar `i`, pero vale cualquier nombre."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure recorre el texto de una EIPD línea a línea con un for. `bodyLines.length` es cuántas líneas tiene el texto: lo verás la semana que viene.",
+      "codigo": "for (let i = 0; i < bodyLines.length; i++) {",
+      "fichero": "DeIure/src/lib/apartado-04-figura-markers.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s04-d01-r1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 1; i <= 4; i++) {\n  console.log(\"Carta\", i);\n}",
+      "opciones": [
+        {
+          "texto": "Carta 1\nCarta 2\nCarta 3\nCarta 4",
+          "correcta": true,
+          "siEliges": "Eso es: i va de 1 a 4, y en cada vuelta escribe su número."
+        },
+        {
+          "texto": "Carta 1\nCarta 2\nCarta 3",
+          "siEliges": "Con <= el 4 también cuenta: ¿4 <= 4? Sí."
+        },
+        {
+          "texto": "Carta 4",
+          "siEliges": "console.log está dentro del bucle: escribe en cada vuelta, no solo en la última."
+        }
+      ],
+      "pistas": [
+        "¿Qué valores toma i?",
+        "Empieza en 1 y sigue mientras i <= 4.",
+        "1, 2, 3 y 4: cuatro vueltas, una línea en cada una."
+      ],
+      "explicacion": "Para saber qué hace un for, mira dónde empieza el contador, cuándo para y qué hay dentro del bloque."
+    },
+    {
+      "id": "s04-d01-r2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que envíe 5 avisos.",
+      "codigo": "for (let i = 1; i <= ___; i++) {\n  console.log(\"Aviso\", i);\n}",
+      "salidaEsperada": [
+        "Aviso 1",
+        "Aviso 2",
+        "Aviso 3",
+        "Aviso 4",
+        "Aviso 5"
+      ],
+      "opciones": [
+        {
+          "texto": "5",
+          "correcta": true,
+          "siEliges": "Correcto: de 1 a 5 son cinco vueltas."
+        },
+        {
+          "texto": "4",
+          "siEliges": "De 1 a 4 son cuatro vueltas: faltaría un aviso."
+        },
+        {
+          "texto": "6",
+          "siEliges": "De 1 a 6 son seis: sobraría un aviso."
+        }
+      ],
+      "pistas": [
+        "El contador empieza en 1.",
+        "Con <=, el último número también da vuelta.",
+        "De 1 a 5."
+      ],
+      "explicacion": "Si el contador empieza en 1 y usa <=, el número de la condición es justo el número de vueltas."
+    },
+    {
+      "ref": "s04-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s04-d01-x1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 1; i <= 2; i++) {\n  console.log(\"Hola\");\n}\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Hola\nHola\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: el bloque se repite dos veces y «Fin», que va fuera, una."
+        },
+        {
+          "texto": "Hola\nFin\nHola\nFin",
+          "siEliges": "«Fin» está fuera de las llaves: no se repite."
+        },
+        {
+          "texto": "Hola\nFin",
+          "siEliges": "El bucle da dos vueltas: i vale 1 y luego 2."
+        }
+      ],
+      "pistas": [
+        "¿Qué líneas están dentro de las llaves?",
+        "Solo console.log(\"Hola\") se repite.",
+        "Dos vueltas, y después la línea de fuera."
+      ],
+      "explicacion": "Lo que está dentro de las llaves se repite; lo de después se ejecuta una vez, cuando el bucle termina."
+    },
+    {
+      "ref": "s04-rev-x1"
+    }
+  ]
+}

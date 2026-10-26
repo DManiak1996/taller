@@ -1,0 +1,193 @@
+{
+  "id": "s04-d02",
+  "semana": 4,
+  "dia": 2,
+  "titulo": "Las tres partes del for",
+  "objetivo": "Hoy aprendes a leer las tres partes de un for (inicio, condición y paso) y a detectar el error más típico de los bucles: una vuelta de más o de menos.",
+  "conceptos": [
+    "bucle-for"
+  ],
+  "leccion": [
+    {
+      "tipo": "esquema",
+      "titulo": "for (let i = 1; i <= 3; i++)",
+      "pasos": [
+        {
+          "titulo": "Inicio",
+          "texto": "let i = 1. Crea el contador. Solo se hace una vez, al principio."
+        },
+        {
+          "titulo": "Condición",
+          "texto": "i <= 3. Se pregunta antes de cada vuelta. Si da false, el bucle termina."
+        },
+        {
+          "titulo": "Bloque",
+          "texto": "Lo que hay entre llaves. Se ejecuta una vez por vuelta."
+        },
+        {
+          "titulo": "Paso",
+          "texto": "i++. Se hace al final de cada vuelta, y vuelve a la condición."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "let n = 5;\nn++;\nconsole.log(n);",
+      "salida": [
+        "6"
+      ],
+      "nota": "`n++` es una forma corta de escribir `n = n + 1`. Y `n--` resta 1. En los for los verás constantemente."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "for (let i = 1; i < 3; i++) {\n  console.log(i);\n}",
+      "salida": [
+        "1",
+        "2"
+      ],
+      "nota": "Con `<` en vez de `<=`, el 3 se queda fuera: dos vueltas, no tres. Es el **error de uno**, el fallo más típico de los bucles, también en el código de las IA. No da error: simplemente falta (o sobra) una vuelta."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Para revisar un for, comprueba los extremos: ¿cuál es el **primer** valor de i? ¿Y el **último** que entra? Si te piden «del 1 al 5», el primero debe ser 1 y el último 5."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cuando DeIure dibuja un gráfico de una hoja de cálculo, este for traza las líneas de la cuadrícula: i va de 0 a 4 con <=, así que son **cinco** líneas.",
+      "codigo": "for (let i = 0; i <= 4; i++) {",
+      "fichero": "DeIure/src/lib/spreadsheet-chart-svg.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s04-d02-r1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 2; i <= 4; i++) {\n  console.log(i);\n}",
+      "opciones": [
+        {
+          "texto": "2\n3\n4",
+          "correcta": true,
+          "siEliges": "Eso es: empieza en 2 y el 4 entra porque es <=."
+        },
+        {
+          "texto": "2\n3",
+          "siEliges": "Con <= el 4 también entra."
+        },
+        {
+          "texto": "1\n2\n3\n4",
+          "siEliges": "El inicio es let i = 2: el contador empieza en 2."
+        }
+      ],
+      "pistas": [
+        "Mira el inicio: ¿cuánto vale i la primera vez?",
+        "Y la condición: ¿entra el 4?",
+        "Del 2 al 4, los dos incluidos."
+      ],
+      "explicacion": "El contador no tiene por qué empezar en 0 ni en 1: empieza donde diga el inicio."
+    },
+    {
+      "id": "s04-d02-r2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa el inicio para que escriba 1, 2 y 3.",
+      "codigo": "for (let i = ___; i <= 3; i++) {\n  console.log(i);\n}",
+      "salidaEsperada": [
+        "1",
+        "2",
+        "3"
+      ],
+      "opciones": [
+        {
+          "texto": "1",
+          "correcta": true,
+          "siEliges": "Correcto: empieza en 1 y termina en 3."
+        },
+        {
+          "texto": "0",
+          "siEliges": "Empezaría en 0: escribiría 0, 1, 2 y 3, una vuelta de más."
+        },
+        {
+          "texto": "3",
+          "siEliges": "Empezaría en 3: solo escribiría el 3."
+        }
+      ],
+      "pistas": [
+        "¿Cuál es el primer número que debe salir?",
+        "El inicio es el primer valor de i.",
+        "El 1."
+      ],
+      "explicacion": "Empezar en 0 en vez de en 1 es la otra cara del error de uno: una vuelta de más."
+    },
+    {
+      "ref": "s04-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s04-d02-x1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Cuántas líneas escribe este programa?",
+      "codigo": "for (let i = 1; i < 4; i++) {\n  console.log(\"Vuelta\");\n}",
+      "opciones": [
+        {
+          "texto": "Vuelta\nVuelta\nVuelta",
+          "correcta": true,
+          "siEliges": "Eso es: i vale 1, 2 y 3. Con < el 4 no entra."
+        },
+        {
+          "texto": "Vuelta\nVuelta\nVuelta\nVuelta",
+          "siEliges": "Con < el 4 se queda fuera: son tres vueltas."
+        },
+        {
+          "texto": "Vuelta",
+          "siEliges": "El bucle repite el bloque mientras i < 4."
+        }
+      ],
+      "pistas": [
+        "¿Qué valores de i cumplen i < 4?",
+        "Empieza en 1.",
+        "1, 2 y 3."
+      ],
+      "explicacion": "Con <, el número de la condición no entra. De 1 a < 4 son tres vueltas."
+    },
+    {
+      "id": "s04-d02-x2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let n = 10;\nn--;\nn--;\nconsole.log(n);",
+      "opciones": [
+        {
+          "texto": "8",
+          "correcta": true,
+          "siEliges": "Eso es: cada n-- resta 1."
+        },
+        {
+          "texto": "9",
+          "siEliges": "Hay dos n--: resta 1 dos veces."
+        },
+        {
+          "texto": "10",
+          "siEliges": "n-- sí cambia la caja: es n = n - 1."
+        }
+      ],
+      "pistas": [
+        "n-- es una forma corta de algo.",
+        "n-- es n = n - 1.",
+        "Dos veces: 10, 9, 8."
+      ],
+      "explicacion": "++ suma 1 y -- resta 1. Son atajos muy comunes en los bucles."
+    }
+  ]
+}
