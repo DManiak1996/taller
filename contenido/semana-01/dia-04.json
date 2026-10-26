@@ -1,0 +1,232 @@
+{
+  "id": "s01-d04",
+  "semana": 1,
+  "dia": 4,
+  "titulo": "Datos que cambian: let",
+  "objetivo": "Hoy aprendes a crear una variable con let, a cambiar su valor y a saber qué valor tiene en cada línea.",
+  "conceptos": [
+    "let"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Algunos datos cambian: una solicitud pasa de «recibida» a «resuelta». Para eso existe `let`: una caja cuyo contenido **se puede cambiar**."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "let estado = \"recibida\";\nconsole.log(estado);\nestado = \"en trámite\";\nconsole.log(estado);\nestado = \"resuelta\";\nconsole.log(estado);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "estado": "\"recibida\""
+          },
+          "salida": [],
+          "nota": "Crea la caja estado con «recibida» dentro."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "estado": "\"recibida\""
+          },
+          "salida": [
+            "recibida"
+          ],
+          "nota": "Escribe lo que hay ahora en la caja."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "estado": "\"en trámite\""
+          },
+          "salida": [
+            "recibida"
+          ],
+          "nota": "Cambia el contenido. «recibida» desaparece."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "estado": "\"en trámite\""
+          },
+          "salida": [
+            "recibida",
+            "en trámite"
+          ],
+          "nota": "Escribe el valor nuevo."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "estado": "\"resuelta\""
+          },
+          "salida": [
+            "recibida",
+            "en trámite"
+          ],
+          "nota": "Vuelve a cambiar."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "estado": "\"resuelta\""
+          },
+          "salida": [
+            "recibida",
+            "en trámite",
+            "resuelta"
+          ],
+          "nota": "Cada console.log escribió lo que había en ese momento."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Fíjate: `let` se escribe **solo la primera vez**, al crear la caja. Para cambiar lo de dentro escribes el nombre, `=` y el valor nuevo. El valor antiguo se pierde."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "let estado = \"recibida\";\nlet estado = \"resuelta\";\nconsole.log(estado);",
+      "salida": [],
+      "lanzaError": true,
+      "nota": "Si repites `let`, intentas crear otra caja con el mismo nombre, y el programa ni arranca: **Identifier 'estado' has already been declared** («estado ya existe»)."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cuando DeIure redacta el análisis de riesgos de una EIPD, empieza con el título y le va añadiendo párrafos. Por eso es `let`: su contenido crece mientras se escribe. (Los `\\n` son saltos de línea.)",
+      "codigo": "let finalText = '# Analisis de Riesgos\\n\\n';",
+      "fichero": "DeIure/src/lib/apartado-09-compiler.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d04-r1",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let intentos = 1;\nintentos = 2;\nconsole.log(intentos);",
+      "opciones": [
+        {
+          "texto": "2",
+          "correcta": true,
+          "siEliges": "Eso es: cuando llega al console.log, la caja ya tiene un 2."
+        },
+        {
+          "texto": "1",
+          "siEliges": "El cambio de la línea 2 ocurre antes del console.log, así que ya no hay un 1."
+        },
+        {
+          "texto": "1\n2",
+          "siEliges": "Solo hay un console.log, así que solo sale una línea: lo que hay en ese momento."
+        },
+        {
+          "texto": "intentos",
+          "siEliges": "Sin comillas, intentos es la caja: escribe su contenido, no la palabra."
+        }
+      ],
+      "pistas": [
+        "Sigue las líneas en orden y apunta qué hay en la caja tras cada una.",
+        "Al llegar a la línea 3, la caja ya cambió.",
+        "Línea 1: 1. Línea 2: 2. ¿Qué escribe la línea 3?"
+      ],
+      "explicacion": "console.log escribe lo que hay en la caja justo en ese momento, no su historia."
+    },
+    {
+      "ref": "s01-rev-4"
+    },
+    {
+      "id": "s01-d04-r3",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "let brecha = \"pendiente\";",
+        "console.log(brecha);",
+        "brecha = \"notificada\";",
+        "console.log(brecha);"
+      ],
+      "salidaEsperada": [
+        "pendiente",
+        "notificada"
+      ],
+      "pistas": [
+        "Lo primero es crear la caja.",
+        "Entre los dos console.log tiene que cambiar el valor.",
+        "let, console.log, cambio, console.log."
+      ],
+      "explicacion": "Los dos console.log son idénticos, pero escriben cosas distintas porque entre uno y otro cambió el contenido de la caja."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d04-x1",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa escriba «firmada».",
+      "codigo": "let fase = \"borrador\";\n___\nconsole.log(fase);",
+      "salidaEsperada": [
+        "firmada"
+      ],
+      "opciones": [
+        {
+          "texto": "fase = \"firmada\";",
+          "correcta": true,
+          "siEliges": "Correcto: nombre, = y el valor nuevo. Sin let."
+        },
+        {
+          "texto": "let fase = \"firmada\";",
+          "siEliges": "let solo se escribe al crear la caja. Repetirlo da error: «fase ya existe»."
+        },
+        {
+          "texto": "\"firmada\" = fase;",
+          "siEliges": "Al revés: la caja va a la izquierda del = y el valor nuevo, a la derecha."
+        }
+      ],
+      "pistas": [
+        "La caja fase ya existe: solo hay que cambiar lo que tiene dentro.",
+        "Para cambiar: nombre de la caja = valor nuevo; sin let.",
+        "Empieza por fase ="
+      ],
+      "explicacion": "Crear (let fase = ...) y cambiar (fase = ...) son dos órdenes distintas. let solo aparece al crear."
+    },
+    {
+      "id": "s01-d04-x2",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let total = 5;\nconsole.log(total);\ntotal = 8;\nconsole.log(total);",
+      "opciones": [
+        {
+          "texto": "5\n8",
+          "correcta": true,
+          "siEliges": "Eso es: el primer console.log va antes del cambio y el segundo, después."
+        },
+        {
+          "texto": "8\n8",
+          "siEliges": "El primer console.log se ejecuta antes de la línea 3: en ese momento hay un 5."
+        },
+        {
+          "texto": "5\n5",
+          "siEliges": "La línea 3 cambia el contenido, así que el segundo console.log ve el 8."
+        }
+      ],
+      "pistas": [
+        "Hay dos console.log: uno antes y otro después del cambio.",
+        "Cada console.log escribe lo que hay en ese momento.",
+        "La primera línea de salida es 5."
+      ],
+      "explicacion": "El orden de las líneas decide qué valor ve cada console.log."
+    },
+    {
+      "ref": "s01-rev-x2"
+    }
+  ]
+}

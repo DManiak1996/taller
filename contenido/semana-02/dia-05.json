@@ -1,0 +1,206 @@
+{
+  "id": "s02-d05",
+  "semana": 2,
+  "dia": 5,
+  "titulo": "Datos, cálculo y mensaje",
+  "objetivo": "Hoy aprendes a combinar datos, un cálculo y una plantilla para escribir un mensaje útil, como el aviso de un plazo.",
+  "conceptos": [
+    "operaciones",
+    "plantillas-texto"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Casi todo programa pequeño tiene tres partes: **datos** (lo que sabes), **cálculo** (lo que sacas de ellos) y **mensaje** (lo que enseñas). Si sabes ver esas tres partes, sabes leer el programa."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const casos = 4;\nconst minutosPorCaso = 15;\nconst total = casos * minutosPorCaso;\nconsole.log(`${casos} casos: ${total} min`);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "casos": "4"
+          },
+          "salida": [],
+          "nota": "Dato: hoy hay 4 solicitudes por atender."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "casos": "4",
+            "minutosPorCaso": "15"
+          },
+          "salida": [],
+          "nota": "Dato: cada una lleva 15 minutos."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "casos": "4",
+            "minutosPorCaso": "15",
+            "total": "60"
+          },
+          "salida": [],
+          "nota": "Cálculo: 4 × 15 = 60."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "casos": "4",
+            "minutosPorCaso": "15",
+            "total": "60"
+          },
+          "salida": [
+            "4 casos: 60 min"
+          ],
+          "nota": "Mensaje: una plantilla con dos huecos."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Fíjate en el nombre `minutosPorCaso`: varias palabras juntas, con mayúscula al empezar cada una nueva (se llama **camelCase**, porque las mayúsculas parecen jorobas). Un nombre largo y claro es mejor que `m`: el código se lee muchas más veces de las que se escribe."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const facturacion = 2_000_000;\nconst multa = facturacion * 0.04;\nconsole.log(`Multa: ${multa} euros`);",
+      "salida": [
+        "Multa: 80000 euros"
+      ],
+      "nota": "Las mismas tres partes con la multa máxima del RGPD para una empresa que factura 2 millones: dato, cálculo (el 4 % es multiplicar por 0.04) y mensaje."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure calcula los días entre dos fechas restándolas y dividiendo entre 86_400_000, que son los milisegundos de un día. Es el mismo patrón: datos, cálculo y, después, un mensaje.",
+      "codigo": "const days = (Date.parse(to) - Date.parse(from)) / 86_400_000;",
+      "fichero": "DeIure/src/lib/calendar-tool-contract.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d05-r1",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const horas = 72;\nconst dias = horas / 24;\nconsole.log(`Son ${dias} días`);",
+      "opciones": [
+        {
+          "texto": "Son 3 días",
+          "correcta": true,
+          "siEliges": "Eso es: el hueco se rellena con dias, que vale 72 / 24."
+        },
+        {
+          "texto": "Son 72 días",
+          "siEliges": "El hueco es dias, no horas: vale 72 / 24."
+        },
+        {
+          "texto": "Son ${dias} días",
+          "siEliges": "Son comillas invertidas: es una plantilla y rellena los huecos."
+        }
+      ],
+      "pistas": [
+        "Calcula primero cuánto vale dias.",
+        "72 / 24 = 3. Luego rellena el hueco.",
+        "El hueco vale 3."
+      ],
+      "explicacion": "Datos (horas), cálculo (dias) y mensaje (la plantilla)."
+    },
+    {
+      "ref": "s02-rev-5"
+    },
+    {
+      "id": "s02-d05-r2",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "let minutos = 0;",
+        "minutos = minutos + 15;",
+        "minutos = minutos * 2;",
+        "console.log(`Total: ${minutos} min`);"
+      ],
+      "salidaEsperada": [
+        "Total: 30 min"
+      ],
+      "pistas": [
+        "30 = (0 + 15) × 2. ¿Qué va antes?",
+        "Primero se suma 15 y después se duplica.",
+        "let, sumar, multiplicar, mensaje."
+      ],
+      "explicacion": "Si se multiplica primero, 0 × 2 = 0, y luego + 15 daría 15. El orden de los cálculos importa."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d05-x1",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Hay que enviar una carta a cada afectado por una brecha, a 2 euros cada una. Completa para que escriba «Coste: 300 euros».",
+      "codigo": "const cartas = 150;\nconst precio = 2;\nconst coste = ___;\nconsole.log(`Coste: ${coste} euros`);",
+      "salidaEsperada": [
+        "Coste: 300 euros"
+      ],
+      "opciones": [
+        {
+          "texto": "cartas * precio",
+          "correcta": true,
+          "siEliges": "Correcto: 150 cartas por 2 euros."
+        },
+        {
+          "texto": "cartas + precio",
+          "siEliges": "Eso suma: saldría 152."
+        },
+        {
+          "texto": "\"cartas * precio\"",
+          "siEliges": "Con comillas, coste sería ese texto y no un cálculo."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto cuestan 150 cartas a 2 euros?",
+        "Hay que multiplicar las dos cajas.",
+        "Multiplicar es *."
+      ],
+      "explicacion": "El cálculo va sin comillas. Guardarlo en una caja (coste) antes del mensaje deja cada línea corta y clara."
+    },
+    {
+      "id": "s02-d05-x2",
+      "semana": 2,
+      "concepto": "texto-mas-numero",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que la racha suba un día y escriba «Racha: 7 días».",
+      "codigo": "let racha = 6;\nracha = ___;\nconsole.log(`Racha: ${racha} días`);",
+      "salidaEsperada": [
+        "Racha: 7 días"
+      ],
+      "opciones": [
+        {
+          "texto": "racha + 1",
+          "correcta": true,
+          "siEliges": "Correcto: 6 + 1, los dos números."
+        },
+        {
+          "texto": "racha + \"1\"",
+          "siEliges": "\"1\" es texto: + pegaría y saldría 61."
+        },
+        {
+          "texto": "racha + racha",
+          "siEliges": "Eso duplica: saldría 12."
+        }
+      ],
+      "pistas": [
+        "Hay que sumar uno a lo que ya hay.",
+        "Los dos tienen que ser números para que + sume.",
+        "El 1 va sin comillas."
+      ],
+      "explicacion": "El fallo de la semana, escondido: un 1 entre comillas convierte la suma en pegar."
+    }
+  ]
+}

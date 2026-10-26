@@ -1,0 +1,195 @@
+{
+  "id": "s01-d01",
+  "semana": 1,
+  "dia": 1,
+  "titulo": "Un programa es una lista de órdenes",
+  "objetivo": "Hoy aprendes a leer un programa como lo lee el ordenador, de arriba abajo, y a mostrar un mensaje con console.log.",
+  "conceptos": [
+    "orden-ejecucion",
+    "console-log"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un **programa** es una lista de órdenes para el ordenador. Las lee **de arriba abajo**, una por línea, como los pasos de un procedimiento."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"Hola, Daniel\");",
+      "salida": [
+        "Hola, Daniel"
+      ],
+      "nota": "`console.log(...)` es la orden «escribe esto en pantalla». Lo que el programa escribe se llama **salida**. El `;` marca el final de la orden."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "console.log(\"Solicitud recibida\");\nconsole.log(\"Identidad comprobada\");\nconsole.log(\"Respuesta enviada\");",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {},
+          "salida": [
+            "Solicitud recibida"
+          ],
+          "nota": "Primera orden: escribe la primera línea."
+        },
+        {
+          "linea": 2,
+          "variables": {},
+          "salida": [
+            "Solicitud recibida",
+            "Identidad comprobada"
+          ],
+          "nota": "Baja a la siguiente y la escribe debajo."
+        },
+        {
+          "linea": 3,
+          "variables": {},
+          "salida": [
+            "Solicitud recibida",
+            "Identidad comprobada",
+            "Respuesta enviada"
+          ],
+          "nota": "Última orden. El programa termina."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Si cambias las líneas de sitio, cambia lo que sale. Cada `console.log` escribe **su propia línea**, en el orden en que aparece."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure usa `console.log` para contar qué está haciendo mientras funciona. Cuando guarda un apartado de una EIPD, escribe un mensaje parecido a este (simplificado):",
+      "codigo": "console.log(\"Apartado guardado\");",
+      "fichero": "DeIure/src/lib/api.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d01-r1",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"Uno\");\nconsole.log(\"Dos\");\nconsole.log(\"Tres\");",
+      "opciones": [
+        {
+          "texto": "Uno\nDos\nTres",
+          "correcta": true,
+          "siEliges": "Eso es: de arriba abajo, una línea por cada console.log."
+        },
+        {
+          "texto": "Tres\nDos\nUno",
+          "siEliges": "El ordenador no empieza por abajo: lee de arriba abajo."
+        },
+        {
+          "texto": "Uno Dos Tres",
+          "siEliges": "Cada console.log escribe en su propia línea, no todo seguido."
+        }
+      ],
+      "pistas": [
+        "Mira por qué línea empieza el ordenador.",
+        "Se lee de arriba abajo, y cada console.log es una línea de salida.",
+        "La primera línea de salida es «Uno»."
+      ],
+      "explicacion": "Tres órdenes, tres líneas de salida, en el mismo orden en que están escritas."
+    },
+    {
+      "ref": "s01-rev-1"
+    },
+    {
+      "id": "s01-d01-r3",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que el programa escriba los pasos ante una brecha de seguridad en el orden correcto.",
+      "lineas": [
+        "console.log(\"Detectar la brecha\");",
+        "console.log(\"Contenerla\");",
+        "console.log(\"Evaluar el riesgo\");",
+        "console.log(\"Notificar en 72 horas\");"
+      ],
+      "salidaEsperada": [
+        "Detectar la brecha",
+        "Contenerla",
+        "Evaluar el riesgo",
+        "Notificar en 72 horas"
+      ],
+      "pistas": [
+        "Fíjate en lo que tiene que escribir: la primera línea de la salida es la primera del programa.",
+        "Cada console.log produce una línea de salida, en el mismo orden.",
+        "Empieza por console.log(\"Detectar la brecha\");"
+      ],
+      "explicacion": "El orden del programa es el orden de la salida. Por eso, si una IA te cambia dos líneas de sitio, el resultado cambia aunque las líneas sean las mismas."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d01-x1",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa el programa para que escriba las dos líneas.",
+      "codigo": "console.log(\"Solicitud recibida\");\n___",
+      "salidaEsperada": [
+        "Solicitud recibida",
+        "Plazo: un mes"
+      ],
+      "opciones": [
+        {
+          "texto": "console.log(\"Plazo: un mes\");",
+          "correcta": true,
+          "siEliges": "Correcto: la orden completa, con el texto entre comillas."
+        },
+        {
+          "texto": "console(\"Plazo: un mes\");",
+          "siEliges": "Falta `.log`. La orden completa es `console.log`."
+        },
+        {
+          "texto": "log(\"Plazo: un mes\");",
+          "siEliges": "Falta `console.` delante. El ordenador no sabe qué es `log` a secas."
+        }
+      ],
+      "pistas": [
+        "Mira cómo está escrita la primera línea.",
+        "La orden para escribir es siempre `console.log(...)`, entera.",
+        "Copia la forma de la línea 1 y cambia solo el texto."
+      ],
+      "explicacion": "`console.log` es una orden con nombre exacto. Si falta un trozo, el ordenador no la reconoce y se para con un error."
+    },
+    {
+      "id": "s01-d01-x2",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"A\");\nconsole.log(\"B\");\nconsole.log(\"A\");",
+      "opciones": [
+        {
+          "texto": "A\nB\nA",
+          "correcta": true,
+          "siEliges": "Eso es: se ejecutan las tres órdenes, aunque dos escriban lo mismo."
+        },
+        {
+          "texto": "A\nB",
+          "siEliges": "La tercera orden también se ejecuta, aunque repita el texto."
+        },
+        {
+          "texto": "A\nA\nB",
+          "siEliges": "El orden de la salida es el orden de las líneas: la B va en medio."
+        }
+      ],
+      "pistas": [
+        "Cuenta cuántos console.log hay.",
+        "Cada console.log se ejecuta una vez, de arriba abajo, aunque repita texto.",
+        "Son tres líneas de salida, y la segunda es B."
+      ],
+      "explicacion": "El ordenador no se salta nada ni junta líneas repetidas: hace exactamente lo que pone, en orden."
+    }
+  ]
+}

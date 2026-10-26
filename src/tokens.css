@@ -1,0 +1,76 @@
+/* Tokens visuales del taller (hilo Diseño UI/UX, v1, 26-oct-2026).
+   Maquetas: https://claude.ai/artifact/SN7xE9ZtMQ8jXtNBcxameX
+   Modo claro por defecto; el oscuro sigue al sistema y se puede forzar con data-tema.
+
+   Fuentes (Google Fonts, una sola petición):
+   https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400;600&family=Atkinson+Hyperlegible+Next:wght@400;600;800&display=swap
+   Atkinson Hyperlegible está diseñada para leerse sin esfuerzo; la Mono distingue 0/O y 1/l/I. */
+
+:root {
+  /* Superficies y texto */
+  --fondo: #F3F4F7;
+  --sup: #FFFFFF;          /* tarjetas, opciones */
+  --code: #FAFBFC;         /* bloque de código */
+  --tinta: #15171C;
+  --suave: #4F5663;        /* texto secundario, 6.9:1 sobre --fondo */
+  --borde: #D3D7DF;
+
+  /* Acción principal: un solo azul */
+  --pri: #2950D9;
+  --pri-txt: #FFFFFF;
+  --pri-t: #E3E9FC;        /* tinte: opción elegida, línea activa */
+
+  /* Correcto / incorrecto: siempre con icono y palabra, nunca solo color */
+  --ok: #0B7354;
+  --ok-t: #DBF2E8;
+  --mal: #B23E0A;
+  --mal-t: #FCE8DB;
+
+  /* Las tres partes del for, iguales en lección, visualizador y retos */
+  --ini: #6A2BD0;  --ini-t: #EEE6FC;   /* inicio:    let i = 1 */
+  --con: #8A5A00;  --con-t: #FAEFD2;   /* condición: i <= 3    */
+  --pas: #AE1358;  --pas-t: #FBE3EE;   /* paso:      i++       */
+
+  /* Consola (salida del programa): oscura en los dos modos */
+  --consola: #15171C;
+  --consola-txt: #E8EAEE;
+
+  /* Tipografía */
+  --f-texto: "Atkinson Hyperlegible Next", system-ui, -apple-system, sans-serif;
+  --f-codigo: "Atkinson Hyperlegible Mono", ui-monospace, Menlo, monospace;
+  --t-h1: 28px;       /* peso 800, interlineado 1.15 */
+  --t-cuerpo: 18px;   /* interlineado 1.5 */
+  --t-boton: 18px;    /* peso 800 */
+  --t-peq: 15px;
+  --t-kicker: 13px;   /* peso 800, mayúsculas, espaciado .07em */
+  --t-codigo: 16px;   /* interlineado 1.75; ninguna línea de código pasa de ~30 caracteres en el iPhone */
+
+  /* Forma y espacio */
+  --r-boton: 16px;
+  --r-tarjeta: 14px;
+  --r-chip: 999px;
+  --alto-boton: 56px;    /* mínimo 44 en cualquier control tocable */
+  --margen: 20px;        /* lateral de pantalla */
+  --hueco: 18px;         /* entre bloques del cuerpo */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-tema="claro"]) {
+    --fondo: #0F1115; --sup: #191C22; --code: #14161B;
+    --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
+    --pri: #7C95FF; --pri-txt: #0B0D12; --pri-t: #1E2747;
+    --ok: #46C79E; --ok-t: #10302A; --mal: #FF9257; --mal-t: #3A2116;
+    --ini: #B794FF; --ini-t: #2A2043; --con: #F0B83C; --con-t: #352A10; --pas: #FF7AB6; --pas-t: #3A1A2A;
+    --consola: #05060A; --consola-txt: #E8EAEE;
+  }
+}
+:root[data-tema="oscuro"] {
+  --fondo: #0F1115; --sup: #191C22; --code: #14161B;
+  --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
+  --pri: #7C95FF; --pri-txt: #0B0D12; --pri-t: #1E2747;
+  --ok: #46C79E; --ok-t: #10302A; --mal: #FF9257; --mal-t: #3A2116;
+  --ini: #B794FF; --ini-t: #2A2043; --con: #F0B83C; --con-t: #352A10; --pas: #FF7AB6; --pas-t: #3A1A2A;
+  --consola: #05060A; --consola-txt: #E8EAEE;
+}
+
+/* Sobre --ok y --mal en modo claro el texto del botón es --fondo (contraste > 5:1). */

@@ -1,0 +1,186 @@
+{
+  "id": "s02-d07",
+  "semana": 2,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: ceros, unos y tildes",
+  "objetivo": "Hoy aprendes cómo guarda el ordenador números y letras con ceros y unos, y por qué a veces una ñ sale convertida en un garabato.",
+  "conceptos": [
+    "bits-texto"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Por dentro, el ordenador solo guarda **ceros y unos**. Cada cero o uno es un **bit**. Ocho bits juntos forman un **byte**. Todo, números, letras, fotos, se guarda así."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log((5).toString(2));\nconsole.log((72).toString(2));",
+      "salida": [
+        "101",
+        "1001000"
+      ],
+      "nota": "`.toString(2)` escribe un número en **binario**, con ceros y unos. 5 es 101: un 4, ningún 2 y un 1. No hace falta que memorices la orden; solo la idea."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"A\".charCodeAt(0));\nconsole.log(\"B\".charCodeAt(0));\nconsole.log(\"ñ\".charCodeAt(0));",
+      "salida": [
+        "65",
+        "66",
+        "241"
+      ],
+      "nota": "Las letras también son números: hay una tabla común a todo el mundo (**Unicode**) donde la A es el 65, la B el 66 y la ñ el 241. `.charCodeAt(0)` te dice el número de una letra."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Por qué «España» sale como «EspaÃ±a»",
+      "pasos": [
+        {
+          "titulo": "Escribes «ñ»",
+          "texto": "Se guarda con el sistema UTF-8: las letras sin tilde ocupan 1 byte; la ñ y las vocales con tilde, 2."
+        },
+        {
+          "titulo": "Otro programa lo abre",
+          "texto": "Si cree que cada byte es una letra (un sistema antiguo), lee la ñ como dos letras."
+        },
+        {
+          "titulo": "Sale «Ã±»",
+          "texto": "Esos dos bytes, leídos por separado, son «Ã» y «±». La información está bien; está mal leída."
+        },
+        {
+          "titulo": "La solución",
+          "texto": "Que quien escribe y quien lee usen el mismo sistema. Hoy, casi siempre, UTF-8."
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cuando DeIure guarda un texto, cuenta sus **bytes**, no sus letras, porque el límite de espacio se mide en bytes. Una «ñ» cuenta doble. La segunda línea dice «si son demasiados bytes, recházalo»; esa forma de decidir (`if`) llega la semana que viene.",
+      "codigo": "const bytes = new TextEncoder().encode(content);\nif (bytes.length > MAX_WORKSPACE_TEXT_BYTES) throw policyError('WORKSPACE_TOO_LARGE');",
+      "fichero": "DeIure/src/lib/workspace-file-policy.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d07-r1",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log((2).toString(2));\nconsole.log((3).toString(2));",
+      "opciones": [
+        {
+          "texto": "10\n11",
+          "correcta": true,
+          "siEliges": "Eso es: 2 es un 2 y ningún 1 (10); 3 es un 2 y un 1 (11)."
+        },
+        {
+          "texto": "2\n3",
+          "siEliges": ".toString(2) los escribe en binario, solo con ceros y unos."
+        },
+        {
+          "texto": "1\n11",
+          "siEliges": "En binario, el 1 solo es 1. El 2 necesita dos cifras: 10."
+        }
+      ],
+      "pistas": [
+        "En binario solo hay ceros y unos.",
+        "Las cifras valen, de derecha a izquierda, 1, 2, 4, 8…",
+        "2 = un 2 y ningún 1."
+      ],
+      "explicacion": "En binario, cada cifra vale el doble que la de su derecha: 1, 2, 4, 8… 3 = 2 + 1 = 11."
+    },
+    {
+      "ref": "s02-rev-7"
+    },
+    {
+      "id": "s02-d07-r2",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "const letra = \"A\";",
+        "const codigo = letra.charCodeAt(0);",
+        "console.log(`${letra}: ${codigo}`);"
+      ],
+      "salidaEsperada": [
+        "A: 65"
+      ],
+      "pistas": [
+        "codigo se calcula a partir de letra.",
+        "Primero letra, luego codigo y luego el mensaje.",
+        "Empieza por const letra = \"A\";"
+      ],
+      "explicacion": "Datos, cálculo y mensaje, como el día 5, ahora con el número de una letra."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d07-x1",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para comprobar que la B va justo detrás de la A en la tabla, y que escriba 1.",
+      "codigo": "const b = \"B\".charCodeAt(0);\nconst a = \"A\".charCodeAt(0);\nconsole.log(b ___ a);",
+      "salidaEsperada": [
+        "1"
+      ],
+      "opciones": [
+        {
+          "texto": "-",
+          "correcta": true,
+          "siEliges": "Correcto: 66 − 65 = 1."
+        },
+        {
+          "texto": "+",
+          "siEliges": "Eso suma los dos números: 131."
+        },
+        {
+          "texto": "*",
+          "siEliges": "Eso multiplica: 4290."
+        }
+      ],
+      "pistas": [
+        "La A es el 65 y la B el 66.",
+        "Para ver la distancia entre dos números, se restan.",
+        "Restar es -."
+      ],
+      "explicacion": "Las letras van seguidas en la tabla, por eso se pueden ordenar alfabéticamente comparando números."
+    },
+    {
+      "id": "s02-d07-x2",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log((8).toString(2));",
+      "opciones": [
+        {
+          "texto": "1000",
+          "correcta": true,
+          "siEliges": "Eso es: un 8, y ningún 4, 2 ni 1."
+        },
+        {
+          "texto": "8",
+          "siEliges": ".toString(2) lo escribe en binario."
+        },
+        {
+          "texto": "111",
+          "siEliges": "111 es 4 + 2 + 1 = 7. El 8 necesita una cifra más."
+        }
+      ],
+      "pistas": [
+        "Las cifras valen 1, 2, 4, 8… de derecha a izquierda.",
+        "El 8 es justo una de esas cifras.",
+        "Un 1 en la posición del 8 y ceros en el resto."
+      ],
+      "explicacion": "Las potencias de 2 en binario son un 1 seguido de ceros: 1, 10, 100, 1000."
+    }
+  ]
+}

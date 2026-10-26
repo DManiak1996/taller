@@ -1,0 +1,175 @@
+{
+  "id": "s01-d05",
+  "semana": 1,
+  "dia": 5,
+  "titulo": "const o let: elegir bien",
+  "objetivo": "Hoy aprendes a elegir entre const y let y a detectar el fallo de cambiar una const, uno de los más típicos del código hecho por IA.",
+  "conceptos": [
+    "const",
+    "let"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const plazo = 72;\nplazo = 48;\nconsole.log(plazo);",
+      "salida": [],
+      "lanzaError": true,
+      "nota": "Una `const` **no se puede cambiar**. Si lo intentas, el programa falla en la línea 2: **Assignment to constant variable** («cambio en una variable constante»)."
+    },
+    {
+      "tipo": "texto",
+      "texto": "La ventaja de TypeScript es que este fallo te lo marca **antes de ejecutar**: en el editor sale subrayado en rojo con «No se puede asignar a \"plazo\" porque es una constante». Es como un corrector ortográfico, pero para código."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const dni = \"12345678Z\";\nlet estado = \"abierta\";\nestado = \"cerrada\";\nconsole.log(dni);\nconsole.log(estado);",
+      "salida": [
+        "12345678Z",
+        "cerrada"
+      ],
+      "nota": "El DNI de una persona no cambia: `const`. El estado de su expediente, sí: `let`."
+    },
+    {
+      "tipo": "texto",
+      "texto": "La regla: **usa `const` siempre**, y `let` solo cuando sepas que el valor va a cambiar. Así, cuando leas `const`, sabes que ese dato no se mueve en todo el programa."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En las librerías de DeIure hay unas 37.000 `const` y unas 2.000 `let`: más de 18 por cada una. Es buena señal, porque casi nada cambia sin avisar. Cuando revises código de una IA, busca una `const` que más abajo cambia de valor: ahora ya sabes que eso falla.",
+      "fichero": "DeIure/src/lib"
+    }
+  ],
+  "retos": [
+    {
+      "ref": "s01-rev-5"
+    },
+    {
+      "id": "s01-d05-r2",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa funcione y escriba 1.",
+      "codigo": "___ contador = 0;\ncontador = 1;\nconsole.log(contador);",
+      "salidaEsperada": [
+        "1"
+      ],
+      "opciones": [
+        {
+          "texto": "let",
+          "correcta": true,
+          "siEliges": "Correcto: el contador cambia en la línea 2, así que tiene que ser let."
+        },
+        {
+          "texto": "const",
+          "siEliges": "Con const, la línea 2 fallaría: una const no se puede cambiar."
+        },
+        {
+          "texto": "Let",
+          "siEliges": "Casi: las palabras del lenguaje van en minúscula."
+        }
+      ],
+      "pistas": [
+        "Mira la línea 2: ¿qué le pasa al contador?",
+        "Si el valor cambia después, no puede ser const.",
+        "Es let, en minúsculas."
+      ],
+      "explicacion": "Elige mirando el resto del programa: si la caja cambia más abajo, let; si no, const."
+    },
+    {
+      "id": "s01-d05-r3",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba «firmada». Ojo: sobra una.",
+      "lineas": [
+        "let firma = \"pendiente\";",
+        "firma = \"firmada\";",
+        "console.log(firma);"
+      ],
+      "sobran": [
+        "const firma = \"pendiente\";"
+      ],
+      "salidaEsperada": [
+        "firmada"
+      ],
+      "pistas": [
+        "La firma cambia de valor. ¿const o let?",
+        "Como cambia, la caja se crea con let. La línea con const sobra.",
+        "let, cambio, console.log."
+      ],
+      "explicacion": "La línea con const parece igual de buena, pero con ella la línea del cambio fallaría. Elegir entre const y let es decidir si el dato va a cambiar."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d05-x1",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "lanzaError": true,
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const pais = \"España\";\nconsole.log(pais);\npais = \"Francia\";\nconsole.log(pais);",
+      "opciones": [
+        {
+          "texto": "España\n❌ Error: no se puede cambiar una const",
+          "correcta": true,
+          "siEliges": "Eso es: escribe España y se para al intentar cambiar la const."
+        },
+        {
+          "texto": "España\nFrancia",
+          "siEliges": "pais es una const: la línea 3 no puede cambiarla, falla."
+        },
+        {
+          "texto": "❌ Error: no se puede cambiar una const",
+          "siEliges": "La línea 2 va antes del fallo, así que «España» sí sale."
+        },
+        {
+          "texto": "Francia\nFrancia",
+          "siEliges": "Se ejecuta de arriba abajo: el primer console.log va antes de cualquier cambio."
+        }
+      ],
+      "pistas": [
+        "¿Con qué palabra se creó pais?",
+        "Una const no se puede cambiar: la línea 3 da error y el programa se para.",
+        "Sale una línea antes del error."
+      ],
+      "explicacion": "Es el fallo de la semana: cambiar una const. Lo anterior al fallo se ejecuta; lo posterior, no."
+    },
+    {
+      "id": "s01-d05-x2",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let fase = \"uno\";\nconst fin = \"tres\";\nfase = \"dos\";\nconsole.log(fase);\nconsole.log(fin);",
+      "opciones": [
+        {
+          "texto": "dos\ntres",
+          "correcta": true,
+          "siEliges": "Eso es: fase es let y cambia a «dos»; fin es const, pero nadie la toca."
+        },
+        {
+          "texto": "❌ Error: no se puede cambiar una const",
+          "siEliges": "La línea 3 cambia fase, que es let. La const fin no se toca."
+        },
+        {
+          "texto": "uno\ntres",
+          "siEliges": "La línea 3 cambia fase antes de los console.log."
+        }
+      ],
+      "pistas": [
+        "¿Qué caja se cambia en la línea 3, y con qué se creó?",
+        "Cambiar una let está permitido. Lo que falla es cambiar una const.",
+        "No hay error. fase vale «dos»."
+      ],
+      "explicacion": "Una const en el programa no es un problema: solo falla si alguien intenta cambiarla."
+    },
+    {
+      "ref": "s01-rev-x3"
+    }
+  ]
+}

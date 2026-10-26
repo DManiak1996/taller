@@ -1,0 +1,180 @@
+{
+  "id": "s01-d02",
+  "semana": 1,
+  "dia": 2,
+  "titulo": "El texto va entre comillas",
+  "objetivo": "Hoy aprendes a distinguir texto de números dentro de un programa y a leer tu primer mensaje de error sin asustarte.",
+  "conceptos": [
+    "texto-comillas"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Lo que va **entre comillas** es texto, y el ordenador lo copia tal cual, letra a letra. En programación a un texto se le llama **string** («cadena» de letras)."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"10 + 5\");\nconsole.log(10 + 5);",
+      "salida": [
+        "10 + 5",
+        "15"
+      ],
+      "nota": "Con comillas, lo copia. Los números van **sin comillas**, y con ellos sí calcula."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(\"Inicio\");\nconsole.log(Hola);",
+      "salida": [
+        "Inicio"
+      ],
+      "lanzaError": true,
+      "nota": "Sin comillas, el ordenador cree que `Hola` es el nombre de algo que debería conocer. No lo conoce, así que se para y avisa: **ReferenceError: Hola is not defined** («Hola no está definido»)."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Un **error** no es un desastre: es el ordenador diciéndote dónde se ha perdido. Fíjate en que «Inicio» sí salió: todo lo de **antes** del error se ejecuta. Los mensajes vienen en inglés; aquí te los traducimos."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En DeIure verás texto entre comillas simples, como `'eipd_juridico'`. Simples o dobles valen igual, siempre que abras y cierres con la misma. Lo que hay antes del `=` lo entenderás mañana.",
+      "codigo": "export const LEGAL_CORPUS_NAME = 'eipd_juridico';",
+      "fichero": "DeIure/src/lib/rag-system-constants.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s01-d02-r1",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"3 + 4\");\nconsole.log(3 + 4);",
+      "opciones": [
+        {
+          "texto": "3 + 4\n7",
+          "correcta": true,
+          "siEliges": "Eso es: con comillas lo copia; sin comillas lo calcula."
+        },
+        {
+          "texto": "7\n7",
+          "siEliges": "La primera línea lleva comillas: es texto y se copia tal cual, sin calcular."
+        },
+        {
+          "texto": "3 + 4\n3 + 4",
+          "siEliges": "La segunda línea no lleva comillas: son números y el ordenador calcula."
+        }
+      ],
+      "pistas": [
+        "Compara las dos líneas: ¿qué tiene una que no tenga la otra?",
+        "Entre comillas es texto y se copia; sin comillas, los números se calculan.",
+        "La primera línea de salida es «3 + 4»."
+      ],
+      "explicacion": "Las comillas cambian el significado: \"3 + 4\" es un texto de cinco caracteres; 3 + 4 es una suma."
+    },
+    {
+      "id": "s01-d02-r2",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el programa escriba «Derecho de acceso».",
+      "codigo": "console.log(___);",
+      "salidaEsperada": [
+        "Derecho de acceso"
+      ],
+      "opciones": [
+        {
+          "texto": "\"Derecho de acceso\"",
+          "correcta": true,
+          "siEliges": "Correcto: texto entre comillas, abiertas y cerradas."
+        },
+        {
+          "texto": "Derecho de acceso",
+          "siEliges": "Sin comillas, el ordenador intenta leer «Derecho», «de» y «acceso» como nombres de cosas, y no entiende nada."
+        },
+        {
+          "texto": "\"Derecho de acceso",
+          "siEliges": "Falta la comilla de cierre: para el ordenador, el texto no termina nunca."
+        },
+        {
+          "texto": "'Derecho de acceso\"",
+          "siEliges": "Abre con comilla simple y cierra con doble. Tienen que ser iguales."
+        }
+      ],
+      "pistas": [
+        "Es texto, no un número.",
+        "El texto va entre comillas, y la de abrir y la de cerrar son iguales.",
+        "Busca la opción que empieza y termina con \"."
+      ],
+      "explicacion": "Las comillas marcan dónde empieza y dónde acaba un texto. Si falta una o no coinciden, el programa ni siquiera arranca."
+    },
+    {
+      "ref": "s01-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s01-d02-x1",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "lanzaError": true,
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"Paso 1\");\nconsole.log(Paso2);\nconsole.log(\"Paso 3\");",
+      "opciones": [
+        {
+          "texto": "Paso 1\n❌ Error: Paso2 no está definido",
+          "correcta": true,
+          "siEliges": "Eso es: escribe la primera línea y se para en la segunda."
+        },
+        {
+          "texto": "Paso 1\nPaso2\nPaso 3",
+          "siEliges": "`Paso2` no lleva comillas, así que no es texto: el ordenador busca algo con ese nombre."
+        },
+        {
+          "texto": "Paso 1\nPaso 3",
+          "siEliges": "Cuando hay un error, el programa se para. No se salta la línea y sigue."
+        },
+        {
+          "texto": "❌ Error: Paso2 no está definido",
+          "siEliges": "Lo de antes del error sí se ejecuta: «Paso 1» llega a salir."
+        }
+      ],
+      "pistas": [
+        "Busca la línea que no tiene comillas.",
+        "Sin comillas, Paso2 es un nombre desconocido: error. Y un error para el programa.",
+        "Sale «Paso 1» y después el error. «Paso 3» nunca llega."
+      ],
+      "explicacion": "Dos ideas: sin comillas no es texto, y un error detiene el programa justo ahí. Lo anterior ya se hizo; lo posterior no se hace."
+    },
+    {
+      "id": "s01-d02-x2",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto. Ojo: sobra una.",
+      "lineas": [
+        "console.log(\"Multa máxima:\");",
+        "console.log(20000000);",
+        "console.log(\"euros\");"
+      ],
+      "sobran": [
+        "console.log(\"20.000.000\");"
+      ],
+      "salidaEsperada": [
+        "Multa máxima:",
+        "20000000",
+        "euros"
+      ],
+      "pistas": [
+        "Mira la segunda línea del objetivo: ¿lleva puntos?",
+        "Los números se escriben sin comillas y sin puntos de miles.",
+        "La que sobra es la que tiene \"20.000.000\" entre comillas."
+      ],
+      "explicacion": "En código, los números van sin comillas y sin puntos de miles. 20000000 es un número; \"20.000.000\" sería un texto que solo lo parece."
+    }
+  ]
+}

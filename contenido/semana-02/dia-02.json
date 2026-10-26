@@ -1,0 +1,212 @@
+{
+  "id": "s02-d02",
+  "semana": 2,
+  "dia": 2,
+  "titulo": "Calcular con números",
+  "objetivo": "Hoy aprendes a sumar, restar, multiplicar y dividir en un programa, y a usar paréntesis para decidir qué se calcula primero.",
+  "conceptos": [
+    "operaciones"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(72 + 24);\nconsole.log(72 - 24);\nconsole.log(72 * 2);\nconsole.log(72 / 24);",
+      "salida": [
+        "96",
+        "48",
+        "144",
+        "3"
+      ],
+      "nota": "Sumar `+`, restar `-`, multiplicar `*` (asterisco) y dividir `/` (barra)."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(2 + 3 * 4);\nconsole.log((2 + 3) * 4);",
+      "salida": [
+        "14",
+        "20"
+      ],
+      "nota": "Como en el colegio: primero `*` y `/`, después `+` y `-`. Los **paréntesis** mandan sobre todo lo demás."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "let multas = 0;\nmultas = multas + 3000;\nmultas = multas + 1500;\nconsole.log(multas);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "multas": "0"
+          },
+          "salida": [],
+          "nota": "La caja empieza en 0."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "multas": "3000"
+          },
+          "salida": [],
+          "nota": "Primero calcula la derecha (0 + 3000) y luego guarda el resultado en multas."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "multas": "4500"
+          },
+          "salida": [],
+          "nota": "Otra vez: 3000 + 1500, y lo guarda."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "multas": "4500"
+          },
+          "salida": [
+            "4500"
+          ],
+          "nota": "Así se acumula un total."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Los decimales se escriben con **punto**, no con coma: `2.5`. Y los números grandes, sin puntos de miles: `20000000`. Si quieres leerlo mejor, puedes separar con guion bajo: `20_000_000`."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure limita el tamaño de los PDF que se suben. En vez de escribir 62914560, lo calcula: 60 × 1024 × 1024 bytes, es decir, 60 megas. Así cualquiera entiende de dónde sale.",
+      "codigo": "export const MAX_PDF_SIZE_BYTES = 60 * 1024 * 1024;",
+      "fichero": "DeIure/src/lib/file-validation.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s02-d02-r1",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(10 + 2 * 5);",
+      "opciones": [
+        {
+          "texto": "20",
+          "correcta": true,
+          "siEliges": "Eso es: primero 2 × 5 = 10, y luego 10 + 10."
+        },
+        {
+          "texto": "60",
+          "siEliges": "Eso sería (10 + 2) × 5. Sin paréntesis, la multiplicación va primero."
+        },
+        {
+          "texto": "10 + 2 * 5",
+          "siEliges": "Sin comillas no es texto: el programa calcula."
+        }
+      ],
+      "pistas": [
+        "¿Qué se hace antes, sumar o multiplicar?",
+        "Primero * y /, después + y -.",
+        "2 * 5 = 10. ¿Y 10 + 10?"
+      ],
+      "explicacion": "El orden de las operaciones es el de las matemáticas. Si quieres otro, pon paréntesis."
+    },
+    {
+      "ref": "s02-rev-2"
+    },
+    {
+      "id": "s02-d02-r2",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "ordenar",
+      "enunciado": "Ordena las líneas para que escriba exactamente esto.",
+      "lineas": [
+        "let total = 100;",
+        "total = total * 2;",
+        "total = total + 10;",
+        "console.log(total);"
+      ],
+      "salidaEsperada": [
+        "210"
+      ],
+      "pistas": [
+        "210 = 200 + 10. ¿Qué se hizo primero?",
+        "Primero se duplica (100 × 2) y después se suma 10.",
+        "let, multiplicar, sumar, console.log."
+      ],
+      "explicacion": "Las mismas operaciones en otro orden dan otro resultado: sumar primero daría 220."
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s02-d02-x1",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para saber cuántos días son 48 horas.",
+      "codigo": "const horas = 48;\nconsole.log(horas ___ 24);",
+      "salidaEsperada": [
+        "2"
+      ],
+      "opciones": [
+        {
+          "texto": "/",
+          "correcta": true,
+          "siEliges": "Correcto: 48 entre 24 son 2 días."
+        },
+        {
+          "texto": "*",
+          "siEliges": "Eso multiplica: saldría 1152."
+        },
+        {
+          "texto": "-",
+          "siEliges": "Eso resta: saldría 24."
+        },
+        {
+          "texto": "÷",
+          "siEliges": "El símbolo de dividir en código es la barra /."
+        }
+      ],
+      "pistas": [
+        "Para pasar de horas a días, ¿multiplicas o divides?",
+        "Divides entre 24.",
+        "Dividir se escribe con la barra."
+      ],
+      "explicacion": "En código, dividir es / y multiplicar es *. Los símbolos ÷ y × no existen."
+    },
+    {
+      "id": "s02-d02-x2",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(7 / 2);",
+      "opciones": [
+        {
+          "texto": "3.5",
+          "correcta": true,
+          "siEliges": "Eso es: divide con decimales, y el decimal se escribe con punto."
+        },
+        {
+          "texto": "3",
+          "siEliges": "No redondea: da el resultado exacto."
+        },
+        {
+          "texto": "3,5",
+          "siEliges": "El programa escribe el decimal con punto, no con coma."
+        }
+      ],
+      "pistas": [
+        "¿Redondea o da el resultado exacto?",
+        "Da el resultado exacto, con decimales.",
+        "Los decimales llevan punto."
+      ],
+      "explicacion": "/ da el resultado exacto, con decimales, y siempre con punto decimal."
+    },
+    {
+      "ref": "s02-rev-x2"
+    }
+  ]
+}
