@@ -291,6 +291,8 @@ button.linea:hover { background: var(--pri-t); }
 .atajos.discretos .atajo svg { color: var(--suave); }
 
 /* Biblioteca: guías en Markdown */
+.seccion-guias { display: flex; flex-direction: column; gap: 12px; }
+.seccion-guias .md-h3 { margin: 8px 0 0; }
 .tarjeta.guia { text-align: left; cursor: pointer; font: inherit; color: var(--tinta); gap: 4px; }
 .guia-tit { font-size: 19px; font-weight: 800; }
 .md-guia { max-width: 720px; width: 100%; margin: 0 auto; box-sizing: border-box; }

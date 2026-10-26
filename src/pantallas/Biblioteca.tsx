@@ -11,6 +11,14 @@ export const guias: Guia[] = Object.entries(ficheros)
   .map(([ruta, md]) => leerGuia(ruta.split('/').pop()!.replace(/\.md$/, ''), md))
   .sort((a, b) => a.orden - b.orden || a.titulo.localeCompare(b.titulo, 'es'))
 
+// Primero las chuletas de cada semana (Fundamentos deja una por semana: chuleta-semana-NN.md), por
+// número de semana y solo hasta la semana en la que va; después, el resto de guías.
+const semanaDe = (g: Guia) => Number(g.id.match(/^chuleta-semana-(\d+)$/)?.[1] ?? 0)
+const secciones = (semana: number): [string, Guia[]][] => [
+  ['Chuletas de cada semana', guias.filter((g) => semanaDe(g) > 0 && semanaDe(g) <= semana).sort((a, b) => semanaDe(a) - semanaDe(b))],
+  ['Guías', guias.filter((g) => !semanaDe(g))],
+]
+
 const TERMINAL = new Set(['bash', 'sh', 'shell', 'zsh', 'terminal', 'console'])
 
 function Linea({ texto, abrir, enlaces = true }: { texto: string; abrir: (id: string) => void; enlaces?: boolean }) {
@@ -139,7 +147,8 @@ function Pintar({ b, abrir }: { b: Bloque; abrir: (id: string) => void }) {
   }
 }
 
-export function Biblioteca({ volver }: { volver: () => void }) {
+/** semana: la del próximo día que le toca (Infinity si ya lo ha hecho todo). */
+export function Biblioteca({ volver, semana }: { volver: () => void; semana: number }) {
   const [abierta, setAbierta] = useState<string | null>(null)
   const guia = guias.find((g) => g.id === abierta)
   useEffect(() => {
@@ -167,16 +176,24 @@ export function Biblioteca({ volver }: { volver: () => void }) {
             <h1 className="h1">Biblioteca</h1>
             <p className="peq">Guías para consultar cuando quieras. Funcionan también sin conexión.</p>
             {guias.length === 0 && <p className="txt">Todavía no hay guías. Las primeras llegan pronto.</p>}
-            {guias.map((g) => (
-              <button key={g.id} type="button" className="tarjeta guia" onClick={() => setAbierta(g.id)}>
-                <span className="guia-tit">{g.titulo}</span>
-                {g.descripcion && (
-                  <span className="peq">
-                    <Linea texto={g.descripcion} abrir={setAbierta} enlaces={false} />
-                  </span>
-                )}
-              </button>
-            ))}
+            {secciones(semana).map(
+              ([nombre, lista]) =>
+                lista.length > 0 && (
+                  <section key={nombre} className="seccion-guias">
+                    <h2 className="md-h3">{nombre}</h2>
+                    {lista.map((g) => (
+                      <button key={g.id} type="button" className="tarjeta guia" onClick={() => setAbierta(g.id)}>
+                        <span className="guia-tit">{g.titulo}</span>
+                        {g.descripcion && (
+                          <span className="peq">
+                            <Linea texto={g.descripcion} abrir={setAbierta} enlaces={false} />
+                          </span>
+                        )}
+                      </button>
+                    ))}
+                  </section>
+                ),
+            )}
           </>
         )}
       </main>
