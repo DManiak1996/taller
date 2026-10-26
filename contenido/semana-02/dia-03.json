@@ -24,7 +24,7 @@
         "53",
         "53"
       ],
-      "nota": "Si uno de los dos es texto, `+` no suma: convierte el número en texto y los **pega**. \"5\" + 3 da \"53\"."
+      "nota": "Si uno de los dos es texto, `+` no suma: convierte el número en texto y los **pega**. \"5\" + 3 da \"53\". Puede que ya lo descubrieras en la terminal de tu Mac."
     },
     {
       "tipo": "pasoapaso",

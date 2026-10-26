@@ -1,0 +1,202 @@
+{
+  "id": "s03-d03",
+  "semana": 3,
+  "dia": 3,
+  "titulo": "Dos caminos: if y else",
+  "objetivo": "Hoy aprendes a darle al programa dos caminos con if y else, y a comprobar que la condición no está al revés.",
+  "conceptos": [
+    "if-else"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const horas = 80;\nif (horas <= 72) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "horas": "80"
+          },
+          "salida": [],
+          "nota": "Han pasado 80 horas desde que se conoció la brecha."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "horas": "80"
+          },
+          "salida": [],
+          "nota": "¿80 <= 72? No. Salta al else."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "horas": "80"
+          },
+          "salida": [
+            "Fuera de plazo"
+          ],
+          "nota": "Ejecuta el camino del else."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`else` significa «si no». Con `if` y `else` siempre se ejecuta **uno y solo uno** de los dos caminos: nunca los dos, nunca ninguno."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = 48;\nif (horas <= 72) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "salida": [
+        "En plazo"
+      ],
+      "nota": "El mismo programa con 48 horas toma el otro camino."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Un fallo típico de la IA es poner la condición **al revés** (`>` donde iba `<=`). El programa no da error: funciona, pero decide lo contrario. Para pillarlo, prueba con un dato de cada lado del límite, por ejemplo 48 y 80. Y prueba el propio límite: ¿72 horas exactas están en plazo?"
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al revisar el apartado 4 de una EIPD, si una referencia es válida, DeIure la guarda; si no, apunta un problema para enseñárselo a quien la redacta. Simplificado:",
+      "codigo": "if (figureRef.success) {\n  figure.figure_ref = figureRef.data;\n} else {\n  issues.push({ code: 'invalid_figure_ref' });\n}",
+      "fichero": "DeIure/src/lib/apartado-04-normalizer.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d03-r1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let horas = 60;\nhoras = horas + 20;\nif (horas <= 72) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "opciones": [
+        {
+          "texto": "Fuera de plazo",
+          "correcta": true,
+          "siEliges": "Eso es: cuando llega al if, horas ya vale 80."
+        },
+        {
+          "texto": "En plazo",
+          "siEliges": "La línea 2 suma 20 antes de la pregunta: 80 <= 72 es false."
+        },
+        {
+          "texto": "En plazo\nFuera de plazo",
+          "siEliges": "Con if y else solo se ejecuta uno de los dos caminos."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto vale horas cuando llega a la línea 3?",
+        "60 + 20 = 80. ¿Es 80 <= 72?",
+        "La condición es false: va al else."
+      ],
+      "explicacion": "La condición se evalúa con el valor que tiene la caja en ese momento, no con el inicial."
+    },
+    {
+      "id": "s03-d03-r2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa la palabra que abre el segundo camino.",
+      "codigo": "const nota = 4;\nif (nota >= 5) {\n  console.log(\"Aprobado\");\n} ___ {\n  console.log(\"Suspenso\");\n}",
+      "salidaEsperada": [
+        "Suspenso"
+      ],
+      "opciones": [
+        {
+          "texto": "else",
+          "correcta": true,
+          "siEliges": "Correcto: else, «si no»."
+        },
+        {
+          "texto": "if",
+          "siEliges": "Un if necesita su condición entre paréntesis: así no se entiende."
+        },
+        {
+          "texto": "sino",
+          "siEliges": "El lenguaje solo entiende palabras en inglés: else."
+        }
+      ],
+      "pistas": [
+        "Es la palabra que significa «si no».",
+        "Está en inglés, como if.",
+        "Cuatro letras: e…"
+      ],
+      "explicacion": "if y else son la pareja básica de las decisiones."
+    },
+    {
+      "ref": "s03-rev-3"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d03-x1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const consiente = false;\nif (consiente) {\n  console.log(\"Tratar\");\n} else {\n  console.log(\"No tratar\");\n}\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "No tratar\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: la condición es false, va al else, y «Fin» va fuera."
+        },
+        {
+          "texto": "Tratar\nFin",
+          "siEliges": "consiente vale false: no entra en el if."
+        },
+        {
+          "texto": "No tratar",
+          "siEliges": "«Fin» está fuera de las llaves: se ejecuta siempre."
+        }
+      ],
+      "pistas": [
+        "La condición puede ser directamente una caja con true o false.",
+        "consiente es false: va al else.",
+        "Y luego, la línea de fuera."
+      ],
+      "explicacion": "if (consiente) es lo mismo que preguntar si consiente es true. Un boolean ya es una respuesta de sí o no."
+    },
+    {
+      "id": "s03-d03-x2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "La IA ha puesto la condición al revés y dice «Fuera de plazo» con 10 días. Completa con el signo correcto (el plazo es de 30 días).",
+      "codigo": "const dias = 10;\nif (dias ___ 30) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "salidaEsperada": [
+        "En plazo"
+      ],
+      "opciones": [
+        {
+          "texto": "<=",
+          "correcta": true,
+          "siEliges": "Correcto: 10 días es menor o igual que 30."
+        },
+        {
+          "texto": ">",
+          "siEliges": "Esa es la condición al revés: 10 > 30 es false y saldría «Fuera de plazo»."
+        },
+        {
+          "texto": ">=",
+          "siEliges": "También al revés: pregunta si se ha pasado del plazo."
+        }
+      ],
+      "pistas": [
+        "¿En plazo significa por debajo o por encima de 30?",
+        "Por debajo o igual: «menor o igual».",
+        "Es <=."
+      ],
+      "explicacion": "Para revisar una condición, léela en voz alta: «si los días son menores o iguales que 30, en plazo». Si suena raro, está al revés."
+    },
+    {
+      "ref": "s03-rev-x2"
+    }
+  ]
+}

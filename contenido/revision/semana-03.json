@@ -1,0 +1,378 @@
+[
+  {
+    "id": "s03-rev-1",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "comparaciones",
+    "tema": "rgpd",
+    "enunciado": "Han pasado justo 72 horas desde que conociste la brecha. La IA y Marta discuten qué imprime esta línea. ¿Quién tiene razón?",
+    "codigo": "const horas = 72;\nconsole.log(horas <= 72);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `true`.",
+        "porque": "`<=` significa «menor o igual», y 72 es igual a 72."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `false`.",
+        "porque": "72 no es menor que 72."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `<=` se cumple si es menor **o** igual. Con justo 72 horas, se cumple.",
+      "Marta": "Eso valdría para `<`, que solo acepta «menor». `<=` acepta también el igual.",
+      "ninguno": "Esta vez sí acierta una. Lee `<=` en voz alta: «menor o…»."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en el símbolo: no es `<` a secas.",
+      "`<` es «menor que». `<=` es «menor o igual que».",
+      "¿Es 72 menor o igual que 72?"
+    ],
+    "explicacion": "Imprime `true`. La diferencia entre `<` y `<=` es justo el caso del límite, y es donde más se equivocan las personas y las IA. Cuando revises una comparación, prueba siempre el valor exacto del límite: aquí, 72."
+  },
+  {
+    "id": "s03-rev-2",
+    "tipo": "fallo",
+    "semana": 3,
+    "concepto": "if-else",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Avisa si la brecha sigue abierta». La brecha está cerrada. Toca la línea que está mal.",
+    "codigo": "let estado = \"cerrada\";\nif (estado = \"abierta\") {\n  console.log(\"Brecha abierta\");\n}\nconsole.log(estado);",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Usa `=` en vez de `===`. No compara: cambia el estado a «abierta».",
+        "correcta": true,
+        "siEliges": "Exacto. Un solo `=` guarda un valor; tres `===` comparan. Y fíjate en la última línea: ¡ha cambiado el dato!"
+      },
+      {
+        "texto": "Los textos no se pueden comparar en un `if`.",
+        "siEliges": "Sí se pueden, con `===`. El problema es el símbolo que se ha usado."
+      },
+      {
+        "texto": "Falta un `else` para cuando la brecha está cerrada.",
+        "siEliges": "El `else` es opcional: si no hay nada que hacer cuando está cerrada, no hace falta. Mira el símbolo dentro del paréntesis."
+      }
+    ],
+    "arreglo": "let estado = \"cerrada\";\nif (estado === \"abierta\") {\n  console.log(\"Brecha abierta\");\n}\nconsole.log(estado);",
+    "pistas": [
+      "¿Qué imprime la última línea? ¿No estaba cerrada?",
+      "`=` guarda un valor en una variable. `===` compara dos valores.",
+      "Cuenta los `=` de la línea 2."
+    ],
+    "explicacion": "Imprime `Brecha abierta` y luego `abierta`: la línea 2 no compara, **cambia** el estado. Ni TypeScript ni Node dan error, así que solo lo cazas leyendo. Es el fallo de la semana: cada vez que veas un `if`, cuenta los `=`."
+  },
+  {
+    "id": "s03-rev-3",
+    "tipo": "fallo",
+    "semana": 3,
+    "concepto": "if-else",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Di si estamos a tiempo de notificar la brecha (a más tardar 72 horas)». Han pasado 50 horas. Toca la línea que está mal.",
+    "codigo": "const horas = 50;\nif (horas > 72) {\n  console.log(\"A tiempo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+    "lineasFallo": [
+      2,
+      3,
+      5
+    ],
+    "opciones": [
+      {
+        "texto": "La condición está al revés: «A tiempo» tiene que salir cuando las horas son 72 o menos.",
+        "correcta": true,
+        "siEliges": "Eso es. Se arregla con `horas <= 72`, o cambiando de sitio los dos mensajes."
+      },
+      {
+        "texto": "Falta otro `if` dentro del `else`.",
+        "siEliges": "Con dos caminos, `if` y `else` bastan. El problema es qué camino se elige."
+      },
+      {
+        "texto": "Las horas tendrían que ir entre comillas.",
+        "siEliges": "Para comparar con `>` tienen que ser números, sin comillas. Mira qué pasa con 50."
+      }
+    ],
+    "arreglo": "const horas = 50;\nif (horas <= 72) {\n  console.log(\"A tiempo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+    "pistas": [
+      "Con 50 horas, ¿qué tendría que salir? ¿Qué sale?",
+      "Si la condición del `if` se cumple, va por arriba; si no, por el `else`.",
+      "¿Es 50 mayor que 72?"
+    ],
+    "explicacion": "Imprime `Fuera de plazo` cuando aún quedan 22 horas. La condición está al revés. El código funciona y parece razonable: solo lo cazas probando un caso que conoces. Prueba siempre uno de cada lado del límite (50 y 80) y el propio límite (72)."
+  },
+  {
+    "id": "s03-rev-4",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "if-else",
+    "tema": "neutro",
+    "enunciado": "La IA ha escrito esto para clasificar un riesgo por puntos (más de 6, alto; más de 3, medio). La IA y Marta discuten qué imprime con 8 puntos. ¿Quién tiene razón?",
+    "codigo": "const puntos = 8;\nif (puntos > 3) {\n  console.log(\"Riesgo medio\");\n} else if (puntos > 6) {\n  console.log(\"Riesgo alto\");\n} else {\n  console.log(\"Riesgo bajo\");\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Riesgo alto`.",
+        "porque": "8 es mayor que 6."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `Riesgo medio`.",
+        "porque": "Se comprueban de arriba abajo, y gana la primera condición que se cumple. 8 ya es mayor que 3."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "8 es mayor que 6, sí, pero el programa ni llega a preguntarlo: antes ha visto que 8 es mayor que 3 y ya ha elegido camino.",
+      "Marta": "Correcto. En una cadena de `else if` solo se ejecuta un camino: el de la primera condición que se cumple.",
+      "ninguno": "Una de las dos acierta. Recorre las condiciones de arriba abajo y para en la primera que se cumpla."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Empieza por arriba: ¿se cumple `puntos > 3`?",
+      "En una cadena `if` / `else if` / `else`, solo se ejecuta un camino.",
+      "Si la primera condición ya se cumple, ¿se mira la segunda?"
+    ],
+    "explicacion": "Imprime `Riesgo medio`, aunque con 8 puntos tendría que ser alto. El código no hace lo que la IA quería: con este orden, «alto» no saldrá nunca. Se arregla preguntando primero por lo más alto (`puntos > 6`) y luego por lo de en medio."
+  },
+  {
+    "id": "s03-rev-5",
+    "tipo": "fallo",
+    "semana": 3,
+    "concepto": "logicos",
+    "tema": "rgpd",
+    "enunciado": "La regla de la app: puede registrarse quien tenga 14 años o más **y** marque la casilla de consentimiento. Este usuario tiene 15 años y no la ha marcado. Toca la línea que está mal.",
+    "codigo": "const edad = 15;\nconst marcaCasilla = false;\nif (edad >= 14) {\n  console.log(\"Puede registrarse\");\n}",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Solo comprueba la edad. Falta exigir también la casilla: `edad >= 14 && marcaCasilla`.",
+        "correcta": true,
+        "siEliges": "Exacto. La regla tiene dos condiciones y el código solo mira una."
+      },
+      {
+        "texto": "Tenía que ser `edad > 14`.",
+        "siEliges": "La regla dice «14 o más», y eso es `>=`. El fallo es otro: ¿qué pasa con la casilla?"
+      },
+      {
+        "texto": "`false` tendría que ir entre comillas.",
+        "siEliges": "`false` sin comillas es justo lo que queremos: verdadero o falso. Con comillas sería un texto."
+      }
+    ],
+    "arreglo": "const edad = 15;\nconst marcaCasilla = false;\nif (edad >= 14 && marcaCasilla) {\n  console.log(\"Puede registrarse\");\n}",
+    "pistas": [
+      "¿Se usa `marcaCasilla` en algún sitio?",
+      "`&&` exige que se cumplan las dos condiciones a la vez.",
+      "La regla tiene dos condiciones. ¿Cuántas hay en el `if`?"
+    ],
+    "explicacion": "Imprime `Puede registrarse` sin consentimiento. La IA ha olvidado una condición, y la pista estaba a la vista: `marcaCasilla` se crea y nunca se usa. Cuando revises, compara la regla con la condición pieza a pieza."
+  },
+  {
+    "id": "s03-rev-6",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "logicos",
+    "tema": "rgpd",
+    "enunciado": "La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "const notificada = false;\nif (!notificada) {\n  console.log(\"Falta notificar\");\n}",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "No imprime nada.",
+        "porque": "`notificada` es `false`, y con `false` no se entra en el `if`."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Falta notificar`.",
+        "porque": "`!` le da la vuelta: `!false` es `true`, así que entra en el `if`."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `!notificada` se lee «no notificada», y es verdad: no está notificada.",
+      "Marta": "Se ha olvidado del `!`. Ese signo le da la vuelta al valor: `!false` es `true`.",
+      "ninguno": "Esta vez sí acierta una. ¿Qué hace el `!` delante de `notificada`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en el signo que hay delante de `notificada`.",
+      "`!` significa «no»: convierte `true` en `false` y `false` en `true`.",
+      "¿Cuánto vale `!false`?"
+    ],
+    "explicacion": "Imprime `Falta notificar`. Léelo en voz alta: «si no notificada, avisa». El `!` es pequeño y fácil de pasar por alto al revisar; en una condición, búscalo siempre."
+  },
+  {
+    "id": "s03-rev-7",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "logica-booleana",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime esta línea. ¿Quién tiene razón?",
+    "codigo": "console.log(true && false || true);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `false`.",
+        "porque": "Hay un `false`, así que todo es falso."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "No se pueden mezclar `&&` y `||` en la misma línea."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Eso pasaría si todo fueran `&&`. Pero hay un `||`, y con `||` basta con que un lado sea verdadero.",
+      "Marta": "Se pueden mezclar sin problema. Se resuelve primero el `&&` y luego el `||`.",
+      "ninguno": "Exacto. Primero `true && false` da `false`, y luego `false || true` da `true`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Se resuelve por partes: primero el `&&`.",
+      "`&&` necesita los dos verdaderos. `||` se conforma con uno.",
+      "¿Cuánto da `true && false`? ¿Y eso `|| true`?"
+    ],
+    "explicacion": "Imprime `true`. Paso a paso: `true && false` da `false`, y `false || true` da `true`. Es la tabla de verdad de la píldora de hoy. Cuando mezcles `&&` y `||`, pon paréntesis para que se lea a la primera."
+  },
+  {
+    "id": "s03-rev-x1",
+    "tipo": "fallo",
+    "semana": 3,
+    "concepto": "if-else",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Bloquea la cuenta cuando haya 3 intentos fallidos». Todavía no ha fallado ninguno. Toca la línea que está mal.",
+    "codigo": "let intentos = 0;\nif (intentos = 3) {\n  console.log(\"Cuenta bloqueada\");\n}",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Usa `=` en vez de `===`: pone los intentos a 3 en lugar de compararlos.",
+        "correcta": true,
+        "siEliges": "Exacto. Con un solo `=`, la cuenta se bloquea siempre."
+      },
+      {
+        "texto": "Tenía que ser `intentos > 3`.",
+        "siEliges": "La petición dice «cuando haya 3». Fíjate en cuántos `=` hay."
+      },
+      {
+        "texto": "`intentos` tendría que ser `const`.",
+        "siEliges": "Los intentos van a cambiar, así que `let` está bien. El fallo está en el `if`."
+      }
+    ],
+    "arreglo": "let intentos = 0;\nif (intentos === 3) {\n  console.log(\"Cuenta bloqueada\");\n}",
+    "pistas": [
+      "Con 0 intentos, ¿debería bloquearse?",
+      "`=` guarda; `===` compara.",
+      "Cuenta los `=` de la línea 2."
+    ],
+    "explicacion": "Imprime `Cuenta bloqueada` con 0 intentos: la línea 2 pone `intentos` a 3, y el `if` lo da por bueno. Ningún error te avisa. Cuenta siempre los `=`."
+  },
+  {
+    "id": "s03-rev-x2",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "comparaciones",
+    "tema": "rgpd",
+    "enunciado": "Han pasado justo 72 horas desde que conociste la brecha. La IA y Marta discuten qué imprime este código. ¿Quién tiene razón?",
+    "codigo": "const horas = 72;\nif (horas < 72) {\n  console.log(\"A tiempo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `A tiempo`.",
+        "porque": "El plazo es de 72 horas y han pasado 72."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `Fuera de plazo`.",
+        "porque": "72 no es menor que 72, así que va por el `else`."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "La IA dice lo que **debería** imprimir, no lo que imprime. Con `<`, 72 no cumple la condición.",
+      "Marta": "Correcto, eso es lo que imprime. Y fíjate: es un mensaje equivocado, porque con 72 horas aún estás dentro del plazo.",
+      "ninguno": "Una de las dos acierta sobre lo que imprime. ¿Es 72 menor que 72?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "No preguntes qué debería salir, sino qué sale.",
+      "`<` es «menor que», sin el igual.",
+      "¿Es 72 menor que 72?"
+    ],
+    "explicacion": "Imprime `Fuera de plazo`. Marta acierta sobre lo que hace el código, y la IA sobre lo que debería hacer: el artículo 33 habla de notificar «a más tardar» a las 72 horas, así que con 72 aún estás a tiempo. El arreglo es `horas <= 72`. Revisar es comprobar las dos cosas: qué hace y qué debería hacer."
+  },
+  {
+    "id": "s03-rev-x3",
+    "tipo": "fallo",
+    "semana": 3,
+    "concepto": "logicos",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Marca la brecha como prioritaria solo si es grave **y** afecta a datos de salud». Esta no es grave. Toca la línea que está mal.",
+    "codigo": "const grave = false;\nconst salud = true;\nif (grave || salud) {\n  console.log(\"Prioritaria\");\n}",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "Usa `||` (o) cuando la regla dice «y». Tenía que ser `grave && salud`.",
+        "correcta": true,
+        "siEliges": "Exacto. Con `||` basta con una condición; la regla exige las dos."
+      },
+      {
+        "texto": "Hay que comparar: `grave === true || salud === true`.",
+        "siEliges": "Eso hace lo mismo que el original y sigue estando mal. El problema es el `||`."
+      },
+      {
+        "texto": "Falta un `else` que diga «No avisar».",
+        "siEliges": "Un `else` añadiría un mensaje, pero `Prioritaria` seguiría saliendo cuando no toca."
+      }
+    ],
+    "arreglo": "const grave = false;\nconst salud = true;\nif (grave && salud) {\n  console.log(\"Prioritaria\");\n}",
+    "pistas": [
+      "La brecha no es grave. ¿Debería salir como prioritaria?",
+      "`&&` es «y»: las dos. `||` es «o»: con una basta.",
+      "La regla dice «y». ¿Qué dice el código?"
+    ],
+    "explicacion": "Imprime `Prioritaria` aunque la brecha no es grave. Confundir «y» con «o» es de los fallos más frecuentes al pasar una regla a código. Traduce la regla palabra a palabra: «y» es `&&`, «o» es `||`."
+  },
+  {
+    "id": "s03-rev-x4",
+    "tipo": "razon",
+    "semana": 3,
+    "concepto": "comparaciones",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime esta línea. ¿Quién tiene razón?",
+    "codigo": "console.log(\"5\" === 5);",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `true`.",
+        "porque": "Los dos son un 5."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `false`.",
+        "porque": "`===` compara también el tipo: uno es texto y el otro, número."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Para `===`, el texto `\"5\"` y el número `5` son cosas distintas.",
+      "Marta": "Se ven iguales, pero uno lleva comillas: es texto. `===` exige mismo valor **y** mismo tipo.",
+      "ninguno": "Esta vez sí acierta una. Fíjate en las comillas."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en las comillas.",
+      "`===` compara el valor y también el tipo.",
+      "¿Son del mismo tipo `\"5\"` y `5`?"
+    ],
+    "explicacion": "Imprime `false`. Por eso, lo que llega como texto (un formulario, por ejemplo) hay que convertirlo con `Number()` antes de compararlo con un número."
+  }
+]

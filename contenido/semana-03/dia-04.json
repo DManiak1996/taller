@@ -1,0 +1,204 @@
+{
+  "id": "s03-d04",
+  "semana": 3,
+  "dia": 4,
+  "titulo": "Varios caminos: else if",
+  "objetivo": "Hoy aprendes a clasificar un caso en varios niveles con else if, y por qué el orden de las preguntas cambia el resultado.",
+  "conceptos": [
+    "if-else"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const afectados = 500;\nif (afectados > 1000) {\n  console.log(\"Riesgo alto\");\n} else if (afectados > 100) {\n  console.log(\"Riesgo medio\");\n} else {\n  console.log(\"Riesgo bajo\");\n}",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "afectados": "500"
+          },
+          "salida": [],
+          "nota": "Una brecha con 500 personas afectadas. (Regla inventada para practicar, no un criterio legal.)"
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "afectados": "500"
+          },
+          "salida": [],
+          "nota": "Primera pregunta: ¿más de 1000? No. Pasa a la siguiente."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "afectados": "500"
+          },
+          "salida": [],
+          "nota": "Segunda pregunta: ¿más de 100? Sí."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "afectados": "500"
+          },
+          "salida": [
+            "Riesgo medio"
+          ],
+          "nota": "Ejecuta ese camino y ya no mira el resto."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Con `else if` («si no, si…») encadenas preguntas. El programa las hace **en orden, de arriba abajo**, y se queda con la **primera** que da true. El `else` final recoge todo lo demás."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const afectados = 5000;\nif (afectados > 100) {\n  console.log(\"Riesgo medio\");\n} else if (afectados > 1000) {\n  console.log(\"Riesgo alto\");\n}",
+      "salida": [
+        "Riesgo medio"
+      ],
+      "nota": "Las mismas preguntas en mal orden: 5000 afectados salen como riesgo **medio**, porque «más de 100» se cumple primero y gana. «Riesgo alto» no saldría nunca. Regla: de la condición más exigente a la menos."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Para revisar una cadena de `else if`, pregúntate: ¿hay algún valor que caiga en el camino equivocado? ¿Algún camino al que no se pueda llegar nunca? Si lo hay, el orden está mal."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure decide qué escribir en la «miga de pan» (la ruta que ves arriba en la pantalla) con una cadena de else if, según la página en la que estés:",
+      "codigo": "} else if (parts[4] === 'apartado-graph') {\n  segments.push({ label: 'Grafo EIPD' });\n} else if (parts[4] === 'exportar') {\n  segments.push({ label: 'Exportación' });\n}",
+      "fichero": "DeIure/src/lib/nav-breadcrumb.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s03-d04-r1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa con 50 afectados?",
+      "codigo": "const afectados = 50;\nif (afectados > 1000) {\n  console.log(\"Alto\");\n} else if (afectados > 100) {\n  console.log(\"Medio\");\n} else {\n  console.log(\"Bajo\");\n}",
+      "opciones": [
+        {
+          "texto": "Bajo",
+          "correcta": true,
+          "siEliges": "Eso es: ninguna pregunta da true, así que va al else."
+        },
+        {
+          "texto": "Medio",
+          "siEliges": "50 no es mayor que 100."
+        },
+        {
+          "texto": "Medio\nBajo",
+          "siEliges": "Solo se ejecuta un camino, el primero que se cumple o el else."
+        }
+      ],
+      "pistas": [
+        "Haz las preguntas en orden con 50.",
+        "¿50 > 1000? No. ¿50 > 100? No.",
+        "Si ninguna se cumple, va al else."
+      ],
+      "explicacion": "El else final es el «en cualquier otro caso»."
+    },
+    {
+      "id": "s03-d04-r2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que 75 sea «Notable».",
+      "codigo": "const nota = 75;\nif (nota >= 90) {\n  console.log(\"Sobresaliente\");\n} ___ (nota >= 70) {\n  console.log(\"Notable\");\n} else {\n  console.log(\"Otro\");\n}",
+      "salidaEsperada": [
+        "Notable"
+      ],
+      "opciones": [
+        {
+          "texto": "else if",
+          "correcta": true,
+          "siEliges": "Correcto: «si no, si»."
+        },
+        {
+          "texto": "else",
+          "siEliges": "else no lleva condición: así no se entiende."
+        },
+        {
+          "texto": "elif",
+          "siEliges": "elif existe en Python, que verás más adelante, pero no en TypeScript: aquí da error."
+        }
+      ],
+      "pistas": [
+        "Entre dos caminos con condición va otra pregunta.",
+        "Esa pregunta empieza por «si no, si».",
+        "Son dos palabras: else if."
+      ],
+      "explicacion": "if abre la cadena, else if añade preguntas y else cierra con el resto."
+    },
+    {
+      "ref": "s03-rev-4"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s03-d04-x1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const dias = 45;\nif (dias > 30) {\n  console.log(\"Pedir prórroga\");\n} else if (dias > 60) {\n  console.log(\"Fuera de plazo\");\n}",
+      "opciones": [
+        {
+          "texto": "Pedir prórroga",
+          "correcta": true,
+          "siEliges": "Eso es: 45 > 30 se cumple primero y ya no mira el resto."
+        },
+        {
+          "texto": "Fuera de plazo",
+          "siEliges": "45 no es mayor que 60."
+        },
+        {
+          "texto": "Pedir prórroga\nFuera de plazo",
+          "siEliges": "Solo se ejecuta el primer camino que se cumple."
+        }
+      ],
+      "pistas": [
+        "¿Cuál es la primera pregunta que da true?",
+        "45 > 30 es true.",
+        "Con eso basta: ya no mira el else if."
+      ],
+      "explicacion": "Fíjate: con 90 días también diría «Pedir prórroga», porque > 30 va antes que > 60. El orden está mal y «Fuera de plazo» no saldría nunca."
+    },
+    {
+      "id": "s03-d04-x2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const t = 20;\nif (t >= 30) {\n  console.log(\"Calor\");\n} else if (t >= 15) {\n  console.log(\"Templado\");\n} else {\n  console.log(\"Frío\");\n}",
+      "opciones": [
+        {
+          "texto": "Templado",
+          "correcta": true,
+          "siEliges": "Eso es: no llega a 30, pero sí a 15."
+        },
+        {
+          "texto": "Frío",
+          "siEliges": "20 >= 15 es true: no llega al else."
+        },
+        {
+          "texto": "Calor",
+          "siEliges": "20 >= 30 es false."
+        }
+      ],
+      "pistas": [
+        "Pregunta por pregunta, con 20.",
+        "¿20 >= 30? No. ¿20 >= 15? Sí.",
+        "El segundo camino."
+      ],
+      "explicacion": "Aquí el orden es correcto: de la condición más exigente (30) a la menos (15)."
+    }
+  ]
+}

@@ -1041,6 +1041,15 @@ DeIure es lo mismo a lo grande. Cuando una IA te dice «ejecuta `npm run dev`»,
 
 `DeIure/package.json`
 
+**Pantalla 6 · terminal**
+
+```
+$ node -v
+v24.11.0
+```
+
+**Comando de la semana: opciones.** Lo que va detrás de un guion cambia lo que hace la orden. Casi todas tienen forma corta (`-v`) y larga (`--version`), y `--help` te enseña las que hay. **Minirreto en tu Mac:** escribe `node -v` y después `node --version`. Si las dos dan el mismo número, has comprobado que son la misma opción.
+
 ### Retos
 
 #### Reto 1 · ¿Qué imprime? · `s01-d07-r1` · concepto ordenador

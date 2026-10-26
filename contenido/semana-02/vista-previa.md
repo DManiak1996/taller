@@ -352,7 +352,7 @@ console.log("5" + "3");
 
 Salida: `8` / `53` / `53`
 
-Si uno de los dos es texto, `+` no suma: convierte el número en texto y los **pega**. "5" + 3 da "53".
+Si uno de los dos es texto, `+` no suma: convierte el número en texto y los **pega**. "5" + 3 da "53". Puede que ya lo descubrieras en la terminal de tu Mac.
 
 **Pantalla 3 · pasoapaso**
 
@@ -1066,6 +1066,17 @@ if (bytes.length > MAX_WORKSPACE_TEXT_BYTES) throw policyError('WORKSPACE_TOO_LA
 ```
 
 `DeIure/src/lib/workspace-file-policy.ts`
+
+**Pantalla 6 · terminal**
+
+```
+$ ls -la
+drwxr-xr-x  daniel  .
+drwxr-xr-x  daniel  ..
+-rw-r--r--  daniel  hola.ts
+```
+
+**Comando de la semana: ls -la, cd y pwd.** `-l` da la lista larga (aquí resumida: en tu Mac salen también el tamaño y la fecha) y `-a` añade lo oculto, como `.` (esta carpeta) y `..` (la de arriba). `cd ..` sube una carpeta, `cd ~` vuelve a tu carpeta de usuario y `pwd` dice dónde estás. **Minirreto en tu Mac:** entra en `practica`, haz `cd ..` y luego `pwd`. Debe salir tu carpeta de usuario, que acaba en tu nombre.
 
 ### Retos
 
