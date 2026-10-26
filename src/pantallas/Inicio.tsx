@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { DiaListo } from '../contenido/cargar'
 import { useProgreso } from '../progreso/almacen'
-import { hechoHoy, hoy, racha, repasoDeHoy } from '../progreso/modelo'
+import { hechoHoy, hoy, puedeSeguir, racha, repasoDeHoy } from '../progreso/modelo'
 import { Codigo, Icono, Texto } from '../ui/basicos'
 import { SemanaRacha } from './Cierre'
 
@@ -27,7 +27,7 @@ function codigoDe(dia: DiaListo): string | undefined {
   return codigo?.split('\n').slice(0, 3).join('\n')
 }
 
-export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: () => void; irA: (v: 'mapa' | 'cuenta' | 'misiones') => void }) {
+export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (siguienteDia?: boolean) => void; irA: (v: 'mapa' | 'cuenta' | 'misiones' | 'libre') => void }) {
   const p = useProgreso()
   const fechaHoy = hoy()
   const hecho = hechoHoy(p, fechaHoy)
@@ -36,6 +36,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
   const hayRepaso = Boolean(repasoDeHoy(p, fechaHoy)) || p.intentos.length > 0
   const repasoPendiente = Boolean(repasoDeHoy(p, fechaHoy)) // con el reto hecho, solo se ofrece repasar si toca
   const enLinea = useConexion()
+  const seguir = hecho && dia !== null && puedeSeguir(p, fechaHoy)
   const codigo = dia && codigoDe(dia)
   const dia1 = NOMBRE_DIA.format(new Date())
 
@@ -45,7 +46,10 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
         <p style={{ margin: 0, fontSize: 18, fontWeight: 800 }}>
           Taller <span className="peq" style={{ fontWeight: 700, marginLeft: 6 }}>{dia1[0].toUpperCase() + dia1.slice(1)}</span>
         </p>
-        <nav style={{ display: 'flex' }} aria-label="Secciones">
+        <nav style={{ display: 'flex', alignItems: 'center' }} aria-label="Secciones">
+          <button type="button" className="btn-texto enlace-cab" onClick={() => irA('libre')}>
+            Zona libre
+          </button>
           <button type="button" className="icono" aria-label="Misiones en el ordenador" onClick={() => irA('misiones')}>
             <Icono nombre="mision" />
           </button>
@@ -120,13 +124,18 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
 
       <footer className="pie">
         {!hecho && (dia || hayRepaso) && (
-          <button type="button" className="btn btn-pri" onClick={empezar}>
+          <button type="button" className="btn btn-pri" onClick={() => empezar()}>
             {dia ? 'Empezar el reto de hoy' : 'Hacer un repaso'}
             <Icono nombre="flecha" />
           </button>
         )}
+        {seguir && (
+          <button type="button" className="btn btn-sec" onClick={() => empezar(true)}>
+            Seguir con el día siguiente
+          </button>
+        )}
         {hecho && repasoPendiente && (
-          <button type="button" className="btn btn-sec" onClick={empezar}>
+          <button type="button" className="btn btn-sec" onClick={() => empezar()}>
             Repasar un poco más
           </button>
         )}

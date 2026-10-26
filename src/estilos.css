@@ -273,3 +273,8 @@ button.linea:hover { background: var(--pri-t); }
 .con-ojo .entrada { padding-right: 56px; }
 .ojo { position: absolute; top: 6px; right: 6px; }
 .btn-texto { background: transparent; color: var(--pri); min-height: 44px; font-size: 16px; font-weight: 700; border: none; }
+
+/* Zona libre: más ancha en el Mac, el editor necesita sitio */
+.app.ancha { max-width: 900px; }
+.consola .original { opacity: .6; font-size: 13px; margin-top: 4px; }
+.enlace-cab { font-size: 15px; padding: 0 8px; min-height: 44px; cursor: pointer; }
