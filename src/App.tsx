@@ -11,14 +11,18 @@ import { hechoHoy, hoy, puedeSeguir } from './progreso/modelo'
 // El editor (CodeMirror) solo se descarga al entrar en la zona libre.
 const ZonaLibre = lazy(() => import('./pantallas/ZonaLibre').then((m) => ({ default: m.ZonaLibre })))
 
-type Vista = 'inicio' | 'sesion' | 'mapa' | 'cuenta' | 'misiones' | 'libre'
+const Biblioteca = lazy(() => import('./pantallas/Biblioteca').then((m) => ({ default: m.Biblioteca })))
+
+type Vista = 'inicio' | 'sesion' | 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca'
 
 export default function App() {
   const [vista, setVista] = useState<Vista>('inicio')
   const [sesion, setSesion] = useState(0) // cambia en cada sesión para empezarla de cero
   const [seguir, setSeguir] = useState(false) // true: el segundo día de contenido de hoy
   const inicio = () => setVista('inicio')
-  useEffect(() => pantallaActual(vista === 'inicio'), [vista])
+  useEffect(() => {
+    pantallaActual(vista === 'inicio')
+  }, [vista])
 
   switch (vista) {
     case 'sesion': {
@@ -33,6 +37,12 @@ export default function App() {
       return <Cuenta volver={inicio} />
     case 'misiones':
       return <Misiones volver={inicio} />
+    case 'biblioteca':
+      return (
+        <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo la biblioteca…</p>}>
+          <Biblioteca volver={inicio} />
+        </Suspense>
+      )
     case 'libre':
       return (
         <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo el editor…</p>}>

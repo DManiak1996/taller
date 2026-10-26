@@ -278,3 +278,30 @@ button.linea:hover { background: var(--pri-t); }
 .app.ancha { max-width: 900px; }
 .consola .original { opacity: .6; font-size: 13px; margin-top: 4px; }
 .enlace-cab { font-size: 15px; padding: 0 8px; min-height: 44px; cursor: pointer; }
+
+/* Atajos de Inicio: zona libre y biblioteca, para cuando quieras */
+.atajos { display: flex; gap: 10px; }
+.atajo {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px;
+  border: 1px solid var(--borde); border-radius: var(--r-tarjeta); background: var(--sup); color: var(--tinta);
+  font: inherit; font-size: 16px; font-weight: 700; cursor: pointer;
+}
+.atajo svg { color: var(--pri); }
+
+/* Biblioteca: guías en Markdown */
+.tarjeta.guia { text-align: left; cursor: pointer; font: inherit; color: var(--tinta); gap: 4px; }
+.guia-tit { font-size: 19px; font-weight: 800; }
+.md-guia { max-width: 720px; width: 100%; margin: 0 auto; box-sizing: border-box; }
+.md-h2 { font-size: 22px; font-weight: 800; margin: 12px 0 0; line-height: 1.25; }
+.md-h3 { font-size: 18px; font-weight: 800; margin: 4px 0 0; }
+.md-lista { margin: 0; padding-left: 22px; font-size: var(--t-txt, 18px); line-height: 1.5; display: flex; flex-direction: column; gap: 6px; }
+.md-tabla { overflow-x: auto; border: 1px solid var(--borde); border-radius: var(--r-tarjeta); background: var(--sup); }
+.md-tabla table { border-collapse: collapse; width: 100%; font-size: 15px; line-height: 1.45; }
+.md-tabla th, .md-tabla td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--borde); }
+.md-tabla tr:last-child td { border-bottom: none; }
+.md-tabla th { background: var(--fondo); font-weight: 800; }
+.md-cita { border-left: 4px solid var(--con); background: var(--con-t); border-radius: 0 12px 12px 0; padding: 12px 14px; font-size: 16px; line-height: 1.5; }
+.md-codigo { margin: 0; background: var(--code); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; font-family: var(--f-codigo); font-size: 15px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+.md-hr { border: none; border-top: 1px solid var(--borde); margin: 4px 0; width: 100%; }
+.enlace-guia { background: none; border: none; padding: 0; font: inherit; color: var(--pri); text-decoration: underline; cursor: pointer; }
+.md-tabla code { white-space: nowrap; }

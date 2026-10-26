@@ -1,0 +1,69 @@
+import { describe, expect, it } from 'vitest'
+import { leerGuia, leerLinea, leerMarkdown } from '../src/ui/markdown'
+
+const ejemplo = `# La terminal, bien explicada
+
+Una **orden** es lo que escribes después del \`$\`.
+
+## Rutas
+
+| Orden | Qué hace |
+|---|---|
+| \`pwd\` | Dice dónde estás |
+| \`ls -la\` | Lista **todo** |
+
+- Primera idea
+  que sigue aquí
+- Segunda idea
+
+1. Abre la terminal
+2. Escribe \`ls\`
+
+> ⚠️ \`rm -rf\` borra sin preguntar.
+
+\`\`\`bash
+$ cd misiones
+$ ls
+\`\`\`
+
+---
+
+Mira también [la otra guía](otra.md) o https://developer.mozilla.org.
+`
+
+describe('Markdown de la biblioteca', () => {
+  it('reconoce cada tipo de bloque', () => {
+    const b = leerMarkdown(ejemplo)
+    expect(b.map((x) => x.tipo)).toEqual(['titulo', 'parrafo', 'titulo', 'tabla', 'lista', 'lista', 'cita', 'codigo', 'separador', 'parrafo'])
+    expect(b[3]).toMatchObject({ tipo: 'tabla', cabecera: ['Orden', 'Qué hace'], filas: [['`pwd`', 'Dice dónde estás'], ['`ls -la`', 'Lista **todo**']] })
+    expect(b[4]).toMatchObject({ ordenada: false, items: ['Primera idea que sigue aquí', 'Segunda idea'] })
+    expect(b[5]).toMatchObject({ ordenada: true, items: ['Abre la terminal', 'Escribe `ls`'] })
+    expect(b[7]).toMatchObject({ lenguaje: 'bash', codigo: '$ cd misiones\n$ ls' })
+  })
+
+  it('saca el título y la descripción de la guía', () => {
+    const g = leerGuia('terminal', ejemplo)
+    expect(g.titulo).toBe('La terminal, bien explicada')
+    expect(g.bloques[0].tipo).toBe('parrafo')
+    expect(g.descripcion).toMatch(/^Una \*\*orden\*\*/)
+    const conFm = leerGuia('x', '---\ntitulo: Chuleta semana 1\norden: 1\n---\nTexto')
+    expect(conFm).toMatchObject({ titulo: 'Chuleta semana 1', orden: 1 })
+  })
+
+  it('entiende el formato dentro de la línea', () => {
+    expect(leerLinea('Usa `ls` y **mira** el [manual](otra.md), *despacio*.').map((t) => t.tipo)).toEqual([
+      'texto', 'codigo', 'texto', 'negrita', 'texto', 'enlace', 'texto', 'cursiva', 'texto',
+    ])
+    expect(leerLinea('una_variable_con_guiones y 2 * 3 * 4').map((t) => t.tipo)).toEqual(['texto'])
+  })
+})
+
+describe('enlaces sueltos', () => {
+  it('no se comen el punto final', () => {
+    expect(leerLinea('Más en https://developer.mozilla.org.')).toEqual([
+      { tipo: 'texto', texto: 'Más en ' },
+      { tipo: 'enlace', texto: 'https://developer.mozilla.org', destino: 'https://developer.mozilla.org' },
+      { tipo: 'texto', texto: '.' },
+    ])
+  })
+})
