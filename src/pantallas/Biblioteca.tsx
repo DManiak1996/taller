@@ -111,10 +111,17 @@ function Pintar({ b, abrir }: { b: Bloque; abrir: (id: string) => void }) {
         </div>
       )
     case 'cita':
-      return (
-        <aside className="md-cita">
-          <Linea texto={b.texto} abrir={abrir} />
+      return b.aviso ? (
+        <aside className="md-aviso">
+          <Icono nombre="cuidado" tam={22} />
+          <p>
+            <strong>Cuidado.</strong> <Linea texto={b.texto} abrir={abrir} />
+          </p>
         </aside>
+      ) : (
+        <p className="md-cita">
+          <Linea texto={b.texto} abrir={abrir} />
+        </p>
       )
     case 'codigo':
       return TERMINAL.has(b.lenguaje) ? (

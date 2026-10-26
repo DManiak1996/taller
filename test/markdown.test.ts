@@ -67,3 +67,18 @@ describe('enlaces sueltos', () => {
     ])
   })
 })
+
+describe('citas y avisos', () => {
+  it('distingue un aviso de una cita normal y quita la marca', () => {
+    expect(leerMarkdown('> ⚠️ `rm -rf` borra sin preguntar.')[0]).toEqual({ tipo: 'cita', texto: '`rm -rf` borra sin preguntar.', aviso: true })
+    expect(leerMarkdown('> **Cuidado:** no lo pegues en el chat.')[0]).toEqual({ tipo: 'cita', texto: 'no lo pegues en el chat.', aviso: true })
+    expect(leerMarkdown('> Programar es explicar algo con mucha precisión.')[0]).toMatchObject({ aviso: false })
+  })
+})
+
+describe('avisos sin emoji', () => {
+  it('«Cuidado:» marca aviso, pero «Cuidado con…» sin dos puntos es una cita normal', () => {
+    expect(leerMarkdown('> Cuidado: borra para siempre.')[0]).toEqual({ tipo: 'cita', texto: 'borra para siempre.', aviso: true })
+    expect(leerMarkdown('> Cuidado con los espacios.')[0]).toMatchObject({ aviso: false, texto: 'Cuidado con los espacios.' })
+  })
+})

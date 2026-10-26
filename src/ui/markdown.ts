@@ -7,7 +7,7 @@ export type Bloque =
   | { tipo: 'parrafo'; texto: string }
   | { tipo: 'lista'; ordenada: boolean; items: string[] }
   | { tipo: 'tabla'; cabecera: string[]; filas: string[][] }
-  | { tipo: 'cita'; texto: string }
+  | { tipo: 'cita'; texto: string; aviso: boolean }
   | { tipo: 'codigo'; lenguaje: string; codigo: string }
   | { tipo: 'separador' }
 
@@ -68,7 +68,12 @@ export function leerMarkdown(md: string): Bloque[] {
     if (/^\s*>/.test(l)) {
       const texto: string[] = []
       while (i < lineas.length && /^\s*>/.test(lineas[i])) texto.push(lineas[i++].replace(/^\s*>\s?/, ''))
-      bloques.push({ tipo: 'cita', texto: texto.join(' ').trim() })
+      // Una cita que empieza por ⚠️ o por «Cuidado:», «Atención:» o «Peligro:» es un aviso. La marca se
+      // quita porque la página ya pone el icono y la palabra «Cuidado».
+      const junto = texto.join(' ').trim()
+      const marca = junto.match(/^(?:⚠️?\s*)?(?:\*\*(?:cuidado|atención|peligro)[:.]?\*\*[:.]?|(?:cuidado|atención|peligro)[:.])?\s*/i)![0]
+      const aviso = marca.trim() !== ''
+      bloques.push({ tipo: 'cita', texto: junto.slice(aviso ? marca.length : 0), aviso })
       continue
     }
     const item = /^\s*(?:[-*+]|(\d+)[.)])\s+/

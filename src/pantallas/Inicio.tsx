@@ -117,13 +117,13 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             <SemanaRacha fechaHoy={fechaHoy} />
           </section>
         )}
-        <nav className="atajos" aria-label="Para cuando quieras">
+        <nav className={`atajos${hecho ? '' : ' discretos'}`} aria-label="Para cuando quieras">
           <button type="button" className="atajo" onClick={() => irA('libre')}>
-            <Icono nombre="llaves" tam={20} />
+            <Icono nombre="llaves" tam={hecho ? 20 : 18} />
             Zona libre
           </button>
           <button type="button" className="atajo" onClick={() => irA('biblioteca')}>
-            <Icono nombre="libro" tam={20} />
+            <Icono nombre="libro" tam={hecho ? 20 : 18} />
             Biblioteca
           </button>
         </nav>
