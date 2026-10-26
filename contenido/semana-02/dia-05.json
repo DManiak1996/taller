@@ -15,7 +15,7 @@
     },
     {
       "tipo": "pasoapaso",
-      "codigo": "const casos = 4;\nconst minutosPorCaso = 15;\nconst total = casos * minutosPorCaso;\nconsole.log(`${casos} casos: ${total} min`);",
+      "codigo": "const casos = 4;\nconst minutosPorCaso = 15;\nconst total = casos * minutosPorCaso;\nconsole.log(`Hoy: ${total} min`);",
       "pasos": [
         {
           "linea": 1,
@@ -52,9 +52,9 @@
             "total": "60"
           },
           "salida": [
-            "4 casos: 60 min"
+            "Hoy: 60 min"
           ],
-          "nota": "Mensaje: una plantilla con dos huecos."
+          "nota": "Mensaje: una plantilla con el resultado."
         }
       ]
     },
@@ -64,11 +64,11 @@
     },
     {
       "tipo": "codigo",
-      "codigo": "const facturacion = 2_000_000;\nconst multa = facturacion * 0.04;\nconsole.log(`Multa: ${multa} euros`);",
+      "codigo": "const facturacion = 2_000_000;\nconst parte = facturacion * 0.04;\nconsole.log(`4 %: ${parte} euros`);",
       "salida": [
-        "Multa: 80000 euros"
+        "4 %: 80000 euros"
       ],
-      "nota": "Las mismas tres partes con la multa máxima del RGPD para una empresa que factura 2 millones: dato, cálculo (el 4 % es multiplicar por 0.04) y mensaje."
+      "nota": "Las mismas tres partes con un dato del RGPD: el 4 % de la facturación (multiplicar por 0.04). Ojo: el art. 83.5 fija el tope en 20 millones o el 4 % del volumen de negocio anual mundial, **el que sea mayor**, así que aquí el tope serían 20 millones. Elegir «el mayor» es una decisión, y eso llega la semana que viene."
     },
     {
       "tipo": "deiure",
