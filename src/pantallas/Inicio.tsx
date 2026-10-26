@@ -27,7 +27,7 @@ function codigoDe(dia: DiaListo): string | undefined {
   return codigo?.split('\n').slice(0, 3).join('\n')
 }
 
-export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (siguienteDia?: boolean) => void; irA: (v: 'mapa' | 'cuenta' | 'misiones' | 'libre') => void }) {
+export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (siguienteDia?: boolean) => void; irA: (v: 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca') => void }) {
   const p = useProgreso()
   const fechaHoy = hoy()
   const hecho = hechoHoy(p, fechaHoy)
@@ -47,9 +47,6 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
           Taller <span className="peq" style={{ fontWeight: 700, marginLeft: 6 }}>{dia1[0].toUpperCase() + dia1.slice(1)}</span>
         </p>
         <nav style={{ display: 'flex', alignItems: 'center' }} aria-label="Secciones">
-          <button type="button" className="btn-texto enlace-cab" onClick={() => irA('libre')}>
-            Zona libre
-          </button>
           <button type="button" className="icono" aria-label="Misiones en el ordenador" onClick={() => irA('misiones')}>
             <Icono nombre="mision" />
           </button>
@@ -120,6 +117,16 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             <SemanaRacha fechaHoy={fechaHoy} />
           </section>
         )}
+        <nav className="atajos" aria-label="Para cuando quieras">
+          <button type="button" className="atajo" onClick={() => irA('libre')}>
+            <Icono nombre="llaves" tam={20} />
+            Zona libre
+          </button>
+          <button type="button" className="atajo" onClick={() => irA('biblioteca')}>
+            <Icono nombre="libro" tam={20} />
+            Biblioteca
+          </button>
+        </nav>
       </main>
 
       <footer className="pie">
