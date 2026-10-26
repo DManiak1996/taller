@@ -34,18 +34,36 @@ export async function sincronizar(local: Progreso): Promise<Progreso> {
   return { sesiones: s.data as Sesion[], intentos: i.data as Intento[] }
 }
 
-/** Paso 1 del acceso: envía un email con un código de 6 cifras (y un enlace, para el ordenador). */
-export async function pedirCodigo(email: string) {
-  if (!nube) throw new Error('La nube no está configurada')
-  const { error } = await nube.auth.signInWithOtp({ email, options: { emailRedirectTo: location.origin + import.meta.env.BASE_URL } })
-  if (error) throw error
+// Acceso con email y contraseña: no depende de que llegue ningún correo, y el iPhone la guarda
+// en el llavero. Funciona igual en la app instalada (que no comparte sesión con Safari) y en el Mac.
+
+const ERRORES_ACCESO: [RegExp, string][] = [
+  [/invalid login credentials/i, 'El email o la contraseña no coinciden.'],
+  [/already registered|already exists/i, 'Ya hay una cuenta con ese email. Entra con tu contraseña.'],
+  [/signups? not allowed|signup.*disabled/i, 'Ya no se pueden crear cuentas nuevas. Entra con la tuya.'],
+  [/password.*(at least|characters|weak)/i, 'La contraseña es demasiado corta o fácil de adivinar. Prueba con una más larga.'],
+  [/email not confirmed/i, 'Falta confirmar el email. En Supabase hay que desactivar «Confirm email».'],
+  [/rate limit|too many/i, 'Demasiados intentos seguidos. Espera un minuto y vuelve a probar.'],
+  [/fetch|network|load failed/i, 'No hay conexión. Prueba otra vez cuando tengas internet.'],
+]
+
+function enCastellano(error: { message: string }): Error {
+  const traduccion = ERRORES_ACCESO.find(([patron]) => patron.test(error.message))
+  return new Error(traduccion ? traduccion[1] : `No se ha podido entrar (${error.message}).`)
 }
 
-/** Paso 2: el código del email. Hace falta en el iPhone, porque la app instalada no comparte sesión con Safari. */
-export async function comprobarCodigo(email: string, codigo: string) {
+export async function entrar(email: string, contrasena: string) {
   if (!nube) throw new Error('La nube no está configurada')
-  const { error } = await nube.auth.verifyOtp({ email, token: codigo.trim(), type: 'email' })
-  if (error) throw error
+  const { error } = await nube.auth.signInWithPassword({ email, password: contrasena })
+  if (error) throw enCastellano(error)
+}
+
+export async function crearCuenta(email: string, contrasena: string) {
+  if (!nube) throw new Error('La nube no está configurada')
+  const { data, error } = await nube.auth.signUp({ email, password: contrasena })
+  if (error) throw enCastellano(error)
+  // Con «Confirm email» activado, Supabase crea la cuenta pero no abre sesión hasta confirmar.
+  if (!data.session) throw new Error('Cuenta creada, pero falta confirmar el email. En Supabase hay que desactivar «Confirm email».')
 }
 
 export async function cerrarSesion() {

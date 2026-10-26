@@ -30,6 +30,13 @@ const TRAZOS = {
   mapa: <path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14" />,
   usuario: <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM4 21a8 8 0 0 1 16 0" />,
   mision: <path d="M4 17l6-6-6-6M12 19h8" />,
+  ojo: (
+    <>
+      <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  sinred: <path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h.01M3 3l18 18" />,
 }
 
 export function Icono({ nombre, tam = 22, grosor = 2.5 }: { nombre: keyof typeof TRAZOS; tam?: number; grosor?: number }) {
