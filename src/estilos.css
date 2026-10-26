@@ -287,6 +287,8 @@ button.linea:hover { background: var(--pri-t); }
   font: inherit; font-size: 16px; font-weight: 700; cursor: pointer;
 }
 .atajo svg { color: var(--pri); }
+.atajos.discretos .atajo { border: none; background: none; color: var(--suave); font-size: 15px; min-height: 44px; }
+.atajos.discretos .atajo svg { color: var(--suave); }
 
 /* Biblioteca: guías en Markdown */
 .tarjeta.guia { text-align: left; cursor: pointer; font: inherit; color: var(--tinta); gap: 4px; }
@@ -300,7 +302,11 @@ button.linea:hover { background: var(--pri-t); }
 .md-tabla th, .md-tabla td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--borde); }
 .md-tabla tr:last-child td { border-bottom: none; }
 .md-tabla th { background: var(--fondo); font-weight: 800; }
-.md-cita { border-left: 4px solid var(--con); background: var(--con-t); border-radius: 0 12px 12px 0; padding: 12px 14px; font-size: 16px; line-height: 1.5; }
+.md-cita { margin: 0; color: var(--suave); font-style: italic; font-size: 17px; line-height: 1.5; }
+.md-aviso { display: flex; gap: 12px; align-items: flex-start; background: var(--sup); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 14px 16px; }
+.md-aviso svg { flex: none; color: var(--mal); margin-top: 1px; }
+.md-aviso p { margin: 0; font-size: 16px; line-height: 1.5; }
+.md-aviso strong { font-weight: 800; }
 .md-codigo { margin: 0; background: var(--code); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 12px 14px; font-family: var(--f-codigo); font-size: 15px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
 .md-hr { border: none; border-top: 1px solid var(--borde); margin: 4px 0; width: 100%; }
 .enlace-guia { background: none; border: none; padding: 0; font: inherit; color: var(--pri); text-decoration: underline; cursor: pointer; }
