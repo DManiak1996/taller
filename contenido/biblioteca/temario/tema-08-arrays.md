@@ -78,6 +78,8 @@ Una lista es una **estructura de datos** ordenada: se accede por posición, y pa
 - En un `for` clásico sobre una lista, comprobar que la condición es `i < lista.length`.
 - Si solo se usan los elementos, `for…of` es más simple y elimina el riesgo del error de uno.
 - Comprobar que los acumuladores y banderas se crean fuera del bucle.
+- Una bandera solo se pone en `true` cuando se encuentra lo buscado. Si se le da un valor en cada vuelta, la última vuelta borra lo encontrado.
+- El primer elemento es `lista[0]` y el último, `lista[lista.length - 1]`.
 - Si se busca repetidamente en una lista grande, valorar si un diccionario sería más adecuado.
 
 ## Documentación oficial

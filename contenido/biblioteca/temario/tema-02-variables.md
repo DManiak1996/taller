@@ -60,6 +60,7 @@ cerrada
 
 - ¿Cada variable se crea antes de usarse?
 - ¿Se usa `let` solo donde el valor cambia? Un `let` que nunca cambia debería ser `const`.
+- Al revés: si un `const` se cambia más adelante, el programa falla. Tenía que ser `let`.
 - ¿Los nombres explican qué guardan?
 
 ## Documentación oficial

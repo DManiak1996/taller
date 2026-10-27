@@ -1,0 +1,213 @@
+{
+  "id": "s06-d04",
+  "semana": 6,
+  "dia": 4,
+  "titulo": "Varios parámetros, en su orden",
+  "objetivo": "Hoy aprendes a escribir funciones con varios parámetros, por qué importa el orden de los argumentos y cómo una función puede responder sí o no.",
+  "conceptos": [
+    "parametros-return"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "function quedan(plazo, pasadas) {\n  return plazo - pasadas;\n}\nconsole.log(quedan(72, 20));\nconsole.log(quedan(20, 72));",
+      "salida": [
+        "52",
+        "-52"
+      ],
+      "nota": "Los argumentos se reparten **por orden**: el primero va al primer parámetro y el segundo, al segundo. Al revés no hay error, pero el resultado es otro."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Es un fallo silencioso, y muy típico de la IA: los nombres no ayudan a repartir. Aunque fuera tengas una caja llamada `pasadas`, si la pones la primera, irá a `plazo`. Para revisarlo, prueba la función con un caso cuyo resultado sepas de memoria."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function enPlazo(dias) {\n  return dias <= 30;\n}\nconsole.log(enPlazo(12));\nif (enPlazo(45)) {\n  console.log(\"Bien\");\n} else {\n  console.log(\"Reclamar\");\n}",
+      "salida": [
+        "true",
+        "Reclamar"
+      ],
+      "nota": "Una función puede devolver true o false. Así una pregunta queda con un nombre claro y se usa directamente en un if. Suelen llamarse `es…`, `tiene…` o, en inglés, `is…` y `has…`."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Si subes un fichero cuyo nombre ya existe, DeIure le añade un número: «informe.pdf» pasa a ser «informe (2).pdf». La función recibe dos datos y en este orden: primero el nombre y después el número.",
+      "codigo": "export function fileNameWithSuffix(fileName: string, index: number): string {",
+      "fichero": "DeIure/src/lib/file-name-conflict.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d04-r1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function media(total, n) {\n  return total / n;\n}\nconsole.log(media(10, 2));\nconsole.log(media(2, 10));",
+      "opciones": [
+        {
+          "texto": "5\n0.2",
+          "correcta": true,
+          "siEliges": "Eso es: en la segunda llamada, total vale 2 y n vale 10."
+        },
+        {
+          "texto": "5\n5",
+          "siEliges": "El orden cambia el reparto: en la segunda, total recibe 2 y n recibe 10."
+        },
+        {
+          "texto": "5\n❌ Error: argumentos al revés",
+          "siEliges": "No hay error: solo un resultado distinto. Por eso cuesta verlo."
+        }
+      ],
+      "pistas": [
+        "En cada llamada, ¿qué va a total y qué va a n?",
+        "El primer argumento va a total y el segundo a n.",
+        "10 / 2 y luego 2 / 10."
+      ],
+      "explicacion": "Cambiar el orden de los argumentos no rompe el programa: lo hace mentir. Hay que mirarlo en cada llamada."
+    },
+    {
+      "id": "s06-d04-r2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa la función para que diga si a es mayor que b: true con (5, 3) y false con (3, 3).",
+      "codigo": "function mayor(a, b) {\n  return a ___ b;\n}\nconsole.log(mayor(5, 3));\nconsole.log(mayor(3, 3));",
+      "salidaEsperada": [
+        "true",
+        "false"
+      ],
+      "opciones": [
+        {
+          "texto": ">",
+          "correcta": true,
+          "siEliges": "Correcto: 5 > 3 es true y 3 > 3 es false."
+        },
+        {
+          "texto": ">=",
+          "siEliges": "3 >= 3 es true: la segunda línea saldría true."
+        },
+        {
+          "texto": "<",
+          "siEliges": "Al revés: 5 < 3 es false."
+        },
+        {
+          "texto": "===",
+          "siEliges": "5 === 3 es false: la primera saldría false."
+        }
+      ],
+      "pistas": [
+        "La función devuelve directamente el resultado de una comparación.",
+        "«Mayor que», sin incluir el igual.",
+        "Con 3 y 3 tiene que dar false."
+      ],
+      "explicacion": "Una función que devuelve una comparación responde sí o no. Pruébala siempre en el límite, como con 3 y 3."
+    },
+    {
+      "ref": "s06-rev-4"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d04-x1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function txt(n, unidad) {\n  return `${n} ${unidad}`;\n}\nconsole.log(txt(\"h\", 72));",
+      "opciones": [
+        {
+          "texto": "h 72",
+          "correcta": true,
+          "siEliges": "Eso es: va por orden. n recibe \"h\" y unidad recibe 72."
+        },
+        {
+          "texto": "72 h",
+          "siEliges": "Los argumentos van al revés de lo que parece: n recibe \"h\"."
+        },
+        {
+          "texto": "❌ Error: n tiene que ser un número",
+          "siEliges": "Aquí nada comprueba los tipos. Con tipos de TypeScript, el editor sí lo marcaría."
+        }
+      ],
+      "pistas": [
+        "¿Qué recibe n? ¿Y unidad?",
+        "El primer argumento va al primer parámetro.",
+        "n es \"h\" y unidad es 72."
+      ],
+      "explicacion": "Este es uno de los fallos que TypeScript evita: con tipos, el editor avisa si pasas un texto donde va un número."
+    },
+    {
+      "ref": "s06-rev-x3"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d04-n1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Fuera hay cajas con los mismos nombres que los parámetros. ¿Qué escribe este programa?",
+      "codigo": "function resta(a, b) {\n  return a - b;\n}\nconst a = 10;\nconst b = 4;\nconsole.log(resta(b, a));",
+      "opciones": [
+        {
+          "texto": "-6",
+          "correcta": true,
+          "siEliges": "Eso es: se reparte por orden, no por nombre. El parámetro a recibe 4 y el b, 10."
+        },
+        {
+          "texto": "6",
+          "siEliges": "Los nombres no cuentan: el primer argumento, b (que vale 4), va al parámetro a."
+        },
+        {
+          "texto": "❌ Error: a ya existe",
+          "siEliges": "Los parámetros son cajas propias de la función: no chocan con las de fuera."
+        }
+      ],
+      "pistas": [
+        "Mira el orden de la llamada, no los nombres.",
+        "El primer argumento es b, que vale 4. Va al primer parámetro.",
+        "Dentro: 4 - 10."
+      ],
+      "explicacion": "Que coincidan los nombres no significa nada: la función solo mira la posición. Esta trampa la verás en código de IA."
+    },
+    "escribir": {
+      "id": "s06-d04-n2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe enPlazo(usados, limite), que devuelva true si usados no pasa de limite. Después, con un if, escribe «En plazo» o «Fuera de plazo» para dias y plazo.",
+      "datos": "const plazo = 30;\nconst dias = 31;",
+      "salidaEsperada": [
+        "Fuera de plazo"
+      ],
+      "variantes": [
+        {
+          "datos": "const plazo = 30;\nconst dias = 30;",
+          "salidaEsperada": [
+            "En plazo"
+          ]
+        },
+        {
+          "datos": "const plazo = 60;\nconst dias = 45;",
+          "salidaEsperada": [
+            "En plazo"
+          ]
+        }
+      ],
+      "solucion": "function enPlazo(usados, limite) {\n  return usados <= limite;\n}\nif (enPlazo(dias, plazo)) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "pistas": [
+        "La función devuelve una comparación; el if la usa.",
+        "«No pasa de» es <=. Y al llamarla, el orden: primero dias, después plazo.",
+        "if (enPlazo(dias, plazo)) { … } else { … }"
+      ],
+      "explicacion": "Si la llamas al revés, enPlazo(plazo, dias), con 31 días dice «En plazo». Las variantes lo pillan."
+    }
+  }
+}

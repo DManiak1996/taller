@@ -1,0 +1,247 @@
+{
+  "id": "s06-d03",
+  "semana": 6,
+  "dia": 3,
+  "titulo": "Devolver un resultado: return",
+  "objetivo": "Hoy aprendes a que una función devuelva un resultado con return, para guardarlo y usarlo después, y en qué se diferencia de escribirlo con console.log.",
+  "conceptos": [
+    "parametros-return"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "function doble(n) {\n  return n * 2;\n}\nconst a = doble(5);\nconsole.log(a);",
+      "pasos": [
+        {
+          "linea": 2,
+          "variables": {
+            "doble": "función",
+            "n": "5"
+          },
+          "salida": [],
+          "nota": "La línea 4 llama a doble con 5. Dentro, n vale 5, y return **devuelve** n * 2, que es 10."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "doble": "función",
+            "a": "10"
+          },
+          "salida": [],
+          "nota": "El 10 vuelve a la línea 4, al sitio de la llamada, y se guarda en a."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "doble": "función",
+            "a": "10"
+          },
+          "salida": [
+            "10"
+          ],
+          "nota": "Ahora el resultado está en una caja: puedes escribirlo o usarlo para otro cálculo."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`return` («devolver») hace dos cosas: **entrega un resultado** a quien llamó y **termina la función**. Es como pedirle un informe a un compañero: te lo devuelve y tú decides qué haces con él. `console.log`, en cambio, solo lo escribe en la pantalla: no te lo da."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function doble(n) {\n  console.log(n * 2);\n}\nconst a = doble(5);\nconsole.log(a);",
+      "salida": [
+        "10",
+        "undefined"
+      ],
+      "nota": "El fallo más típico de la semana: la función **escribe** el resultado, pero no lo **devuelve**. Sin return, la llamada vale undefined y a se queda sin el dato."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function estado(dias) {\n  if (dias > 30) {\n    return \"Fuera\";\n  }\n  return \"En plazo\";\n}\nconsole.log(estado(40));\nconsole.log(estado(12));",
+      "salida": [
+        "Fuera",
+        "En plazo"
+      ],
+      "nota": "return termina la función en el acto. Con 40, sale por el primer return y ya no llega al segundo. Con 12, el if no entra y llega al return del final."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al compartir una carpeta, DeIure enseña un texto según el estado. El primer return que se cumple decide y termina la función; si no se cumple ninguno, llega al del final. (Un if con una sola orden puede ir sin llaves.)",
+      "codigo": "if (state === 'review_pending') return 'Pendiente de aprobación';\nif (state === 'compensating') return 'Recuperando la carpeta…';\nreturn 'Compartiendo…';",
+      "fichero": "DeIure/src/lib/desktop/sharing-progress.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d03-r1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function triple(n) {\n  return n * 3;\n}\nconst x = triple(2);\nconsole.log(x + 1);",
+      "opciones": [
+        {
+          "texto": "7",
+          "correcta": true,
+          "siEliges": "Eso es: triple(2) devuelve 6, se guarda en x, y 6 + 1 es 7."
+        },
+        {
+          "texto": "6",
+          "siEliges": "Falta el + 1 de la última línea."
+        },
+        {
+          "texto": "undefined",
+          "siEliges": "Aquí sí hay return: triple(2) vale 6."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve triple(2)?",
+        "Devuelve 6, y se guarda en x.",
+        "La última línea escribe x + 1."
+      ],
+      "explicacion": "Lo que devuelve una función se puede guardar y seguir usando, como cualquier otro dato."
+    },
+    {
+      "id": "s06-d03-r2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa la función para que escriba 21, el 21 % de 100.",
+      "codigo": "function iva(precio) {\n  ___;\n}\nconsole.log(iva(100));",
+      "salidaEsperada": [
+        "21"
+      ],
+      "opciones": [
+        {
+          "texto": "return precio * 0.21",
+          "correcta": true,
+          "siEliges": "Correcto: devuelve el cálculo, y la última línea lo escribe."
+        },
+        {
+          "texto": "console.log(precio * 0.21)",
+          "siEliges": "Escribe 21 dentro, pero no lo devuelve: la última línea escribe además undefined."
+        },
+        {
+          "texto": "precio * 0.21",
+          "siEliges": "Calcula, pero no devuelve nada: sale undefined."
+        }
+      ],
+      "pistas": [
+        "¿Quién escribe en la pantalla, la función o la última línea?",
+        "La última línea escribe lo que devuelve iva(100).",
+        "Hace falta devolver el cálculo."
+      ],
+      "explicacion": "Calcular no basta: sin return, el resultado se pierde al terminar la función."
+    },
+    {
+      "ref": "s06-rev-3"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d03-x1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function f(n) {\n  return n + 1;\n  console.log(\"Hola\");\n}\nconsole.log(f(1));",
+      "opciones": [
+        {
+          "texto": "2",
+          "correcta": true,
+          "siEliges": "Eso es: return termina la función, y la línea 3 no llega a ejecutarse."
+        },
+        {
+          "texto": "Hola\n2",
+          "siEliges": "La línea 3 va después del return: no se ejecuta nunca."
+        },
+        {
+          "texto": "2\nHola",
+          "siEliges": "Después de return no se ejecuta nada de la función."
+        }
+      ],
+      "pistas": [
+        "¿Qué pasa con la función al llegar a return?",
+        "Termina en el acto.",
+        "Solo sale lo que escribe la última línea."
+      ],
+      "explicacion": "Una línea después de return no se ejecuta nunca. En VS Code sale en gris: es código «inalcanzable»."
+    },
+    {
+      "ref": "s06-rev-x2"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d03-n1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Esta función busca el primer número mayor que 10. ¿Qué escribe el programa?",
+      "codigo": "function primero(lista) {\n  for (const n of lista) {\n    if (n > 10) {\n      return n;\n    }\n  }\n  return 0;\n}\nconsole.log(primero([4, 12, 30]));\nconsole.log(primero([1, 2]));",
+      "opciones": [
+        {
+          "texto": "12\n0",
+          "correcta": true,
+          "siEliges": "Eso es: con el 12 devuelve y termina; en la segunda lista no encuentra ninguno y llega al return 0."
+        },
+        {
+          "texto": "30\n0",
+          "siEliges": "return termina la función con el primero que encuentra: el 12."
+        },
+        {
+          "texto": "12\nundefined",
+          "siEliges": "Si el bucle acaba sin encontrar nada, llega al return 0 del final."
+        },
+        {
+          "texto": "12\n30\n0",
+          "siEliges": "Un return termina la función: no sigue buscando."
+        }
+      ],
+      "pistas": [
+        "Sigue la primera lista número a número.",
+        "En cuanto un número cumple el if, return lo devuelve y la función termina.",
+        "Con [1, 2] ninguno cumple: llega a la línea 7."
+      ],
+      "explicacion": "Aquí el return dentro del bucle es justo lo que se busca: parar en el primero. Cuando se quería sumar todos, ese mismo return es un fallo."
+    },
+    "escribir": {
+      "id": "s06-d03-n2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe una función total(lista) que devuelva la suma de una lista de horas. Después escribe «Total: 6 h» usando lo que devuelve.",
+      "datos": "const horas = [2, 3, 1];",
+      "salidaEsperada": [
+        "Total: 6 h"
+      ],
+      "variantes": [
+        {
+          "datos": "const horas = [5];",
+          "salidaEsperada": [
+            "Total: 5 h"
+          ]
+        },
+        {
+          "datos": "const horas = [];",
+          "salidaEsperada": [
+            "Total: 0 h"
+          ]
+        }
+      ],
+      "solucion": "function total(lista) {\n  let suma = 0;\n  for (const h of lista) {\n    suma = suma + h;\n  }\n  return suma;\n}\nconst resultado = total(horas);\nconsole.log(\"Total:\", resultado, \"h\");",
+      "pistas": [
+        "Dentro de la función va un acumulador, como en la semana 4.",
+        "Empieza en 0, suma cada hora con un for...of y, al acabar el bucle, return.",
+        "El return va después de cerrar el for, no dentro."
+      ],
+      "explicacion": "Si el return quedara dentro del for, devolvería solo la primera hora. Con la lista vacía, el bucle no da ninguna vuelta y devuelve 0."
+    }
+  }
+}

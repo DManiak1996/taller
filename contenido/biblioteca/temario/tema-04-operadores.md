@@ -45,6 +45,7 @@ Si al menos uno de los dos valores es un texto, `+` **concatena** en lugar de su
 
 - En cada `+`, comprobar si los dos valores son números. Si uno puede ser texto, el resultado será una concatenación silenciosa.
 - En una fórmula larga, comprobar que la precedencia da el cálculo pretendido. Si hay duda, los paréntesis la eliminan.
+- En una plantilla, comprobar que va entre comillas invertidas (con comillas normales, `${…}` sale escrito tal cual) y que cada `${…}` lleva la variable correcta.
 - Probar el cálculo con un valor conocido y comparar con el resultado a mano.
 
 ## Documentación oficial

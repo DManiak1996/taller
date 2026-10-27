@@ -1,0 +1,263 @@
+{
+  "id": "s06-d05",
+  "semana": 6,
+  "dia": 5,
+  "titulo": "Lo de dentro se queda dentro",
+  "objetivo": "Hoy aprendes qué variables puede ver una función y cuáles no, y por qué lo que se crea dentro de una función no existe fuera.",
+  "conceptos": [
+    "ambito"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "function calcular() {\n  const total = 50;\n  console.log(total);\n}\ncalcular();\nconsole.log(total);",
+      "salida": [
+        "50"
+      ],
+      "lanzaError": true,
+      "nota": "total se crea **dentro** de la función: solo existe ahí, mientras se ejecuta. Fuera, el programa falla con **total is not defined**. El trozo de código donde existe una variable es su **ámbito**."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Piensa en una sala de reuniones con pizarra: lo que se apunta dentro se borra al salir. Desde dentro se ve el cartel del pasillo, pero desde el pasillo no se ve la pizarra. Ya lo viste con los bucles: la `i` de un `for` no existe después del bucle."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const tarifa = 100;\nfunction coste(horas) {\n  const total = horas * tarifa;\n  return total;\n}\nconst precio = coste(3);\nconsole.log(precio);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "tarifa": "100"
+          },
+          "salida": [],
+          "nota": "tarifa se crea fuera de todo: se ve desde cualquier sitio."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "tarifa": "100",
+            "coste": "función",
+            "horas": "3",
+            "total": "300"
+          },
+          "salida": [],
+          "nota": "La línea 6 llama a coste con 3. Dentro existen horas y total, y desde dentro también se ve tarifa."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "tarifa": "100",
+            "coste": "función",
+            "horas": "3",
+            "total": "300"
+          },
+          "salida": [],
+          "nota": "Devuelve total."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "tarifa": "100",
+            "coste": "función",
+            "precio": "300"
+          },
+          "salida": [],
+          "nota": "De vuelta fuera, horas y total han desaparecido. Solo queda lo que se devolvió, guardado en precio."
+        },
+        {
+          "linea": 7,
+          "variables": {
+            "tarifa": "100",
+            "coste": "función",
+            "precio": "300"
+          },
+          "salida": [
+            "300"
+          ],
+          "nota": "Lo único que sale de una función es lo que devuelve."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const estado = \"abierta\";\nfunction cerrar() {\n  const estado = \"cerrada\";\n  return estado;\n}\nconsole.log(cerrar());\nconsole.log(estado);",
+      "salida": [
+        "cerrada",
+        "abierta"
+      ],
+      "nota": "Dentro de la función se crea **otra** caja estado, distinta de la de fuera, que no cambia. Dos cajas con el mismo nombre confunden: al revisar código, desconfía de ellas."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cuando un usuario lleva 30 días de baja, DeIure cambia su nombre por un seudónimo como «DEL-USR-a8Kd2pQz». prefix y random solo existen dentro de la función: fuera llega únicamente el seudónimo que devuelve. (El `|| 'USR'` pone «USR» si el rol no está en la lista.)",
+      "codigo": "function generatePseudonym(role: string): string {\n  const prefix = ROLE_PREFIX[role] || 'USR';\n  const random = nanoid(8);\n  return `DEL-${prefix}-${random}`;\n}",
+      "fichero": "DeIure/src/lib/pseudonymization.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d05-r1",
+      "semana": 6,
+      "concepto": "ambito",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let total = 1;\nfunction poner() {\n  let total = 5;\n  return total;\n}\nponer();\nconsole.log(total);",
+      "opciones": [
+        {
+          "texto": "1",
+          "correcta": true,
+          "siEliges": "Eso es: el let de dentro crea otra caja. La de fuera sigue valiendo 1."
+        },
+        {
+          "texto": "5",
+          "siEliges": "Dentro se crea una caja nueva con let: la de fuera no se toca."
+        },
+        {
+          "texto": "❌ Error: total ya existe",
+          "siEliges": "Dentro de la función empieza otro ámbito: puede tener su propia caja con el mismo nombre."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas cajas total hay?",
+        "Dos: la de fuera y la que crea el let de dentro.",
+        "La última línea está fuera."
+      ],
+      "explicacion": "let o const dentro de una función crean una caja nueva, aunque fuera haya otra con el mismo nombre."
+    },
+    {
+      "id": "s06-d05-r2",
+      "semana": 6,
+      "concepto": "ambito",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa la última línea para que escriba 15.",
+      "codigo": "const base = 10;\nfunction sumar(n) {\n  return base + n;\n}\nconsole.log(___);",
+      "salidaEsperada": [
+        "15"
+      ],
+      "opciones": [
+        {
+          "texto": "sumar(5)",
+          "correcta": true,
+          "siEliges": "Correcto: n vale 5, y desde dentro se ve base, que vale 10."
+        },
+        {
+          "texto": "base + n",
+          "siEliges": "n solo existe dentro de sumar: aquí fuera da error."
+        },
+        {
+          "texto": "sumar",
+          "siEliges": "Sin paréntesis no la llama: escribe la función, no 15."
+        },
+        {
+          "texto": "sumar(15)",
+          "siEliges": "Devolvería 10 + 15, que es 25."
+        }
+      ],
+      "pistas": [
+        "Fuera de la función, ¿existe n?",
+        "No: para usar n hay que llamar a la función y pasarle el dato.",
+        "base ya vale 10; faltan 5."
+      ],
+      "explicacion": "Desde fuera no se puede tocar lo de dentro: se le pasan datos como argumentos y se recoge lo que devuelve."
+    },
+    {
+      "ref": "s06-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d05-x1",
+      "semana": 6,
+      "concepto": "ambito",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Ahora dentro no hay let. ¿Qué escribe este programa?",
+      "codigo": "let total = 1;\nfunction poner() {\n  total = 5;\n}\nponer();\nconsole.log(total);",
+      "opciones": [
+        {
+          "texto": "5",
+          "correcta": true,
+          "siEliges": "Eso es: sin let no se crea otra caja. La función cambia la de fuera."
+        },
+        {
+          "texto": "1",
+          "siEliges": "Dentro no hay let: total es la caja de fuera, y la función la cambia a 5."
+        },
+        {
+          "texto": "❌ Error: total no está definido",
+          "siEliges": "Desde dentro se ve lo de fuera: total existe."
+        }
+      ],
+      "pistas": [
+        "¿La línea 3 crea una caja o cambia una que ya existe?",
+        "Sin let, cambia la que encuentra: la de fuera.",
+        "poner() la deja en 5."
+      ],
+      "explicacion": "Una función que cambia cajas de fuera es difícil de seguir. Es mejor que reciba los datos y devuelva el resultado."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d05-n1",
+      "semana": 6,
+      "concepto": "ambito",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let veces = 0;\nfunction contar() {\n  veces = veces + 1;\n  return veces;\n}\ncontar();\ncontar();\nconsole.log(contar());",
+      "opciones": [
+        {
+          "texto": "3",
+          "correcta": true,
+          "siEliges": "Eso es: las tres llamadas suman a la misma caja de fuera, también la que va dentro del console.log."
+        },
+        {
+          "texto": "1",
+          "siEliges": "veces es de fuera: cada llamada suma a la misma caja, que no vuelve a 0."
+        },
+        {
+          "texto": "2",
+          "siEliges": "Hay tres llamadas: la del console.log también suma antes de devolver."
+        }
+      ],
+      "pistas": [
+        "veces se crea fuera: ¿vuelve a 0 en cada llamada?",
+        "No: cada llamada suma 1 a la misma caja.",
+        "Cuenta las llamadas, también la de la última línea."
+      ],
+      "explicacion": "Por eso conviene que las funciones no toquen cajas de fuera: el resultado depende de cuántas veces se las haya llamado antes."
+    },
+    "escribir": {
+      "id": "s06-d05-n2",
+      "semana": 6,
+      "concepto": "ambito",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe una función coste(h) que use la tarifa de arriba y devuelva el coste de h horas. Escribe el coste de horas y, debajo, el de una hora más.",
+      "datos": "const tarifa = 120;\nconst horas = 3;",
+      "salidaEsperada": [
+        "360",
+        "480"
+      ],
+      "variantes": [
+        {
+          "datos": "const tarifa = 100;\nconst horas = 1;",
+          "salidaEsperada": [
+            "100",
+            "200"
+          ]
+        }
+      ],
+      "solucion": "function coste(h) {\n  return h * tarifa;\n}\nconsole.log(coste(horas));\nconsole.log(coste(horas + 1));",
+      "pistas": [
+        "Desde dentro de la función se ve tarifa.",
+        "La función recibe las horas y devuelve h * tarifa.",
+        "Llámala con horas y con horas + 1."
+      ],
+      "explicacion": "tarifa se lee desde dentro sin pasarla, porque es de fuera. Aun así, si la tarifa cambiara de un cliente a otro, sería mejor pasarla como segundo parámetro."
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "id": "s06-d02",
+  "semana": 6,
+  "dia": 2,
+  "titulo": "Datos de entrada: parámetros",
+  "objetivo": "Hoy aprendes a pasarle datos a una función con parámetros, para que la misma receta sirva para casos distintos.",
+  "conceptos": [
+    "parametros-return"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "function avisar(nombre) {\n  console.log(\"Aviso a\", nombre);\n}\navisar(\"Laura\");\navisar(\"Marta\");",
+      "pasos": [
+        {
+          "linea": 2,
+          "variables": {
+            "avisar": "función",
+            "nombre": "\"Laura\""
+          },
+          "salida": [
+            "Aviso a Laura"
+          ],
+          "nota": "La línea 4 llama a avisar con «Laura». Al saltar dentro, la caja nombre se llena con «Laura»."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "avisar": "función"
+          },
+          "salida": [
+            "Aviso a Laura"
+          ],
+          "nota": "Termina la función y vuelve a la línea 4. Fuera de la función, nombre ya no existe."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "avisar": "función",
+            "nombre": "\"Marta\""
+          },
+          "salida": [
+            "Aviso a Laura",
+            "Aviso a Marta"
+          ],
+          "nota": "Nueva llamada: esta vez nombre vale «Marta»."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "avisar": "función"
+          },
+          "salida": [
+            "Aviso a Laura",
+            "Aviso a Marta"
+          ],
+          "nota": "La misma receta, con un dato distinto en cada llamada."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "`nombre` es un **parámetro**: una caja que la función crea al empezar y llena con lo que le pasas al llamarla. Lo que le pasas, `\"Laura\"`, se llama **argumento**. Es como el hueco «[NOMBRE DEL INTERESADO]» de un modelo de carta: cada vez se rellena con uno distinto."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function avisar(nombre) {\n  console.log(\"Aviso a\", nombre);\n}\navisar();",
+      "salida": [
+        "Aviso a undefined"
+      ],
+      "nota": "Si no le pasas nada, el parámetro vale **undefined** («sin definir»). No da error: escribe algo raro y sigue. Al revisar código, comprueba que cada llamada lleva sus argumentos."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cada carpeta de proyecto del escritorio de DeIure tiene un identificador: «project:» y el número del proyecto. Lo fabrica una función con un parámetro, `projectId`. Lo de `: string` son tipos (llegarán más adelante) y `return` lo verás mañana.",
+      "codigo": "export function projectResourceId(projectId: string): string {\n  return `project:${projectId}`;\n}",
+      "fichero": "DeIure/src/lib/desktop/desktop-resource.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d02-r1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function plazo(dias) {\n  console.log(\"Quedan\", dias);\n}\nplazo(10);\nplazo(3);",
+      "opciones": [
+        {
+          "texto": "Quedan 10\nQuedan 3",
+          "correcta": true,
+          "siEliges": "Eso es: en cada llamada, dias vale lo que se le pasa."
+        },
+        {
+          "texto": "Quedan dias\nQuedan dias",
+          "siEliges": "dias va sin comillas: es la caja, con el número de cada llamada."
+        },
+        {
+          "texto": "Quedan 10\nQuedan 10",
+          "siEliges": "En la segunda llamada, dias vale 3: cada llamada llena la caja de nuevo."
+        }
+      ],
+      "pistas": [
+        "¿Qué vale dias en la primera llamada? ¿Y en la segunda?",
+        "El parámetro toma el valor del argumento de cada llamada.",
+        "10 y luego 3."
+      ],
+      "explicacion": "El parámetro es una caja nueva en cada llamada, llena con lo que le pases esa vez."
+    },
+    {
+      "id": "s06-d02-r2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa la llamada para que escriba «Hola, Ana».",
+      "codigo": "function saludo(nombre) {\n  console.log(`Hola, ${nombre}`);\n}\nsaludo(___);",
+      "salidaEsperada": [
+        "Hola, Ana"
+      ],
+      "opciones": [
+        {
+          "texto": "\"Ana\"",
+          "correcta": true,
+          "siEliges": "Correcto: el argumento es un texto, así que va entre comillas."
+        },
+        {
+          "texto": "Ana",
+          "siEliges": "Sin comillas, Ana sería el nombre de una caja que no existe: da error."
+        },
+        {
+          "texto": "nombre",
+          "siEliges": "nombre solo existe dentro de la función. Aquí fuera no existe: da error."
+        },
+        {
+          "texto": "\"nombre\"",
+          "siEliges": "Eso pasa la palabra «nombre»: escribiría «Hola, nombre»."
+        }
+      ],
+      "pistas": [
+        "Lo que va entre los paréntesis de la llamada es el dato que recibe nombre.",
+        "El dato es un texto.",
+        "Los textos van entre comillas."
+      ],
+      "explicacion": "El parámetro se llama nombre dentro de la función, pero al llamarla le pasas el dato en sí."
+    },
+    {
+      "ref": "s06-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d02-x1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function ver(x) {\n  console.log(x);\n}\nver();\nver(0);",
+      "opciones": [
+        {
+          "texto": "undefined\n0",
+          "correcta": true,
+          "siEliges": "Eso es: sin argumento, x vale undefined; con 0, vale 0."
+        },
+        {
+          "texto": "0\n0",
+          "siEliges": "La primera llamada no pasa nada: x vale undefined."
+        },
+        {
+          "texto": "❌ Error: falta el argumento",
+          "siEliges": "No da error: sin argumento, x vale undefined y el programa sigue."
+        }
+      ],
+      "pistas": [
+        "¿Qué se le pasa en la línea 4?",
+        "Nada: el parámetro se queda sin definir.",
+        "undefined y luego 0."
+      ],
+      "explicacion": "Un argumento olvidado no detiene el programa: aparece como undefined más adelante, y por eso cuesta encontrarlo."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d02-n1",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function revisar(dias) {\n  if (dias > 30) {\n    console.log(\"Tarde\");\n  } else {\n    console.log(\"Bien\");\n  }\n}\nrevisar(31);\nrevisar(30);",
+      "opciones": [
+        {
+          "texto": "Tarde\nBien",
+          "correcta": true,
+          "siEliges": "Eso es: 31 > 30 es true; 30 > 30 es false."
+        },
+        {
+          "texto": "Tarde\nTarde",
+          "siEliges": "Con 30, ¿30 > 30? No: va por el else."
+        },
+        {
+          "texto": "Bien\nBien",
+          "siEliges": "Con 31, ¿31 > 30? Sí: escribe «Tarde»."
+        }
+      ],
+      "pistas": [
+        "Cada llamada ejecuta el if con su propio valor de dias.",
+        "Primero dias vale 31; después, 30.",
+        "Fíjate en el límite: > no incluye el 30."
+      ],
+      "explicacion": "Dentro de una función cabe todo lo que ya sabes: if, bucles, listas. El parámetro decide qué camino toma cada llamada."
+    },
+    "escribir": {
+      "id": "s06-d02-n2",
+      "semana": 6,
+      "concepto": "parametros-return",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe una función avisar(nombre) que escriba «Aviso a Laura» (con el nombre que reciba). Llámala con cada nombre de la lista, con un for...of.",
+      "datos": "const nombres = [\"Laura\", \"Marta\"];",
+      "salidaEsperada": [
+        "Aviso a Laura",
+        "Aviso a Marta"
+      ],
+      "variantes": [
+        {
+          "datos": "const nombres = [\"Ana\"];",
+          "salidaEsperada": [
+            "Aviso a Ana"
+          ]
+        },
+        {
+          "datos": "const nombres = [\"Luis\", \"Eva\", \"Pau\"];",
+          "salidaEsperada": [
+            "Aviso a Luis",
+            "Aviso a Eva",
+            "Aviso a Pau"
+          ]
+        }
+      ],
+      "solucion": "function avisar(nombre) {\n  console.log(\"Aviso a\", nombre);\n}\nfor (const n of nombres) {\n  avisar(n);\n}",
+      "pistas": [
+        "Dos partes: la función y el bucle que la llama.",
+        "La función recibe un nombre y lo escribe. El for...of recorre la lista.",
+        "Dentro del for...of: avisar(n);"
+      ],
+      "explicacion": "El bucle va sacando cada nombre y se lo pasa a la función. Cambiar el aviso solo exige tocar la función."
+    }
+  }
+}

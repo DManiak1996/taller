@@ -1,0 +1,250 @@
+{
+  "id": "s06-d01",
+  "semana": 6,
+  "dia": 1,
+  "titulo": "Una receta con nombre: function",
+  "objetivo": "Hoy aprendes a guardar un grupo de órdenes con un nombre usando function, y a ejecutarlo cuando quieras llamándolo.",
+  "conceptos": [
+    "funciones"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Una **función** es una receta con nombre: un grupo de órdenes que escribes una vez y ejecutas cuando quieras. Es como una cláusula tipo del despacho: se redacta una vez y se usa en cada contrato."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "function saludar() {\n  console.log(\"Buenos días\");\n}\nsaludar();\nsaludar();",
+      "pasos": [
+        {
+          "linea": 2,
+          "variables": {
+            "saludar": "función"
+          },
+          "salida": [
+            "Buenos días"
+          ],
+          "nota": "Las líneas 1 a 3 solo guardan la receta. La línea 4 la **llama**: el programa salta dentro y ejecuta la línea 2."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "saludar": "función"
+          },
+          "salida": [
+            "Buenos días"
+          ],
+          "nota": "Acaba la función y vuelve a la línea 4, donde estaba."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "saludar": "función"
+          },
+          "salida": [
+            "Buenos días",
+            "Buenos días"
+          ],
+          "nota": "La línea 5 la llama otra vez: vuelve a saltar dentro."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "saludar": "función"
+          },
+          "salida": [
+            "Buenos días",
+            "Buenos días"
+          ],
+          "nota": "Vuelve a la línea 5 y el programa termina. Una receta, dos usos."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function firmar() {\n  console.log(\"Firmado\");\n}\nconsole.log(\"Fin\");",
+      "salida": [
+        "Fin"
+      ],
+      "nota": "Escribir una función **no la ejecuta**: solo guarda la receta. Aquí nadie la llama, así que «Firmado» no sale nunca. Para ejecutarla hay que **llamarla**: su nombre y `()`."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Las partes: `function`, el nombre (con las reglas de siempre para los nombres), `()` y, entre llaves, el **cuerpo**, que son las órdenes. Al revisar código de una IA, busca dos fallos: una función que nadie llama y una llamada sin paréntesis, `saludar;`, que no da error pero tampoco hace nada."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En las librerías de DeIure, la palabra `function` aparece más de 4.000 veces. Esta es de las más cortas: da la lista de iconos de la barra del escritorio, que de entrada está vacía. Lo de `: DockItem[]` es un tipo (llegarán más adelante) y `return` lo verás pasado mañana.",
+      "codigo": "export function defaultDockItems(): DockItem[] {\n  return [];\n}",
+      "fichero": "DeIure/src/lib/desktop/dock-preferences.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d01-r1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function avisar() {\n  console.log(\"Aviso\");\n}\nconsole.log(\"Inicio\");\navisar();\navisar();",
+      "opciones": [
+        {
+          "texto": "Inicio\nAviso\nAviso",
+          "correcta": true,
+          "siEliges": "Eso es: la función solo se ejecuta cuando se la llama, y se la llama dos veces después de «Inicio»."
+        },
+        {
+          "texto": "Aviso\nInicio\nAviso\nAviso",
+          "siEliges": "Escribir la función no la ejecuta: «Aviso» solo sale cuando se la llama."
+        },
+        {
+          "texto": "Inicio\nAviso",
+          "siEliges": "Se la llama dos veces: dos avisos."
+        }
+      ],
+      "pistas": [
+        "Las líneas 1 a 3, ¿escriben algo por sí solas?",
+        "No: solo guardan la receta. Sale algo cuando se llama a avisar().",
+        "Primero «Inicio» y luego una línea por cada llamada."
+      ],
+      "explicacion": "El orden de lo que sale lo deciden las llamadas, no el sitio donde está escrita la función."
+    },
+    {
+      "id": "s06-d01-r2",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa la última línea para que la función se ejecute y escriba «Cerrado».",
+      "codigo": "function cerrar() {\n  console.log(\"Cerrado\");\n}\n___;",
+      "salidaEsperada": [
+        "Cerrado"
+      ],
+      "opciones": [
+        {
+          "texto": "cerrar()",
+          "correcta": true,
+          "siEliges": "Correcto: el nombre y los paréntesis la llaman."
+        },
+        {
+          "texto": "cerrar",
+          "siEliges": "Sin paréntesis no la llama: no da error, pero no hace nada."
+        },
+        {
+          "texto": "Cerrado()",
+          "siEliges": "Cerrado es lo que escribe, no el nombre de la función: da error."
+        },
+        {
+          "texto": "function cerrar()",
+          "siEliges": "Eso empieza a escribir otra función. Para usarla basta su nombre y ()."
+        }
+      ],
+      "pistas": [
+        "Hay que llamarla.",
+        "Llamar a una función es escribir su nombre seguido de algo.",
+        "Su nombre y ()."
+      ],
+      "explicacion": "Los paréntesis son los que la ponen en marcha. Sin ellos, solo la nombras."
+    },
+    {
+      "ref": "s06-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d01-x1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function paso() {\n  console.log(\"Paso\");\n}\npaso;\npaso();",
+      "opciones": [
+        {
+          "texto": "Paso",
+          "correcta": true,
+          "siEliges": "Eso es: paso; sin paréntesis no la llama. Solo la línea 5 la ejecuta."
+        },
+        {
+          "texto": "Paso\nPaso",
+          "siEliges": "La línea 4 no lleva paréntesis: no la llama."
+        },
+        {
+          "texto": "❌ Error en la línea 4",
+          "siEliges": "No da error: simplemente no hace nada."
+        }
+      ],
+      "pistas": [
+        "Compara las líneas 4 y 5.",
+        "Solo con () se llama a la función.",
+        "Una sola llamada de verdad."
+      ],
+      "explicacion": "Una llamada sin paréntesis es un fallo silencioso: no hay error que te avise."
+    },
+    {
+      "ref": "s06-rev-x1"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d01-n1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function linea() {\n  console.log(\"---\");\n}\nlinea();\nfor (let i = 1; i <= 2; i++) {\n  console.log(i);\n  linea();\n}",
+      "opciones": [
+        {
+          "texto": "---\n1\n---\n2\n---",
+          "correcta": true,
+          "siEliges": "Eso es: una llamada antes del bucle y otra en cada vuelta, después del número."
+        },
+        {
+          "texto": "---\n1\n2\n---",
+          "siEliges": "linea() está dentro del bucle: se llama en cada vuelta."
+        },
+        {
+          "texto": "1\n---\n2\n---",
+          "siEliges": "Antes del bucle ya hay una llamada a linea()."
+        }
+      ],
+      "pistas": [
+        "Cuenta las llamadas: una fuera y otra dentro del bucle.",
+        "El bucle da dos vueltas, y en cada una escribe i y luego llama a linea().",
+        "---, 1, ---, 2, ---."
+      ],
+      "explicacion": "Una función se puede llamar desde cualquier sitio, también desde dentro de un bucle. Cada llamada ejecuta la receta entera."
+    },
+    "escribir": {
+      "id": "s06-d01-n2",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe una función sello que escriba «Revisado». Después llámala tantas veces como diga veces, con un for.",
+      "datos": "const veces = 3;",
+      "salidaEsperada": [
+        "Revisado",
+        "Revisado",
+        "Revisado"
+      ],
+      "variantes": [
+        {
+          "datos": "const veces = 1;",
+          "salidaEsperada": [
+            "Revisado"
+          ]
+        }
+      ],
+      "solucion": "function sello() {\n  console.log(\"Revisado\");\n}\nfor (let i = 0; i < veces; i++) {\n  sello();\n}",
+      "pistas": [
+        "Primero escribe la función; después, el bucle que la llama.",
+        "La función: function sello() { … }. El bucle da veces vueltas.",
+        "Dentro del for, sello();"
+      ],
+      "explicacion": "La función dice qué hacer; el bucle, cuántas veces. Separarlo así es el primer paso para dividir un problema en partes."
+    }
+  }
+}
