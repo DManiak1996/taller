@@ -2,7 +2,7 @@
 // No cuenta para la racha ni para cerrar el día. Se ofrece al terminar el día y se puede hacer más tarde,
 // sobre todo en el Mac, porque escribir en el iPhone es incómodo.
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { DiaListo, RetoEscribir } from '../contenido/cargar'
 import { tienda, useProgreso } from '../progreso/almacen'
 import { comprobar, diferencias, type Comprobacion } from '../sandbox/comprobar'
@@ -32,18 +32,20 @@ const esTactil = typeof matchMedia !== 'undefined' && matchMedia('(pointer: coar
 
 function Resultado({ r, c }: { r: RetoEscribir; c: Comprobacion }) {
   if (c.ok) return null
-  const { caso, obtenido, error } = c.fallo
+  const { caso, obtenido, error, lineaDiferencia: n } = c.fallo
+  const donde = n ? ` La primera diferencia la imprime la línea ${n}, marcada en tu código.` : ''
   const lineas = diferencias(caso.salidaEsperada, obtenido)
   return (
     <section className="tarjeta" aria-live="polite">
       {caso.variante ? (
         <p className="txt">
           Con tus datos sale bien, pero con otros, <code className="ic">{caso.datos}</code>, no sale lo esperado. ¿Has escrito algún resultado a mano en vez de usar la variable?
+          {donde}
         </p>
       ) : error ? (
         <p className="txt">Tu programa se ha parado por un error.</p>
       ) : (
-        <p className="txt">Tu programa no imprime exactamente lo esperado. Mira la primera línea marcada.</p>
+        <p className="txt">Tu programa no imprime exactamente lo esperado.{donde || ' Mira la primera línea marcada abajo.'}</p>
       )}
       <div className="consola diff">
         <p className="consola-tit">
@@ -62,7 +64,7 @@ function Resultado({ r, c }: { r: RetoEscribir; c: Comprobacion }) {
           </div>
         )}
       </div>
-      {r.datos && !caso.variante && <p className="peq">Las líneas de error se cuentan desde tu código, sin los datos de arriba.</p>}
+      {r.datos && (error?.linea || n) && <p className="peq">Las líneas se cuentan desde tu código, sin los datos de arriba.</p>}
     </section>
   )
 }
@@ -77,6 +79,7 @@ function Escribir({ r, dia, volver }: { r: RetoEscribir; dia: string; volver: ()
   const guardado = useRef(false)
   const acertado = res?.ok === true
   const terminado = acertado || solucion
+  const informe = useMemo(() => (res && !res.ok && !solucion ? { linea: res.fallo.lineaDiferencia } : null), [res, solucion])
   // Tras comprobar, el resultado queda debajo del editor: se lleva a la vista.
   const resultado = useRef<HTMLDivElement>(null)
   useEffect(() => {
@@ -136,6 +139,7 @@ function Escribir({ r, dia, volver }: { r: RetoEscribir; dia: string; volver: ()
             guardar(r.id, c)
           }}
           alEjecutar={probar}
+          informe={informe}
         />
         {!terminado && (
           <p className="peq" style={{ marginTop: -8 }}>

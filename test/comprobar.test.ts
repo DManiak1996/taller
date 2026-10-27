@@ -56,3 +56,27 @@ describe('diferencias línea a línea', () => {
     ])
   })
 })
+
+describe('qué línea imprime la primera diferencia', () => {
+  it('es la del console.log, contada desde su código', async () => {
+    const r = await comprobar(reto, 'const nada = 0;\nconsole.log("Plazo: " + plazo + "h");', correr)
+    expect(r.ok).toBe(false)
+    if (r.ok) return
+    expect(r.fallo.lineaDiferencia).toBe(2)
+  })
+
+  it('no se confunde cuando el argumento llama a una función de otras líneas', async () => {
+    const codigo = 'function texto() {\n  const h = " h";\n  return "Plazo " + plazo + h;\n}\nconsole.log(texto());'
+    const r = await comprobar(reto, codigo, correr)
+    expect(r.ok).toBe(false)
+    if (r.ok) return
+    expect(r.fallo.lineaDiferencia).toBe(5)
+  })
+
+  it('no hay línea si solo falta algo al final', async () => {
+    const r = await comprobar({ ...reto, salidaEsperada: ['Plazo: 72 h', 'fin'], variantes: [] }, reto.solucion, correr)
+    expect(r.ok).toBe(false)
+    if (r.ok) return
+    expect(r.fallo.lineaDiferencia).toBeUndefined()
+  })
+})

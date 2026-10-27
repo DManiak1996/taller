@@ -15,6 +15,7 @@ export interface Fallo {
   caso: Caso
   obtenido: string[]
   error?: ErrorEjecucion // con la línea ya contada desde su código, no desde los datos
+  lineaDiferencia?: number // la línea de su código que imprimió la primera salida que no coincide
 }
 
 export type Comprobacion = { ok: true } | { ok: false; fallo: Fallo }
@@ -32,13 +33,23 @@ const limpiar = (lineas: string[]) => lineas.map((l) => l.replace(/\s+$/, ''))
 
 export const mismaSalida = (a: string[], b: string[]) => JSON.stringify(limpiar(a)) === JSON.stringify(limpiar(b))
 
+/** La posición en lo obtenido de la primera línea que no coincide; -1 si solo faltan líneas al final. */
+export function primeraDiferencia(esperado: string[], obtenido: string[]): number {
+  const a = limpiar(esperado)
+  const b = limpiar(obtenido)
+  return b.findIndex((l, i) => l !== a[i])
+}
+
 export async function comprobar(r: RetoEscribir, codigo: string, correr: (programa: string) => Promise<Resultado> | Resultado): Promise<Comprobacion> {
   for (const caso of casos(r)) {
     const res = await correr(programa(caso.datos, codigo))
     if (!res.error && mismaSalida(res.salida, caso.salidaEsperada)) continue
     const n = lineasDe(caso.datos)
-    const error = res.error && { ...res.error, linea: res.error.linea && res.error.linea > n ? res.error.linea - n : undefined }
-    return { ok: false, fallo: { caso, obtenido: res.salida, error } }
+    const desdeSuCodigo = (l?: number) => (l && l > n ? l - n : undefined)
+    const error = res.error && { ...res.error, linea: desdeSuCodigo(res.error.linea) }
+    const i = primeraDiferencia(caso.salidaEsperada, res.salida)
+    const lineaDiferencia = i < 0 ? undefined : desdeSuCodigo(res.lineasSalida?.[i])
+    return { ok: false, fallo: { caso, obtenido: res.salida, error, ...(lineaDiferencia && { lineaDiferencia }) } }
   }
   return { ok: true }
 }
