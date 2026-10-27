@@ -1,0 +1,215 @@
+{
+  "id": "s07-d07",
+  "semana": 7,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: copias y referencias",
+  "objetivo": "Hoy aprendes qué pasa en memoria al asignar un objeto a otra variable, por qué eso no es una copia y cómo se hace una copia de verdad.",
+  "conceptos": [
+    "referencias"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Con números y textos, `const b = a` copia el dato. Con objetos y listas, **no**. La variable no guarda la ficha: guarda **dónde está**, como la signatura de un expediente en el archivo. `const b = a` copia la signatura, no el expediente: a y b son dos etiquetas de **la misma carpeta**. Eso se llama una **referencia**."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const a = { dias: 10 };\nconst b = a;\nb.dias = 99;\nconsole.log(a.dias);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "a": "{ dias: 10 }"
+          },
+          "salida": [],
+          "nota": "Se crea una ficha, y a apunta a ella."
+        },
+        {
+          "linea": 2,
+          "variables": {
+            "a": "{ dias: 10 }",
+            "b": "{ dias: 10 }"
+          },
+          "salida": [],
+          "nota": "b no es otra ficha: apunta a **la misma** que a."
+        },
+        {
+          "linea": 3,
+          "variables": {
+            "a": "{ dias: 99 }",
+            "b": "{ dias: 99 }"
+          },
+          "salida": [],
+          "nota": "Se cambia la ficha a través de b… y a cambia también, porque es la misma ficha."
+        },
+        {
+          "linea": 4,
+          "variables": {
+            "a": "{ dias: 99 }",
+            "b": "{ dias: 99 }"
+          },
+          "salida": [
+            "99"
+          ],
+          "nota": "a.dias da 99, aunque nadie tocó a directamente."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const a = { dias: 10 };\nconst b = { ...a };\nb.dias = 99;\nconsole.log(a.dias, b.dias);",
+      "salida": [
+        "10 99"
+      ],
+      "nota": "Para una **copia de verdad**, los tres puntos: `{ ...a }` crea una ficha nueva con los mismos campos. Ahora cambiar b no toca a. Con listas, igual: `[...lista]`. (Detalle: es una copia de un nivel; si un campo es a su vez un objeto, ese se sigue compartiendo.)"
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al preparar los iconos del escritorio, DeIure crea objetos nuevos que copian los campos comunes con `...common` y añaden su tipo. Así cada icono es una ficha propia, y cambiar uno no estropea los demás.",
+      "codigo": "if (resource.kind === 'directory') return { ...common, kind: 'folder' };",
+      "fichero": "DeIure/src/lib/desktop/desktop-resource-node.ts"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "echo $SHELL",
+      "salida": [
+        "/bin/zsh"
+      ],
+      "nota": "**Comando de la semana: variables de entorno.** La terminal también tiene variables, en mayúsculas y con `$` delante. `echo` escribe lo que le pidas: `echo $SHELL` dice qué terminal usas. La más importante es `PATH`: la lista de carpetas, separadas por `:`, donde la terminal busca los programas. `which node` te dice en cuál está node. En DeIure, las contraseñas viven en variables de entorno, y por eso no aparecen en el código. **Minirreto en tu Mac:** escribe `echo $PATH` y después `which node`. Comprueba que la carpeta de node aparece en tu PATH."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d07-r1",
+      "semana": 7,
+      "concepto": "referencias",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Con listas pasa lo mismo. ¿Qué escribe este programa?",
+      "codigo": "const a = [1, 2];\nconst b = a;\nb[0] = 9;\nconsole.log(a);",
+      "opciones": [
+        {
+          "texto": "[ 9, 2 ]",
+          "correcta": true,
+          "siEliges": "Eso es: a y b son la misma lista. Cambiarla por b la cambia para a."
+        },
+        {
+          "texto": "[ 1, 2 ]",
+          "siEliges": "const b = a no copia la lista: los dos nombres apuntan a la misma."
+        },
+        {
+          "texto": "[ 9, 2, 1, 2 ]",
+          "siEliges": "No se juntan dos listas: hay una sola, con su primer elemento cambiado."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas listas hay en memoria?",
+        "Solo una, con dos nombres.",
+        "b[0] = 9 cambia esa lista."
+      ],
+      "explicacion": "Listas y objetos se comportan igual: asignarlos a otra variable no los copia."
+    },
+    {
+      "id": "s07-d07-r2",
+      "semana": 7,
+      "concepto": "referencias",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba 99.",
+      "codigo": "const a = { dias: 10 };\nconst b = { ...a };\nb.dias = 99;\nconsole.log(___);",
+      "salidaEsperada": [
+        "99"
+      ],
+      "opciones": [
+        {
+          "texto": "b.dias",
+          "correcta": true,
+          "siEliges": "Correcto: b es una copia, y solo se cambió b."
+        },
+        {
+          "texto": "a.dias",
+          "siEliges": "b es una copia de verdad: cambiar b no toca a, que sigue en 10."
+        },
+        {
+          "texto": "a",
+          "siEliges": "Así sale el objeto a entero, y además sigue con 10."
+        }
+      ],
+      "pistas": [
+        "¿{ ...a } copia o comparte?",
+        "Copia: a y b son fichas distintas.",
+        "¿Cuál de las dos se cambió?"
+      ],
+      "explicacion": "Con los tres puntos hay dos fichas: cada cambio afecta solo a la que nombras."
+    },
+    {
+      "ref": "s07-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s07-rev-x2"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d07-n1",
+      "semana": 7,
+      "concepto": "referencias",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function cerrar(exp) {\n  exp.estado = \"cerrado\";\n}\nconst e = { estado: \"abierto\" };\ncerrar(e);\nconsole.log(e.estado);",
+      "opciones": [
+        {
+          "texto": "cerrado",
+          "correcta": true,
+          "siEliges": "Eso es: el parámetro exp es otra etiqueta de la misma ficha que e. La función la cambia de verdad."
+        },
+        {
+          "texto": "abierto",
+          "siEliges": "Con un número, la variable de fuera no cambiaría. Pero un objeto se pasa como referencia: la ficha es la misma."
+        },
+        {
+          "texto": "undefined",
+          "siEliges": "La función no devuelve nada, pero e sigue existiendo; solo ha cambiado su estado."
+        }
+      ],
+      "pistas": [
+        "¿Qué recibe la función: una copia o la misma ficha?",
+        "La misma ficha: exp y e apuntan a ella.",
+        "La función le cambia el estado."
+      ],
+      "explicacion": "Una función que recibe un objeto puede cambiarlo sin devolver nada. Al revisar código de una IA, vigila las funciones que modifican lo que reciben: es un cambio que no se ve en la llamada."
+    },
+    "escribir": {
+      "id": "s07-d07-n2",
+      "semana": 7,
+      "concepto": "referencias",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Haz una copia de verdad de exp, guárdala en copia, ponle a la copia el estado «cerrado» y escribe el estado de las dos: el de exp y el de copia.",
+      "datos": "const exp = { estado: \"abierto\" };",
+      "inicial": "// Copia con los tres puntos\n// Cierra la copia\n// Escribe los dos estados",
+      "salidaEsperada": [
+        "abierto cerrado"
+      ],
+      "variantes": [
+        {
+          "datos": "const exp = { estado: \"pendiente\" };",
+          "salidaEsperada": [
+            "pendiente cerrado"
+          ]
+        }
+      ],
+      "solucion": "const copia = { ...exp };\ncopia.estado = \"cerrado\";\nconsole.log(exp.estado, copia.estado);",
+      "pistas": [
+        "const copia = exp no sirve: sería la misma ficha.",
+        "La copia de verdad se hace con { ...exp }.",
+        "console.log con dos datos separados por coma los escribe con un espacio."
+      ],
+      "explicacion": "Con const copia = exp saldría «cerrado cerrado»: habrías cerrado también el original."
+    }
+  }
+}

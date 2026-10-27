@@ -1,0 +1,226 @@
+{
+  "id": "s07-d01",
+  "semana": 7,
+  "dia": 1,
+  "titulo": "Objetos: una ficha con campos",
+  "objetivo": "Hoy aprendes a guardar varios datos de una misma cosa en un objeto, cada uno con su nombre, y a leer cada dato con un punto.",
+  "conceptos": [
+    "objetos"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Hasta ahora, cada variable guardaba un dato suelto. Pero un expediente tiene número, estado, cliente… Un **objeto** (object) los guarda juntos, como una **ficha** con campos: cada campo tiene un **nombre** (la clave) y un **valor**. Se escribe entre llaves: `{ clave: valor, clave: valor }`."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const exp = {\n  numero: 145,\n  estado: \"abierto\",\n};\nconsole.log(exp.numero);\nconsole.log(exp.estado);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"abierto\" }"
+          },
+          "salida": [],
+          "nota": "Las líneas 1 a 4 son una sola orden: crean un objeto con dos campos, numero y estado, y lo guardan en exp. Los campos se separan con comas."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"abierto\" }"
+          },
+          "salida": [
+            "145"
+          ],
+          "nota": "Para leer un campo: el objeto, un **punto** y la clave. `exp.numero` se lee «el número del expediente»."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"abierto\" }"
+          },
+          "salida": [
+            "145",
+            "abierto"
+          ],
+          "nota": "`exp.estado` da el valor del campo estado."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const persona = {\n  nombre: \"Laura\",\n  edad: 34,\n  consiente: true,\n};\nconsole.log(persona.nombre);\nconsole.log(persona);",
+      "salida": [
+        "Laura",
+        "{ nombre: 'Laura', edad: 34, consiente: true }"
+      ],
+      "nota": "Un objeto mezcla tipos sin problema: texto, número y booleano. Si escribes el objeto entero, sale con sus llaves y sus claves (los textos, con comillas simples: es la forma de escribirlos de la consola)."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al seudonimizar a un usuario dado de baja, DeIure elige un prefijo según su rol. Los prefijos están en un objeto: la clave es el rol y el valor, el prefijo. (`Record<string, string>` es el tipo de TypeScript: claves de texto con valores de texto.)",
+      "codigo": "const ROLE_PREFIX: Record<string, string> = {\n  user: 'USR',\n  free: 'USR',\n  paid: 'USR',\n  admin: 'ADM',\n  organization: 'ORG',\n};",
+      "fichero": "DeIure/src/lib/pseudonymization.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d01-r1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const cliente = {\n  nombre: \"Clínica Arga\",\n  empleados: 40,\n};\nconsole.log(cliente.empleados + 2);",
+      "opciones": [
+        {
+          "texto": "42",
+          "correcta": true,
+          "siEliges": "Eso es: cliente.empleados vale 40, y 40 + 2 es 42."
+        },
+        {
+          "texto": "40",
+          "siEliges": "Falta el + 2."
+        },
+        {
+          "texto": "Clínica Arga",
+          "siEliges": "Se lee el campo empleados, no el nombre."
+        }
+      ],
+      "pistas": [
+        "¿Qué campo se lee en la última línea?",
+        "cliente.empleados vale 40.",
+        "Después se le suma 2."
+      ],
+      "explicacion": "Un campo de un objeto se usa como cualquier variable: se puede escribir, sumar o comparar."
+    },
+    {
+      "id": "s07-d01-r2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba abierta.",
+      "codigo": "const exp = {\n  numero: 7,\n  estado: \"abierta\",\n};\nconsole.log(___);",
+      "salidaEsperada": [
+        "abierta"
+      ],
+      "opciones": [
+        {
+          "texto": "exp.estado",
+          "correcta": true,
+          "siEliges": "Correcto: el objeto, un punto y la clave del campo."
+        },
+        {
+          "texto": "exp.abierta",
+          "siEliges": "abierta es el valor, no la clave. Ese objeto no tiene ningún campo llamado abierta: sale undefined."
+        },
+        {
+          "texto": "estado",
+          "siEliges": "estado no es una variable suelta: es un campo de exp. Sale un error."
+        }
+      ],
+      "pistas": [
+        "¿Cuál es la clave y cuál el valor?",
+        "La clave es estado; su valor, abierta.",
+        "Se lee con el objeto, un punto y la clave."
+      ],
+      "explicacion": "Se busca por la clave, nunca por el valor: como en una ficha, miras la casilla «estado» para saber qué pone."
+    },
+    {
+      "ref": "s07-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s07-d01-x1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const caja = {\n  ancho: 3,\n  alto: 2,\n};\nconsole.log(caja);",
+      "opciones": [
+        {
+          "texto": "{ ancho: 3, alto: 2 }",
+          "correcta": true,
+          "siEliges": "Eso es: el objeto entero, con sus claves y valores."
+        },
+        {
+          "texto": "3\n2",
+          "siEliges": "Se escribe el objeto entero, no cada valor por separado."
+        },
+        {
+          "texto": "caja",
+          "siEliges": "Sin comillas, caja es la variable: sale lo que guarda."
+        }
+      ],
+      "pistas": [
+        "¿Se lee un campo o el objeto entero?",
+        "No hay punto: es el objeto entero.",
+        "Sale entre llaves."
+      ],
+      "explicacion": "Escribir el objeto entero es la forma más rápida de ver qué tiene dentro al revisar un programa."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d01-n1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Este programa avisa si una brecha lleva más de 72 horas sin notificar. ¿Qué escribe?",
+      "codigo": "const b = {\n  horas: 80,\n  notificada: false,\n};\nif (b.horas > 72 && !b.notificada) {\n  console.log(\"Retraso\");\n} else {\n  console.log(\"En regla\");\n}",
+      "opciones": [
+        {
+          "texto": "Retraso",
+          "correcta": true,
+          "siEliges": "Eso es: 80 > 72 es true, y !false es true. Se cumplen las dos."
+        },
+        {
+          "texto": "En regla",
+          "siEliges": "notificada es false, así que !b.notificada es true: se cumplen las dos condiciones."
+        },
+        {
+          "texto": "Retraso\nEn regla",
+          "siEliges": "Un if…else solo entra en una de las dos ramas."
+        }
+      ],
+      "pistas": [
+        "Calcula por separado las dos partes del &&.",
+        "b.horas > 72 es true. ¿Y !b.notificada?",
+        "! le da la vuelta: !false es true."
+      ],
+      "explicacion": "Los campos de un objeto entran en las condiciones igual que las variables de la semana 3."
+    },
+    "escribir": {
+      "id": "s07-d01-n2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con los datos del objeto exp, escribe «Clínica Arga: 12 días».",
+      "datos": "const exp = {\n  cliente: \"Clínica Arga\",\n  dias: 12,\n};",
+      "inicial": "// Lee los dos campos de exp\n// y escribe la frase",
+      "salidaEsperada": [
+        "Clínica Arga: 12 días"
+      ],
+      "variantes": [
+        {
+          "datos": "const exp = {\n  cliente: \"Bufete Sur\",\n  dias: 0,\n};",
+          "salidaEsperada": [
+            "Bufete Sur: 0 días"
+          ]
+        }
+      ],
+      "solucion": "const n = exp.cliente;\nconsole.log(`${n}: ${exp.dias} días`);",
+      "pistas": [
+        "Necesitas exp.cliente y exp.dias.",
+        "Con comillas invertidas puedes meter cada campo en un hueco ${…}.",
+        "Fíjate en los dos puntos y el espacio después del nombre."
+      ],
+      "explicacion": "Dentro de ${…} cabe un campo de un objeto, como cualquier variable. Si la línea queda larga, guarda antes un campo en una variable corta."
+    }
+  }
+}

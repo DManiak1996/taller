@@ -1,0 +1,378 @@
+[
+  {
+    "id": "s07-rev-1",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "objetos",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Guarda el expediente en un objeto e imprime su estado». Da un error. Toca la línea que está mal.",
+    "codigo": "const exp = {\n  numero: 7,\n  estado: \"abierta\",\n};\nconsole.log(estado);",
+    "lineasFallo": [
+      5
+    ],
+    "opciones": [
+      {
+        "texto": "`estado` vive dentro del objeto: hay que pedírselo a él con `exp.estado`.",
+        "correcta": true,
+        "siEliges": "Exacto. Una propiedad no es una variable suelta: se lee con el nombre del objeto, un punto y la clave."
+      },
+      {
+        "texto": "Falta la coma después de `\"abierta\"`.",
+        "siEliges": "Esa coma está, y además la última coma de un objeto es opcional. Mira cómo se lee el estado en la línea 5."
+      },
+      {
+        "texto": "Las claves de un objeto tienen que ir entre comillas: `\"estado\": \"abierta\"`.",
+        "siEliges": "Las claves sencillas no necesitan comillas. El objeto está bien escrito; el problema es cómo se lee."
+      }
+    ],
+    "arreglo": "const exp = {\n  numero: 7,\n  estado: \"abierta\",\n};\nconsole.log(exp.estado);",
+    "lanzaError": true,
+    "pistas": [
+      "¿Existe alguna variable que se llame `estado`?",
+      "`estado` es una clave del objeto `exp`.",
+      "Para leer una propiedad se escribe `objeto.clave`."
+    ],
+    "explicacion": "Da `ReferenceError: estado is not defined`. La única variable es `exp`; `estado` es una de sus claves. Con `exp.estado` sale `abierta`. Al revisar, comprueba que cada propiedad se lee desde su objeto."
+  },
+  {
+    "id": "s07-rev-2",
+    "tipo": "razon",
+    "semana": 7,
+    "concepto": "objetos",
+    "tema": "rgpd",
+    "enunciado": "La IA ha escrito la clave con una errata. La IA y Marta discuten qué pasa. ¿Quién tiene razón?",
+    "codigo": "const exp = {\n  estado: \"abierta\",\n};\nconsole.log(exp.estdo);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "El objeto no tiene ninguna clave `estdo`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `undefined`.",
+        "porque": "Pedir una clave que no existe no es un error: da `undefined`."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Ojalá diera error, porque así se vería. Pero una clave que no existe da `undefined`, sin avisar.",
+      "Marta": "Correcto. Es como pedir una posición que no existe en una lista: `undefined`, sin error.",
+      "ninguno": "Una de las dos acierta. ¿Qué da una clave que no existe?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "Compara `estdo` con la clave del objeto, letra a letra.",
+      "¿Qué daba una posición de lista que no existe?",
+      "Con las claves que no existen pasa lo mismo."
+    ],
+    "explicacion": "Imprime `undefined`. En la ejecución, una errata en una clave no da error: da un `undefined` que aparece más adelante. Aquí TypeScript ayuda: en el editor la subraya y pregunta «Did you mean 'estado'?». Por eso conviene escribir TypeScript y mirar los subrayados."
+  },
+  {
+    "id": "s07-rev-3",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "objetos",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Suma las personas afectadas de todas las brechas». Tenía que salir 195. Toca la línea que está mal.",
+    "codigo": "const brechas = [\n  { sitio: \"Web\", afectados: 150 },\n  { sitio: \"CRM\", afectados: 45 },\n];\nlet total = 0;\nfor (const b of brechas) {\n  total = total + b;\n}\nconsole.log(total);",
+    "lineasFallo": [
+      7
+    ],
+    "opciones": [
+      {
+        "texto": "`b` es el objeto entero. Hay que sumar su campo: `total + b.afectados`.",
+        "correcta": true,
+        "siEliges": "Exacto. En cada vuelta, `b` es una brecha completa; el número está en `b.afectados`."
+      },
+      {
+        "texto": "`total` tiene que empezar en `\"\"`.",
+        "siEliges": "Así empezaría como texto y sería peor. Para sumar se empieza en 0, como está."
+      },
+      {
+        "texto": "Hay que recorrer con un `for` clásico y `brechas[i]`.",
+        "siEliges": "`brechas[i]` también sería el objeto entero. El problema es qué se suma de cada brecha."
+      }
+    ],
+    "arreglo": "const brechas = [\n  { sitio: \"Web\", afectados: 150 },\n  { sitio: \"CRM\", afectados: 45 },\n];\nlet total = 0;\nfor (const b of brechas) {\n  total = total + b.afectados;\n}\nconsole.log(total);",
+    "pistas": [
+      "¿Qué es `b` en cada vuelta: un número o un objeto?",
+      "El número está dentro del objeto, en una de sus claves.",
+      "¿Cómo se lee la clave `afectados` de `b`?"
+    ],
+    "explicacion": "Imprime `0[object Object][object Object]`. Al sumar un objeto, JavaScript lo convierte en el texto `[object Object]` y lo pega. Si ves `[object Object]` en una salida, alguien ha usado un objeto entero donde iba uno de sus campos."
+  },
+  {
+    "id": "s07-rev-4",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "metodos-array",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Busca el expediente 3 e imprime su estado». El 3 no existe y el programa se rompe. Toca la línea que está mal.",
+    "codigo": "const exps = [\n  { id: 1, estado: \"abierta\" },\n  { id: 2, estado: \"cerrada\" },\n];\nconst e = exps.find((x) =>\n  x.id === 3\n);\nconsole.log(e.estado);",
+    "lineasFallo": [
+      8
+    ],
+    "opciones": [
+      {
+        "texto": "`find` da `undefined` si no encuentra nada. Antes de leer `e.estado`, hay que comprobar que `e` no es `undefined`.",
+        "correcta": true,
+        "siEliges": "Exacto. `find` puede no encontrar nada, y el código tiene que estar preparado para ese caso."
+      },
+      {
+        "texto": "Tenía que ser `filter` en vez de `find`.",
+        "siEliges": "`filter` daría una lista vacía, y `e.estado` daría `undefined`. Se buscaba un solo expediente: `find` es el correcto."
+      },
+      {
+        "texto": "La comparación tenía que ser `x.id = 3`.",
+        "siEliges": "Con un solo `=` no compara: guarda. `===` está bien. El problema es lo que pasa cuando no hay ningún 3."
+      }
+    ],
+    "arreglo": "const exps = [\n  { id: 1, estado: \"abierta\" },\n  { id: 2, estado: \"cerrada\" },\n];\nconst e = exps.find((x) =>\n  x.id === 3\n);\nif (e === undefined) {\n  console.log(\"No existe\");\n} else {\n  console.log(e.estado);\n}",
+    "lanzaError": true,
+    "pistas": [
+      "¿Hay algún expediente con `id` 3?",
+      "Si no encuentra ninguno, `find` devuelve `undefined`.",
+      "¿Se puede leer `.estado` de `undefined`?"
+    ],
+    "explicacion": "Da `TypeError: Cannot read properties of undefined`. `find` devuelve el primero que cumple o, si no hay ninguno, `undefined`. La IA suele probar solo con datos que existen. TypeScript lo avisa en el editor («'e' is possibly 'undefined'»), y al revisar un `find` conviene preguntar siempre: «¿y si no lo encuentra?»."
+  },
+  {
+    "id": "s07-rev-5",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "metodos-array",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Quédate con las brechas de más de 100 afectados e imprime dónde fueron». Tenían que salir Web y CRM. Toca la línea que está mal.",
+    "codigo": "const brechas = [\n  { sitio: \"Web\", afectados: 150 },\n  { sitio: \"Email\", afectados: 12 },\n  { sitio: \"CRM\", afectados: 300 },\n];\nconst grandes = brechas.filter((b) =>\n  b.afectados < 100\n);\nfor (const g of grandes) {\n  console.log(g.sitio);\n}",
+    "lineasFallo": [
+      7
+    ],
+    "opciones": [
+      {
+        "texto": "La condición está al revés: se queda con las pequeñas. Tenía que ser `b.afectados > 100`.",
+        "correcta": true,
+        "siEliges": "Exacto. `filter` se queda con los que cumplen la condición, así que la condición tiene que describir los que quieres."
+      },
+      {
+        "texto": "Tenía que ser `find` en vez de `filter`.",
+        "siEliges": "`find` daría solo la primera. Aquí se quieren todas las que cumplen, así que `filter` está bien."
+      },
+      {
+        "texto": "`filter` no se puede usar con objetos.",
+        "siEliges": "Funciona con listas de lo que sea, también de objetos. Mira qué condición tienen que cumplir."
+      }
+    ],
+    "arreglo": "const brechas = [\n  { sitio: \"Web\", afectados: 150 },\n  { sitio: \"Email\", afectados: 12 },\n  { sitio: \"CRM\", afectados: 300 },\n];\nconst grandes = brechas.filter((b) =>\n  b.afectados > 100\n);\nfor (const g of grandes) {\n  console.log(g.sitio);\n}",
+    "pistas": [
+      "¿Qué brecha sale, y cuántos afectados tiene?",
+      "`filter` se queda con las que cumplen la condición.",
+      "Lee la condición en voz alta: ¿dice «más de 100»?"
+    ],
+    "explicacion": "Imprime `Email`, justo la que no se quería. Una condición al revés en `filter` no da error: da la lista contraria. Léela en voz alta como «quédate con las que…» y compárala con lo que pediste."
+  },
+  {
+    "id": "s07-rev-6",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "metodos-array",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Pasa a horas cada plazo en días». Tenía que salir `[ 24, 48, 72 ]`. Toca la línea que está mal.",
+    "codigo": "const dias = [1, 2, 3];\nconst horas = dias.map((d) => {\n  d * 24;\n});\nconsole.log(horas);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "La flecha lleva llaves y le falta `return`: `return d * 24;`.",
+        "correcta": true,
+        "siEliges": "Exacto. `map` guarda lo que devuelve la flecha para cada dato; sin `return`, guarda `undefined` tres veces."
+      },
+      {
+        "texto": "Tenía que ser `filter` en vez de `map`.",
+        "siEliges": "`filter` se queda con algunos datos, pero no los cambia. Para transformar cada uno, `map` es el correcto."
+      },
+      {
+        "texto": "`map` cambia la lista `dias`, así que hay que imprimir `dias`.",
+        "siEliges": "`map` no toca la lista original: devuelve una nueva. Mira qué devuelve la flecha."
+      }
+    ],
+    "arreglo": "const dias = [1, 2, 3];\nconst horas = dias.map((d) => {\n  return d * 24;\n});\nconsole.log(horas);",
+    "pistas": [
+      "¿Cuántos datos salen? ¿Y cuántos entraban?",
+      "`map` guarda, para cada dato, lo que devuelve la flecha.",
+      "Si ves `=> {`, busca el `return`."
+    ],
+    "explicacion": "Imprime `[ undefined, undefined, undefined ]`. El tamaño es el correcto (`map` siempre devuelve tantos como recibe), pero cada hueco está vacío. Es el `return` olvidado de la semana 6, dentro de un `map`."
+  },
+  {
+    "id": "s07-rev-7",
+    "tipo": "razon",
+    "semana": 7,
+    "concepto": "referencias",
+    "tema": "rgpd",
+    "enunciado": "La IA quería guardar una copia del expediente antes de cerrarlo. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const a = { estado: \"abierta\" };\nconst b = a;\nb.estado = \"cerrada\";\nconsole.log(a.estado);",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `abierta`.",
+        "porque": "`b` es una copia de `a`, y solo se ha cambiado la copia."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `cerrada`.",
+        "porque": "`b = a` no copia el objeto: `a` y `b` son dos nombres para el mismo."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Para copiarlo de verdad: `const b = { ...a };`.",
+      "Marta": "Con números o textos sería así. Con un objeto, `b = a` da otro nombre al mismo objeto: cambiar `b` cambia `a`.",
+      "ninguno": "Esta vez sí acierta una. ¿`b = a` crea otro objeto o le da otro nombre al mismo?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuántos objetos `{ }` se crean en el código?",
+      "Solo hay uno, en la línea 1. `b = a` no crea otro.",
+      "Si los dos nombres apuntan al mismo objeto, ¿qué ve `a`?"
+    ],
+    "explicacion": "Imprime `cerrada`. `const b = a` no copia el objeto: hace que `b` apunte al mismo. La «copia de seguridad» de la IA no protege nada. Para copiarlo se escribe `const b = { ...a };`, y con una lista, `[...lista]`."
+  },
+  {
+    "id": "s07-rev-x1",
+    "tipo": "fallo",
+    "semana": 7,
+    "concepto": "objetos",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Imprime el campo del expediente que diga la variable `campo`». Sale `undefined`. Toca la línea que está mal.",
+    "codigo": "const exp = { estado: \"abierta\" };\nconst campo = \"estado\";\nconsole.log(exp.campo);",
+    "lineasFallo": [
+      3
+    ],
+    "opciones": [
+      {
+        "texto": "`exp.campo` busca una clave llamada «campo». Con la clave en una variable se usan corchetes: `exp[campo]`.",
+        "correcta": true,
+        "siEliges": "Exacto. El punto usa el nombre tal cual; los corchetes usan el valor de la variable."
+      },
+      {
+        "texto": "Tenía que ser `exp.\"estado\"`.",
+        "siEliges": "Eso da un error de sintaxis. Si la clave está en una variable, se usan corchetes."
+      },
+      {
+        "texto": "`campo` tenía que ser `let`.",
+        "siEliges": "`campo` no cambia, así que `const` está bien. Mira cómo se usa en la línea 3."
+      }
+    ],
+    "arreglo": "const exp = { estado: \"abierta\" };\nconst campo = \"estado\";\nconsole.log(exp[campo]);",
+    "pistas": [
+      "¿Tiene `exp` alguna clave que se llame `campo`?",
+      "El punto busca la clave con ese nombre exacto.",
+      "Para usar el valor de una variable como clave, corchetes."
+    ],
+    "explicacion": "Imprime `undefined`, porque `exp.campo` busca la clave «campo», que no existe. `exp[campo]` usa lo que vale `campo`, es decir, `\"estado\"`, e imprime `abierta`."
+  },
+  {
+    "id": "s07-rev-x2",
+    "tipo": "razon",
+    "semana": 7,
+    "concepto": "referencias",
+    "tema": "rgpd",
+    "enunciado": "Esta vez la IA copia el expediente con `...` antes de cerrarlo. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const a = { estado: \"abierta\" };\nconst b = { ...a };\nb.estado = \"cerrada\";\nconsole.log(a.estado);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `cerrada`.",
+        "porque": "`a` y `b` son el mismo objeto, como siempre que se usa `=`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `abierta`.",
+        "porque": "`{ ...a }` crea un objeto nuevo con lo que tenía `a`."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Las llaves `{ }` crean un objeto nuevo, y `...a` lo llena con lo de `a`. Son dos objetos distintos.",
+      "Marta": "Correcto. `{ ...a }` es una copia: cambiar `b` ya no toca `a`.",
+      "ninguno": "Una de las dos acierta. ¿Cuántos objetos hay ahora?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuántas llaves `{ }` crean un objeto en este código?",
+      "La línea 2 tiene sus propias llaves: crea un objeto nuevo.",
+      "¿Qué ve `a` si solo cambia el objeto nuevo?"
+    ],
+    "explicacion": "Imprime `abierta`. `{ ...a }` crea un objeto nuevo y copia dentro las claves de `a`. Ahora sí son dos objetos, y cambiar uno no toca el otro."
+  },
+  {
+    "id": "s07-rev-x3",
+    "tipo": "razon",
+    "semana": 7,
+    "concepto": "metodos-array",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime este `find`. ¿Quién tiene razón?",
+    "codigo": "const plazos = [10, 40, 50];\nconst r = plazos.find((p) => p > 30);\nconsole.log(r);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `[ 40, 50 ]`.",
+        "porque": "Son los dos que pasan de 30."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `50`.",
+        "porque": "`find` recorre la lista y se queda con el último que cumple."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Eso haría `filter`. `find` no devuelve una lista: devuelve un solo dato.",
+      "Marta": "`find` no sigue buscando: se para en el primero que cumple.",
+      "ninguno": "Exacto. Imprime `40`: `find` se queda con el primero que cumple y deja de buscar."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿`find` devuelve una lista o un solo dato?",
+      "`find` se para en cuanto encuentra uno que cumple.",
+      "¿Cuál es el primero que pasa de 30?"
+    ],
+    "explicacion": "Imprime `40`. `find` da el primero que cumple, y `filter`, una lista con todos los que cumplen. La IA los confunde a menudo: al revisar, pregúntate si se quiere uno o todos."
+  },
+  {
+    "id": "s07-rev-x4",
+    "tipo": "razon",
+    "semana": 7,
+    "concepto": "metodos-array",
+    "tema": "rgpd",
+    "enunciado": "Primero `filter` y luego `map`, encadenados. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const brechas = [\n  { sitio: \"Web\", afectados: 150 },\n  { sitio: \"CRM\", afectados: 12 },\n];\nconst sitios = brechas\n  .filter((b) => b.afectados > 100)\n  .map((b) => b.sitio);\nconsole.log(sitios);",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `[ 'Web', 'CRM' ]`.",
+        "porque": "`map` recibe la lista original y saca el sitio de todas."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `[ 'Web' ]`.",
+        "porque": "`map` recibe lo que deja `filter`, que es solo la brecha de la web."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Cada paso trabaja con el resultado del anterior, de arriba abajo.",
+      "Marta": "`map` no ve la lista original: recibe la que devuelve `filter`, con una sola brecha.",
+      "ninguno": "Esta vez sí acierta una. ¿Qué lista le llega a `map`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Qué deja `filter`?",
+      "`map` trabaja con lo que devuelve `filter`, no con `brechas`.",
+      "¿Cuántas brechas pasan de 100 afectados?"
+    ],
+    "explicacion": "Imprime `[ 'Web' ]`. En una cadena, cada método recibe el resultado del anterior. Para revisarla, lee un paso cada vez y anota qué lista sale de cada uno."
+  }
+]

@@ -134,6 +134,23 @@ Más en el [Tema 8](tema-08-arrays.md).
 - Poner cada llamada al lado de la definición: ¿los argumentos van en el mismo orden que los parámetros? ¿Falta alguno?
 - ¿Usa fuera de la función una variable creada dentro? No existe ahí: tiene que devolverla.
 - Si una función hace demasiadas cosas: ¿en qué piezas pequeñas se podría partir para revisarlas por separado?
+
+Más en el [Tema 10](tema-10-funciones.md).
+</details>
+
+<details>
+<summary>Semana 7: objetos y métodos de listas</summary>
+
+- ¿Cada propiedad se lee desde su objeto (`exp.estado`) y con la clave bien escrita? Una errata da `undefined`, sin error. TypeScript la subraya en el editor.
+- Si la clave está en una variable: ¿se usan corchetes, `exp[campo]`? `exp.campo` busca una clave llamada «campo».
+- Si sale `[object Object]`: se ha usado el objeto entero donde iba uno de sus campos.
+- Después de un `find`: ¿qué pasa si no lo encuentra? Hay que comprobar que no es `undefined` antes de usarlo.
+- ¿Se quiere uno (`find`) o todos los que cumplen (`filter`)? Leer la condición de `filter` como «quédate con los que…».
+- En un `map` con llaves `=> {`: ¿tiene `return`? Si no, salen `undefined`.
+- En una cadena `filter` → `map`: anotar qué lista sale de cada paso.
+- ¿`const b = a` pretende ser una copia? No lo es: es otro nombre para el mismo objeto. Copia de verdad: `{ ...a }` o `[...lista]`.
+
+Más en el [Tema 11](tema-11-objetos.md).
 </details>
 
 ## Documentación oficial

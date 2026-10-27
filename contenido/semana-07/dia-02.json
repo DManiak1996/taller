@@ -1,0 +1,252 @@
+{
+  "id": "s07-d02",
+  "semana": 7,
+  "dia": 2,
+  "titulo": "Cambiar campos y leerlos con corchetes",
+  "objetivo": "Hoy aprendes a cambiar y añadir campos a un objeto, qué pasa si escribes mal una clave y cómo leer un campo cuya clave está en una variable.",
+  "conceptos": [
+    "objetos"
+  ],
+  "leccion": [
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const exp = {\n  numero: 145,\n  estado: \"abierto\",\n};\nexp.estado = \"cerrado\";\nexp.dias = 12;\nconsole.log(exp);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"abierto\" }"
+          },
+          "salida": [],
+          "nota": "Se crea el objeto con dos campos."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"cerrado\" }"
+          },
+          "salida": [],
+          "nota": "Un campo se cambia como una variable: con `=`. El estado pasa a cerrado."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"cerrado\", dias: 12 }"
+          },
+          "salida": [],
+          "nota": "Si el campo no existía, se **añade**. Ahora la ficha tiene tres. Esto se ejecuta, pero TypeScript lo subraya: espera que la ficha tenga desde el principio todos sus campos. Lo verás en la semana de tipos."
+        },
+        {
+          "linea": 7,
+          "variables": {
+            "exp": "{ numero: 145, estado: \"cerrado\", dias: 12 }"
+          },
+          "salida": [
+            "{ numero: 145, estado: 'cerrado', dias: 12 }"
+          ],
+          "nota": "¿Y el const? Protege la caja, no lo que hay dentro: no puedes guardar en exp **otro** objeto, pero sí cambiar sus campos."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const exp = {\n  estado: \"abierto\",\n};\nconsole.log(exp.estdo);",
+      "salida": [
+        "undefined"
+      ],
+      "nota": "Una clave mal escrita **no da error**: da undefined, porque ese campo no existe. Es un fallo silencioso, de los peores. TypeScript, en cambio, lo subraya en rojo en el editor antes de ejecutar: una de sus grandes ventajas."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const exp = {\n  estado: \"abierto\",\n};\nconst campo = \"estado\";\nconsole.log(exp[campo]);\nconsole.log(exp[\"estado\"]);",
+      "salida": [
+        "abierto",
+        "abierto"
+      ],
+      "nota": "Con **corchetes** la clave puede venir de una variable: `exp[campo]` busca la clave que guarda campo, o sea estado. `exp.campo`, en cambio, buscaría una clave llamada literalmente «campo»."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Es el objeto de prefijos de ayer. El rol del usuario llega en la variable role, así que DeIure lee con corchetes. Si el rol no está en el objeto, sale undefined, y `|| 'USR'` pone USR en su lugar.",
+      "codigo": "const prefix = ROLE_PREFIX[role] || 'USR';",
+      "fichero": "DeIure/src/lib/pseudonymization.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d02-r1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const exp = { dias: 10 };\nexp.dias = exp.dias + 5;\nexp.urgente = true;\nconsole.log(exp);",
+      "opciones": [
+        {
+          "texto": "{ dias: 15, urgente: true }",
+          "correcta": true,
+          "siEliges": "Eso es: dias pasa de 10 a 15 y se añade el campo urgente."
+        },
+        {
+          "texto": "{ dias: 10, urgente: true }",
+          "siEliges": "La línea 2 cambia dias: 10 + 5."
+        },
+        {
+          "texto": "{ dias: 15 }",
+          "siEliges": "La línea 3 añade un campo nuevo, urgente."
+        },
+        {
+          "texto": "❌ Error: exp es const",
+          "siEliges": "const impide guardar otro objeto en exp, no cambiar sus campos."
+        }
+      ],
+      "pistas": [
+        "Sigue el objeto línea a línea.",
+        "La línea 2 cambia un campo; la 3 añade uno.",
+        "const no impide cambiar los campos."
+      ],
+      "explicacion": "Un objeto en un const se puede modificar por dentro. Lo que no se puede es cambiarlo por otro."
+    },
+    {
+      "id": "s07-d02-r2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba 15: el campo dias tiene que aumentar en 5.",
+      "codigo": "const exp = { dias: 10 };\n___ = exp.dias + 5;\nconsole.log(exp.dias);",
+      "salidaEsperada": [
+        "15"
+      ],
+      "opciones": [
+        {
+          "texto": "exp.dias",
+          "correcta": true,
+          "siEliges": "Correcto: se guarda el resultado en el propio campo."
+        },
+        {
+          "texto": "const dias",
+          "siEliges": "Eso crea otra variable, dias, con 15. El campo del objeto sigue en 10."
+        },
+        {
+          "texto": "dias",
+          "siEliges": "No existe ninguna variable dias: da error."
+        }
+      ],
+      "pistas": [
+        "¿Dónde tiene que quedar guardado el 15?",
+        "En el campo dias del objeto exp.",
+        "Se escribe igual que al leerlo."
+      ],
+      "explicacion": "Para cambiar un campo hay que nombrarlo entero, objeto y clave: exp.dias."
+    },
+    {
+      "ref": "s07-rev-2"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s07-d02-x1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const exp = {\n  estado: \"abierto\",\n};\nconsole.log(exp.Estado);",
+      "opciones": [
+        {
+          "texto": "undefined",
+          "correcta": true,
+          "siEliges": "Eso es: Estado con mayúscula es otra clave, y no existe."
+        },
+        {
+          "texto": "abierto",
+          "siEliges": "Las claves distinguen mayúsculas: Estado no es estado."
+        },
+        {
+          "texto": "❌ Error",
+          "siEliges": "Un campo que no existe no da error: da undefined."
+        }
+      ],
+      "pistas": [
+        "Compara letra a letra la clave del objeto y la que se lee.",
+        "Una lleva mayúscula.",
+        "¿Qué da un campo que no existe?"
+      ],
+      "explicacion": "Igual que con las variables, una mayúscula cambia el nombre. Pero aquí no hay error que te avise: sale undefined."
+    },
+    {
+      "ref": "s07-rev-x1"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d02-n1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const ficha = {\n  nombre: \"Ana\",\n  pais: \"ES\",\n};\nconst campos = [\"pais\", \"nombre\"];\nfor (const c of campos) {\n  console.log(ficha[c]);\n}",
+      "opciones": [
+        {
+          "texto": "ES\nAna",
+          "correcta": true,
+          "siEliges": "Eso es: en cada vuelta, c guarda una clave, y ficha[c] da su valor, en el orden de la lista."
+        },
+        {
+          "texto": "pais\nnombre",
+          "siEliges": "ficha[c] no escribe la clave: escribe el valor de esa clave."
+        },
+        {
+          "texto": "Ana\nES",
+          "siEliges": "Manda el orden de la lista campos, no el del objeto."
+        },
+        {
+          "texto": "undefined\nundefined",
+          "siEliges": "Eso pasaría con ficha.c. Con corchetes se usa lo que guarda c."
+        }
+      ],
+      "pistas": [
+        "¿Qué vale c en la primera vuelta?",
+        "c vale \"pais\", así que ficha[c] es ficha[\"pais\"].",
+        "La segunda vuelta hace lo mismo con nombre."
+      ],
+      "explicacion": "Recorrer una lista de claves y leer cada una con corchetes es cómo se rellena una tabla campo a campo."
+    },
+    "escribir": {
+      "id": "s07-d02-n2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días para contestar. Añade a exp un campo urgente: true si quedan 5 días o menos, false si no. Después escribe exp entero.",
+      "datos": "const exp = { plazo: 30, dias: 28 };",
+      "inicial": "// Calcula los días que quedan\n// Añade el campo urgente\n// Escribe el objeto",
+      "salidaEsperada": [
+        "{ plazo: 30, dias: 28, urgente: true }"
+      ],
+      "variantes": [
+        {
+          "datos": "const exp = { plazo: 30, dias: 25 };",
+          "salidaEsperada": [
+            "{ plazo: 30, dias: 25, urgente: true }"
+          ]
+        },
+        {
+          "datos": "const exp = { plazo: 30, dias: 10 };",
+          "salidaEsperada": [
+            "{ plazo: 30, dias: 10, urgente: false }"
+          ]
+        }
+      ],
+      "solucion": "const quedan = exp.plazo - exp.dias;\nexp.urgente = quedan <= 5;\nconsole.log(exp);",
+      "pistas": [
+        "Quedan plazo menos días pasados.",
+        "Una comparación ya da true o false: puedes guardarla directamente.",
+        "exp.urgente = quedan <= 5; añade el campo."
+      ],
+      "explicacion": "Con 25 días pasados quedan 5 justos, y tiene que salir true: por eso es <= y no <."
+    }
+  }
+}
