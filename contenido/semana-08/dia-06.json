@@ -1,0 +1,202 @@
+{
+  "id": "s08-d06",
+  "semana": 8,
+  "dia": 6,
+  "titulo": "Escribir buenos tests: que puedan fallar",
+  "objetivo": "Hoy aprendes a elegir los casos de un test (el normal, el límite y el vacío) y a comprobar que un test sirve: tiene que poder ponerse en rojo.",
+  "conceptos": [
+    "tests"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un test en verde no demuestra nada si **no podía fallar**. Un test sin `expect`, o con `expect(true).toBe(true)`, pasa siempre, haga lo que haga la función. El truco para saber si un test sirve: **rompe la función a propósito** y mira si se pone en rojo."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function enPlazo(horas) {\n  return horas < 72;\n}\ntest(\"10 h, en plazo\", () => {\n  expect(enPlazo(10)).toBe(true);\n});\ntest(\"72 h justas, en plazo\", () => {\n  expect(enPlazo(72)).toBe(true);\n});",
+      "salida": [
+        "✓ 10 h, en plazo",
+        "× 72 h justas, en plazo",
+        "  Expected: true",
+        "  Received: false"
+      ],
+      "nota": "La función tiene el fallo de siempre: `<` donde iba `<=` (el plazo de 72 horas del art. 33 incluye las 72 justas). El test de 10 horas no lo ve. Solo el del **límite** lo caza."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Qué casos probar",
+      "pasos": [
+        {
+          "titulo": "El normal",
+          "texto": "Un dato corriente: 10 horas. Comprueba que la idea funciona."
+        },
+        {
+          "titulo": "El límite",
+          "texto": "El propio límite y el de al lado: 72 y 73. Ahí se esconden casi todos los fallos."
+        },
+        {
+          "titulo": "El vacío",
+          "texto": "La lista vacía, el 0, el dato que no llega. ¿Qué debe pasar?"
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Este test de DeIure prueba un caso «vacío» fácil de olvidar: un nombre de proyecto hecho solo de espacios. `toBe(false)` comprueba que se rechaza.",
+      "codigo": "  it('rejects a name made only of spaces, as the UI and the PATCH do', () => {\n    expect(projectSchema.safeParse({ ...base, name: '   ' }).success).toBe(false);",
+      "fichero": "DeIure/src/lib/__tests__/validations-project-name.test.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d06-r1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Un test para el caso vacío. ¿Qué escribe este programa?",
+      "codigo": "function media(l) {\n  let s = 0;\n  for (const n of l) {\n    s = s + n;\n  }\n  return s / l.length;\n}\ntest(\"lista vacía\", () => {\n  expect(media([])).toBe(0);\n});",
+      "opciones": [
+        {
+          "texto": "× lista vacía\n  Expected: 0\n  Received: NaN",
+          "correcta": true,
+          "siEliges": "Eso es: 0 / 0 no es 0, es NaN. El caso vacío ha cazado un fallo."
+        },
+        {
+          "texto": "✓ lista vacía",
+          "siEliges": "Con la lista vacía, s es 0 y l.length también: 0 / 0 da NaN."
+        },
+        {
+          "texto": "× lista vacía\n  Expected: 0\n  Received: 0",
+          "siEliges": "Si recibiera 0, pasaría. Calcula 0 / 0."
+        }
+      ],
+      "pistas": [
+        "Con [], el bucle no da ninguna vuelta.",
+        "s vale 0 y l.length vale 0.",
+        "¿Cuánto es 0 / 0 en JavaScript?"
+      ],
+      "explicacion": "Nadie piensa en la lista vacía hasta que llega. Por eso se prueba siempre."
+    },
+    {
+      "id": "s08-d06-r2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Esta función falla con 72 horas justas. Elige el dato que hace que el test cace el fallo, es decir, que se ponga en rojo.",
+      "codigo": "function enPlazo(horas) {\n  return horas < 72;\n}\ntest(\"límite\", () => {\n  expect(enPlazo(___)).toBe(true);\n});",
+      "salidaEsperada": [
+        "× límite",
+        "  Expected: true",
+        "  Received: false"
+      ],
+      "opciones": [
+        {
+          "texto": "72",
+          "correcta": true,
+          "siEliges": "Correcto: con el límite exacto, la función dice false y el test se pone en rojo."
+        },
+        {
+          "texto": "71",
+          "siEliges": "Con 71 la función acierta: el test pasa y el fallo se escapa."
+        },
+        {
+          "texto": "10",
+          "siEliges": "Un caso normal: la función acierta y el fallo no se ve."
+        }
+      ],
+      "pistas": [
+        "¿Con qué dato se equivoca la función?",
+        "Con el que está justo en el límite.",
+        "Ni uno menos ni uno más: el propio límite."
+      ],
+      "explicacion": "El fallo solo existe en un punto, el 72. Un test que no lo prueba sale en verde aunque la función esté mal."
+    },
+    {
+      "ref": "s08-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s08-rev-x1"
+    },
+    {
+      "ref": "s08-rev-x4"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d06-n1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Tests dentro de un bucle, uno por caso. ¿Qué escribe este programa?",
+      "codigo": "function nivel(n) {\n  if (n > 100) {\n    return \"alto\";\n  }\n  return \"bajo\";\n}\nconst casos = [50, 100, 101];\nfor (const n of casos) {\n  test(`${n}`, () => {\n    expect(nivel(n)).toBe(\"bajo\");\n  });\n}",
+      "opciones": [
+        {
+          "texto": "✓ 50\n✓ 100\n× 101\n  Expected: 'bajo'\n  Received: 'alto'",
+          "correcta": true,
+          "siEliges": "Eso es: 100 no es mayor que 100, así que es bajo; 101 ya es alto."
+        },
+        {
+          "texto": "✓ 50\n× 100\n  Expected: 'bajo'\n  Received: 'alto'\n× 101\n  Expected: 'bajo'\n  Received: 'alto'",
+          "siEliges": "100 > 100 es false: con 100 devuelve bajo."
+        },
+        {
+          "texto": "✓ 50\n✓ 100\n✓ 101",
+          "siEliges": "101 es mayor que 100: devuelve alto, y el test espera bajo."
+        }
+      ],
+      "pistas": [
+        "Hay un test por cada número de casos.",
+        "Calcula nivel con cada uno. Ojo con el 100.",
+        "Los textos salen entre comillas en el informe."
+      ],
+      "explicacion": "Un bucle de tests prueba muchos casos con poco código. El nombre de cada test, aquí el número, dice cuál ha fallado."
+    },
+    "escribir": {
+      "id": "s08-d06-n2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe dos tests para enPlazo: «72 h, en plazo», que compruebe que enPlazo(72) da true, y «73 h, fuera», que compruebe que enPlazo(73) da false.",
+      "datos": "function enPlazo(horas) {\n  return horas <= 72;\n}",
+      "inicial": "// Un test para el límite\n// y otro para el de al lado",
+      "salidaEsperada": [
+        "✓ 72 h, en plazo",
+        "✓ 73 h, fuera"
+      ],
+      "variantes": [
+        {
+          "datos": "function enPlazo(horas) {\n  return horas < 72;\n}",
+          "salidaEsperada": [
+            "× 72 h, en plazo",
+            "  Expected: true",
+            "  Received: false",
+            "✓ 73 h, fuera"
+          ]
+        },
+        {
+          "datos": "function enPlazo(horas) {\n  return horas <= 73;\n}",
+          "salidaEsperada": [
+            "✓ 72 h, en plazo",
+            "× 73 h, fuera",
+            "  Expected: false",
+            "  Received: true"
+          ]
+        }
+      ],
+      "solucion": "test(\"72 h, en plazo\", () => {\n  expect(enPlazo(72)).toBe(true);\n});\ntest(\"73 h, fuera\", () => {\n  expect(enPlazo(73)).toBe(false);\n});",
+      "pistas": [
+        "Dos tests, uno detrás de otro, con los nombres exactos.",
+        "Dentro de expect, la llamada; dentro de toBe, true o false.",
+        "No cambies el orden: expect(lo que da la función).toBe(lo que debería dar)."
+      ],
+      "explicacion": "Las variantes ocultas rompen la función por un lado y por el otro del límite, y cada uno de tus tests caza uno de los fallos. Por eso hacen falta los dos."
+    }
+  }
+}

@@ -121,7 +121,9 @@ describe('el contenido', () => {
     describe(d.id, () => {
       it('tiene 3 retos de tipos distintos', () => {
         expect(d.retos).toHaveLength(3)
-        expect(new Set(d.retos.map((r) => r.tipo)).size).toBe(3)
+        // Git no se ejecuta: ahí solo vale «elegir», que puede repetirse.
+        const tipos = d.retos.map((r) => r.tipo).filter((t) => t !== 'elegir')
+        expect(new Set(tipos).size).toBe(tipos.length)
       })
 
       if (d.paraNota) {

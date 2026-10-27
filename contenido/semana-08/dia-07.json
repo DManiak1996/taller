@@ -1,0 +1,206 @@
+{
+  "id": "s08-d07",
+  "semana": 8,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: Git por dentro, fotos del proyecto",
+  "objetivo": "Hoy aprendes cómo guarda Git la historia: cada commit es una foto que apunta a la anterior, y una rama es solo una etiqueta que apunta a una foto.",
+  "conceptos": [
+    "git"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Cada commit es una **foto completa** del proyecto, con un código único (el **hash**, como c3f9e21), el autor, la fecha, el mensaje y un dato clave: **qué foto había antes**, su padre. Las fotos forman una cadena, como las actas de un libro registro: cada una se numera, remite a la anterior y, en el uso normal, ninguna se arranca. Para cambiar algo, se añade un acta nueva."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "La cadena de fotos",
+      "pasos": [
+        {
+          "titulo": "a91c3e8",
+          "texto": "«Primer commit». No tiene padre: es el principio."
+        },
+        {
+          "titulo": "b27a0d4",
+          "texto": "«Datos de la brecha». Su padre es a91c3e8."
+        },
+        {
+          "titulo": "c3f9e21",
+          "texto": "«Informe». Su padre es b27a0d4. Aquí apuntan main y HEAD."
+        }
+      ]
+    },
+    {
+      "tipo": "texto",
+      "texto": "Una **rama** no es una copia del proyecto: es una **etiqueta** que apunta a una foto, igual que una variable apunta a un objeto (la referencia de la semana 7). Por eso crear una rama es instantáneo. Al hacer un commit, la foto nueva toma como padre la anterior y la etiqueta de tu rama **avanza** hasta ella. **HEAD** es el «usted está aquí»: la rama en la que estás."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Como el mensaje de cada foto queda para siempre, DeIure fija cómo escribirlo: el tipo de cambio, el área entre paréntesis y qué se hizo. Por ejemplo, `fix(files): reemplazar conserva el historial`.",
+      "codigo": "- **Conventional commits**: `tipo(scope): descripción`. Tipos: `feat` · `fix` · `docs` · `test` · `refactor` · `chore` · `perf`.",
+      "fichero": "CLAUDE.md"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "git log --oneline",
+      "salida": [
+        "c3f9e21 (HEAD -> main) Informe",
+        "b27a0d4 Datos de la brecha",
+        "a91c3e8 Primer commit"
+      ],
+      "nota": "**Comando de la semana: git status, git log y git diff.** `git status` dice cómo está cada fichero; `git diff`, qué ha cambiado línea a línea; `git log --oneline`, la cadena de fotos, de la más nueva a la más vieja. **Minirreto en tu Mac:** `mkdir fotos`, `cd fotos`, `git init` y `echo \"hola\" > a.txt`. Después: `git status`, `git add a.txt`, `git commit -m \"Primera foto\"` y `git log --oneline`. Si Git te pide tu nombre y tu email, te dice la orden exacta para dárselos."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d07-r1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Esto dice git log. ¿Cuál fue el primer commit del proyecto?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git log --oneline",
+        "salida": [
+          "e81a2b3 (HEAD -> main) Plazos",
+          "7c0d9f1 Brechas",
+          "41be6a0 Inicio"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "41be6a0 Inicio",
+          "correcta": true,
+          "siEliges": "Eso es: git log va de la foto más nueva (arriba) a la más vieja (abajo)."
+        },
+        {
+          "texto": "e81a2b3 Plazos",
+          "siEliges": "Ese es el más reciente: git log empieza por arriba con la última foto."
+        },
+        {
+          "texto": "Ninguno: falta información",
+          "siEliges": "La última línea es la foto sin padre: el principio."
+        }
+      ],
+      "pistas": [
+        "¿git log empieza por la foto más nueva o por la más vieja?",
+        "Por la más nueva, arriba.",
+        "La primera de todas está abajo del todo."
+      ],
+      "explicacion": "Arriba, lo último; abajo, el origen. Al revés que un libro registro en papel."
+    },
+    {
+      "id": "s08-d07-r2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Estás en la rama informe. ¿Qué commit tiene informe que main no tiene?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git log --oneline",
+        "salida": [
+          "d4e5f60 (HEAD -> informe) Tabla",
+          "c3f9e21 (main) Informe",
+          "b27a0d4 Datos"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "d4e5f60 Tabla",
+          "correcta": true,
+          "siEliges": "Eso es: la etiqueta main está en c3f9e21, una foto por detrás. Tabla solo está en informe."
+        },
+        {
+          "texto": "c3f9e21 Informe",
+          "siEliges": "Ahí apunta main: esa foto la tienen las dos ramas."
+        },
+        {
+          "texto": "Todos",
+          "siEliges": "main contiene su foto y todas las anteriores: c3f9e21 y b27a0d4."
+        }
+      ],
+      "pistas": [
+        "Busca dónde está cada etiqueta, entre paréntesis.",
+        "main apunta a c3f9e21; informe, a d4e5f60.",
+        "Una rama contiene su foto y todas las de debajo."
+      ],
+      "explicacion": "Las ramas son etiquetas en la misma cadena. informe avanzó una foto; main se quedó donde estaba."
+    },
+    {
+      "ref": "s08-rev-7"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d07-n1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Tres commits, A, B y C, y cada uno apunta a su padre (null significa «ninguno»). Este programa recorre la cadena. ¿Qué escribe?",
+      "codigo": "const a = { msg: \"A\", padre: null };\nconst b = { msg: \"B\", padre: a };\nconst c = { msg: \"C\", padre: b };\nlet x = c;\nwhile (x !== null) {\n  console.log(x.msg);\n  x = x.padre;\n}",
+      "opciones": [
+        {
+          "texto": "C\nB\nA",
+          "correcta": true,
+          "siEliges": "Eso es: empieza por c y salta de padre en padre hasta null. Es lo que hace git log."
+        },
+        {
+          "texto": "A\nB\nC",
+          "siEliges": "Empieza por c, el más nuevo, y va hacia atrás."
+        },
+        {
+          "texto": "C",
+          "siEliges": "El while sigue mientras x no sea null: salta al padre en cada vuelta."
+        }
+      ],
+      "pistas": [
+        "x empieza siendo c.",
+        "En cada vuelta, x pasa a ser su padre.",
+        "¿Cuándo se para? Cuando llega a null."
+      ],
+      "explicacion": "Cada campo padre es una referencia a otro objeto. Git guarda la historia exactamente así."
+    },
+    "escribir": {
+      "id": "s08-d07-n2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Imita a git log --oneline: escribe el id y el mensaje de cada commit separados por un espacio. Al primero (el más nuevo) ponle «(HEAD -> main)» entre los dos.",
+      "datos": "const log = [\n  { id: \"c3f9e21\", msg: \"Informe\" },\n  { id: \"a91c3e8\", msg: \"Inicio\" },\n];",
+      "inicial": "// Recorre log con su posición\n// El de la posición 0 es especial",
+      "salidaEsperada": [
+        "c3f9e21 (HEAD -> main) Informe",
+        "a91c3e8 Inicio"
+      ],
+      "variantes": [
+        {
+          "datos": "const log = [\n  { id: \"41be6a0\", msg: \"Inicio\" },\n];",
+          "salidaEsperada": [
+            "41be6a0 (HEAD -> main) Inicio"
+          ]
+        },
+        {
+          "datos": "const log = [\n  { id: \"e81a2b3\", msg: \"Plazos\" },\n  { id: \"7c0d9f1\", msg: \"Brechas\" },\n  { id: \"41be6a0\", msg: \"Inicio\" },\n];",
+          "salidaEsperada": [
+            "e81a2b3 (HEAD -> main) Plazos",
+            "7c0d9f1 Brechas",
+            "41be6a0 Inicio"
+          ]
+        }
+      ],
+      "solucion": "for (let i = 0; i < log.length; i++) {\n  const e = log[i];\n  if (i === 0) {\n    console.log(e.id,\n      \"(HEAD -> main)\", e.msg);\n  } else {\n    console.log(e.id, e.msg);\n  }\n}",
+      "pistas": [
+        "Necesitas saber la posición: un for clásico con i.",
+        "Si i es 0, el commit lleva la etiqueta.",
+        "console.log con varios datos separados por coma los une con un espacio."
+      ],
+      "explicacion": "La etiqueta solo va en el primero porque HEAD y main apuntan a la foto más nueva."
+    }
+  }
+}

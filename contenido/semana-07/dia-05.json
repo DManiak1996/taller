@@ -183,7 +183,7 @@
         "tarde es una lista nueva.",
         "¿Cambia bs?"
       ],
-      "explicacion": "Con 72 horas justas todavía se está a tiempo («a más tardar 72 horas», art. 33 RGPD). Y filter nunca cambia la lista de la que parte."
+      "explicacion": "Con 72 horas justas todavía se está a tiempo: el plazo de 72 horas del art. 33 incluye las 72 justas. Y filter nunca cambia la lista de la que parte."
     },
     "escribir": {
       "id": "s07-d05-n2",

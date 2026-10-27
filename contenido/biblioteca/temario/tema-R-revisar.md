@@ -153,6 +153,20 @@ Más en el [Tema 10](tema-10-funciones.md).
 Más en el [Tema 11](tema-11-objetos.md).
 </details>
 
+<details>
+<summary>Semana 8: Git y tests</summary>
+
+- Antes de cada commit, `git status`: ¿está preparado solo lo que quieres? Con `git add .`, ¿se ha colado algo como un `.env` con claves?
+- ¿Estás en la rama que crees? Un commit se queda en la rama donde lo haces.
+- Leer el diff entero, pareja a pareja de − y +. No fiarse del resumen («solo he cambiado el mensaje»).
+- Si un test sale en rojo: Expected es lo que pide el test; Received, lo que da el código. Se arregla el código, no lo que espera el test.
+- ¿Cada test tiene un `expect` que compara lo que devuelve el código con el valor correcto? Sin `expect`, o con `expect(true).toBe(true)`, pasa siempre.
+- Con objetos y listas, `toEqual`; `toBe` pide que sea el mismo.
+- ¿Los tests prueban el caso normal, el límite y el vacío? Un buen test tiene que poder fallar.
+
+Más en el [Tema 12](tema-12-git-tests.md).
+</details>
+
 ## Documentación oficial
 
 - [¿Qué ha salido mal? Corrigiendo JavaScript](https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting/What_went_wrong) (guía de MDN sobre errores de sintaxis y de lógica), en español.

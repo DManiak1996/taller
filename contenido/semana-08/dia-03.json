@@ -1,0 +1,215 @@
+{
+  "id": "s08-d03",
+  "semana": 8,
+  "dia": 3,
+  "titulo": "Leer un diff: qué ha cambiado",
+  "objetivo": "Hoy aprendes a leer un diff, la lista de líneas quitadas y añadidas, que es lo primero que hay que mirar al revisar un cambio de una IA.",
+  "conceptos": [
+    "git"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un **diff** (de difference) enseña lo que ha cambiado en un fichero: `git diff` lo compara con la última foto. Cada línea lleva una marca: **−** en **rojo** es una línea quitada, **+** en **verde** es una línea añadida, y sin marca, una línea igual que se enseña para situarte. GitHub lo enseña igual, con los mismos colores."
+    },
+    {
+      "tipo": "diff",
+      "fichero": "plazo.ts",
+      "lineas": [
+        " const plazo = 72;",
+        "-const aviso = 48;",
+        "+const aviso = 60;",
+        " console.log(plazo);"
+      ],
+      "nota": "Cambiar una línea se ve como **una − y una +**: la versión vieja sale y la nueva entra. Aquí solo ha cambiado aviso, de 48 a 60. Las otras dos líneas están igual."
+    },
+    {
+      "tipo": "diff",
+      "fichero": "informe.ts",
+      "lineas": [
+        " const cliente = \"Arga\";",
+        "+const pais = \"ES\";",
+        " console.log(cliente);",
+        "-console.log(pais);",
+        "+console.log(cliente, pais);"
+      ],
+      "nota": "Una + sola es una línea nueva; una − sola, una línea borrada. Lee el diff de arriba abajo y pregúntate, de cada marca: ¿esto se pidió?"
+    },
+    {
+      "tipo": "texto",
+      "texto": "Revisar el diff es la tarea número uno al revisar a una IA. Una IA puede decir «solo he cambiado el mensaje» y haber tocado también una condición. **El diff no miente**: compara lo que dice que ha hecho con lo que se ve en rojo y verde."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Antes de subir nada a GitHub, el CLAUDE.md de DeIure obliga a mirar todo lo que va a salir, porque puede haber trabajo de varios agentes y no solo el propio.",
+      "codigo": "- Antes de pushear: (1) `git log origin/main..HEAD` para ver **qué sale**",
+      "fichero": "CLAUDE.md"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d03-r1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "rgpd",
+      "tipo": "elegir",
+      "enunciado": "¿Qué ha cambiado en este diff?",
+      "bloque": {
+        "tipo": "diff",
+        "fichero": "brecha.ts",
+        "lineas": [
+          " const afectados = 150;",
+          "-const horas = 80;",
+          "+const horas = 70;",
+          " console.log(\"Brecha\");"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "horas pasa de 80 a 70",
+          "correcta": true,
+          "siEliges": "Eso es: la − es la versión vieja y la + la nueva."
+        },
+        {
+          "texto": "horas pasa de 70 a 80",
+          "siEliges": "Al revés: la − (roja) es lo que había, la + (verde) lo que queda."
+        },
+        {
+          "texto": "Se ha añadido horas",
+          "siEliges": "Hay una − y una + de la misma variable: es un cambio, no una línea nueva."
+        },
+        {
+          "texto": "También ha cambiado afectados",
+          "siEliges": "afectados no lleva marca: es una línea igual."
+        }
+      ],
+      "pistas": [
+        "¿Qué líneas llevan marca?",
+        "La − es lo que se quita; la +, lo que se pone.",
+        "Junta las dos: es la misma variable con otro valor."
+      ],
+      "explicacion": "Una − seguida de una + parecida es casi siempre una línea cambiada. Compáralas carácter a carácter."
+    },
+    {
+      "id": "s08-d03-r2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "rgpd",
+      "tipo": "elegir",
+      "enunciado": "Pediste a la IA: «añade una línea que escriba el total». ¿Ha hecho solo eso?",
+      "bloque": {
+        "tipo": "diff",
+        "fichero": "total.ts",
+        "lineas": [
+          " let total = 0;",
+          " for (const b of brechas) {",
+          "-  total = total + b.n;",
+          "+  total = b.n;",
+          " }",
+          "+console.log(total);"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "No: también ha roto la suma",
+          "correcta": true,
+          "siEliges": "Eso es: además de añadir el console.log, ha cambiado la suma, que ya no acumula."
+        },
+        {
+          "texto": "Sí: solo añade el console.log",
+          "siEliges": "Mira la − y la + de dentro del bucle: esa línea también ha cambiado."
+        },
+        {
+          "texto": "No: ha borrado el bucle",
+          "siEliges": "El for no lleva marca: sigue igual."
+        }
+      ],
+      "pistas": [
+        "Cuenta las marcas: ¿hay solo una +?",
+        "Hay una − y una + dentro del bucle.",
+        "Compara las dos: ¿sigue sumando?"
+      ],
+      "explicacion": "Un cambio que no se pidió es la primera señal de alarma. Aquí, total = b.n ya no suma: se queda con la última brecha."
+    },
+    {
+      "ref": "s08-rev-3"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d03-n1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Este programa cuenta las líneas de un diff. ¿Qué escribe?",
+      "codigo": "const diff = [\n  { marca: \" \", t: \"let a = 1;\" },\n  { marca: \"-\", t: \"let b = 2;\" },\n  { marca: \"+\", t: \"let b = 3;\" },\n  { marca: \"+\", t: \"let c = 4;\" },\n];\nconst nuevas = diff\n  .filter((l) => l.marca === \"+\")\n  .map((l) => l.t);\nconsole.log(nuevas.length);\nconsole.log(nuevas[1]);",
+      "opciones": [
+        {
+          "texto": "2\nlet c = 4;",
+          "correcta": true,
+          "siEliges": "Eso es: hay dos líneas +, y la de la posición 1 es la segunda."
+        },
+        {
+          "texto": "2\nlet b = 3;",
+          "siEliges": "Las posiciones empiezan en 0: nuevas[1] es la segunda."
+        },
+        {
+          "texto": "3\nlet c = 4;",
+          "siEliges": "Solo cuentan las de marca +: la − y la de espacio quedan fuera."
+        },
+        {
+          "texto": "2\n+",
+          "siEliges": "map se queda con el texto t de cada línea, no con la marca."
+        }
+      ],
+      "pistas": [
+        "filter se queda con las de marca +.",
+        "map saca el texto de cada una.",
+        "nuevas[1] es la segunda de la lista."
+      ],
+      "explicacion": "GitHub resume cada cambio contando así las líneas + y −."
+    },
+    "escribir": {
+      "id": "s08-d03-n2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Haz tu propio diff. antes y despues tienen las mismas posiciones. Si una línea es igual, escribe un espacio y la línea. Si cambia, escribe «-» con la vieja y, debajo, «+» con la nueva.",
+      "datos": "const antes = [\"a\", \"b\", \"c\"];\nconst despues = [\"a\", \"B\", \"c\"];",
+      "inicial": "// Recorre las posiciones con un for\n// Compara antes[i] y despues[i]",
+      "salidaEsperada": [
+        " a",
+        "-b",
+        "+B",
+        " c"
+      ],
+      "variantes": [
+        {
+          "datos": "const antes = [\"x\", \"y\"];\nconst despues = [\"X\", \"Y\"];",
+          "salidaEsperada": [
+            "-x",
+            "+X",
+            "-y",
+            "+Y"
+          ]
+        },
+        {
+          "datos": "const antes = [\"igual\"];\nconst despues = [\"igual\"];",
+          "salidaEsperada": [
+            " igual"
+          ]
+        }
+      ],
+      "solucion": "const n = antes.length;\nfor (let i = 0; i < n; i++) {\n  const a = antes[i];\n  const d = despues[i];\n  if (a === d) {\n    console.log(` ${a}`);\n  } else {\n    console.log(`-${a}`);\n    console.log(`+${d}`);\n  }\n}",
+      "pistas": [
+        "Necesitas la posición para mirar las dos listas a la vez: un for clásico con i.",
+        "En cada vuelta, compara antes[i] con despues[i].",
+        "Con comillas invertidas pones la marca pegada a la línea."
+      ],
+      "explicacion": "Así trabaja Git, en versión simplificada: compara línea a línea y marca lo que cambia. El Git de verdad también sabe encontrar líneas añadidas o borradas en medio."
+    }
+  }
+}

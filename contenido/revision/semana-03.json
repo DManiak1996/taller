@@ -73,7 +73,7 @@
     "semana": 3,
     "concepto": "if-else",
     "tema": "rgpd",
-    "enunciado": "Le pediste a la IA: «Di si estamos a tiempo de notificar la brecha (a más tardar 72 horas)». Han pasado 50 horas. Toca la línea que está mal.",
+    "enunciado": "Le pediste a la IA: «Di si estamos a tiempo de notificar la brecha (el plazo de 72 horas del art. 33)». Han pasado 50 horas. Toca la línea que está mal.",
     "codigo": "const horas = 50;\nif (horas > 72) {\n  console.log(\"A tiempo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
     "lineasFallo": [
       2,
@@ -305,7 +305,7 @@
       "`<` es «menor que», sin el igual.",
       "¿Es 72 menor que 72?"
     ],
-    "explicacion": "Imprime `Fuera de plazo`. Marta acierta sobre lo que hace el código, y la IA sobre lo que debería hacer: el artículo 33 habla de notificar «a más tardar» a las 72 horas, así que con 72 aún estás a tiempo. El arreglo es `horas <= 72`. Revisar es comprobar las dos cosas: qué hace y qué debería hacer."
+    "explicacion": "Imprime `Fuera de plazo`. Marta acierta sobre lo que hace el código, y la IA sobre lo que debería hacer: el plazo de 72 horas del art. 33 incluye las 72 horas justas, así que aún estás a tiempo. El arreglo es `horas <= 72`. Revisar es comprobar las dos cosas: qué hace y qué debería hacer."
   },
   {
     "id": "s03-rev-x3",
