@@ -1,0 +1,228 @@
+{
+  "id": "s08-d01",
+  "semana": 8,
+  "dia": 1,
+  "titulo": "Git: guardar fotos del proyecto",
+  "objetivo": "Hoy aprendes qué es un commit, los tres estados de un cambio (modificado, preparado y guardado) y a leer lo que dice git status.",
+  "conceptos": [
+    "git"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "**Git** guarda la historia de un proyecto. Cada vez que haces un **commit**, guarda una **foto** de todos los ficheros, con un mensaje, la fecha y quién la hizo. Es como numerar cada versión de un contrato: puedes ver qué cambió entre una y otra y volver a cualquiera. Nada se pierde."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Del cambio a la foto",
+      "pasos": [
+        {
+          "titulo": "Modificado",
+          "texto": "Cambias un fichero. Git lo ve, pero todavía no lo guarda."
+        },
+        {
+          "titulo": "Preparado",
+          "texto": "Con `git add fichero` lo eliges para la próxima foto."
+        },
+        {
+          "titulo": "Guardado",
+          "texto": "Con `git commit -m \"mensaje\"` se hace la foto de lo preparado, y solo de eso."
+        }
+      ]
+    },
+    {
+      "tipo": "terminal",
+      "orden": "git status",
+      "salida": [
+        "On branch main",
+        "Changes to be committed:",
+        "  modified:   informe.ts",
+        "",
+        "Changes not staged for commit:",
+        "  modified:   datos.ts",
+        "",
+        "Untracked files:",
+        "  notas.txt"
+      ],
+      "nota": "`git status` te dice cómo está cada fichero (en inglés; aquí, resumido). **To be committed**: preparado, entra en la próxima foto. **Not staged**: modificado, pero sin `git add`. **Untracked**: un fichero nuevo que Git todavía no vigila."
+    },
+    {
+      "tipo": "terminal",
+      "orden": "git commit -m \"Añade informe\"",
+      "salida": [
+        "[main 3f2a1c0] Añade informe",
+        " 1 file changed, 2 insertions(+)"
+      ],
+      "nota": "La foto se ha hecho con informe.ts, el único preparado. 3f2a1c0 es el **código de la foto** (el hash), y main, la rama en la que estás. datos.ts y notas.txt siguen como estaban."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En DeIure trabajan a la vez varios agentes de IA, así que su CLAUDE.md les obliga a elegir uno a uno los ficheros que preparan. `git add .` lo prepara **todo**, también lo que no es tuyo o lo que no debería subir nunca.",
+      "codigo": "- **Staging selectivo — SIEMPRE**: `git add <rutas concretas>`. **NUNCA `git add .` / `git add -A`**",
+      "fichero": "CLAUDE.md"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d01-r1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Mira lo que dice git status. ¿Qué fichero entraría en un commit ahora mismo?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git status",
+        "salida": [
+          "Changes to be committed:",
+          "  new file:   brecha.ts",
+          "",
+          "Changes not staged for commit:",
+          "  modified:   plazos.ts"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "Solo brecha.ts",
+          "correcta": true,
+          "siEliges": "Eso es: es el único en «to be committed», el que se preparó con git add."
+        },
+        {
+          "texto": "Solo plazos.ts",
+          "siEliges": "plazos.ts está modificado pero sin preparar: no entra."
+        },
+        {
+          "texto": "Los dos",
+          "siEliges": "Un commit guarda solo lo preparado. plazos.ts necesitaría antes un git add."
+        }
+      ],
+      "pistas": [
+        "Hay dos apartados: ¿cuál significa «preparado»?",
+        "«Changes to be committed»: lo que entra en el commit.",
+        "Lo de «not staged» se queda fuera."
+      ],
+      "explicacion": "git add elige y git commit guarda lo elegido. Así cada foto lleva solo los cambios que tú decides."
+    },
+    {
+      "id": "s08-d01-r2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Has creado notas.txt y haces un commit. ¿Por qué no se ha guardado nada?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git commit -m \"Notas\"",
+        "salida": [
+          "Untracked files:",
+          "  notas.txt",
+          "",
+          "nothing added to commit but",
+          "untracked files present"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "Falta git add notas.txt",
+          "correcta": true,
+          "siEliges": "Correcto: Git no vigila notas.txt hasta que lo preparas."
+        },
+        {
+          "texto": "El mensaje está mal escrito",
+          "siEliges": "El mensaje vale. Git dice que no has añadido nada al commit."
+        },
+        {
+          "texto": "notas.txt está vacío",
+          "siEliges": "Git dice «untracked»: el fichero existe, pero no se ha preparado."
+        }
+      ],
+      "pistas": [
+        "Busca la palabra clave: «nothing added».",
+        "«No se ha añadido nada al commit».",
+        "¿Qué orden añade un fichero a la próxima foto?"
+      ],
+      "explicacion": "Un fichero nuevo no entra solo: primero git add, después git commit. La terminal siempre te dice qué falta, en inglés."
+    },
+    {
+      "ref": "s08-rev-1"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s08-rev-x3"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d01-n1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Este programa imita a git status. ¿Qué escribe?",
+      "codigo": "const fs = [\n  { nombre: \"a.ts\", listo: true },\n  { nombre: \"b.ts\", listo: false },\n  { nombre: \"c.ts\", listo: true },\n];\nconst entran = fs\n  .filter((f) => f.listo)\n  .map((f) => f.nombre);\nconsole.log(entran);\nconst n = fs.length - entran.length;\nconsole.log(n);",
+      "opciones": [
+        {
+          "texto": "[ 'a.ts', 'c.ts' ]\n1",
+          "correcta": true,
+          "siEliges": "Eso es: entran los dos preparados, y queda uno fuera."
+        },
+        {
+          "texto": "[ 'b.ts' ]\n2",
+          "siEliges": "filter se queda con los que tienen listo en true."
+        },
+        {
+          "texto": "[ 'a.ts', 'c.ts' ]\n3",
+          "siEliges": "La segunda línea resta: 3 ficheros menos 2 que entran."
+        },
+        {
+          "texto": "2\n1",
+          "siEliges": "map devuelve una lista con los nombres, no cuántos son."
+        }
+      ],
+      "pistas": [
+        "filter elige los que tienen listo en true.",
+        "map saca el nombre de cada uno.",
+        "La última línea resta las longitudes de las dos listas."
+      ],
+      "explicacion": "Repaso de la semana 7 con un caso de Git: filter elige, map transforma y .length cuenta."
+    },
+    "escribir": {
+      "id": "s08-d01-n2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe el nombre de cada fichero preparado (estado «listo»), uno por línea, y al final «Total: » con cuántos son. Son los que entrarían en el commit.",
+      "datos": "const fs = [\n  { nombre: \"a.ts\", estado: \"listo\" },\n  { nombre: \"b.ts\", estado: \"otro\" },\n];",
+      "inicial": "// Elige los preparados\n// Escribe sus nombres y el total",
+      "salidaEsperada": [
+        "a.ts",
+        "Total: 1"
+      ],
+      "variantes": [
+        {
+          "datos": "const fs = [\n  { nombre: \"x.ts\", estado: \"listo\" },\n  { nombre: \"y.ts\", estado: \"listo\" },\n];",
+          "salidaEsperada": [
+            "x.ts",
+            "y.ts",
+            "Total: 2"
+          ]
+        },
+        {
+          "datos": "const fs = [\n  { nombre: \"z.ts\", estado: \"nuevo\" },\n];",
+          "salidaEsperada": [
+            "Total: 0"
+          ]
+        }
+      ],
+      "solucion": "const listos = fs.filter((f) =>\n  f.estado === \"listo\"\n);\nfor (const f of listos) {\n  console.log(f.nombre);\n}\nconsole.log(\"Total:\", listos.length);",
+      "pistas": [
+        "Primero, filter con los de estado «listo».",
+        "Después, un for...of que escriba el nombre de cada uno.",
+        "El total es la longitud de la lista filtrada."
+      ],
+      "explicacion": "Si no hay ninguno preparado, el bucle no da ninguna vuelta y solo sale «Total: 0», como cuando git dice que no hay nada que guardar."
+    }
+  }
+}

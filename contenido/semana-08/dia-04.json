@@ -1,0 +1,214 @@
+{
+  "id": "s08-d04",
+  "semana": 8,
+  "dia": 4,
+  "titulo": "Tests: comprobar sin mirar a mano",
+  "objetivo": "Hoy aprendes qué es un test, a leer test y expect, y a entender el informe: ✓ si pasa, × si falla, con Expected y Received.",
+  "conceptos": [
+    "tests"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un **test** es una comprobación automática: llama a una función con un dato conocido y compara lo que devuelve con lo que **debería** devolver. Es como una lista de verificación de cumplimiento que se pasa sola cada vez que alguien toca el código. Si alguien rompe algo, un test se pone en rojo."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function quedan(horas) {\n  return 72 - horas;\n}\ntest(\"a las 50 h quedan 22\", () => {\n  expect(quedan(50)).toBe(22);\n});",
+      "salida": [
+        "✓ a las 50 h quedan 22"
+      ],
+      "nota": "`test` recibe un **nombre** (lo que comprueba) y una flecha con la comprobación. `expect(x).toBe(y)` se lee «espero que x sea y». Aquí quedan(50) da 22, así que pasa: ✓."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function iva(precio) {\n  return precio * 0.2;\n}\ntest(\"IVA de 100\", () => {\n  expect(iva(100)).toBe(21);\n});",
+      "salida": [
+        "× IVA de 100",
+        "  Expected: 21",
+        "  Received: 20"
+      ],
+      "nota": "Si falla, sale × y el informe, en inglés: **Expected** es lo esperado (lo que pusiste en toBe) y **Received**, lo recibido (lo que devolvió la función). La diferencia es el fallo: el 0.2 tenía que ser 0.21."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Hay dos herramientas de tests muy usadas: **Vitest** (la de tus misiones) y **Jest** (la de DeIure). Se escriben casi igual: `test`, `expect`, `toBe`. Jest también acepta `it` en vez de `test`, y las dos agrupan tests con `describe`. En un fichero de Vitest de verdad, la primera línea es `import { test, expect } from \"vitest\";`. Aquí no hace falta."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Un test real de DeIure, con Jest. Comprueba cómo se escriben los milisegundos en pantalla. Fíjate en que prueba los **límites**: menos de 1000, entre 1000 y 9999, y sin dato (null).",
+      "codigo": "describe('format-metrics (es-ES)', () => {\n  test('formatMs: <1000 → \"Xms\"', () => {\n    expect(formatMs(480)).toBe('480 ms');\n  });\n  test('formatMs: null → \"—\"', () => {\n    expect(formatMs(null)).toBe('—');\n  });",
+      "fichero": "DeIure/src/lib/__tests__/format-metrics.test.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d04-r1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const doble = (n) => n * 2;\ntest(\"doble de 2\", () => {\n  expect(doble(2)).toBe(4);\n});\ntest(\"doble de 0\", () => {\n  expect(doble(0)).toBe(2);\n});",
+      "opciones": [
+        {
+          "texto": "✓ doble de 2\n× doble de 0\n  Expected: 2\n  Received: 0",
+          "correcta": true,
+          "siEliges": "Eso es: el primero pasa, y en el segundo se esperaba 2 y la función devolvió 0."
+        },
+        {
+          "texto": "✓ doble de 2\n× doble de 0\n  Expected: 0\n  Received: 2",
+          "siEliges": "Al revés: Expected es lo que pone en toBe (2); Received, lo que devolvió doble(0) (0)."
+        },
+        {
+          "texto": "✓ doble de 2\n✓ doble de 0",
+          "siEliges": "doble(0) es 0, y el test espera 2: falla."
+        }
+      ],
+      "pistas": [
+        "Calcula doble(2) y doble(0).",
+        "Compara cada uno con lo que pone en toBe.",
+        "Expected es lo de toBe; Received, lo que devolvió la función."
+      ],
+      "explicacion": "Aquí el fallo está en el test, no en la función: doble de 0 es 0. Un test también puede estar mal escrito."
+    },
+    {
+      "id": "s08-d04-r2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el test pase.",
+      "codigo": "function iva(precio) {\n  return precio * 0.21;\n}\ntest(\"IVA de 100\", () => {\n  expect(iva(100)).toBe(___);\n});",
+      "salidaEsperada": [
+        "✓ IVA de 100"
+      ],
+      "opciones": [
+        {
+          "texto": "21",
+          "correcta": true,
+          "siEliges": "Correcto: iva(100) devuelve el número 21."
+        },
+        {
+          "texto": "\"21\"",
+          "siEliges": "Es un texto, y la función devuelve un número: Expected '21', Received 21. toBe distingue el tipo."
+        },
+        {
+          "texto": "100",
+          "siEliges": "Eso sería el precio, no el IVA."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve iva(100)?",
+        "Un número: 21.",
+        "Ojo con las comillas."
+      ],
+      "explicacion": "En el informe, los textos salen entre comillas y los números sin ellas: así se ve si el fallo es de tipo."
+    },
+    {
+      "ref": "s08-rev-4"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s08-d04-x1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function saludo(n) {\n  return \"Hola \" + n;\n}\ntest(\"saludo\", () => {\n  expect(saludo(\"Ana\"))\n    .toBe(\"Hola, Ana\");\n});",
+      "opciones": [
+        {
+          "texto": "× saludo\n  Expected: 'Hola, Ana'\n  Received: 'Hola Ana'",
+          "correcta": true,
+          "siEliges": "Eso es: falta la coma. El informe enseña los dos textos para compararlos letra a letra."
+        },
+        {
+          "texto": "✓ saludo",
+          "siEliges": "Compara letra a letra: el test espera una coma que la función no pone."
+        },
+        {
+          "texto": "× saludo\n  Expected: 'Hola Ana'\n  Received: 'Hola, Ana'",
+          "siEliges": "Expected es lo de toBe, el texto con coma."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve saludo(\"Ana\")?",
+        "Compáralo con lo que pone en toBe.",
+        "Hay un carácter de diferencia."
+      ],
+      "explicacion": "Un expect largo se puede partir en dos líneas: .toBe sigue en la línea de abajo."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d04-n1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const exps = [{ id: 1, estado: \"A\" }];\nconst buscar = (id) =>\n  exps.find((e) => e.id === id);\ntest(\"id 1\", () => {\n  expect(buscar(1).estado).toBe(\"A\");\n});\ntest(\"id 9\", () => {\n  expect(buscar(9).estado).toBe(\"A\");\n});\nconsole.log(\"fin\");",
+      "opciones": [
+        {
+          "texto": "✓ id 1\n× id 9\n  TypeError: Cannot read properties of undefined (reading 'estado')\nfin",
+          "correcta": true,
+          "siEliges": "Eso es: find no encuentra el 9, da undefined, y leer .estado de undefined es un error. El test falla, pero el programa sigue."
+        },
+        {
+          "texto": "✓ id 1\n× id 9\n  Expected: 'A'\n  Received: undefined",
+          "siEliges": "No llega a comparar: el error salta antes, al leer .estado de undefined."
+        },
+        {
+          "texto": "✓ id 1\n✓ id 9\nfin",
+          "siEliges": "No existe ningún expediente con id 9."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve buscar(9)?",
+        "find sin resultado da undefined.",
+        "¿Qué pasa al leer un campo de undefined dentro de un test?"
+      ],
+      "explicacion": "Un error dentro de un test lo pone en rojo, pero no para los demás. Es el caso que un buen test debe probar: el expediente que no existe."
+    },
+    "escribir": {
+      "id": "s08-d04-n2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "restan(dias) devuelve cuántos días quedan de un plazo de 30. Escribe un test llamado «12 días: quedan 18» que compruebe que restan(12) da 18.",
+      "datos": "function restan(dias) {\n  return 30 - dias;\n}",
+      "inicial": "// test(nombre, () => { … })\n// y dentro, expect(…).toBe(…)",
+      "salidaEsperada": [
+        "✓ 12 días: quedan 18"
+      ],
+      "variantes": [
+        {
+          "datos": "function restan(dias) {\n  return 30 + dias;\n}",
+          "salidaEsperada": [
+            "× 12 días: quedan 18",
+            "  Expected: 18",
+            "  Received: 42"
+          ]
+        },
+        {
+          "datos": "function restan(dias) {\n  return dias - 30;\n}",
+          "salidaEsperada": [
+            "× 12 días: quedan 18",
+            "  Expected: 18",
+            "  Received: -18"
+          ]
+        }
+      ],
+      "solucion": "test(\"12 días: quedan 18\", () => {\n  expect(restan(12)).toBe(18);\n});",
+      "pistas": [
+        "Copia la forma del test de la lección.",
+        "Dentro de expect va la llamada; dentro de toBe, lo que debería dar.",
+        "expect(restan(12)).toBe(18);"
+      ],
+      "explicacion": "Las variantes ocultas usan versiones rotas de restan, y tu test tiene que ponerse en rojo con ellas. Un test que no puede fallar no comprueba nada."
+    }
+  }
+}

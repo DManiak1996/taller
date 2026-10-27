@@ -1,0 +1,194 @@
+{
+  "id": "s08-d05",
+  "semana": 8,
+  "dia": 5,
+  "titulo": "toBe y toEqual: igual no es lo mismo",
+  "objetivo": "Hoy aprendes cuándo usar toBe y cuándo toEqual, y por qué dos objetos con el mismo contenido no son el mismo objeto.",
+  "conceptos": [
+    "tests"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "`toBe` comprueba que dos cosas son **la misma**. Con números, textos y booleanos funciona como `===`. Pero ¿recuerdas la semana pasada? Dos objetos con el mismo contenido son **dos fichas distintas**, con signaturas distintas. Para ellos, toBe falla."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const fuera = (l) =>\n  l.filter((h) => h > 72);\nconst r = fuera([10, 80]);\ntest(\"con toBe\", () => {\n  expect(r).toBe([80]);\n});\ntest(\"con toEqual\", () => {\n  expect(r).toEqual([80]);\n});",
+      "salida": [
+        "× con toBe",
+        "  Expected: [ 80 ]",
+        "  Received: [ 80 ]",
+        "✓ con toEqual"
+      ],
+      "nota": "El primer informe parece absurdo: Expected y Received son iguales… pero son dos listas distintas. `toEqual` compara **el contenido**, campo a campo y elemento a elemento: es la que se usa con listas y objetos."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "¿toBe o toEqual?",
+      "pasos": [
+        {
+          "titulo": "Número, texto, booleano",
+          "texto": "toBe: `expect(total).toBe(195)`."
+        },
+        {
+          "titulo": "Lista u objeto",
+          "texto": "toEqual: `expect(r).toEqual([80, 96])`."
+        },
+        {
+          "titulo": "Si dudas",
+          "texto": "Si Expected y Received se ven iguales y aun así falla, cambia toBe por toEqual."
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En DeIure, este test compara dos objetos de progreso calculados por caminos distintos. Como son objetos, usa toEqual: lo que importa es que su contenido coincida.",
+      "codigo": "  it('projects the database completed count with the same denominator', () => {\n    const fromApartados = getProjectProgress({\n      '01': { finalData: 'x'.repeat(51) },\n      '02': { finalData: 'x'.repeat(51) },\n    });\n\n    expect(getProjectProgressFromCompletedCount(2)).toEqual(fromApartados);\n  });",
+      "fichero": "DeIure/src/lib/__tests__/project-progress.test.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d05-r1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const exp = {\n  estado: \"abierto\",\n  dias: 12,\n};\ntest(\"ficha\", () => {\n  expect(exp).toEqual({\n    estado: \"abierto\",\n    dias: 12,\n  });\n});",
+      "opciones": [
+        {
+          "texto": "✓ ficha",
+          "correcta": true,
+          "siEliges": "Eso es: toEqual compara el contenido, y coincide campo a campo."
+        },
+        {
+          "texto": "× ficha\n  Expected: { estado: 'abierto', dias: 12 }\n  Received: { estado: 'abierto', dias: 12 }",
+          "siEliges": "Eso pasaría con toBe. toEqual mira el contenido, no si es la misma ficha."
+        },
+        {
+          "texto": "× ficha\n  Expected: 12\n  Received: 12",
+          "siEliges": "Se compara el objeto entero, no un campo."
+        }
+      ],
+      "pistas": [
+        "¿Qué compara toEqual?",
+        "El contenido, campo a campo.",
+        "¿Coinciden los dos campos?"
+      ],
+      "explicacion": "Con objetos y listas, toEqual. Así el test comprueba lo que de verdad importa: los datos."
+    },
+    {
+      "id": "s08-d05-r2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que el test pase.",
+      "codigo": "const ids = (l) => l.map((e) => e.id);\nconst l = [{ id: 3 }, { id: 7 }];\ntest(\"ids\", () => {\n  expect(ids(l)).___([3, 7]);\n});",
+      "salidaEsperada": [
+        "✓ ids"
+      ],
+      "opciones": [
+        {
+          "texto": "toEqual",
+          "correcta": true,
+          "siEliges": "Correcto: ids(l) es una lista, y se compara su contenido."
+        },
+        {
+          "texto": "toBe",
+          "siEliges": "ids(l) y [3, 7] tienen lo mismo, pero son dos listas distintas: toBe falla."
+        },
+        {
+          "texto": "equal",
+          "siEliges": "No existe: el nombre es toEqual, con «to» delante y la E en mayúscula. Da un error."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve ids: un número o una lista?",
+        "Una lista.",
+        "Con listas, ¿toBe o toEqual?"
+      ],
+      "explicacion": "map devuelve siempre una lista nueva, así que con toBe nunca pasaría: es la misma trampa de las referencias de la semana 7."
+    },
+    {
+      "ref": "s08-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s08-rev-x2"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d05-n1",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Repaso de referencias con tests. ¿Qué escribe este programa?",
+      "codigo": "const a = { dias: 10 };\nconst b = a;\nconst c = { ...a };\ntest(\"b\", () => {\n  expect(b).toBe(a);\n});\ntest(\"c\", () => {\n  expect(c).toBe(a);\n});",
+      "opciones": [
+        {
+          "texto": "✓ b\n× c\n  Expected: { dias: 10 }\n  Received: { dias: 10 }",
+          "correcta": true,
+          "siEliges": "Eso es: b es la misma ficha que a, así que toBe pasa; c es una copia, otra ficha."
+        },
+        {
+          "texto": "× b\n  Expected: { dias: 10 }\n  Received: { dias: 10 }\n× c\n  Expected: { dias: 10 }\n  Received: { dias: 10 }",
+          "siEliges": "b no es una copia: const b = a da otro nombre a la misma ficha. toBe pasa."
+        },
+        {
+          "texto": "✓ b\n✓ c",
+          "siEliges": "c se hizo con los tres puntos: es otra ficha, y toBe lo nota."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas fichas hay en memoria?",
+        "Dos: a (que también se llama b) y la copia c.",
+        "toBe solo pasa si es la misma ficha."
+      ],
+      "explicacion": "toBe responde a «¿es la misma ficha?» y toEqual a «¿tienen lo mismo?». Aquí b pasaría con las dos; c, solo con toEqual."
+    },
+    "escribir": {
+      "id": "s08-d05-n2",
+      "semana": 8,
+      "concepto": "tests",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "fuera(lista) devuelve las horas que pasan de 72. Escribe un test llamado «fuera de plazo» que compruebe que fuera([10, 80, 96]) da [80, 96].",
+      "datos": "const fuera = (l) =>\n  l.filter((h) => h > 72);",
+      "inicial": "// Es una lista: ¿toBe o toEqual?",
+      "salidaEsperada": [
+        "✓ fuera de plazo"
+      ],
+      "variantes": [
+        {
+          "datos": "const fuera = (l) =>\n  l.filter((h) => h < 72);",
+          "salidaEsperada": [
+            "× fuera de plazo",
+            "  Expected: [ 80, 96 ]",
+            "  Received: [ 10 ]"
+          ]
+        },
+        {
+          "datos": "const fuera = (l) =>\n  l.map((h) => h > 72);",
+          "salidaEsperada": [
+            "× fuera de plazo",
+            "  Expected: [ 80, 96 ]",
+            "  Received: [ false, true, true ]"
+          ]
+        }
+      ],
+      "solucion": "test(\"fuera de plazo\", () => {\n  const r = fuera([10, 80, 96]);\n  expect(r).toEqual([80, 96]);\n});",
+      "pistas": [
+        "Llama a fuera con [10, 80, 96] dentro del test.",
+        "Lo que devuelve es una lista.",
+        "expect(…).toEqual([80, 96])."
+      ],
+      "explicacion": "Con toBe el test fallaría siempre, incluso con la función bien: por eso aquí no vale. Las variantes ocultas usan las dos versiones rotas de la semana 7: la condición al revés y map en vez de filter."
+    }
+  }
+}

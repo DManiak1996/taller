@@ -1088,7 +1088,7 @@ console.log(bs.length);
 
 Pistas: 1) ¿Cuáles pasan de 72 horas? Ojo con la de 72 justas. 2) tarde es una lista nueva. 3) ¿Cambia bs?
 
-Explicación: Con 72 horas justas todavía se está a tiempo («a más tardar 72 horas», art. 33 RGPD). Y filter nunca cambia la lista de la que parte.
+Explicación: Con 72 horas justas todavía se está a tiempo: el plazo de 72 horas del art. 33 incluye las 72 justas. Y filter nunca cambia la lista de la que parte.
 
 #### Escribe el programa · `s07-d05-n2` · concepto metodos-array
 

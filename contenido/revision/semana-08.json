@@ -1,0 +1,371 @@
+[
+  {
+    "id": "s08-rev-1",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "git",
+    "tema": "neutro",
+    "enunciado": "Esto dice `git status` (resumido). Ahora escribes `git commit -m \"Informe\"`. La IA y Marta discuten qué entra en el commit. ¿Quién tiene razón?",
+    "codigo": "$ git status\nOn branch main\nChanges to be committed:\n  modified:   informe.ts\n\nChanges not staged for commit:\n  modified:   datos.ts\n\nUntracked files:\n  notas.txt",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Los cambios de los tres ficheros.",
+        "porque": "Un commit es una foto de todo lo que hay en la carpeta."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Solo el cambio de `informe.ts`.",
+        "porque": "Es lo único preparado con `git add`. Lo demás se queda fuera de esta foto."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `git add` elige qué entra en la foto; `git commit` la hace.",
+      "Marta": "La foto solo recoge lo preparado con `git add`: lo que sale en «Changes to be committed».",
+      "ninguno": "Esta vez sí acierta una. Fíjate en el primer apartado: «Changes to be committed»."
+    },
+    "pistas": [
+      "«to be committed» significa «para meter en el commit».",
+      "«not staged» significa «no preparado»: falta `git add`.",
+      "«Untracked» significa que Git ni siquiera lo sigue."
+    ],
+    "explicacion": "Solo entra el cambio de `informe.ts`. `git status` tiene tres apartados: preparado para el commit (`git add` ya hecho), modificado pero sin preparar, y sin seguimiento (un fichero nuevo que Git aún no vigila). Antes de cada commit, mira en qué apartado está cada fichero."
+  },
+  {
+    "id": "s08-rev-2",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "git",
+    "tema": "neutro",
+    "enunciado": "Has creado una rama, has hecho un commit en ella y has vuelto a `main`. La IA y Marta discuten si el cambio de `informe.ts` está en `main`. ¿Quién tiene razón?",
+    "codigo": "$ git switch -c informe\nSwitched to a new branch 'informe'\n$ git add informe.ts\n$ git commit -m \"Informe\"\n$ git switch main\nSwitched to branch 'main'",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Sí, está en `main`.",
+        "porque": "El commit ya está guardado en el proyecto."
+      },
+      {
+        "quien": "La IA",
+        "dice": "No, `main` sigue como estaba.",
+        "porque": "El commit se hizo en la rama `informe`. Llega a `main` cuando se fusiona, por ejemplo con un PR."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Para eso sirven las ramas: trabajar sin tocar `main` hasta que el cambio esté revisado.",
+      "Marta": "El commit está guardado, pero en la rama `informe`. `main` no lo verá hasta que se fusionen.",
+      "ninguno": "Esta vez sí acierta una. ¿En qué rama estabas al hacer el commit?"
+    },
+    "pistas": [
+      "`git switch -c informe` crea la rama y te cambia a ella.",
+      "¿En qué rama estabas al hacer el commit?",
+      "Cambiar de rama no se lleva los commits de la otra."
+    ],
+    "explicacion": "`main` sigue como estaba. El commit vive en la rama `informe`, y al volver a `main` el fichero vuelve a su versión de `main`. Así trabajas en las misiones: una rama por cambio y un PR para fusionarla cuando esté revisada."
+  },
+  {
+    "id": "s08-rev-3",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "git",
+    "tema": "rgpd",
+    "enunciado": "La IA dice: «Solo he cambiado el texto del mensaje». Este es su diff. La IA y Marta discuten. ¿Quién tiene razón?",
+    "codigo": "$ git diff\n--- a/plazo.ts\n+++ b/plazo.ts\n function enPlazo(horas) {\n-  return horas <= 72;\n+  return horas < 72;\n }\n-console.log(\"Plazo OK\");\n+console.log(\"Plazo correcto\");",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Solo cambia el mensaje.",
+        "porque": "Las líneas con − y + son el texto nuevo del aviso."
+      },
+      {
+        "quien": "Marta",
+        "dice": "También cambia el límite del plazo.",
+        "porque": "Hay otra pareja − y +: `<=` pasa a ser `<`, y las 72 horas justas quedan fuera."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Cuenta las parejas de − y +: hay dos. La primera cambia `<=` por `<`.",
+      "Marta": "Correcto. Un cambio pequeño y peligroso, escondido junto a otro inofensivo. Por eso se lee el diff entero.",
+      "ninguno": "Una de las dos acierta. ¿Cuántas parejas de − y + hay?"
+    },
+    "pistas": [
+      "Las líneas con − son lo que había; las de +, lo que hay ahora.",
+      "Las líneas que empiezan con un espacio no cambian.",
+      "Compara la línea con − y la línea con + de `return`."
+    ],
+    "explicacion": "Cambia dos cosas: el mensaje y el límite. Con `<`, las 72 horas justas ya no están en plazo, y el art. 33 RGPD dice «sin dilación indebida y, de ser posible, a más tardar 72 horas después de que haya tenido constancia». Un resumen de la IA no sustituye al diff: léelo entero, pareja a pareja."
+  },
+  {
+    "id": "s08-rev-4",
+    "tipo": "fallo",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "rgpd",
+    "enunciado": "La IA dice que su función está lista, pero el test sale en rojo. Lee el informe y toca la línea que está mal.",
+    "codigo": "function quedan(horas) {\n  return 72 + horas;\n}\ntest(\"a las 50 h quedan 22\", () => {\n  expect(quedan(50)).toBe(22);\n});",
+    "lineasFallo": [
+      2
+    ],
+    "opciones": [
+      {
+        "texto": "Suma en vez de restar: `72 - horas`. Received (122) es lo que da el código; Expected (22), lo que pide el test.",
+        "correcta": true,
+        "siEliges": "Exacto. Expected dice lo que tenía que salir, y Received, lo que salió. La diferencia te lleva al fallo."
+      },
+      {
+        "texto": "El test está mal: tiene que esperar 122.",
+        "siEliges": "Así pasaría, pero con un número imposible: quedarían 122 horas de 72. El test es el contrato; se arregla el código."
+      },
+      {
+        "texto": "Al test le falta un `return`.",
+        "siEliges": "Un test no devuelve nada: comprueba con `expect`. Mira Received: el que da 122 es el código."
+      }
+    ],
+    "arreglo": "function quedan(horas) {\n  return 72 - horas;\n}\ntest(\"a las 50 h quedan 22\", () => {\n  expect(quedan(50)).toBe(22);\n});",
+    "pistas": [
+      "¿Qué número sale en Received?",
+      "¿Cómo se llega a 122 con 72 y 50?",
+      "Para saber cuántas quedan, ¿se suma o se resta?"
+    ],
+    "explicacion": "Sale `× a las 50 h quedan 22`, con Expected 22 y Received 122. Expected es lo que pide el test; Received, lo que dio el código. 122 es 72 + 50: la función suma donde tenía que restar."
+  },
+  {
+    "id": "s08-rev-5",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "rgpd",
+    "enunciado": "Dos expedientes con el mismo contenido. La IA y Marta discuten si este test pasa. ¿Quién tiene razón?",
+    "codigo": "const a = { estado: \"abierta\" };\nconst b = { estado: \"abierta\" };\ntest(\"a y b son iguales\", () => {\n  expect(b).toBe(a);\n});",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Pasa.",
+        "porque": "Los dos tienen exactamente lo mismo dentro."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Falla.",
+        "porque": "`toBe` pide que sean el mismo objeto, y son dos. Para comparar lo de dentro está `toEqual`."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Tienen lo mismo dentro, pero son dos objetos, como `b = { ...a }` en la semana 7. `toBe` pide que sea el mismo.",
+      "Marta": "Correcto. Con `toEqual(a)` pasaría.",
+      "ninguno": "Una de las dos acierta. ¿Cuántos objetos `{ }` hay?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuántas veces se escriben unas llaves `{ }` que crean un objeto?",
+      "`toBe` comprueba si es el mismo, no si se parece.",
+      "Recuerda `b = a` frente a `{ ...a }` de la semana 7."
+    ],
+    "explicacion": "Falla, aunque Expected y Received se vean iguales. Son dos objetos con el mismo contenido. `toBe` pregunta «¿es el mismo?» y `toEqual`, «¿tiene lo mismo dentro?». Con números y textos da igual cuál uses; con objetos y listas, `toEqual`."
+  },
+  {
+    "id": "s08-rev-6",
+    "tipo": "fallo",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "rgpd",
+    "enunciado": "La IA dice: «El test pasa en verde, así que enPlazo funciona». Pero con 72 horas justas devuelve `false`. ¿Por qué no lo caza el test? Toca la línea del test que está mal.",
+    "codigo": "function enPlazo(horas) {\n  return horas < 72;\n}\ntest(\"72 h justas, en plazo\", () => {\n  enPlazo(72);\n});",
+    "lineasFallo": [
+      5
+    ],
+    "opciones": [
+      {
+        "texto": "Llama a la función, pero no comprueba nada. Sin `expect`, el test pasa siempre. Falta `expect(enPlazo(72)).toBe(true);`.",
+        "correcta": true,
+        "siEliges": "Exacto. Un test sin `expect` no puede fallar, y un test que no puede fallar no prueba nada."
+      },
+      {
+        "texto": "El nombre del test está mal escrito.",
+        "siEliges": "El nombre solo sirve para el informe. Lo que importa es qué comprueba dentro."
+      },
+      {
+        "texto": "Falta un `console.log(enPlazo(72))` dentro del test.",
+        "siEliges": "Así verías `false`, pero el test seguiría en verde. Lo que hace fallar un test es `expect`."
+      }
+    ],
+    "arreglo": "function enPlazo(horas) {\n  return horas < 72;\n}\ntest(\"72 h justas, en plazo\", () => {\n  expect(enPlazo(72)).toBe(true);\n});",
+    "pistas": [
+      "¿Qué comprueba el test?",
+      "Un test falla cuando un `expect` no se cumple.",
+      "¿Hay algún `expect` en el test?"
+    ],
+    "explicacion": "Con el fallo sale `✓`, en verde. Con el `expect`, sale `×` con Expected `true` y Received `false`: ahora sí caza el fallo de `enPlazo`. Antes de fiarte de un verde, mira que cada test tenga un `expect` que compare con el valor correcto."
+  },
+  {
+    "id": "s08-rev-7",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "git",
+    "tema": "neutro",
+    "enunciado": "Esto dice `git log --oneline`. La IA y Marta discuten qué es `main`. ¿Quién tiene razón?",
+    "codigo": "$ git log --oneline\nc3f9e21 (HEAD -> main) Informe\nb27a0d4 Datos de la brecha\na91c3e8 Primer commit",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Una copia completa del proyecto, guardada aparte.",
+        "porque": "Cada rama tiene sus propios ficheros."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Es el commit `c3f9e21`, y ya no cambia.",
+        "porque": "Al lado de ese commit pone `main`."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Una rama no copia nada: es una etiqueta que apunta a un commit.",
+      "Marta": "Ahora apunta a `c3f9e21`, pero no es ese commit: con el próximo commit, la etiqueta se moverá al nuevo.",
+      "ninguno": "Exacto. `main` es una etiqueta que apunta al último commit de la rama, y avanza con cada commit nuevo."
+    },
+    "pistas": [
+      "¿Qué pasará con `main` cuando hagas otro commit?",
+      "Cada commit apunta al anterior, como una cadena de fotos.",
+      "Una rama es como un nombre que apunta a un objeto, igual que en la semana 7."
+    ],
+    "explicacion": "`main` es una etiqueta que apunta a un commit; ahora, a `c3f9e21`. Cada commit apunta a su padre (`b27a0d4`, y este a `a91c3e8`). Al hacer otro commit, la etiqueta avanza. Por eso crear una rama es instantáneo: solo es una etiqueta nueva."
+  },
+  {
+    "id": "s08-rev-x1",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "rgpd",
+    "enunciado": "La IA ha escrito este test y dice que prueba su función. La IA y Marta discuten. ¿Quién tiene razón?",
+    "codigo": "function quedan(horas) {\n  return 72 + horas;\n}\ntest(\"quedan funciona\", () => {\n  quedan(50);\n  expect(true).toBe(true);\n});",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Pasa, y eso prueba que `quedan` funciona.",
+        "porque": "Llama a la función y tiene su `expect`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Pasa, pero no prueba nada.",
+        "porque": "Compara `true` con `true`, haga lo que haga `quedan`."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Tiene `expect`, pero no mira lo que devuelve `quedan`. `true` siempre es `true`.",
+      "Marta": "Correcto. Y `quedan` está mal: suma en vez de restar. El test no lo ve.",
+      "ninguno": "Una de las dos acierta. ¿Qué compara el `expect`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Qué compara el `expect`?",
+      "¿Puede `true` no ser `true`?",
+      "¿Se usa en algún sitio lo que devuelve `quedan(50)`?"
+    ],
+    "explicacion": "Sale `✓`, pero el test no puede fallar: `expect(true).toBe(true)` se cumple siempre. Es un truco que a veces usan las IA para que todo salga en verde. Un `expect` tiene que comparar lo que devuelve el código con el valor correcto: `expect(quedan(50)).toBe(22)`."
+  },
+  {
+    "id": "s08-rev-x2",
+    "tipo": "fallo",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "neutro",
+    "enunciado": "`horas` vale `[24, 48]`, pero el test de la IA sale en rojo. Esta vez el código está bien y el fallo está en el test. Toca la línea que está mal.",
+    "codigo": "const dias = [1, 2];\nconst horas = dias.map((d) => d * 24);\ntest(\"pasa días a horas\", () => {\n  expect(horas).toBe([24, 48]);\n});",
+    "lineasFallo": [
+      4
+    ],
+    "opciones": [
+      {
+        "texto": "`toBe` pide que sea la misma lista, y `[24, 48]` crea otra. Para comparar lo de dentro: `toEqual`.",
+        "correcta": true,
+        "siEliges": "Exacto. Con listas y objetos, `toEqual`."
+      },
+      {
+        "texto": "`map` tiene que llevar llaves y `return`.",
+        "siEliges": "Sin llaves, la flecha devuelve sola, y `horas` vale `[24, 48]`. El código está bien."
+      },
+      {
+        "texto": "Tiene que esperar `[1, 2]`.",
+        "siEliges": "Esa es la lista de días. El test espera las horas, `[24, 48]`, y eso está bien. Mira cómo compara."
+      }
+    ],
+    "arreglo": "const dias = [1, 2];\nconst horas = dias.map((d) => d * 24);\ntest(\"pasa días a horas\", () => {\n  expect(horas).toEqual([24, 48]);\n});",
+    "pistas": [
+      "¿Expected y Received se parecen?",
+      "Si tienen lo mismo dentro, ¿qué pregunta `toBe`?",
+      "Una lista escrita con `[ ]` es una lista nueva."
+    ],
+    "explicacion": "Sale `×` con Expected y Received que parecen iguales: es la pista de un `toBe` con listas u objetos. `[24, 48]` crea una lista nueva, que no es `horas` aunque tenga lo mismo. Con `toEqual` pasa."
+  },
+  {
+    "id": "s08-rev-x3",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "git",
+    "tema": "rgpd",
+    "enunciado": "La IA te propone `git add .` y luego el commit. Antes, miras `git status`. La IA y Marta discuten si hay algo que revisar. ¿Quién tiene razón?",
+    "codigo": "$ git add .\n$ git status\nChanges to be committed:\n  new file:   .env\n  modified:   informe.ts",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "No, todo bien.",
+        "porque": "`git add .` añade lo que has cambiado, que es justo lo que quieres."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Sí: hay que sacar `.env`.",
+        "porque": "Un `.env` suele guardar contraseñas y claves. Hay que sacarlo con `git restore --staged .env` y añadirlo a `.gitignore`."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Esta vez la IA acierta, y además ha mirado `git status` antes del commit.",
+      "Marta": "`git add .` añade todo, también lo que no debería subirse nunca, como un `.env` con claves.",
+      "ninguno": "Esta vez sí acierta una. ¿Qué suele haber en un fichero `.env`?"
+    },
+    "pistas": [
+      "Fíjate en `new file`: un fichero que nunca había estado en Git.",
+      "¿Qué suele guardar un `.env`?",
+      "Lo que se sube a GitHub queda en el historial, aunque luego se borre."
+    ],
+    "explicacion": "Hay que sacar `.env`. `git add .` prepara todo lo que hay en la carpeta, también lo que no debe subirse. Unas claves subidas a GitHub quedan en el historial aunque se borren después, y habría que cambiarlas. Mira siempre `git status` antes de un commit, y ten un `.gitignore` con `.env`."
+  },
+  {
+    "id": "s08-rev-x4",
+    "tipo": "razon",
+    "semana": 8,
+    "concepto": "tests",
+    "tema": "rgpd",
+    "enunciado": "La IA ha escrito dos tests para `enPlazo` y los dos salen en verde. La IA y Marta discuten si basta. ¿Quién tiene razón?",
+    "codigo": "function enPlazo(horas) {\n  return horas < 72;\n}\ntest(\"10 h, en plazo\", () => {\n  expect(enPlazo(10)).toBe(true);\n});\ntest(\"100 h, fuera\", () => {\n  expect(enPlazo(100)).toBe(false);\n});",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Basta: los dos pasan.",
+        "porque": "Prueban un caso dentro del plazo y otro fuera."
+      },
+      {
+        "quien": "La IA",
+        "dice": "No basta: falta el límite.",
+        "porque": "Con 72 horas justas, `enPlazo` devuelve `false`, y ningún test lo prueba."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Un test con 72 justas saldría en rojo y cazaría el `<` que tenía que ser `<=`.",
+      "Marta": "Pasan, pero con valores lejos del límite. El fallo está justo en el 72, y nadie lo prueba.",
+      "ninguno": "Esta vez sí acierta una. ¿Qué valor falta probar?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Dónde se esconden los fallos de `<` y `<=`?",
+      "¿Hay algún test con el valor del límite?",
+      "¿Qué devuelve `enPlazo(72)`?"
+    ],
+    "explicacion": "Salen dos `✓`, pero `enPlazo(72)` da `false` aunque el art. 33 RGPD dice «sin dilación indebida y, de ser posible, a más tardar 72 horas después de que haya tenido constancia». Para elegir los casos de un test: uno normal, el propio límite y, si hay listas, la vacía. Que todo esté en verde solo dice que pasan los casos que alguien eligió."
+  }
+]

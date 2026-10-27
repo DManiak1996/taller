@@ -1,0 +1,211 @@
+{
+  "id": "s08-d02",
+  "semana": 8,
+  "dia": 2,
+  "titulo": "Ramas: trabajar sin tocar main",
+  "objetivo": "Hoy aprendes qué es una rama, a crearla y cambiarte a ella, y por qué los cambios se hacen en una rama y no directamente en main.",
+  "conceptos": [
+    "git"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "**main** es la rama principal: la versión buena, la que se publica. Para cambiar algo, se crea una **rama** (branch), una línea de trabajo aparte. Es como redactar sobre una copia de trabajo del contrato: el original no se toca hasta que el cambio está revisado. Si sale mal, se tira la rama y main sigue intacta."
+    },
+    {
+      "tipo": "terminal",
+      "orden": "git switch -c informe",
+      "salida": [
+        "Switched to a new branch 'informe'"
+      ],
+      "nota": "`git switch -c nombre` **crea** una rama y te **cambia** a ella (c de create). Desde ahora, tus commits van a la rama informe, no a main."
+    },
+    {
+      "tipo": "terminal",
+      "orden": "git branch",
+      "salida": [
+        "* informe",
+        "  main"
+      ],
+      "nota": "`git branch` lista las ramas. El asterisco marca **en cuál estás**. Para volver: `git switch main` (sin -c, porque ya existe)."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "El camino de un cambio",
+      "pasos": [
+        {
+          "titulo": "Crear rama",
+          "texto": "Desde main: `git switch -c informe`."
+        },
+        {
+          "titulo": "Trabajar",
+          "texto": "Cambias, `git add` y `git commit`, las veces que haga falta. main no se entera."
+        },
+        {
+          "titulo": "Revisar",
+          "texto": "Alguien revisa el cambio. En GitHub se pide con una pull request (PR)."
+        },
+        {
+          "titulo": "Fusionar",
+          "texto": "Si está bien, los commits de la rama pasan a main."
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En DeIure, cada tarea va en su propia rama, con el nombre de quién la hace delante. Así dos agentes de IA nunca pisan el trabajo del otro, y main solo recibe lo revisado.",
+      "codigo": "- Una tarea que edita = una rama con prefijo de propietario (`codex/...`, `claude/...`)",
+      "fichero": "CLAUDE.md"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s08-d02-r1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Esto dice git branch. ¿A qué rama irá tu próximo commit?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git branch",
+        "salida": [
+          "  brecha",
+          "* main",
+          "  plazos"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "main",
+          "correcta": true,
+          "siEliges": "Eso es: el asterisco marca la rama en la que estás, y ahí va el commit."
+        },
+        {
+          "texto": "brecha",
+          "siEliges": "brecha es la primera de la lista, pero el asterisco está en main."
+        },
+        {
+          "texto": "A las tres",
+          "siEliges": "Un commit va solo a la rama en la que estás."
+        }
+      ],
+      "pistas": [
+        "Hay una marca al principio de una línea.",
+        "El asterisco señala la rama actual.",
+        "El commit va a la rama actual."
+      ],
+      "explicacion": "Antes de un commit, mira en qué rama estás. Un commit en main por error es de los despistes más típicos."
+    },
+    {
+      "id": "s08-d02-r2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Quieres volver a main, pero escribes esto. ¿Qué ha pasado?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "git switch -c main",
+        "salida": [
+          "fatal: a branch named 'main'",
+          "already exists"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "Sobra el -c: main ya existe",
+          "correcta": true,
+          "siEliges": "Correcto: -c es para crear. Para cambiarte a una rama que existe, git switch main."
+        },
+        {
+          "texto": "Se ha borrado main",
+          "siEliges": "fatal significa que la orden no se ha hecho: no ha cambiado nada."
+        },
+        {
+          "texto": "Hay que hacer antes un commit",
+          "siEliges": "El mensaje dice que la rama main ya existe: el problema es el -c."
+        }
+      ],
+      "pistas": [
+        "Lee el mensaje: «a branch named 'main' already exists».",
+        "-c significa crear.",
+        "¿Se puede crear algo que ya existe?"
+      ],
+      "explicacion": "«fatal» en Git quiere decir que la orden se ha parado sin hacer nada. Lee el resto: casi siempre dice qué pasa."
+    },
+    {
+      "ref": "s08-rev-2"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s08-d02-n1",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Una rama copia la historia de main y sigue por su cuenta. ¿Qué escribe este programa?",
+      "codigo": "const main = [\"a91\", \"b27\"];\nconst otra = main;\nconst rama = [...main];\nrama[2] = \"c3f\";\nconsole.log(main.length);\nconsole.log(otra.length);\nconsole.log(rama.length);",
+      "opciones": [
+        {
+          "texto": "2\n2\n3",
+          "correcta": true,
+          "siEliges": "Eso es: rama es una copia, y crecer no toca a main. otra es la misma lista que main."
+        },
+        {
+          "texto": "3\n3\n3",
+          "siEliges": "rama se hizo con los tres puntos: es una lista distinta."
+        },
+        {
+          "texto": "2\n3\n3",
+          "siEliges": "otra apunta a la misma lista que main, y esa no ha cambiado."
+        }
+      ],
+      "pistas": [
+        "¿Cuál de las dos es una copia de verdad?",
+        "La de los tres puntos. otra es otro nombre para main.",
+        "Solo rama recibe un tercer elemento."
+      ],
+      "explicacion": "Repaso de la semana 7: const otra = main no copia. Una rama de Git sí se comporta como la copia: lo que añades en ella no aparece en main."
+    },
+    "escribir": {
+      "id": "s08-d02-n2",
+      "semana": 8,
+      "concepto": "git",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Imita a git branch: escribe cada rama en una línea, con «* » delante si es la actual y con dos espacios si no.",
+      "datos": "const ramas = [\"main\", \"informe\"];\nconst actual = \"informe\";",
+      "inicial": "// Recorre las ramas\n// Elige el principio de cada línea",
+      "salidaEsperada": [
+        "  main",
+        "* informe"
+      ],
+      "variantes": [
+        {
+          "datos": "const ramas = [\"main\", \"a\", \"b\"];\nconst actual = \"main\";",
+          "salidaEsperada": [
+            "* main",
+            "  a",
+            "  b"
+          ]
+        },
+        {
+          "datos": "const ramas = [\"main\"];\nconst actual = \"main\";",
+          "salidaEsperada": [
+            "* main"
+          ]
+        }
+      ],
+      "solucion": "for (const r of ramas) {\n  if (r === actual) {\n    console.log(`* ${r}`);\n  } else {\n    console.log(`  ${r}`);\n  }\n}",
+      "pistas": [
+        "Un for...of por las ramas y un if dentro.",
+        "Compara cada rama con actual.",
+        "Con comillas invertidas puedes poner delante «* » o dos espacios."
+      ],
+      "explicacion": "Fíjate en que console.log(\"  \", r) no vale: pondría un espacio de más. Con comillas invertidas controlas cada espacio."
+    }
+  }
+}
