@@ -59,6 +59,12 @@ export type Pantalla =
       nota?: string;
     }
   | {
+      tipo: "diff";         // un cambio de Git: cada línea empieza por " " (igual), "+" (añadida) o "-" (quitada)
+      fichero: string;      // "informe.ts"
+      lineas: string[];     // [" const plazo = 72;", "-console.log(plazo);", "+console.log(\"Plazo:\", plazo);"]
+      nota?: string;
+    }
+  | {
       tipo: "esquema";      // un diagrama de flujo vertical: cajas unidas por flechas, de arriba abajo
       titulo?: string;
       pasos: { titulo: string; texto: string }[]; // 3 a 6 cajas; titulo de 1 a 3 palabras
@@ -140,7 +146,22 @@ export interface RetoRazon extends RetoBase {
   comprobar?: true;         // al terminar, la web ejecuta el código delante de él
 }
 
-export type Reto = RetoPredecir | RetoHueco | RetoOrdenar | RetoFallo | RetoRazon;
+// Elige la respuesta sobre algo que no se ejecuta (semana 8, Git): leer un diff o lo que dice la terminal.
+export interface RetoElegir extends RetoBase {
+  tipo: "elegir";
+  bloque:
+    | { tipo: "diff"; fichero: string; lineas: string[] }        // como la pantalla "diff"
+    | { tipo: "terminal"; orden: string; salida: string[] };     // como la pantalla "terminal", sin fichero
+  opciones: Opcion[];       // 3 o 4; la web las baraja
+}
+
+// test y expect (semana 8): el sandbox los trae, como Vitest en pequeño. Un test que pasa imprime
+// «✓ nombre»; uno que falla, «× nombre», «  Expected: X» y «  Received: Y» (X e Y como dentro de un
+// console.log de una lista: los textos entre comillas), y el programa sigue. Un test sin expect pasa.
+// Si dentro del test salta otro error: «× nombre» y «  TypeError: …». Solo hay toBe (Object.is) y
+// toEqual (en profundidad). Para Node: scripts/pruebas-en-node.js del repo taller hace lo mismo.
+
+export type Reto = RetoPredecir | RetoHueco | RetoOrdenar | RetoFallo | RetoRazon | RetoElegir;
 export type RetoODeRef = Reto | { ref: string };
 
 // ---------- «Para nota» (opcional, al final del día) ----------

@@ -228,15 +228,17 @@ export function preparar(codigoTs: string, opciones: Opciones = {}): Preparado {
   } catch (e) {
     return { ok: false, error: errorDeSintaxis(e) }
   }
+  // test y expect solo se pasan si el código los usa y no tiene variables propias con ese nombre.
+  const conTests = /\b(?:test|expect)\s*\(/.test(js) && !/\b(?:const|let|var|function|class)\s+(?:test|expect)\b/.test(js)
   const programa = `(function () {
   const crearEntorno = ${crearEntorno.toString()};
   const __E = crearEntorno(${maxPasos}, ${maxVueltas});
   let __r;
   try {
-    (function (console, __linea, __paso, __cond, __vuelta) {
+    (function (console, __linea, __paso, __cond, __vuelta${conTests ? ', test, expect' : ''}) {
       "use strict";
 ${js}
-    })(__E.consola, __E.linea, __E.paso, __E.condicion, __E.vuelta);
+    })(__E.consola, __E.linea, __E.paso, __E.condicion, __E.vuelta${conTests ? ', __E.test, __E.expect' : ''});
     __r = __E.terminar();
   } catch (e) {
     __r = __E.terminar(e);

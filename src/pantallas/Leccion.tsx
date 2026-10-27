@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Pantalla } from '../contenido/cargar'
-import { Codigo, Consola, Icono, Texto } from '../ui/basicos'
+import { Codigo, Consola, Diff, Icono, Texto } from '../ui/basicos'
 import { Visualizador } from '../ui/Visualizador'
 
 function Contenido({ p }: { p: Pantalla }) {
@@ -47,6 +47,17 @@ function Contenido({ p }: { p: Pantalla }) {
         </>
       )
     }
+    case 'diff':
+      return (
+        <>
+          <Diff fichero={p.fichero} lineas={p.lineas} />
+          {p.nota && (
+            <p className="txt">
+              <Texto>{p.nota}</Texto>
+            </p>
+          )}
+        </>
+      )
     case 'terminal':
       return (
         <>

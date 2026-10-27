@@ -86,6 +86,12 @@ function comprobarReto(r: Reto) {
       if (r.comprobar) expect(correr(r.codigo).error?.nombre).not.toBe('TiempoAgotado')
       break
     }
+    case 'elegir': {
+      expect(r.opciones.length >= 3 && r.opciones.length <= 4, 'de 3 a 4 opciones').toBe(true)
+      expect(r.opciones.filter((o) => o.correcta), 'una sola opción correcta').toHaveLength(1)
+      if (r.bloque.tipo === 'diff') for (const l of r.bloque.lineas) expect(l, 'cada línea del diff empieza por " ", "+" o "-"').toMatch(/^[ +-]/)
+      break
+    }
     default:
       throw new Error(`tipo de reto desconocido: ${(r as { tipo: string }).tipo}`)
   }
@@ -151,6 +157,11 @@ describe('el contenido', () => {
         if (p.tipo === 'terminal' && p.fichero) {
           it(`pantalla ${i + 1} (terminal) imprime lo que dice`, () => {
             expect(correr(p.fichero!.codigo).salida).toEqual(p.salida)
+          })
+        }
+        if (p.tipo === 'diff') {
+          it(`pantalla ${i + 1} (diff) tiene líneas de diff`, () => {
+            for (const l of p.lineas) expect(l, 'cada línea empieza por " ", "+" o "-"').toMatch(/^[ +-]/)
           })
         }
         if (p.tipo === 'pasoapaso') {

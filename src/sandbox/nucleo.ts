@@ -164,6 +164,51 @@ export function crearEntorno(maxPasos: number, maxVueltas: number) {
     }
   }
 
+  // ---- test y expect, como en Vitest pero en pequeño (semana 8) ----
+  // Un test que falla no para el programa: se imprime y se sigue con el siguiente.
+  // scripts/pruebas-en-node.js hace lo mismo en Node para las pruebas del contenido.
+
+  const FALLO = 'FalloExpect'
+
+  function igual(a: unknown, b: unknown): boolean {
+    if (Object.is(a, b)) return true
+    if (typeof a !== 'object' || typeof b !== 'object' || a === null || b === null) return false
+    if (Array.isArray(a) !== Array.isArray(b)) return false
+    const ka = Object.keys(a)
+    const kb = Object.keys(b)
+    return ka.length === kb.length && ka.every((k) => k in b && igual((a as Record<string, unknown>)[k], (b as Record<string, unknown>)[k]))
+  }
+
+  function expect(recibido: unknown) {
+    const comprobar = (ok: boolean, esperado: unknown) => {
+      if (ok) return
+      const e = new Error('expect') as Error & { esperado: unknown; recibido: unknown }
+      e.name = FALLO
+      e.esperado = esperado
+      e.recibido = recibido
+      throw e
+    }
+    return {
+      toBe: (esperado: unknown) => comprobar(Object.is(recibido, esperado), esperado),
+      toEqual: (esperado: unknown) => comprobar(igual(recibido, esperado), esperado),
+    }
+  }
+
+  function test(nombre: string, fn: () => void) {
+    try {
+      fn()
+      consola.log('✓ ' + nombre)
+    } catch (e) {
+      if (e instanceof Error && e.name === 'BucleInfinito') throw e
+      consola.log('× ' + nombre)
+      if (e instanceof Error && e.name === FALLO) {
+        const f = e as Error & { esperado: unknown; recibido: unknown }
+        consola.log('  Expected: ' + inspeccionar(f.esperado, 0, []))
+        consola.log('  Received: ' + inspeccionar(f.recibido, 0, []))
+      } else consola.log('  ' + (e instanceof Error ? e.name + ': ' + e.message : String(e)))
+    }
+  }
+
   function terminar(e?: unknown): Resultado {
     const r: Resultado = { salida, pasos, pasosCortados }
     if (e !== undefined) {
@@ -181,5 +226,5 @@ export function crearEntorno(maxPasos: number, maxVueltas: number) {
     return r
   }
 
-  return { consola, linea, paso, condicion, vuelta, terminar }
+  return { consola, linea, paso, condicion, vuelta, terminar, test, expect }
 }
