@@ -56,6 +56,8 @@ Si al menos uno de los dos valores es un texto, `+` **concatena** en lugar de su
 
 En la tabla de operadores aritméticos de la guía «Expresiones y operadores» de MDN, ¿qué operador devuelve el **resto** de una división, y cuánto da `12 % 5`?
 
+Pista: está en la sección «Operadores aritméticos», en la tabla, columna «Ejemplo».
+
 ---
 
 **Respuesta:** el operador `%` (residuo o resto). `12 % 5` da `2`, porque 12 entre 5 cabe 2 veces y sobran 2.

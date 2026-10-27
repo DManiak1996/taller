@@ -56,6 +56,16 @@ Los mensajes de esta tabla son los de JavaScript en Node y en Chrome. Al ejecuta
 - Comprobar que los textos llevan comillas y los números no.
 - Ante un error, leer el mensaje completo: indica el tipo de error y la línea.
 
+## Cómo leer una página de MDN
+
+La documentación oficial no se lee entera: se consulta. En una página de referencia de MDN, este orden basta casi siempre:
+
+1. **El primer párrafo:** qué es y para qué sirve, en una o dos frases.
+2. **Sintaxis:** la forma general de escribirlo. Lo que va entre corchetes `[ ]` es opcional.
+3. **Ejemplos:** código real con su resultado. Suele ser la parte más útil.
+
+El resto (Descripción detallada, Especificaciones, Compatibilidad con navegadores, Ver también) se consulta solo cuando se busca algo concreto. No todas las páginas tienen todas las secciones, y algunas traducciones al castellano son más breves que la versión en inglés.
+
 ## Documentación oficial
 
 - [console.log()](https://developer.mozilla.org/es/docs/Web/API/console/log_static) (MDN).
@@ -64,6 +74,8 @@ Los mensajes de esta tabla son los de JavaScript en Node y en Chrome. Al ejecuta
 ## Búscalo tú
 
 Según la sección «Sintaxis» de la página de `console.log()` en MDN, ¿cuántos valores puede recibir `console.log` en una sola llamada?
+
+Pista: está en la sección «Sintaxis», en la primera línea de código.
 
 ---
 
