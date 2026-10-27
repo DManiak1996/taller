@@ -72,6 +72,8 @@ cerrada
 
 Según la página de `const` en MDN, ¿qué ocurre si se escribe `const FOO;` sin valor?
 
+Pista: está en la sección «Ejemplos», en un comentario junto a `const FOO;`. La sección «Descripción» lo explica con palabras.
+
 ---
 
 **Respuesta:** da error. La constante debe inicializarse en la misma sentencia en la que se declara.

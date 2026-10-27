@@ -79,6 +79,8 @@ Todo dato se guarda como **bits** (ceros y unos), agrupados en **bytes** (8 bits
 
 Según la página de `typeof` en MDN, ¿qué devuelve `typeof null`?
 
+Pista: está en el primer apartado de la página, «Resumen», en un bloque de código.
+
 ---
 
 **Respuesta:** `"object"`. Es una peculiaridad histórica de JavaScript: `null` no es un objeto, pero `typeof` lo clasifica así.
