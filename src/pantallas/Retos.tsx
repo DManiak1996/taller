@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Opcion, Reto } from '../contenido/cargar'
 import { ejecutar } from '../sandbox/ejecutar'
 import type { Resultado } from '../sandbox/tipos'
-import { Codigo, Consola, Icono, LineaSalida, Texto, type MarcaLinea } from '../ui/basicos'
+import { Codigo, Consola, Diff, Icono, LineaSalida, Terminal, Texto, type MarcaLinea } from '../ui/basicos'
 import { Visualizador } from '../ui/Visualizador'
 
 export interface ResultadoReto {
@@ -22,6 +22,7 @@ const NOMBRE_TIPO: Record<Reto['tipo'], string> = {
   ordenar: 'Ordena las líneas',
   fallo: 'Caza el fallo de la IA',
   razon: '¿Quién tiene razón?',
+  elegir: 'Elige la respuesta',
 }
 export const TITULOS_PISTA = ['Pista 1 · Dónde mirar', 'Pista 2 · La regla', 'Pista 3 · Casi la respuesta']
 const LETRAS = 'ABCDEF'
@@ -621,6 +622,29 @@ function Razon({ reto, ...resto }: Comunes & { reto: Extract<Reto, { tipo: 'razo
   )
 }
 
+function Elegir({ reto, ...resto }: Comunes & { reto: Extract<Reto, { tipo: 'elegir' }> }) {
+  const opciones = useMemo(() => barajar(reto.opciones, reto.id), [reto])
+  const [elegida, setElegida] = useState<number | null>(null)
+  const correcta = opciones.findIndex((o) => o.correcta)
+  const b = reto.bloque
+  return (
+    <MarcoReto
+      {...resto}
+      reto={reto}
+      listo={elegida !== null}
+      comprobar={() => ({ ok: opciones[elegida!].correcta === true, mensaje: opciones[elegida!].siEliges })}
+      reiniciar={() => setElegida(null)}
+      solucion={`La respuesta es la ${LETRAS[correcta]}`}
+      cuerpo={(estado) => (
+        <>
+          {b.tipo === 'diff' ? <Diff fichero={b.fichero} lineas={b.lineas} /> : <Terminal orden={b.orden} salida={b.salida} />}
+          <Opciones opciones={opciones} elegida={elegida} estado={estado} elegir={setElegida} comoSalida={opciones.some((o) => o.texto.includes('\n'))} />
+        </>
+      )}
+    />
+  )
+}
+
 export function RetoPantalla(props: Comunes & { reto: Reto }) {
   const { reto } = props
   switch (reto.tipo) {
@@ -634,5 +658,7 @@ export function RetoPantalla(props: Comunes & { reto: Reto }) {
       return <Fallo {...props} reto={reto} />
     case 'razon':
       return <Razon {...props} reto={reto} />
+    case 'elegir':
+      return <Elegir {...props} reto={reto} />
   }
 }

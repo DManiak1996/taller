@@ -52,6 +52,39 @@ export function Icono({ nombre, tam = 22, grosor = 2.5 }: { nombre: keyof typeof
   )
 }
 
+/** Un cambio de Git: cada línea empieza por " " (igual), "+" (añadida) o "-" (quitada). Sin scroll horizontal. */
+export function Diff({ fichero, lineas }: { fichero: string; lineas: string[] }) {
+  const clase = (l: string) => (l.startsWith('+') ? 'mas' : l.startsWith('-') ? 'menos' : 'igual')
+  return (
+    <figure className="diff-git" aria-label={`Cambios en ${fichero}`}>
+      <figcaption className="pestana">{fichero}</figcaption>
+      <div className="diff-lineas">
+        {lineas.map((l, i) => (
+          <div key={i} className={clase(l)}>
+            <span className="signo" aria-label={clase(l) === 'mas' ? 'añadida' : clase(l) === 'menos' ? 'quitada' : undefined}>
+              {clase(l) === 'igual' ? ' ' : l[0]}
+            </span>
+            <span>{l.slice(1)}</span>
+          </div>
+        ))}
+      </div>
+    </figure>
+  )
+}
+
+/** Una terminal: la orden y lo que sale. */
+export function Terminal({ orden, salida }: { orden: string; salida: string[] }) {
+  return (
+    <div className="consola" aria-label="Terminal">
+      <p className="consola-tit">Terminal</p>
+      <div className="terminal-orden">{orden}</div>
+      {salida.map((s, i) => (
+        <div key={i}>{s}</div>
+      ))}
+    </div>
+  )
+}
+
 /** Una línea de salida: si el contenido la empieza con ❌, se pinta el icono de aspa en su lugar. */
 export function LineaSalida({ texto }: { texto: string }) {
   if (!texto.startsWith('❌')) return <>{texto}</>

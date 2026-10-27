@@ -2,7 +2,7 @@
 import { retos, retosEscribir } from '../contenido/cargar'
 import { fallado, type Progreso } from '../progreso/modelo'
 
-const LEER = new Set(['predecir', 'fallo', 'razon'])
+const LEER = new Set(['predecir', 'fallo', 'razon', 'elegir'])
 const COMPLETAR = new Set(['hueco', 'ordenar'])
 
 export interface Niveles {
