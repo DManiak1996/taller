@@ -287,8 +287,8 @@ button.linea:hover { background: var(--pri-t); }
   font: inherit; font-size: 16px; font-weight: 700; cursor: pointer;
 }
 .atajo svg { color: var(--pri); }
-.atajos.discretos .atajo { border: none; background: none; color: var(--suave); font-size: 15px; min-height: 44px; }
-.atajos.discretos .atajo svg { color: var(--suave); }
+.atajos.discretos .atajo, .atajo.discreto { border: none; background: none; color: var(--suave); font-size: 15px; min-height: 44px; }
+.atajos.discretos .atajo svg, .atajo.discreto svg { color: var(--suave); }
 
 /* Biblioteca: guías en Markdown */
 .seccion-guias { display: flex; flex-direction: column; gap: 12px; }
