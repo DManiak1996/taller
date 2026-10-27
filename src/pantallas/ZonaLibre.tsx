@@ -3,16 +3,11 @@
 // código en este dispositivo. El editor es CodeMirror 6: números de línea y colores, sin autocompletar,
 // para que el código lo escriba él.
 
-import { defaultKeymap, history, historyKeymap, indentWithTab } from '@codemirror/commands'
-import { javascript } from '@codemirror/lang-javascript'
-import { bracketMatching, HighlightStyle, indentOnInput, syntaxHighlighting } from '@codemirror/language'
-import { EditorState } from '@codemirror/state'
-import { EditorView, drawSelection, highlightActiveLine, keymap, lineNumbers } from '@codemirror/view'
-import { tags as t } from '@lezer/highlight'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { ejecutar } from '../sandbox/ejecutar'
 import type { Resultado } from '../sandbox/tipos'
 import { Icono } from '../ui/basicos'
+import { Editor, esMac } from '../ui/Editor'
 
 const CLAVE = 'taller.zona-libre.v1'
 const INICIAL = `// Escribe aquí y pulsa Ejecutar.
@@ -36,71 +31,18 @@ const guardar = (codigo: string) => {
 }
 
 // Colores de los tokens del taller, así el editor se ve igual en modo claro y oscuro.
-// Colores de Diseño: los de significado (partes del for, acierto y fallo) no se usan para la sintaxis.
-const colores = HighlightStyle.define([
-  { tag: [t.keyword, t.controlKeyword, t.definitionKeyword, t.moduleKeyword, t.operatorKeyword], color: 'var(--tinta)', fontWeight: '700' },
-  { tag: [t.string, t.special(t.string)], color: 'var(--sx-cadena)' },
-  { tag: [t.lineComment, t.blockComment], color: 'var(--sx-comentario)', fontStyle: 'italic' },
-])
-
-const tema = EditorView.theme({
-  '&': { backgroundColor: 'var(--code)', color: 'var(--tinta)', fontSize: '16px', border: '1px solid var(--borde)', borderRadius: 'var(--r-tarjeta)' },
-  '&.cm-focused': { outline: '2px solid var(--pri)', outlineOffset: '-1px' },
-  '.cm-scroller': { fontFamily: 'var(--f-codigo)', lineHeight: '1.75', minHeight: '240px' },
-  '.cm-content': { padding: '12px 0', caretColor: 'var(--tinta)' },
-  '.cm-gutters': { backgroundColor: 'transparent', color: 'var(--suave)', border: 'none', paddingLeft: '4px' },
-  '.cm-activeLine': { backgroundColor: 'var(--pri-t)' },
-  '.cm-activeLineGutter': { backgroundColor: 'transparent', color: 'var(--tinta)' },
-  '.cm-selectionBackground, &.cm-focused .cm-selectionBackground': { backgroundColor: 'var(--pri-t) !important' },
-  '.cm-cursor': { borderLeftColor: 'var(--tinta)', borderLeftWidth: '2px' },
-  '.cm-matchingBracket': { backgroundColor: 'var(--pri-t)', outline: '1px solid var(--pri)' },
-})
-
-const esMac = typeof navigator !== 'undefined' && /Mac/.test(navigator.platform)
-
 export function ZonaLibre({ volver }: { volver: () => void }) {
-  const caja = useRef<HTMLDivElement>(null)
-  const vista = useRef<EditorView | null>(null)
+  const codigo = useRef(leer())
   const [resultado, setResultado] = useState<Resultado | null>(null)
   const [corriendo, setCorriendo] = useState(false)
-  const correr = useRef<() => void>(() => undefined)
 
-  correr.current = async () => {
-    if (!vista.current || corriendo) return
+  const correr = async () => {
+    if (corriendo) return
     setCorriendo(true)
-    const codigo = vista.current.state.doc.toString()
-    guardar(codigo)
-    setResultado(await ejecutar(codigo, { maxPasos: 0 }))
+    guardar(codigo.current)
+    setResultado(await ejecutar(codigo.current, { maxPasos: 0 }))
     setCorriendo(false)
   }
-
-  useEffect(() => {
-    if (!caja.current) return
-    const v = new EditorView({
-      parent: caja.current,
-      state: EditorState.create({
-        doc: leer(),
-        extensions: [
-          lineNumbers(),
-          history(),
-          drawSelection(),
-          indentOnInput(),
-          bracketMatching(),
-          highlightActiveLine(),
-          javascript({ typescript: true }),
-          syntaxHighlighting(colores),
-          tema,
-          EditorState.tabSize.of(2),
-          EditorView.lineWrapping,
-          EditorView.contentAttributes.of({ 'aria-label': 'Tu código', autocapitalize: 'off', autocorrect: 'off', spellcheck: 'false' }),
-          keymap.of([{ key: 'Mod-Enter', run: () => (correr.current(), true) }, indentWithTab, ...defaultKeymap, ...historyKeymap]),
-          EditorView.updateListener.of((u) => u.docChanged && guardar(u.state.doc.toString())),
-        ],
-      }),
-    })
-    vista.current = v
-    return () => v.destroy()
-  }, [])
 
   const error = resultado?.error
   return (
@@ -115,9 +57,16 @@ export function ZonaLibre({ volver }: { volver: () => void }) {
       </header>
       <main className="cuerpo">
         <p className="peq">Escribe lo que quieras y pruébalo. Se guarda solo en este dispositivo. Aquí no hay respuestas correctas.</p>
-        <div ref={caja} />
+        <Editor
+          inicial={codigo.current}
+          alCambiar={(c) => {
+            codigo.current = c
+            guardar(c)
+          }}
+          alEjecutar={correr}
+        />
         <div className="fila">
-          <button type="button" className="btn btn-pri" onClick={() => correr.current()} disabled={corriendo}>
+          <button type="button" className="btn btn-pri" onClick={correr} disabled={corriendo}>
             {corriendo ? 'Ejecutando…' : 'Ejecutar'}
           </button>
         </div>

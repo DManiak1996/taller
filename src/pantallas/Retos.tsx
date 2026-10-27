@@ -23,7 +23,7 @@ const NOMBRE_TIPO: Record<Reto['tipo'], string> = {
   fallo: 'Caza el fallo de la IA',
   razon: '¿Quién tiene razón?',
 }
-const TITULOS_PISTA = ['Pista 1 · Dónde mirar', 'Pista 2 · La regla', 'Pista 3 · Casi la respuesta']
+export const TITULOS_PISTA = ['Pista 1 · Dónde mirar', 'Pista 2 · La regla', 'Pista 3 · Casi la respuesta']
 const LETRAS = 'ABCDEF'
 
 /** Baraja siempre igual para el mismo reto, para que las letras no cambien entre visitas. */

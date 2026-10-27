@@ -2,9 +2,9 @@
 // y resuelve las referencias { ref: "id" } a los retos de revisión.
 
 import catalogo from '../../contenido/conceptos.json'
-import type { Dia, Reto, RetoODeRef } from '../../contenido/formato'
+import type { Dia, Reto, RetoEscribir, RetoODeRef } from '../../contenido/formato'
 
-export type { Dia, Reto, Pantalla, Paso, Opcion } from '../../contenido/formato'
+export type { Dia, Reto, Pantalla, Paso, Opcion, ParaNota, RetoEscribir } from '../../contenido/formato'
 
 export interface DiaListo extends Omit<Dia, 'retos' | 'repaso'> {
   retos: Reto[]
@@ -35,7 +35,13 @@ export const retos: Map<string, { reto: Reto; dia: string; deReserva: boolean }>
 for (const d of dias) {
   for (const r of d.retos) if (!retos.has(r.id)) retos.set(r.id, { reto: r, dia: d.id, deReserva: false })
   for (const r of d.repaso) if (!retos.has(r.id)) retos.set(r.id, { reto: r, dia: d.id, deReserva: true })
+  // El reto «para nota» es más difícil: puede salir en un repaso como uno de reserva.
+  if (d.paraNota && !retos.has(d.paraNota.reto.id)) retos.set(d.paraNota.reto.id, { reto: d.paraNota.reto, dia: d.id, deReserva: true })
 }
+
+/** Los retos «escribir» del bloque «Para nota», con su día. */
+export const retosEscribir: Map<string, { reto: RetoEscribir; dia: string }> = new Map()
+for (const d of dias) if (d.paraNota) retosEscribir.set(d.paraNota.escribir.id, { reto: d.paraNota.escribir, dia: d.id })
 
 /** Catálogo de conceptos de las 16 semanas (lo mantiene Dirección pedagógica). */
 export const conceptos: { id: string; nombre: string; semana: number }[] = catalogo

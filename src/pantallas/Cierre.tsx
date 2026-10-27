@@ -18,7 +18,7 @@ export function SemanaRacha({ fechaHoy }: { fechaHoy: string }) {
   )
 }
 
-export function Cierre({ dia, conceptos, alSalir, alVerMapa }: { dia: DiaListo | null; conceptos: string[]; alSalir: () => void; alVerMapa: () => void }) {
+export function Cierre({ dia, conceptos, alSalir, alVerMapa, alParaNota }: { dia: DiaListo | null; conceptos: string[]; alSalir: () => void; alVerMapa: () => void; alParaNota: () => void }) {
   const p = useProgreso()
   const fechaHoy = hoy()
   const dias = racha(p, fechaHoy)
@@ -43,6 +43,17 @@ export function Cierre({ dia, conceptos, alSalir, alVerMapa }: { dia: DiaListo |
           <section className="tarjeta" aria-label="Lo que has aprendido">
             <p className="kicker">Ahora sabes</p>
             <p className="txt">{dia.objetivo.replace(/^Hoy aprendes a /, '').replace(/^./, (c) => c.toUpperCase())}</p>
+          </section>
+        )}
+
+        {dia?.paraNota && (
+          <section className="tarjeta" aria-label="Para nota">
+            <p className="kicker">Para nota · opcional</p>
+            <p className="txt">Un reto más difícil y un programa para escribir tú. No cuenta para la racha: puedes hacerlo ahora o luego en el Mac.</p>
+            <button type="button" className="btn btn-sec" onClick={alParaNota}>
+              <Icono nombre="llaves" tam={20} />
+              Ir a Para nota
+            </button>
           </section>
         )}
 

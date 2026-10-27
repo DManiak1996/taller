@@ -26,6 +26,7 @@ export interface Dia {
   leccion: Pantalla[];      // 2 a 5 pantallas, una idea por pantalla (unos 2 minutos)
   retos: RetoODeRef[];      // 3 retos de tipos distintos (puede citar uno de revisión con { ref })
   repaso: RetoODeRef[];     // retos de reserva para repasar este día a los 1, 3 y 7 días
+  paraNota?: ParaNota;      // bloque opcional al final del día: no cuenta para la racha ni para cerrar el día
 }
 
 // ---------- Microlección ----------
@@ -141,4 +142,26 @@ export interface RetoRazon extends RetoBase {
 
 export type Reto = RetoPredecir | RetoHueco | RetoOrdenar | RetoFallo | RetoRazon;
 export type RetoODeRef = Reto | { ref: string };
+
+// ---------- «Para nota» (opcional, al final del día) ----------
+// Se ofrece al terminar el día y se puede hacer más tarde (lo normal: escribir en el Mac).
+// Saltárselo no rompe la racha ni deja el día sin hacer.
+
+export interface ParaNota {
+  reto: RetoPredecir | RetoHueco | RetoOrdenar; // un reto normal, más difícil
+  escribir: RetoEscribir;
+}
+
+// Escribe el programa. Se abre en el editor de la Zona libre con «Comprobar».
+// La web ejecuta `datos` + "\n" + lo que escribe Daniel y compara la consola, línea a línea y sin los
+// espacios del final de cada línea, con `salidaEsperada`; después hace lo mismo con cada variante
+// (sus `datos` sustituyen a los de arriba). Solo acierta si pasan todas.
+export interface RetoEscribir extends RetoBase {
+  tipo: "escribir";
+  datos?: string;           // líneas fijas de solo lectura encima del editor: "const plazo = 72;"
+  inicial?: string;         // lo que ya viene escrito en el editor (normalmente comentarios guía)
+  salidaEsperada: string[]; // lo que debe imprimir con `datos`
+  variantes?: { datos: string; salidaEsperada: string[] }[]; // 1 o 2 juegos de datos que la web prueba sin enseñarlos
+  solucion: string;         // la referencia; se enseña al final, con la explicación
+}
 

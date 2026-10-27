@@ -4,6 +4,7 @@
 
 import { describe, expect, it } from 'vitest'
 import { conceptos, dias, retos, retosRevision, type Reto } from '../src/contenido/cargar'
+import { casos, mismaSalida, programa } from '../src/sandbox/comprobar'
 import { ejecutarEnNode } from './ejecutarNode'
 import type { Resultado } from '../src/sandbox/tipos'
 
@@ -94,7 +95,9 @@ describe('el contenido', () => {
   it('existe y los ids no se repiten', () => {
     expect(dias.length).toBeGreaterThan(0)
     const ids = [...dias.flatMap((d) => [...d.retos, ...d.repaso]).map((r) => r.id)]
-    const propios = dias.flatMap((d) => [...d.retos, ...d.repaso]).filter((r) => !retosRevision.has(r.id))
+    const propios = dias
+      .flatMap((d) => [...d.retos, ...d.repaso, ...(d.paraNota ? [d.paraNota.reto, d.paraNota.escribir] : [])])
+      .filter((r) => !retosRevision.has(r.id))
     expect(new Set(propios.map((r) => r.id)).size, 'ids de reto repetidos').toBe(propios.length)
     expect(ids.length).toBeGreaterThan(0)
   })
@@ -114,6 +117,27 @@ describe('el contenido', () => {
         expect(d.retos).toHaveLength(3)
         expect(new Set(d.retos.map((r) => r.tipo)).size).toBe(3)
       })
+
+      if (d.paraNota) {
+        const { reto, escribir } = d.paraNota
+        it(`«para nota»: el reto ${reto.id} es correcto`, () => {
+          expect(['predecir', 'hueco', 'ordenar'], 'el reto para nota es de un tipo que se toca').toContain(reto.tipo)
+          comprobarReto(reto)
+        })
+        it(`«para nota»: el escribir ${escribir.id} se puede resolver y no viene resuelto`, () => {
+          expect(escribir.pistas, 'tiene 3 pistas').toHaveLength(3)
+          expect(conceptos.some((c) => c.id === escribir.concepto), `usa «${escribir.concepto}», que no está en conceptos.json`).toBe(true)
+          if (escribir.variantes?.length) expect(escribir.datos, 'las variantes necesitan datos').toBeTruthy()
+          for (const caso of casos(escribir)) {
+            const real = correr(programa(caso.datos, escribir.solucion))
+            const quien = caso.variante ? `con la variante «${caso.datos}»` : 'con los datos'
+            expect(real.error, `la solución falla ${quien}: ${describir(real)}`).toBeUndefined()
+            expect(mismaSalida(real.salida, caso.salidaEsperada), `la solución ${quien} imprime ${describir(real)}`).toBe(true)
+          }
+          const sinHacer = correr(programa(escribir.datos ?? '', escribir.inicial ?? ''))
+          expect(!sinHacer.error && mismaSalida(sinHacer.salida, escribir.salidaEsperada), '`inicial` sola ya acierta').toBe(false)
+        })
+      }
 
       d.leccion.forEach((p, i) => {
         if (p.tipo === 'codigo') {
