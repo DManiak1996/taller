@@ -4,7 +4,7 @@ import { useProgreso } from '../progreso/almacen'
 import { hechoHoy, hoy, puedeSeguir, racha, repasoDeHoy } from '../progreso/modelo'
 import { Codigo, Icono, Texto } from '../ui/basicos'
 import { SemanaRacha } from './Cierre'
-import { notaPendiente } from './notaPendiente'
+import { diasConNota, notaPendiente } from './notaPendiente'
 
 const NOMBRE_DIA = new Intl.DateTimeFormat('es-ES', { weekday: 'long', timeZone: 'Europe/Madrid' })
 
@@ -41,6 +41,8 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
   const codigo = dia && codigoDe(dia)
   const dia1 = NOMBRE_DIA.format(new Date())
   const pendientes = notaPendiente(p)
+  // Con todo hecho sigue ahí, más discreto: si desaparece, parece que se ha perdido.
+  const conNota = diasConNota(p).length > 0
 
   return (
     <div className="app">
@@ -135,6 +137,12 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             Temario
           </button>
         </nav>
+        {pendientes === 0 && conNota && (
+          <button type="button" className="atajo discreto" style={{ flex: 'none', marginTop: -12 }} onClick={() => irA('nota')}>
+            <Icono nombre="bien" tam={18} />
+            Para nota · todo hecho
+          </button>
+        )}
       </main>
 
       <footer className="pie">
