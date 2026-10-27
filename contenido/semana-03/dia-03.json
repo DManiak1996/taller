@@ -198,5 +198,74 @@
     {
       "ref": "s03-rev-x2"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d03-n1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Aquí la condición no compara nada: es directamente una caja. ¿Qué escribe este programa?",
+      "codigo": "const pagado = false;\nif (pagado) {\n  console.log(\"Enviar\");\n} else {\n  console.log(\"Reclamar\");\n}\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Reclamar\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: pagado ya es false, y con false el if no entra y va al else."
+        },
+        {
+          "texto": "Enviar\nFin",
+          "siEliges": "pagado vale false: el if no entra."
+        },
+        {
+          "texto": "Enviar\nReclamar\nFin",
+          "siEliges": "Con if y else se ejecuta uno solo de los dos caminos."
+        },
+        {
+          "texto": "❌ Error: falta la comparación",
+          "siEliges": "No hace falta comparar: el if solo necesita un true o un false, y pagado ya lo es."
+        }
+      ],
+      "pistas": [
+        "¿Qué necesita un if entre paréntesis? Un true o un false.",
+        "pagado ya es un false, así que el if no entra.",
+        "Va por el else, y luego «Fin»."
+      ],
+      "explicacion": "if (pagado) es lo mismo que if (pagado === true). Lo verás mucho en el código de DeIure y en el de cualquier IA."
+    },
+    "escribir": {
+      "id": "s03-d03-n2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días. Si dias es 30 o menos, escribe «En plazo»; si no, «Fuera de plazo».",
+      "datos": "const dias = 25;",
+      "salidaEsperada": [
+        "En plazo"
+      ],
+      "variantes": [
+        {
+          "datos": "const dias = 30;",
+          "salidaEsperada": [
+            "En plazo"
+          ]
+        },
+        {
+          "datos": "const dias = 31;",
+          "salidaEsperada": [
+            "Fuera de plazo"
+          ]
+        }
+      ],
+      "solucion": "if (dias <= 30) {\n  console.log(\"En plazo\");\n} else {\n  console.log(\"Fuera de plazo\");\n}",
+      "pistas": [
+        "Dos caminos: if y else.",
+        "«30 o menos» es <= 30.",
+        "if (dias <= 30) { … } else { … }"
+      ],
+      "explicacion": "Con < 30 fallaría el día 30 justo. Al revisar un plazo, prueba siempre el día del límite."
+    }
+  }
 }

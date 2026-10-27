@@ -228,5 +228,66 @@
     {
       "ref": "s01-rev-x2"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d04-n1",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let estado = \"recibida\";\nestado = \"en trámite\";\nconsole.log(estado);\nestado = \"resuelta\";\nconsole.log(\"estado\");\nconsole.log(estado);",
+      "opciones": [
+        {
+          "texto": "en trámite\nestado\nresuelta",
+          "correcta": true,
+          "siEliges": "Eso es: cada console.log escribe lo que hay en ese momento, y el de la línea 5 escribe una palabra."
+        },
+        {
+          "texto": "recibida\nestado\nresuelta",
+          "siEliges": "Antes del primer console.log, estado ya ha cambiado a «en trámite»."
+        },
+        {
+          "texto": "en trámite\nresuelta\nresuelta",
+          "siEliges": "La línea 5 lleva comillas: escribe la palabra «estado»."
+        }
+      ],
+      "pistas": [
+        "Apunta qué hay en la caja justo antes de cada console.log.",
+        "En la línea 3 ya vale «en trámite». Y la línea 5 lleva comillas.",
+        "en trámite, la palabra estado y resuelta."
+      ],
+      "explicacion": "Para seguir un let, apunta su valor línea a línea: cada console.log escribe el que tiene en ese momento."
+    },
+    "escribir": {
+      "id": "s01-d04-n2",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Arriba tienes la variable estado. Escríbela, cámbiala a «resuelta» y vuelve a escribirla.",
+      "datos": "let estado = \"recibida\";",
+      "salidaEsperada": [
+        "recibida",
+        "resuelta"
+      ],
+      "variantes": [
+        {
+          "datos": "let estado = \"en trámite\";",
+          "salidaEsperada": [
+            "en trámite",
+            "resuelta"
+          ]
+        }
+      ],
+      "solucion": "console.log(estado);\nestado = \"resuelta\";\nconsole.log(estado);",
+      "pistas": [
+        "Son tres pasos: escribir, cambiar y volver a escribir.",
+        "Para cambiarla no se repite let: el nombre, = y el valor nuevo.",
+        "En medio va estado = \"resuelta\";"
+      ],
+      "explicacion": "El mismo console.log(estado) escribe cosas distintas según cuándo se ejecuta. Y let solo se escribe al crear la caja: si lo repites, el programa ni arranca."
+    }
+  }
 }

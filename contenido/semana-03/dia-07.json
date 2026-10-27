@@ -189,5 +189,74 @@
       ],
       "explicacion": "Si una condición mezcla && y ||, pon paréntesis aunque no hagan falta: el siguiente que la lea, tú o una IA, no tendrá que adivinar."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d07-n1",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = true;\nconst b = false;\nconsole.log(!(a || b));\nconsole.log(!a && !b);\nconsole.log(a && !b);",
+      "opciones": [
+        {
+          "texto": "false\nfalse\ntrue",
+          "correcta": true,
+          "siEliges": "Eso es: primero lo de dentro del paréntesis, después cada !, y al final el && o el ||."
+        },
+        {
+          "texto": "true\nfalse\ntrue",
+          "siEliges": "Primero el paréntesis: a || b es true, y el ! le da la vuelta."
+        },
+        {
+          "texto": "false\ntrue\ntrue",
+          "siEliges": "!a es false, y con && un false lo tumba todo."
+        },
+        {
+          "texto": "false\nfalse\nfalse",
+          "siEliges": "!b es true, y a también: true && true es true."
+        }
+      ],
+      "pistas": [
+        "Empieza por el paréntesis de la línea 3.",
+        "a || b es true; !a es false; !b es true.",
+        "!(true), false && true, true && true."
+      ],
+      "explicacion": "Fíjate en que las líneas 3 y 4 dan lo mismo: «no (a o b)» es «ni a ni b». Es la ley de De Morgan, al revés que en la lección: al negar, el «o» se convierte en «y»."
+    },
+    "escribir": {
+      "id": "s03-d07-n2",
+      "semana": 3,
+      "concepto": "logica-booleana",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe en una línea, separados por comas dentro del console.log: a && b, a || b y !a. Con los datos de arriba sale «false true false».",
+      "datos": "const a = true;\nconst b = false;",
+      "salidaEsperada": [
+        "false true false"
+      ],
+      "variantes": [
+        {
+          "datos": "const a = true;\nconst b = true;",
+          "salidaEsperada": [
+            "true true false"
+          ]
+        },
+        {
+          "datos": "const a = false;\nconst b = false;",
+          "salidaEsperada": [
+            "false false true"
+          ]
+        }
+      ],
+      "solucion": "console.log(a && b, a || b, !a);",
+      "pistas": [
+        "Un solo console.log con tres cosas separadas por comas.",
+        "Cada cosa es una operación: a && b, luego a || b, luego !a.",
+        "console.log(a && b, a || b, !a);"
+      ],
+      "explicacion": "Con distintos datos, este programa escribe una fila de la tabla de verdad cada vez."
+    }
+  }
 }

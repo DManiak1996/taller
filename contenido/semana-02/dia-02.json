@@ -208,5 +208,71 @@
     {
       "ref": "s02-rev-x2"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d02-n1",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(2 + 3 * 4);\nconsole.log((2 + 3) * 4);\nconsole.log(10 / 4);",
+      "opciones": [
+        {
+          "texto": "14\n20\n2.5",
+          "correcta": true,
+          "siEliges": "Eso es: primero multiplica, salvo que haya paréntesis, y la división da decimales con punto."
+        },
+        {
+          "texto": "20\n20\n2.5",
+          "siEliges": "Sin paréntesis, la multiplicación va primero: 3 * 4, y luego + 2."
+        },
+        {
+          "texto": "14\n20\n2",
+          "siEliges": "La división no redondea: 10 / 4 es 2.5."
+        },
+        {
+          "texto": "14\n20\n2,5",
+          "siEliges": "Los decimales se escriben con punto, no con coma."
+        }
+      ],
+      "pistas": [
+        "¿Qué se calcula antes, la suma o la multiplicación?",
+        "Primero * y /, después + y -. Los paréntesis van antes que todo.",
+        "2 + 12, luego 5 * 4, luego 10 / 4."
+      ],
+      "explicacion": "Las mismas reglas que en el colegio, con una diferencia: los decimales llevan punto."
+    },
+    "escribir": {
+      "id": "s02-d02-n2",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Calcula el coste de un encargo: horas por tarifa. Escribe el total y, debajo, la mitad, que se cobra por adelantado.",
+      "datos": "const horas = 3;\nconst tarifa = 150;",
+      "inicial": "// 1. El total\n// 2. La mitad",
+      "salidaEsperada": [
+        "450",
+        "225"
+      ],
+      "variantes": [
+        {
+          "datos": "const horas = 2;\nconst tarifa = 100;",
+          "salidaEsperada": [
+            "200",
+            "100"
+          ]
+        }
+      ],
+      "solucion": "console.log(horas * tarifa);\nconsole.log(horas * tarifa / 2);",
+      "pistas": [
+        "Multiplicar es * y dividir es /.",
+        "El total es horas * tarifa. La mitad, ese total dividido entre 2.",
+        "console.log(horas * tarifa); y otro igual con / 2 al final."
+      ],
+      "explicacion": "horas * tarifa / 2 no necesita paréntesis: * y / van de izquierda a derecha. Si escribes 450 a mano, falla con otro encargo."
+    }
+  }
 }

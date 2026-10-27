@@ -237,5 +237,75 @@
     {
       "ref": "s03-rev-x1"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d02-n1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Una solicitud que lleva 40 días. ¿Qué escribe este programa?",
+      "codigo": "const dias = 40;\nif (dias > 30) {\n  console.log(\"Fuera de plazo\");\n}\nif (dias > 60) {\n  console.log(\"Muy tarde\");\n}\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Fuera de plazo\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: el primer if se cumple, el segundo no, y «Fin» está fuera de los dos."
+        },
+        {
+          "texto": "Fuera de plazo\nMuy tarde\nFin",
+          "siEliges": "40 > 60 es false: el segundo if no entra."
+        },
+        {
+          "texto": "Fuera de plazo",
+          "siEliges": "«Fin» está fuera de las llaves: sale siempre."
+        },
+        {
+          "texto": "Fin",
+          "siEliges": "40 > 30 es true: el primer if sí entra."
+        }
+      ],
+      "pistas": [
+        "Son dos if separados: mira cada condición por su cuenta.",
+        "40 > 30 es true; 40 > 60 es false. Lo de fuera de las llaves se ejecuta siempre.",
+        "Entra en el primero, no en el segundo, y luego «Fin»."
+      ],
+      "explicacion": "Dos if seguidos son dos preguntas independientes: pueden entrar los dos, uno o ninguno."
+    },
+    "escribir": {
+      "id": "s03-d02-n2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho llama «grave» a una brecha con más de 1000 afectados. Si lo es, escribe «Brecha grave». Después, en todos los casos, «Registrada».",
+      "datos": "const afectados = 1200;",
+      "salidaEsperada": [
+        "Brecha grave",
+        "Registrada"
+      ],
+      "variantes": [
+        {
+          "datos": "const afectados = 1000;",
+          "salidaEsperada": [
+            "Registrada"
+          ]
+        },
+        {
+          "datos": "const afectados = 300;",
+          "salidaEsperada": [
+            "Registrada"
+          ]
+        }
+      ],
+      "solucion": "if (afectados > 1000) {\n  console.log(\"Brecha grave\");\n}\nconsole.log(\"Registrada\");",
+      "pistas": [
+        "Un if para lo de «grave», y lo de siempre fuera de él.",
+        "«Más de 1000» es > 1000. «Registrada» va después de cerrar la llave.",
+        "if (afectados > 1000) { … } y luego console.log(\"Registrada\");"
+      ],
+      "explicacion": "Lo que va dentro de las llaves depende de la condición; lo de fuera, no. Con exactamente 1000 afectados no es «más de 1000»."
+    }
+  }
 }

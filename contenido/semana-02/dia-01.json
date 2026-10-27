@@ -175,5 +175,74 @@
       ],
       "explicacion": "Un boolean se escribe como true o false, y su tipo es boolean."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d01-n1",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = \"30\";\nconst b = 30;\nconsole.log(typeof a, typeof b);\nconsole.log(typeof \"true\");",
+      "opciones": [
+        {
+          "texto": "string number\nstring",
+          "correcta": true,
+          "siEliges": "Eso es: lo que va entre comillas es texto, aunque sean cifras o la palabra true."
+        },
+        {
+          "texto": "number number\nstring",
+          "siEliges": "a lleva comillas: aunque sean cifras, es texto."
+        },
+        {
+          "texto": "string number\nboolean",
+          "siEliges": "\"true\" lleva comillas: es texto, no un booleano."
+        },
+        {
+          "texto": "30 30\ntrue",
+          "siEliges": "typeof no escribe el dato, sino su tipo."
+        }
+      ],
+      "pistas": [
+        "typeof escribe el tipo, no el dato.",
+        "Las comillas deciden: con ellas, siempre es texto (string).",
+        "a es string, b es number, y \"true\" es string."
+      ],
+      "explicacion": "Las comillas mandan sobre lo que haya dentro: \"30\" y \"true\" son textos. Es justo lo que hay que mirar cuando una IA compara un número con un texto."
+    },
+    "escribir": {
+      "id": "s02-d01-n2",
+      "semana": 2,
+      "concepto": "tipos",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe en una línea el tipo de dato y, detrás, el propio dato. Con el de arriba sale «number 72».",
+      "datos": "const dato = 72;",
+      "salidaEsperada": [
+        "number 72"
+      ],
+      "variantes": [
+        {
+          "datos": "const dato = \"72\";",
+          "salidaEsperada": [
+            "string 72"
+          ]
+        },
+        {
+          "datos": "const dato = true;",
+          "salidaEsperada": [
+            "boolean true"
+          ]
+        }
+      ],
+      "solucion": "console.log(typeof dato, dato);",
+      "pistas": [
+        "Dos cosas en un console.log, separadas por una coma.",
+        "La primera es el tipo: typeof delante del nombre.",
+        "console.log(typeof dato, dato);"
+      ],
+      "explicacion": "El mismo programa sirve para cualquier dato. Fíjate en que \"72\" y 72 se escriben igual en la consola: solo typeof los distingue."
+    }
+  }
 }

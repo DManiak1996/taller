@@ -218,5 +218,67 @@
       ],
       "explicacion": "Una caja solo existe desde la línea en que se crea. Usarla antes da error."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d06-n1",
+      "semana": 1,
+      "concepto": "nombres-variables",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Lee los nombres letra a letra.",
+      "codigo": "let total = 1;\nconsole.log(\"Total:\", total);\ntotal = 2;\nconsole.log(\"Total:\", Total);",
+      "lanzaError": true,
+      "opciones": [
+        {
+          "texto": "Total: 1\n❌ Error: Total no está definido",
+          "correcta": true,
+          "siEliges": "Eso es: en la línea 4, Total con mayúscula no es la caja total, y no existe."
+        },
+        {
+          "texto": "Total: 1\nTotal: 2",
+          "siEliges": "Mira la línea 4: Total, con mayúscula, no es la caja total."
+        },
+        {
+          "texto": "Total: 1\nTotal: Total",
+          "siEliges": "Total va sin comillas: no es texto, es un nombre que no existe."
+        }
+      ],
+      "pistas": [
+        "Compara el nombre de la caja en las líneas 1 y 4.",
+        "total y Total son nombres distintos, y Total no se ha creado.",
+        "La línea 2 llega a escribir; la 4 falla."
+      ],
+      "explicacion": "Un nombre mal escrito es uno de los fallos más comunes. El ordenador no adivina: si no existe exactamente así, se para."
+    },
+    "escribir": {
+      "id": "s01-d06-n2",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe dos líneas con las constantes de arriba: «Solicitante: Laura» y, debajo, «Copias pedidas: 2».",
+      "datos": "const persona = \"Laura\";\nconst total = 2;",
+      "salidaEsperada": [
+        "Solicitante: Laura",
+        "Copias pedidas: 2"
+      ],
+      "variantes": [
+        {
+          "datos": "const persona = \"Marta\";\nconst total = 5;",
+          "salidaEsperada": [
+            "Solicitante: Marta",
+            "Copias pedidas: 5"
+          ]
+        }
+      ],
+      "solucion": "console.log(\"Solicitante:\", persona);\nconsole.log(\"Copias pedidas:\", total);",
+      "pistas": [
+        "Un console.log por línea, y dentro, un texto y una caja.",
+        "Separa con una coma el texto (con comillas) y la caja (sin comillas). La coma pone el espacio.",
+        "La primera es console.log(\"Solicitante:\", persona);"
+      ],
+      "explicacion": "La coma pone el espacio por ti. Si escribes «Laura» a mano, falla en cuanto cambia la persona."
+    }
+  }
 }

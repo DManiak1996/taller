@@ -202,5 +202,67 @@
       ],
       "explicacion": "El fallo de la semana, escondido: un 1 entre comillas convierte la suma en pegar."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d05-n1",
+      "semana": 2,
+      "concepto": "operaciones",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Un plazo de 72 horas, del que ya se han usado 50. ¿Qué escribe este programa?",
+      "codigo": "const plazo = 72;\nconst usado = 50;\nconsole.log(`${plazo - usado} h`);\nconsole.log(`${plazo - usado / 2} h`);",
+      "opciones": [
+        {
+          "texto": "22 h\n47 h",
+          "correcta": true,
+          "siEliges": "Eso es: en la línea 4, la división va primero: 72 - 25."
+        },
+        {
+          "texto": "22 h\n11 h",
+          "siEliges": "Dentro de ${ } valen las reglas de siempre: / antes que -. Para dividir la resta haría falta un paréntesis."
+        },
+        {
+          "texto": "22 h\n72 - 25 h",
+          "siEliges": "Dentro de ${ } se calcula, no se copia."
+        }
+      ],
+      "pistas": [
+        "Dentro de ${ } se calcula con las reglas de siempre.",
+        "¿Qué va antes, la resta o la división?",
+        "Línea 4: usado / 2 es 25, y 72 - 25."
+      ],
+      "explicacion": "Una plantilla no cambia las reglas del cálculo. Si una IA quería la mitad de lo que queda, le faltan paréntesis: `${(plazo - usado) / 2}`."
+    },
+    "escribir": {
+      "id": "s02-d05-n2",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe cuántas horas quedan del plazo y, debajo, en cuántas horas se llega a su mitad: «Quedan 52 h» y «Mitad en 16 h».",
+      "datos": "const plazo = 72;\nconst pasadas = 20;",
+      "inicial": "// 1. Calcula lo que queda\n// 2. Calcula cuánto falta a la mitad\n// 3. Escribe las dos líneas",
+      "salidaEsperada": [
+        "Quedan 52 h",
+        "Mitad en 16 h"
+      ],
+      "variantes": [
+        {
+          "datos": "const plazo = 48;\nconst pasadas = 10;",
+          "salidaEsperada": [
+            "Quedan 38 h",
+            "Mitad en 14 h"
+          ]
+        }
+      ],
+      "solucion": "const quedan = plazo - pasadas;\nconst mitad = plazo / 2 - pasadas;\nconsole.log(`Quedan ${quedan} h`);\nconsole.log(`Mitad en ${mitad} h`);",
+      "pistas": [
+        "Guarda cada cálculo en su propia caja antes de escribir.",
+        "Quedan: plazo - pasadas. La mitad del plazo es plazo / 2, y hay que restarle lo que ya ha pasado.",
+        "const mitad = plazo / 2 - pasadas; y luego dos plantillas."
+      ],
+      "explicacion": "Calcular primero en cajas con nombre y escribir después hace el programa más fácil de leer y de revisar. Así está escrito casi todo DeIure."
+    }
+  }
 }
