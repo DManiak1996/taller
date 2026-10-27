@@ -1,0 +1,217 @@
+{
+  "id": "s06-d06",
+  "semana": 6,
+  "dia": 6,
+  "titulo": "La forma corta: funciones flecha",
+  "objetivo": "Hoy aprendes a leer y escribir funciones flecha, la forma corta que más vas a ver en DeIure y en el código de las IA.",
+  "conceptos": [
+    "funciones"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "function doble(n) {\n  return n * 2;\n}\nconst triple = (n) => n * 3;\nconsole.log(doble(4));\nconsole.log(triple(4));",
+      "salida": [
+        "8",
+        "12"
+      ],
+      "nota": "Las dos son funciones. La segunda es una **función flecha**: se guarda en una const, los parámetros van entre paréntesis y, detrás de la flecha `=>`, lo que devuelve. Sin llaves, el return es **automático**."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Para leerla en voz alta: `(n) => n * 3` es «dado n, devuelve n por 3». Con varios parámetros, `(a, b) => a + b`. Sin ninguno, `() => 5`. En las librerías de DeIure hay miles: es la forma que más verás."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const enPlazo = (dias) => {\n  dias <= 30;\n};\nconsole.log(enPlazo(10));",
+      "salida": [
+        "undefined"
+      ],
+      "nota": "Con llaves `{ }`, el return **deja de ser automático** y hay que escribirlo. Es de los olvidos más comunes de las IA. Las dos versiones buenas: `{ return dias <= 30; }`, o sin llaves: `(dias) => dias <= 30`."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "console.log(mitad(10));\nconst mitad = (n) => n / 2;",
+      "salida": [],
+      "lanzaError": true,
+      "nota": "Una diferencia con `function`: una flecha guardada en una const no existe hasta su línea. Usarla antes da el error de la semana 1: **Cannot access 'mitad' before initialization**."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En las hojas de cálculo de DeIure, una celda cuenta como vacía si no tiene nada. `null` y `undefined` son dos formas de «nada», y `''` es un texto vacío. Es una flecha de una línea que devuelve true o false:",
+      "codigo": "const isBlank = (value: unknown) => value === null || value === undefined || value === '';",
+      "fichero": "DeIure/src/lib/spreadsheet-merges.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d06-r1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const suma = (a, b) => a + b;\nconst comision = (x) => x * 0.2;\nconsole.log(suma(2, 3));\nconsole.log(comision(suma(5, 5)));",
+      "opciones": [
+        {
+          "texto": "5\n2",
+          "correcta": true,
+          "siEliges": "Eso es: suma(5, 5) devuelve 10, y comision(10) devuelve 2."
+        },
+        {
+          "texto": "5\n10",
+          "siEliges": "comision recibe 10 y devuelve 10 * 0.2."
+        },
+        {
+          "texto": "5\n1",
+          "siEliges": "Primero se calcula suma(5, 5), que da 10, no 5."
+        }
+      ],
+      "pistas": [
+        "En la línea 4, ¿qué se calcula primero?",
+        "Lo de dentro: suma(5, 5).",
+        "comision(10)."
+      ],
+      "explicacion": "Una llamada dentro de otra se resuelve de dentro afuera: lo que devuelve la de dentro es el argumento de la de fuera."
+    },
+    {
+      "id": "s06-d06-r2",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Esta flecha lleva llaves. Completa para que escriba 9.",
+      "codigo": "const cuadrado = (n) => {\n  ___ n * n;\n};\nconsole.log(cuadrado(3));",
+      "salidaEsperada": [
+        "9"
+      ],
+      "opciones": [
+        {
+          "texto": "return",
+          "correcta": true,
+          "siEliges": "Correcto: con llaves, el return hay que escribirlo."
+        },
+        {
+          "texto": "const r =",
+          "siEliges": "Guarda el cálculo, pero no lo devuelve: sale undefined."
+        },
+        {
+          "texto": "=>",
+          "siEliges": "La flecha ya está arriba: aquí da error."
+        }
+      ],
+      "pistas": [
+        "¿Lleva llaves la flecha?",
+        "Con llaves, el return no es automático.",
+        "Hace falta devolver n * n."
+      ],
+      "explicacion": "Sin llaves, la flecha devuelve sola; con llaves, se comporta como una function normal."
+    },
+    {
+      "ref": "s06-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d06-x1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const f = (n) => { n + 1; };\nconst g = (n) => n + 1;\nconsole.log(f(1));\nconsole.log(g(1));",
+      "opciones": [
+        {
+          "texto": "undefined\n2",
+          "correcta": true,
+          "siEliges": "Eso es: f lleva llaves y no tiene return; g devuelve sola."
+        },
+        {
+          "texto": "2\n2",
+          "siEliges": "f lleva llaves y le falta el return: devuelve undefined."
+        },
+        {
+          "texto": "undefined\nundefined",
+          "siEliges": "g no lleva llaves: devuelve n + 1 automáticamente."
+        }
+      ],
+      "pistas": [
+        "¿Cuál de las dos lleva llaves?",
+        "Con llaves hace falta return.",
+        "f no devuelve nada; g sí."
+      ],
+      "explicacion": "Dos flechas casi iguales y un resultado distinto: las llaves cambian las reglas."
+    },
+    {
+      "ref": "s06-rev-x4"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d06-n1",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? El orden de las llamadas importa.",
+      "codigo": "const doble = (n) => n * 2;\nconst mas1 = (n) => n + 1;\nconsole.log(doble(mas1(3)));\nconsole.log(mas1(doble(3)));",
+      "opciones": [
+        {
+          "texto": "8\n7",
+          "correcta": true,
+          "siEliges": "Eso es: (3 + 1) × 2 = 8, y 3 × 2 + 1 = 7."
+        },
+        {
+          "texto": "7\n8",
+          "siEliges": "Se resuelve de dentro afuera: en la línea 3, primero mas1(3) da 4 y después doble(4) da 8."
+        },
+        {
+          "texto": "8\n8",
+          "siEliges": "En la línea 4, primero doble(3) da 6, y 6 + 1 es 7."
+        }
+      ],
+      "pistas": [
+        "Empieza por la llamada de dentro.",
+        "Línea 3: mas1(3) es 4. Línea 4: doble(3) es 6.",
+        "Ahora aplica la de fuera a cada resultado."
+      ],
+      "explicacion": "Encadenar funciones es como encadenar operaciones: el orden cambia el resultado."
+    },
+    "escribir": {
+      "id": "s06-d06-n2",
+      "semana": 6,
+      "concepto": "funciones",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe una flecha enPlazo que devuelva true si unos días no pasan de 30. Después, para cada número de la lista, escribe el número, dos puntos y lo que devuelve: «10: true».",
+      "datos": "const dias = [10, 45, 30];",
+      "salidaEsperada": [
+        "10: true",
+        "45: false",
+        "30: true"
+      ],
+      "variantes": [
+        {
+          "datos": "const dias = [31];",
+          "salidaEsperada": [
+            "31: false"
+          ]
+        },
+        {
+          "datos": "const dias = [0, 60];",
+          "salidaEsperada": [
+            "0: true",
+            "60: false"
+          ]
+        }
+      ],
+      "solucion": "const enPlazo = (d) => d <= 30;\nfor (const d of dias) {\n  console.log(`${d}: ${enPlazo(d)}`);\n}",
+      "pistas": [
+        "La flecha cabe en una línea, sin llaves: devuelve una comparación.",
+        "Luego un for...of sobre dias, con una plantilla.",
+        "Dentro de ${ } puedes llamar a la función: ${enPlazo(d)}."
+      ],
+      "explicacion": "Una flecha corta, un bucle y una plantilla. Así son muchas líneas de DeIure."
+    }
+  }
+}

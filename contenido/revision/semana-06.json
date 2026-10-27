@@ -1,0 +1,364 @@
+[
+  {
+    "id": "s06-rev-1",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "funciones",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Escribe una función que avise de la brecha y úsala». No imprime nada. Toca la línea que está mal.",
+    "codigo": "function avisar() {\n  console.log(\"Brecha detectada\");\n}\navisar;",
+    "lineasFallo": [4],
+    "opciones": [
+      {
+        "texto": "Sin paréntesis no se llama a la función: solo se nombra. Tenía que ser `avisar();`.",
+        "correcta": true,
+        "siEliges": "Exacto. Los paréntesis son los que dicen «ejecútala ahora»."
+      },
+      {
+        "texto": "Falta un `return` dentro de la función.",
+        "siEliges": "Esta función solo imprime; no tiene que devolver nada. El problema es que nunca llega a ejecutarse."
+      },
+      {
+        "texto": "La función tiene que estar debajo de la línea que la usa.",
+        "siEliges": "Primero se define y luego se usa, como está. Mira cómo se usa en la línea 4."
+      }
+    ],
+    "arreglo": "function avisar() {\n  console.log(\"Brecha detectada\");\n}\navisar();",
+    "pistas": [
+      "Definir una función no la ejecuta. ¿Dónde se ejecuta?",
+      "Para llamar a una función se escribe su nombre y `()`.",
+      "¿Qué le falta a la línea 4?"
+    ],
+    "explicacion": "No imprime nada. Las líneas 1 a 3 solo preparan la receta, y la línea 4 la nombra pero no la cocina. Con `avisar();` se ejecuta. No da ningún error, así que al revisar comprueba que cada función se llama de verdad."
+  },
+  {
+    "id": "s06-rev-2",
+    "tipo": "razon",
+    "semana": 6,
+    "concepto": "parametros-return",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué pasa al llamar a la función sin darle el nombre. ¿Quién tiene razón?",
+    "codigo": "function saludar(nombre) {\n  console.log(`Hola, ${nombre}`);\n}\nsaludar();",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Da un error.",
+        "porque": "La función necesita un nombre y no se lo hemos dado."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `Hola, ` y nada más.",
+        "porque": "Como no hay nombre, ese hueco se queda vacío."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "No se para: el parámetro que no recibe nada vale `undefined`, y la función sigue adelante con él.",
+      "Marta": "El hueco no se queda vacío: se rellena con `undefined`, y eso sale escrito.",
+      "ninguno": "Exacto. Imprime `Hola, undefined`: el parámetro que no recibe nada vale `undefined`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Qué valor recibe `nombre` en la línea 4?",
+      "Un parámetro sin argumento vale `undefined`, igual que una posición vacía de una lista.",
+      "¿Qué hace la plantilla con `undefined`?"
+    ],
+    "explicacion": "Imprime `Hola, undefined`. En la ejecución no hay error, pero TypeScript lo subraya en el editor: «Expected 1 arguments, but got 0». Cuando veas `undefined` en una salida, busca un dato que no ha llegado."
+  },
+  {
+    "id": "s06-rev-3",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "parametros-return",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Haz una función que pase días a horas». Sale `undefined`. Toca la línea que está mal.",
+    "codigo": "function aHoras(dias) {\n  dias * 24;\n}\nconst horas = aHoras(3);\nconsole.log(horas);",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "Calcula, pero no devuelve nada. Falta `return`: `return dias * 24;`.",
+        "correcta": true,
+        "siEliges": "Exacto. Sin `return`, la función hace la cuenta y la tira. Es el fallo de la semana."
+      },
+      {
+        "texto": "Hay que poner `console.log(dias * 24)` dentro de la función.",
+        "siEliges": "Así lo verías en pantalla, pero `horas` seguiría valiendo `undefined`. Imprimir no es devolver."
+      },
+      {
+        "texto": "`aHoras(3)` tendría que ir sin paréntesis.",
+        "siEliges": "Sin paréntesis no se llamaría a la función. La llamada está bien; mira lo que hay dentro."
+      }
+    ],
+    "arreglo": "function aHoras(dias) {\n  return dias * 24;\n}\nconst horas = aHoras(3);\nconsole.log(horas);",
+    "pistas": [
+      "¿Qué recibe `horas` de la función?",
+      "Una función solo da un resultado si lo devuelve con `return`.",
+      "¿Hay algún `return` en la función?"
+    ],
+    "explicacion": "Imprime `undefined`. La función calcula 72, pero sin `return` el resultado se pierde. Es el fallo más típico de la IA con funciones, y uno de los más difíciles de ver: no hay error, solo un `undefined` que aparece más adelante."
+  },
+  {
+    "id": "s06-rev-4",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "parametros-return",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Han pasado 50 horas y el límite es 72: di si estamos en plazo». Sale `false`. Toca la línea que está mal.",
+    "codigo": "function enPlazo(horas, limite) {\n  return horas <= limite;\n}\nconsole.log(enPlazo(72, 50));",
+    "lineasFallo": [4],
+    "opciones": [
+      {
+        "texto": "Los argumentos van al revés: `horas` recibe 72 y `limite` recibe 50. Tenía que ser `enPlazo(50, 72)`.",
+        "correcta": true,
+        "siEliges": "Exacto. Cada argumento va al parámetro que ocupa su mismo puesto, sin mirar el nombre."
+      },
+      {
+        "texto": "La comparación tenía que ser `horas >= limite`.",
+        "siEliges": "La función está bien: está en plazo si las horas no pasan del límite. El fallo está en cómo se la llama."
+      },
+      {
+        "texto": "Una función no puede devolver `true` o `false`.",
+        "siEliges": "Puede devolver lo que quieras, también `true` o `false`. Mira el orden de los números de la línea 4."
+      }
+    ],
+    "arreglo": "function enPlazo(horas, limite) {\n  return horas <= limite;\n}\nconsole.log(enPlazo(50, 72));",
+    "pistas": [
+      "¿Qué valor recibe `horas` en esta llamada?",
+      "El primer argumento va al primer parámetro, y el segundo al segundo.",
+      "Compara el orden de la línea 1 con el de la línea 4."
+    ],
+    "explicacion": "Imprime `false`: la función cree que han pasado 72 horas con un límite de 50. El orden de los argumentos importa, y si se cambia no hay error. Al revisar una llamada, ponla al lado de la definición y empareja cada valor con su parámetro."
+  },
+  {
+    "id": "s06-rev-5",
+    "tipo": "razon",
+    "semana": 6,
+    "concepto": "ambito",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué pasa con este código. ¿Quién tiene razón?",
+    "codigo": "function calcular() {\n  const total = 150;\n}\ncalcular();\nconsole.log(total);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `150`.",
+        "porque": "La función ya se ha ejecutado, así que `total` existe."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "`total` se creó dentro de la función, y fuera de ella no existe."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Lo que se crea dentro de una función vive solo mientras la función trabaja. Al terminar, desaparece.",
+      "Marta": "Correcto. Para sacar un valor de una función, se devuelve con `return`.",
+      "ninguno": "Una de las dos acierta. ¿Dónde se creó `total`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Dónde se crea `total`?",
+      "Lo que se crea dentro de las llaves de una función solo existe ahí dentro.",
+      "En la línea 5, ¿estamos dentro o fuera de la función?"
+    ],
+    "explicacion": "Da `ReferenceError: total is not defined`. Cada función tiene su propio espacio, su ámbito. Para que un resultado salga de ella, tiene que devolverlo: `return 150;` y `const total = calcular();`."
+  },
+  {
+    "id": "s06-rev-6",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "funciones",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Pásame días a horas con una función flecha». Sale `undefined`. Toca la línea que está mal.",
+    "codigo": "const aHoras = (dias) => {\n  dias * 24;\n};\nconsole.log(aHoras(3));",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "Con llaves, la flecha necesita `return`. O se quitan las llaves: `(dias) => dias * 24`.",
+        "correcta": true,
+        "siEliges": "Exacto. Sin llaves, la flecha devuelve sola; con llaves, hay que escribir el `return`."
+      },
+      {
+        "texto": "Las funciones flecha no pueden tener parámetros.",
+        "siEliges": "Pueden tener los que quieras, entre los paréntesis. El problema es lo que devuelve."
+      },
+      {
+        "texto": "Hay que llamarla sin paréntesis: `aHoras 3`.",
+        "siEliges": "Para llamarla hacen falta los paréntesis, como está. Mira lo que hay dentro de las llaves."
+      }
+    ],
+    "arreglo": "const aHoras = (dias) => {\n  return dias * 24;\n};\nconsole.log(aHoras(3));",
+    "pistas": [
+      "¿La flecha lleva llaves `{ }`?",
+      "Sin llaves, la flecha devuelve sola. Con llaves, hace falta `return`.",
+      "¿Hay `return` dentro de las llaves?"
+    ],
+    "explicacion": "Imprime `undefined`. Es el mismo fallo del `return` olvidado, en la forma que más verás en DeIure y en el código de las IA. Truco de revisor: si ves `=> {`, busca el `return`."
+  },
+  {
+    "id": "s06-rev-7",
+    "tipo": "razon",
+    "semana": 6,
+    "concepto": "descomposicion",
+    "tema": "rgpd",
+    "enunciado": "Dos funciones pequeñas que se usan juntas: han pasado 2 días, ¿cuántas horas quedan hasta las 72? La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const aHoras = (dias) => dias * 24;\nconst quedan = (horas) => 72 - horas;\nconsole.log(quedan(aHoras(2)));",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `70`.",
+        "porque": "`quedan` recibe el 2 y hace 72 - 2."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `24`.",
+        "porque": "Primero `aHoras(2)` da 48, y luego `quedan(48)` da 24."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Se lee de dentro hacia fuera: primero la función de dentro y luego la de fuera, con su resultado.",
+      "Marta": "`quedan` no recibe el 2: recibe lo que devuelve `aHoras(2)`, que es 48.",
+      "ninguno": "Esta vez sí acierta una. Empieza por la función de más adentro."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Empieza por los paréntesis de más adentro.",
+      "`aHoras(2)` se calcula primero, y su resultado pasa a `quedan`.",
+      "¿Cuánto es `aHoras(2)`? ¿Y `72` menos eso?"
+    ],
+    "explicacion": "Imprime `24`. Dividir un problema en funciones pequeñas (pasar a horas, calcular lo que queda) hace que cada pieza se pueda revisar y probar por separado. Cuando una IA te dé una función enorme, pregúntate en qué piezas se podría partir."
+  },
+  {
+    "id": "s06-rev-x1",
+    "tipo": "razon",
+    "semana": 6,
+    "concepto": "funciones",
+    "tema": "rgpd",
+    "enunciado": "Aquí se llama a la función antes de escribirla. La IA y Marta discuten qué pasa. ¿Quién tiene razón?",
+    "codigo": "avisar();\nfunction avisar() {\n  console.log(\"Aviso enviado\");\n}",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `Aviso enviado`.",
+        "porque": "Las funciones hechas con `function` se preparan antes de que empiece el programa."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "El código va de arriba abajo, y en la línea 1 la función todavía no existe."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. Es una excepción a la regla de «arriba abajo»: las `function` se preparan antes de arrancar.",
+      "Marta": "Con casi todo tendrías razón, también con una flecha guardada en una `const`. Pero las `function` se preparan antes de empezar.",
+      "ninguno": "Esta vez sí acierta una. Fíjate en que se escribe con `function`, no con `const`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Fíjate en cómo se crea: con `function`, no con `const`.",
+      "Las `function` se preparan antes de que el programa empiece.",
+      "¿Pasaría lo mismo con `const avisar = () => ...`?"
+    ],
+    "explicacion": "Imprime `Aviso enviado`. Las funciones hechas con `function` están listas desde el principio; las flechas guardadas en `const`, no (con ellas sí daría error). Aun así, es más claro definir antes de usar."
+  },
+  {
+    "id": "s06-rev-x2",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "parametros-return",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Haz una función que sume una lista de horas». Tenía que salir 90. Toca la línea que está mal.",
+    "codigo": "function suma(lista) {\n  let total = 0;\n  for (const n of lista) {\n    total = total + n;\n    return total;\n  }\n}\nconsole.log(suma([10, 30, 50]));",
+    "lineasFallo": [5],
+    "opciones": [
+      {
+        "texto": "El `return` está dentro del bucle: sale de la función en la primera vuelta. Tiene que ir después del bucle.",
+        "correcta": true,
+        "siEliges": "Exacto. `return` termina la función en el acto, aunque el bucle no haya acabado."
+      },
+      {
+        "texto": "`total` tiene que crearse dentro del bucle.",
+        "siEliges": "Así se reiniciaría en cada vuelta. Crearlo fuera está bien; mira dónde está el `return`."
+      },
+      {
+        "texto": "Hay que usar un `for` con `i` en vez de `for...of`.",
+        "siEliges": "`for...of` vale para sumar. El problema es que el bucle no llega a dar más de una vuelta."
+      }
+    ],
+    "arreglo": "function suma(lista) {\n  let total = 0;\n  for (const n of lista) {\n    total = total + n;\n  }\n  return total;\n}\nconsole.log(suma([10, 30, 50]));",
+    "pistas": [
+      "¿Cuántas vueltas llega a dar el bucle?",
+      "`return` termina la función en ese mismo momento.",
+      "¿Está el `return` dentro o fuera de las llaves del `for`?"
+    ],
+    "explicacion": "Imprime `10`: suma el primero y se va. Lo que va después de un `return` no se ejecuta, y eso incluye las vueltas que le quedaban al bucle. La sangría ayuda a verlo: el `return` está al nivel de dentro del bucle."
+  },
+  {
+    "id": "s06-rev-x3",
+    "tipo": "fallo",
+    "semana": 6,
+    "concepto": "parametros-return",
+    "tema": "rgpd",
+    "enunciado": "Tu despacho se fija un plazo interno de 30 días para responder. Le pediste a la IA: «Di si un día aún está dentro del plazo». El día 30 sale fuera. Toca la línea que está mal.",
+    "codigo": "function enPlazo(dias) {\n  return dias < 30;\n}\nconsole.log(enPlazo(30));",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "Con `<`, el día 30 no entra. Tenía que ser `dias <= 30`.",
+        "correcta": true,
+        "siEliges": "Exacto. El límite de siempre, ahora escondido dentro de una función."
+      },
+      {
+        "texto": "Falta un `if` que devuelva `true` o `false`.",
+        "siEliges": "La comparación ya da `true` o `false`, y se puede devolver tal cual. El problema es qué comparación."
+      },
+      {
+        "texto": "La llamada tendría que ser `enPlazo(31)`.",
+        "siEliges": "Lo que preguntas es si el día 30 está en plazo, así que la llamada está bien. Mira la comparación."
+      }
+    ],
+    "arreglo": "function enPlazo(dias) {\n  return dias <= 30;\n}\nconsole.log(enPlazo(30));",
+    "pistas": [
+      "Con 30 días, ¿debería estar en plazo?",
+      "`<` deja fuera el propio límite; `<=` lo incluye.",
+      "¿Es 30 menor que 30?"
+    ],
+    "explicacion": "Imprime `false`. Una función con un nombre claro (`enPlazo`) da confianza, pero hay que mirar dentro. Pruébala con el valor del límite: es donde se esconden estos fallos."
+  },
+  {
+    "id": "s06-rev-x4",
+    "tipo": "razon",
+    "semana": 6,
+    "concepto": "funciones",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten qué imprime esta función flecha. ¿Quién tiene razón?",
+    "codigo": "const doble = (n) => n * 2;\nconsole.log(doble(4));",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `undefined`.",
+        "porque": "No hay ningún `return`."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `8`.",
+        "porque": "Sin llaves, la flecha devuelve sola lo que hay a la derecha."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Sin llaves no hace falta `return`: la flecha devuelve sola. Solo con llaves `{ }` hay que escribirlo.",
+      "Marta": "Correcto. `(n) => n * 2` es una forma corta de `(n) => { return n * 2; }`.",
+      "ninguno": "Una de las dos acierta. ¿Lleva llaves la flecha?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Lleva llaves la flecha?",
+      "Sin llaves, la flecha devuelve lo que hay a la derecha de `=>`.",
+      "¿Cuánto es 4 * 2?"
+    ],
+    "explicacion": "Imprime `8`. Sin llaves, el `return` va implícito. No pidas un `return` donde no hace falta: revisar también es no «arreglar» lo que está bien."
+  }
+]

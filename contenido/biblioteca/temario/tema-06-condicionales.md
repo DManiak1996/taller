@@ -50,6 +50,8 @@ if (afectados > 1000) {
 
 ## Revisar código de una IA
 
+- Un solo `=` dentro de un `if` no compara: guarda un valor, y la condición casi siempre se cumple. Para comparar, `===`.
+- Comprobar que cada camino hace lo que corresponde a su condición, y no lo contrario.
 - ¿Existe algún valor que caiga en el camino equivocado? Probar un valor de cada tramo y los límites exactos.
 - ¿Hay algún camino al que no se pueda llegar nunca? Suele indicar un orden incorrecto.
 - ¿El `else` final recoge solo los casos que debe?

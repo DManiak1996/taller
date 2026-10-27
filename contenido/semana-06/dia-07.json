@@ -1,0 +1,228 @@
+{
+  "id": "s06-d07",
+  "semana": 6,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: divide y vencerás",
+  "objetivo": "Hoy aprendes a partir un problema grande en funciones pequeñas con una sola tarea cada una, que es como se escriben y se revisan los programas de verdad.",
+  "conceptos": [
+    "descomposicion"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un programa grande no se escribe de golpe: se **descompone** en partes pequeñas, cada una con una sola tarea y un nombre claro. Es como un dictamen, que no se redacta de una vez sino por apartados (hechos, fundamentos, conclusión), y cada apartado se revisa por separado."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Avisar de una solicitud que vence",
+      "pasos": [
+        {
+          "titulo": "Calcular",
+          "texto": "¿Cuántos días quedan? Una función: quedan(plazo, pasados)."
+        },
+        {
+          "titulo": "Clasificar",
+          "texto": "¿Es urgente? Otra función: urgente(dias)."
+        },
+        {
+          "titulo": "Redactar",
+          "texto": "El texto del aviso: otra más, aviso(nombre, dias)."
+        },
+        {
+          "titulo": "Juntar",
+          "texto": "El programa principal llama a las tres, en orden."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function quedan(plazo, pasados) {\n  return plazo - pasados;\n}\nfunction aviso(nombre, dias) {\n  return `${nombre}: quedan ${dias}`;\n}\nconst q = quedan(30, 26);\nconsole.log(aviso(\"Laura\", q));",
+      "salida": [
+        "Laura: quedan 4"
+      ],
+      "nota": "Cada función hace una sola cosa y se puede probar sola: si el aviso sale mal, sabes en cuál mirar. Al revisar código de una IA, desconfía de las funciones larguísimas que lo hacen todo."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Señales de una buena descomposición: cada función cabe en una pantalla; su nombre es un verbo que dice lo que hace (`calcular`, `validar`, `formatear`); y recibe lo que necesita por parámetros, en vez de tomarlo de fuera. Si una IA te entrega una función de 200 líneas, pídele que la divida."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "El análisis de riesgos de una EIPD lo redacta una función grande, pero escribir el nivel de riesgo en mayúsculas se lo encarga a una pequeña. (`? :` es un if en una línea: si el nivel es «muy_alto», devuelve «MUY ALTO»; si no, el nivel en mayúsculas.)",
+      "codigo": "function formatNivelRiesgo(nivel: FactorRiesgo['nivelRiesgo']): string {\n  return nivel === 'muy_alto' ? 'MUY ALTO' : nivel.toUpperCase();\n}",
+      "fichero": "DeIure/src/lib/apartado-09-compiler.ts"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "node hola.ts > salida.txt",
+      "salida": [],
+      "nota": "**Comando de la semana: tuberías y redirección.** `>` guarda en un fichero lo que saldría en la pantalla: por eso aquí no sale nada. Si el fichero ya existe, lo **sobrescribe**; `>>` añade al final. `|` (tubería) pasa lo que escribe una orden a la siguiente: `ls | grep ts` lista y se queda con las líneas que contienen «ts». **Minirreto en tu Mac:** en `practica`, haz `node hola.ts > salida.txt` y después `cat salida.txt`: ahí está el saludo. Repite con `>>` y vuelve a hacer `cat`: ahora sale dos veces."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s06-d07-r1",
+      "semana": 6,
+      "concepto": "descomposicion",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function neto(bruto) {\n  return bruto - 20;\n}\nfunction mitad(n) {\n  return n / 2;\n}\nconsole.log(mitad(neto(100)));",
+      "opciones": [
+        {
+          "texto": "40",
+          "correcta": true,
+          "siEliges": "Eso es: neto(100) da 80, y mitad(80) da 40."
+        },
+        {
+          "texto": "30",
+          "siEliges": "Primero se calcula lo de dentro: neto(100), que da 80. Luego, la mitad."
+        },
+        {
+          "texto": "80",
+          "siEliges": "Falta la función de fuera: mitad(80) da 40."
+        }
+      ],
+      "pistas": [
+        "¿Qué llamada se resuelve primero?",
+        "La de dentro: neto(100).",
+        "Y después mitad de ese resultado."
+      ],
+      "explicacion": "Dos funciones pequeñas encadenadas: cada una se entiende sola, y juntas resuelven el problema."
+    },
+    {
+      "id": "s06-d07-r2",
+      "semana": 6,
+      "concepto": "descomposicion",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Un plazo de 30 días del que han pasado 26. Completa para que escriba true: es urgente.",
+      "codigo": "function quedan(plazo, pasados) {\n  return plazo - pasados;\n}\nfunction urgente(dias) {\n  return dias <= 5;\n}\nconsole.log(urgente(___));",
+      "salidaEsperada": [
+        "true"
+      ],
+      "opciones": [
+        {
+          "texto": "quedan(30, 26)",
+          "correcta": true,
+          "siEliges": "Correcto: quedan 4 días, y 4 <= 5 es true."
+        },
+        {
+          "texto": "quedan(30, 20)",
+          "siEliges": "Así quedarían 10 días: no es urgente."
+        },
+        {
+          "texto": "quedan(26)",
+          "siEliges": "Falta un argumento: pasados vale undefined y la resta da NaN."
+        }
+      ],
+      "pistas": [
+        "urgente necesita los días que quedan.",
+        "Esos días los calcula la otra función.",
+        "Llama a quedan con el plazo y los días pasados, en ese orden."
+      ],
+      "explicacion": "Lo que devuelve una función puede ser directamente el argumento de otra. Así se conectan las partes."
+    },
+    {
+      "ref": "s06-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s06-d07-x1",
+      "semana": 6,
+      "concepto": "descomposicion",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const suma = (a, b) => a + b;\nconst media = (a, b) =>\n  suma(a, b) / 2;\nconsole.log(media(4, 8));",
+      "opciones": [
+        {
+          "texto": "6",
+          "correcta": true,
+          "siEliges": "Eso es: media usa suma y divide entre 2: 12 / 2."
+        },
+        {
+          "texto": "8",
+          "siEliges": "media divide la suma entre 2: (4 + 8) / 2."
+        },
+        {
+          "texto": "12",
+          "siEliges": "Falta el / 2 de media."
+        }
+      ],
+      "pistas": [
+        "media llama a suma.",
+        "suma(4, 8) es 12.",
+        "Y media lo divide entre 2."
+      ],
+      "explicacion": "Una función puede apoyarse en otra. Si suma tuviera un fallo, media lo heredaría: por eso se prueban por separado."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s06-d07-n1",
+      "semana": 6,
+      "concepto": "descomposicion",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const cuadrado = (n) => n * n;\nfunction sumaCuadrados(lista) {\n  let t = 0;\n  for (const n of lista) {\n    t = t + cuadrado(n);\n  }\n  return t;\n}\nconsole.log(sumaCuadrados([1, 2, 3]));",
+      "opciones": [
+        {
+          "texto": "14",
+          "correcta": true,
+          "siEliges": "Eso es: 1 + 4 + 9."
+        },
+        {
+          "texto": "36",
+          "siEliges": "Se eleva cada número antes de sumar, no la suma: 1 + 4 + 9."
+        },
+        {
+          "texto": "6",
+          "siEliges": "Cada número pasa por cuadrado antes de sumarse."
+        }
+      ],
+      "pistas": [
+        "El bucle suma, pero ¿qué suma exactamente?",
+        "Suma cuadrado(n) de cada número.",
+        "1, 4 y 9."
+      ],
+      "explicacion": "Una función pequeña dentro de un bucle dentro de otra función: descomponer es esto, piezas que encajan."
+    },
+    "escribir": {
+      "id": "s06-d07-n2",
+      "semana": 6,
+      "concepto": "descomposicion",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Divídelo en dos funciones: quedan(plazo, pasados) devuelve los días que quedan, y nivel(dias) devuelve «Urgente» si son 5 o menos y «Normal» si no. Escribe «4 días: Urgente».",
+      "datos": "const plazo = 30;\nconst pasados = 26;",
+      "salidaEsperada": [
+        "4 días: Urgente"
+      ],
+      "variantes": [
+        {
+          "datos": "const plazo = 30;\nconst pasados = 10;",
+          "salidaEsperada": [
+            "20 días: Normal"
+          ]
+        },
+        {
+          "datos": "const plazo = 30;\nconst pasados = 25;",
+          "salidaEsperada": [
+            "5 días: Urgente"
+          ]
+        }
+      ],
+      "solucion": "function quedan(plazo, pasados) {\n  return plazo - pasados;\n}\nfunction nivel(dias) {\n  if (dias <= 5) {\n    return \"Urgente\";\n  }\n  return \"Normal\";\n}\nconst resto = quedan(plazo, pasados);\nconst texto = nivel(resto);\nconsole.log(resto, \"días:\", texto);",
+      "pistas": [
+        "Escribe primero las dos funciones y pruébalas por separado.",
+        "nivel lleva un if con dos return. El programa principal guarda lo que devuelve quedan y se lo pasa a nivel.",
+        "const resto = quedan(plazo, pasados); después, guarda nivel(resto) en otra caja y escribe las dos."
+      ],
+      "explicacion": "Con 5 días justos tiene que salir «Urgente»: una de las variantes lo comprueba. Si algo falla, prueba cada función sola con console.log."
+    }
+  }
+}
