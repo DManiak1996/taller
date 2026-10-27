@@ -1,0 +1,291 @@
+{
+  "id": "s07-d03",
+  "semana": 7,
+  "dia": 3,
+  "titulo": "Listas de objetos: una tabla",
+  "objetivo": "Hoy aprendes a guardar muchas fichas en una lista y a recorrerlas con for...of para contar o sumar según uno de sus campos.",
+  "conceptos": [
+    "objetos"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Una lista de objetos es una **tabla**: cada objeto es una fila y cada clave, una columna. El registro de actividades de tratamiento, las solicitudes de derechos, las brechas… casi todos los datos de verdad tienen esta forma. Se recorre con el for...of de la semana 5: en cada vuelta, la variable es **una fila entera**."
+    },
+    {
+      "tipo": "pasoapaso",
+      "codigo": "const sols = [\n  { tipo: \"acceso\", dias: 12 },\n  { tipo: \"supresión\", dias: 40 },\n];\nlet fuera = 0;\nfor (const s of sols) {\n  if (s.dias > 30) {\n    fuera = fuera + 1;\n  }\n}\nconsole.log(fuera);",
+      "pasos": [
+        {
+          "linea": 1,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]"
+          },
+          "salida": [],
+          "nota": "Una lista con dos solicitudes. Tu despacho se fija un plazo interno de 30 días para contestarlas, y queremos contar cuántas lo han pasado."
+        },
+        {
+          "linea": 5,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "0"
+          },
+          "salida": [],
+          "nota": "El contador empieza en 0, fuera del bucle."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "0",
+            "s": "{ tipo: \"acceso\", dias: 12 }"
+          },
+          "salida": [],
+          "nota": "Primera vuelta: s es la **primera fila entera**, el objeto de acceso."
+        },
+        {
+          "linea": 7,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "0",
+            "s": "{ tipo: \"acceso\", dias: 12 }"
+          },
+          "salida": [],
+          "nota": "s.dias es 12: no pasa de 30. No entra."
+        },
+        {
+          "linea": 6,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "0",
+            "s": "{ tipo: \"supresión\", dias: 40 }"
+          },
+          "salida": [],
+          "nota": "Segunda vuelta: ahora s es la fila de supresión."
+        },
+        {
+          "linea": 7,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "0",
+            "s": "{ tipo: \"supresión\", dias: 40 }"
+          },
+          "salida": [],
+          "nota": "s.dias es 40: sí pasa de 30."
+        },
+        {
+          "linea": 8,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "1",
+            "s": "{ tipo: \"supresión\", dias: 40 }"
+          },
+          "salida": [],
+          "nota": "El contador sube a 1."
+        },
+        {
+          "linea": 11,
+          "variables": {
+            "sols": "[{ tipo: \"acceso\", dias: 12 }, { tipo: \"supresión\", dias: 40 }]",
+            "fuera": "1"
+          },
+          "salida": [
+            "1"
+          ],
+          "nota": "Una solicitud fuera de plazo."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const brechas = [\n  { sitio: \"Web\", horas: 5 },\n  { sitio: \"App\", horas: 3 },\n];\nlet total = 0;\nfor (const b of brechas) {\n  total = total + b.horas;\n}\nconsole.log(total);",
+      "salida": [
+        "8"
+      ],
+      "nota": "Para sumar, el acumulador suma **un campo** de cada fila, b.horas. Sumar b, la fila entera, no tiene sentido: es un objeto, no un número."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Cuando DeIure procesa en lote las supresiones pendientes, cuenta cómo ha ido cada una recorriendo la lista de resultados y mirando un campo de cada fila. (`continue` salta a la siguiente vuelta, y `succeeded++` suma 1 al contador.)",
+      "codigo": "for (const o of outcomes) {\n  if (o.status !== 'fulfilled') continue;\n  if (o.value.kind === 'success') succeeded++;\n  else if (o.value.wasLastAttempt) abandoned++;\n  else retried++;\n}",
+      "fichero": "DeIure/src/lib/gdpr-pending-cascades.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d03-r1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const ps = [\n  { nombre: \"Ana\", consiente: true },\n  { nombre: \"Leo\", consiente: false },\n  { nombre: \"Eva\", consiente: false },\n];\nfor (const p of ps) {\n  if (!p.consiente) {\n    console.log(p.nombre);\n  }\n}",
+      "opciones": [
+        {
+          "texto": "Leo\nEva",
+          "correcta": true,
+          "siEliges": "Eso es: escribe el nombre de quienes no han dado su consentimiento."
+        },
+        {
+          "texto": "Ana",
+          "siEliges": "El ! le da la vuelta: entran los que tienen consiente en false."
+        },
+        {
+          "texto": "false\nfalse",
+          "siEliges": "Se escribe p.nombre, no p.consiente."
+        },
+        {
+          "texto": "Leo",
+          "siEliges": "El bucle sigue hasta el final: Eva también cumple."
+        }
+      ],
+      "pistas": [
+        "En cada vuelta, p es una persona entera.",
+        "Entra en el if quien tiene consiente en false.",
+        "Y de esas, se escribe el nombre."
+      ],
+      "explicacion": "Se mira un campo (consiente) para decidir y se escribe otro (nombre). Es la forma típica de recorrer una tabla."
+    },
+    {
+      "id": "s07-d03-r2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba 2: las solicitudes de acceso.",
+      "codigo": "const sols = [\n  { tipo: \"acceso\" },\n  { tipo: \"oposición\" },\n  { tipo: \"acceso\" },\n];\nlet n = 0;\nfor (const s of sols) {\n  if (___ === \"acceso\") {\n    n = n + 1;\n  }\n}\nconsole.log(n);",
+      "salidaEsperada": [
+        "2"
+      ],
+      "opciones": [
+        {
+          "texto": "s.tipo",
+          "correcta": true,
+          "siEliges": "Correcto: el campo tipo de la fila de esta vuelta."
+        },
+        {
+          "texto": "sols.tipo",
+          "siEliges": "La lista no tiene campo tipo: lo tiene cada fila. Da undefined y sale 0."
+        },
+        {
+          "texto": "tipo",
+          "siEliges": "No hay ninguna variable tipo: da error."
+        }
+      ],
+      "pistas": [
+        "¿Qué variable cambia en cada vuelta?",
+        "s es la fila de esta vuelta.",
+        "El dato está en un campo de s."
+      ],
+      "explicacion": "La lista es la tabla entera; la variable del bucle es una fila. Los campos son de la fila."
+    },
+    {
+      "ref": "s07-rev-3"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s07-d03-x1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const l = [{ id: 1 }, { id: 2 }];\nfor (const x of l) {\n  console.log(x.id * 10);\n}",
+      "opciones": [
+        {
+          "texto": "10\n20",
+          "correcta": true,
+          "siEliges": "Eso es: una línea por fila, con su id por 10."
+        },
+        {
+          "texto": "30",
+          "siEliges": "No se suma nada: se escribe una vez en cada vuelta."
+        },
+        {
+          "texto": "{ id: 10 }\n{ id: 20 }",
+          "siEliges": "Se escribe un número, x.id * 10, no la fila."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas filas tiene l?",
+        "En cada vuelta, x es una fila.",
+        "Se escribe x.id por 10."
+      ],
+      "explicacion": "Una lista de objetos también se puede escribir en una sola línea, si cabe."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d03-n1",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Este programa busca la brecha con más personas afectadas. ¿Qué escribe?",
+      "codigo": "const bs = [\n  { sitio: \"Web\", n: 150 },\n  { sitio: \"App\", n: 900 },\n  { sitio: \"CRM\", n: 45 },\n];\nlet mayor = bs[0];\nfor (const b of bs) {\n  if (b.n > mayor.n) {\n    mayor = b;\n  }\n}\nconsole.log(mayor.sitio);",
+      "opciones": [
+        {
+          "texto": "App",
+          "correcta": true,
+          "siEliges": "Eso es: mayor guarda la fila entera con más afectados, y al final se escribe su sitio."
+        },
+        {
+          "texto": "900",
+          "siEliges": "Se escribe mayor.sitio, no mayor.n."
+        },
+        {
+          "texto": "CRM",
+          "siEliges": "No se queda con la última fila: solo cambia cuando encuentra una con más afectados."
+        },
+        {
+          "texto": "Web",
+          "siEliges": "Empieza siendo Web, pero App tiene más afectados."
+        }
+      ],
+      "pistas": [
+        "mayor empieza siendo la primera fila.",
+        "Solo cambia si la fila de la vuelta tiene más afectados.",
+        "Al final, ¿qué fila guarda? Se escribe su sitio."
+      ],
+      "explicacion": "El máximo de la semana 5, pero guardando la fila entera: así conservas todos sus datos, no solo el número."
+    },
+    "escribir": {
+      "id": "s07-d03-n2",
+      "semana": 7,
+      "concepto": "objetos",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días. Escribe el tipo de cada solicitud que lleve más de 30 días y, al final, «Total: » y cuántas son.",
+      "datos": "const sols = [\n  { tipo: \"acceso\", dias: 12 },\n  { tipo: \"supresión\", dias: 40 },\n  { tipo: \"rectificación\", dias: 30 },\n];",
+      "inicial": "// Un contador\n// Recorre sols\n// Escribe el total",
+      "salidaEsperada": [
+        "supresión",
+        "Total: 1"
+      ],
+      "variantes": [
+        {
+          "datos": "const sols = [\n  { tipo: \"acceso\", dias: 31 },\n  { tipo: \"oposición\", dias: 45 },\n];",
+          "salidaEsperada": [
+            "acceso",
+            "oposición",
+            "Total: 2"
+          ]
+        },
+        {
+          "datos": "const sols = [\n  { tipo: \"acceso\", dias: 30 },\n];",
+          "salidaEsperada": [
+            "Total: 0"
+          ]
+        }
+      ],
+      "solucion": "let total = 0;\nfor (const s of sols) {\n  if (s.dias > 30) {\n    console.log(s.tipo);\n    total = total + 1;\n  }\n}\nconsole.log(\"Total:\", total);",
+      "pistas": [
+        "Un contador fuera del bucle y un if dentro.",
+        "Dentro del if: escribe s.tipo y suma 1 al contador.",
+        "El total se escribe después de cerrar el bucle."
+      ],
+      "explicacion": "Con 30 días justos todavía está dentro del plazo: por eso es > y no >=. Una variante lo comprueba."
+    }
+  }
+}

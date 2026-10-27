@@ -1,0 +1,185 @@
+{
+  "id": "s07-d06",
+  "semana": 7,
+  "dia": 6,
+  "titulo": "map: transformar cada elemento",
+  "objetivo": "Hoy aprendes a transformar cada elemento de una lista con map, y a encadenar filter y map para elegir y transformar en dos pasos.",
+  "conceptos": [
+    "metodos-array"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "`map` («transformar») aplica la misma flecha a **cada** elemento y devuelve una lista nueva **del mismo tamaño** con los resultados. No elige: transforma. Lo más habitual es sacar un solo campo de cada fila, como copiar una columna de una tabla."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const exps = [\n  { id: 7, estado: \"abierto\" },\n  { id: 9, estado: \"cerrado\" },\n];\nconst ids = exps.map((e) => e.id);\nconsole.log(ids);",
+      "salida": [
+        "[ 7, 9 ]"
+      ],
+      "nota": "Dos filas entran, dos números salen: el id de cada una."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const ns = [1, 2];\nconst r = ns.map((n) => {\n  return n * 10;\n});\nconsole.log(r);",
+      "salida": [
+        "[ 10, 20 ]"
+      ],
+      "nota": "Con llaves, la flecha necesita return, como en la semana 6. Si lo olvidas, cada elemento se transforma en undefined y sale `[ undefined, undefined ]`."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const ps = [\n  { nombre: \"Ana\", baja: false },\n  { nombre: \"Leo\", baja: true },\n  { nombre: \"Eva\", baja: true },\n];\nconst nombres = ps\n  .filter((p) => p.baja)\n  .map((p) => p.nombre);\nconsole.log(nombres);",
+      "salida": [
+        "[ 'Leo', 'Eva' ]"
+      ],
+      "nota": "Se pueden **encadenar**: filter elige las filas y map saca el nombre de cada una. Para revisarlo, anota qué lista sale de cada paso: filter da dos personas; map, sus dos nombres."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "En el dock del escritorio de DeIure, para saber qué iconos fijados están cerrados, se encadenan los dos: filter se queda con los que no están abiertos, y map saca la clave de cada uno.",
+      "codigo": "const closedPinned = input.pinned.filter(piece => !piece.open).map(piece => piece.key);",
+      "fichero": "DeIure/src/lib/desktop/dock-strip-layout.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d06-r1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const precios = [100, 50];\nconst conIva = precios.map((p) =>\n  p * 1.21\n);\nconsole.log(conIva);",
+      "opciones": [
+        {
+          "texto": "[ 121, 60.5 ]",
+          "correcta": true,
+          "siEliges": "Eso es: cada precio por 1,21, en una lista del mismo tamaño."
+        },
+        {
+          "texto": "[ 100, 50 ]",
+          "siEliges": "map devuelve una lista nueva con los resultados de la flecha."
+        },
+        {
+          "texto": "181.5",
+          "siEliges": "map no suma: transforma cada precio por separado."
+        }
+      ],
+      "pistas": [
+        "¿Cuántos elementos tendrá la lista nueva?",
+        "Los mismos: dos.",
+        "Cada uno, multiplicado por 1.21."
+      ],
+      "explicacion": "Fíjate en que en el código el decimal va con punto (1.21), aunque en español escribamos 1,21."
+    },
+    {
+      "id": "s07-d06-r2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba [ 'Ana', 'Leo' ].",
+      "codigo": "const ps = [\n  { nombre: \"Ana\", edad: 34 },\n  { nombre: \"Leo\", edad: 51 },\n];\nconst r = ps.map((p) => ___);\nconsole.log(r);",
+      "salidaEsperada": [
+        "[ 'Ana', 'Leo' ]"
+      ],
+      "opciones": [
+        {
+          "texto": "p.nombre",
+          "correcta": true,
+          "siEliges": "Correcto: de cada persona, su nombre."
+        },
+        {
+          "texto": "ps.nombre",
+          "siEliges": "La lista no tiene nombre: sale [ undefined, undefined ]."
+        },
+        {
+          "texto": "p",
+          "siEliges": "Así sale cada persona entera, con nombre y edad."
+        }
+      ],
+      "pistas": [
+        "p es cada persona, una a una.",
+        "De cada una quieres un solo campo.",
+        "El campo nombre de p."
+      ],
+      "explicacion": "Como en find y filter, la flecha trabaja sobre cada elemento, p, nunca sobre la lista entera."
+    },
+    {
+      "ref": "s07-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s07-rev-x4"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d06-n1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const dias = [10, 35, 31];\nconst fuera = dias.map((d) =>\n  d > 30\n);\nconsole.log(fuera);\nconsole.log(fuera.length);",
+      "opciones": [
+        {
+          "texto": "[ false, true, true ]\n3",
+          "correcta": true,
+          "siEliges": "Eso es: map no elige, transforma. Cada número se convierte en el resultado de la comparación."
+        },
+        {
+          "texto": "[ 35, 31 ]\n2",
+          "siEliges": "Eso haría filter. map devuelve una lista del mismo tamaño."
+        },
+        {
+          "texto": "[ false, true, true ]\n2",
+          "siEliges": "La lista tiene tres elementos, aunque uno sea false."
+        }
+      ],
+      "pistas": [
+        "¿Qué devuelve la flecha para cada número?",
+        "d > 30 da true o false.",
+        "map siempre devuelve tantos elementos como tenía la lista."
+      ],
+      "explicacion": "Confundir map con filter es de los fallos más típicos: map con una condición da una lista de true y false."
+    },
+    "escribir": {
+      "id": "s07-d06-n2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días. Con filter y map, escribe la lista de nombres de quienes llevan más de 30 días esperando respuesta.",
+      "datos": "const sols = [\n  { nombre: \"Ana\", dias: 12 },\n  { nombre: \"Leo\", dias: 40 },\n];",
+      "inicial": "// Primero filter, después map",
+      "salidaEsperada": [
+        "[ 'Leo' ]"
+      ],
+      "variantes": [
+        {
+          "datos": "const sols = [\n  { nombre: \"Eva\", dias: 30 },\n  { nombre: \"Ian\", dias: 31 },\n  { nombre: \"Sol\", dias: 45 },\n];",
+          "salidaEsperada": [
+            "[ 'Ian', 'Sol' ]"
+          ]
+        },
+        {
+          "datos": "const sols = [\n  { nombre: \"Ana\", dias: 5 },\n];",
+          "salidaEsperada": [
+            "[]"
+          ]
+        }
+      ],
+      "solucion": "const tarde = sols\n  .filter((s) => s.dias > 30)\n  .map((s) => s.nombre);\nconsole.log(tarde);",
+      "pistas": [
+        "filter elige las solicitudes de más de 30 días.",
+        "map saca el nombre de cada una.",
+        "Puedes encadenarlos: sols.filter(…).map(…)."
+      ],
+      "explicacion": "El orden importa: si haces map primero, ya solo tienes nombres y no puedes filtrar por los días."
+    }
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "id": "s07-d05",
+  "semana": 7,
+  "dia": 5,
+  "titulo": "filter: quedarse con todos los que cumplen",
+  "objetivo": "Hoy aprendes a sacar de una lista todos los elementos que cumplen una condición con filter, y en qué se diferencia de find.",
+  "conceptos": [
+    "metodos-array"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "`filter` («filtrar») se usa como find, con una flecha que dice la condición, pero devuelve **una lista nueva con todos** los que cumplen. Léelo como «quédate con los que…». La lista original **no cambia**. Y si ninguno cumple, devuelve una lista vacía, `[]`."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = [10, 80, 30, 96];\nconst tarde = horas.filter((h) =>\n  h > 72\n);\nconsole.log(tarde);\nconsole.log(horas.length);",
+      "salida": [
+        "[ 80, 96 ]",
+        "4"
+      ],
+      "nota": "Las brechas notificadas pasadas 72 horas. tarde es una lista nueva con dos; horas sigue teniendo las cuatro."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "¿find o filter?",
+      "pasos": [
+        {
+          "titulo": "find",
+          "texto": "El **primero** que cumple. Da un elemento suelto, o undefined si no hay ninguno."
+        },
+        {
+          "titulo": "filter",
+          "texto": "**Todos** los que cumplen. Da siempre una lista, aunque sea de uno o vacía."
+        },
+        {
+          "titulo": "Cómo elegir",
+          "texto": "¿Te basta con uno (buscar un expediente por su número)? find. ¿Los quieres todos (las solicitudes vencidas)? filter."
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Para el resumen del análisis de riesgos, DeIure cuenta cuántos factores hay de cada nivel: filtra los que tienen ese nivel y mira cuántos quedan con .length. (`f => …` es una flecha con el parámetro sin paréntesis.)",
+      "codigo": "const riesgosMuyAltos = factores.filter(f => f.nivelRiesgo === 'muy_alto').length;\nconst riesgosAltos = factores.filter(f => f.nivelRiesgo === 'alto').length;",
+      "fichero": "DeIure/src/lib/apartado-09-compiler.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d05-r1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const dias = [12, 40, 31, 30];\nconst r = dias.filter((d) =>\n  d > 30\n);\nconsole.log(r);",
+      "opciones": [
+        {
+          "texto": "[ 40, 31 ]",
+          "correcta": true,
+          "siEliges": "Eso es: los dos que pasan de 30, en su orden."
+        },
+        {
+          "texto": "[ 40, 31, 30 ]",
+          "siEliges": "30 no es mayor que 30: se queda fuera."
+        },
+        {
+          "texto": "40",
+          "siEliges": "Eso daría find, el primero. filter los da todos, en una lista."
+        },
+        {
+          "texto": "2",
+          "siEliges": "filter da la lista, no cuántos hay. Para eso, .length."
+        }
+      ],
+      "pistas": [
+        "Pregunta a cada número: ¿pasas de 30?",
+        "El 30 justo, ¿pasa?",
+        "filter da una lista."
+      ],
+      "explicacion": "filter conserva el orden de la lista original y siempre devuelve una lista."
+    },
+    {
+      "id": "s07-d05-r2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba cuántas personas han pedido la baja: 2.",
+      "codigo": "const ps = [\n  { nombre: \"Ana\", baja: false },\n  { nombre: \"Leo\", baja: true },\n  { nombre: \"Eva\", baja: true },\n];\nconst r = ps.filter((p) => p.baja);\nconsole.log(___);",
+      "salidaEsperada": [
+        "2"
+      ],
+      "opciones": [
+        {
+          "texto": "r.length",
+          "correcta": true,
+          "siEliges": "Correcto: r es una lista con dos personas, y .length las cuenta."
+        },
+        {
+          "texto": "r",
+          "siEliges": "Así sale la lista entera, no cuántas son."
+        },
+        {
+          "texto": "ps.length",
+          "siEliges": "Esa es la lista original: tiene 3."
+        }
+      ],
+      "pistas": [
+        "¿Qué guarda r?",
+        "Una lista con las personas que cumplen.",
+        "¿Cómo se sabe cuántos elementos tiene una lista?"
+      ],
+      "explicacion": "filter + .length es la forma corta de contar: «¿cuántos cumplen?»."
+    },
+    {
+      "ref": "s07-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "id": "s07-d05-x1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const ns = [1, 2, 3];\nconst r = ns.filter((n) => n > 5);\nconsole.log(r);",
+      "opciones": [
+        {
+          "texto": "[]",
+          "correcta": true,
+          "siEliges": "Eso es: ninguno pasa de 5, y filter devuelve una lista vacía."
+        },
+        {
+          "texto": "undefined",
+          "siEliges": "Eso daría find. filter siempre devuelve una lista, aunque esté vacía."
+        },
+        {
+          "texto": "[ 1, 2, 3 ]",
+          "siEliges": "filter se queda solo con los que cumplen, y no cumple ninguno."
+        }
+      ],
+      "pistas": [
+        "¿Algún número pasa de 5?",
+        "Ninguno.",
+        "¿Qué devuelve filter cuando no se queda con nada?"
+      ],
+      "explicacion": "Una lista vacía no es un error: es la respuesta «no hay ninguno». Pruébalo siempre al revisar."
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d05-n1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const bs = [\n  { sitio: \"Web\", horas: 80 },\n  { sitio: \"App\", horas: 10 },\n  { sitio: \"CRM\", horas: 72 },\n];\nconst tarde = bs.filter((b) =>\n  b.horas > 72\n);\nconsole.log(tarde.length);\nconsole.log(bs.length);",
+      "opciones": [
+        {
+          "texto": "1\n3",
+          "correcta": true,
+          "siEliges": "Eso es: solo la de 80 horas pasa de 72, y la lista original sigue con sus tres."
+        },
+        {
+          "texto": "2\n3",
+          "siEliges": "72 no es mayor que 72: la del CRM queda dentro del plazo."
+        },
+        {
+          "texto": "1\n1",
+          "siEliges": "filter no toca la lista original: bs sigue teniendo tres."
+        },
+        {
+          "texto": "Web\n3",
+          "siEliges": "Se escribe tarde.length, cuántas son."
+        }
+      ],
+      "pistas": [
+        "¿Cuáles pasan de 72 horas? Ojo con la de 72 justas.",
+        "tarde es una lista nueva.",
+        "¿Cambia bs?"
+      ],
+      "explicacion": "Con 72 horas justas todavía se está a tiempo («a más tardar 72 horas», art. 33 RGPD). Y filter nunca cambia la lista de la que parte."
+    },
+    "escribir": {
+      "id": "s07-d05-n2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con filter, guarda en una lista nueva las horas que pasan de 72. Escribe «Fuera:» con esa lista y, después, «Total:» con cuántas son.",
+      "datos": "const horas = [10, 80, 72, 96];",
+      "inicial": "// Filtra las que pasan de 72\n// Escribe la lista y el total",
+      "salidaEsperada": [
+        "Fuera: [ 80, 96 ]",
+        "Total: 2"
+      ],
+      "variantes": [
+        {
+          "datos": "const horas = [73];",
+          "salidaEsperada": [
+            "Fuera: [ 73 ]",
+            "Total: 1"
+          ]
+        },
+        {
+          "datos": "const horas = [5, 72];",
+          "salidaEsperada": [
+            "Fuera: []",
+            "Total: 0"
+          ]
+        }
+      ],
+      "solucion": "const tarde = horas.filter((h) =>\n  h > 72\n);\nconsole.log(\"Fuera:\", tarde);\nconsole.log(\"Total:\", tarde.length);",
+      "pistas": [
+        "La flecha de filter dice qué se queda: h > 72.",
+        "Guarda lo que devuelve filter en una variable.",
+        "console.log(\"Fuera:\", tarde) escribe el texto y la lista en la misma línea."
+      ],
+      "explicacion": "Si no hay ninguna, sale la lista vacía [] y el total 0: una de las variantes lo comprueba."
+    }
+  }
+}

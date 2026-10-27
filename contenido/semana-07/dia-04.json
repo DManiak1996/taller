@@ -1,0 +1,186 @@
+{
+  "id": "s07-d04",
+  "semana": 7,
+  "dia": 4,
+  "titulo": "find: buscar el primero",
+  "objetivo": "Hoy aprendes a buscar en una lista el primer elemento que cumple una condición con find, y qué hacer cuando no hay ninguno.",
+  "conceptos": [
+    "metodos-array"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Buscar algo en una lista es tan habitual que las listas traen la búsqueda hecha: `find` («encontrar»). Le das una **función flecha** con la condición; find la prueba con cada elemento, en orden, y te devuelve **el primero que cumple**. Si ninguno cumple, devuelve `undefined`. Es el bucle con return de la semana pasada, en una línea."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const exps = [\n  { id: 1, estado: \"abierto\" },\n  { id: 2, estado: \"cerrado\" },\n];\nconst e = exps.find((x) =>\n  x.id === 2\n);\nconsole.log(e);\nconsole.log(e.estado);",
+      "salida": [
+        "{ id: 2, estado: 'cerrado' }",
+        "cerrado"
+      ],
+      "nota": "Lee la flecha como «el x cuyo id es 2». find devuelve la **fila entera**, así que después puedes leer cualquiera de sus campos."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const exps = [\n  { id: 1, estado: \"abierto\" },\n];\nconst e = exps.find((x) =>\n  x.id === 3\n);\nif (e === undefined) {\n  console.log(\"No existe\");\n} else {\n  console.log(e.estado);\n}",
+      "salida": [
+        "No existe"
+      ],
+      "nota": "**Importante:** si find no encuentra nada, da undefined, y leer un campo de undefined (`e.estado`) **rompe el programa**. Antes de usar lo que devuelve find, comprueba que existe."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al guardar el análisis de amenazas de una EIPD, DeIure busca si la amenaza ya existía, por su id. Si no la encuentra, existing queda en undefined y se crea una nueva. (Aquí la flecha va sin paréntesis en el parámetro: `amenaza => …` es lo mismo que `(amenaza) => …`.)",
+      "codigo": "current.amenazas.find(amenaza => amenaza.id === baseExistingId)",
+      "fichero": "DeIure/src/lib/server/apartado-10-persist.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s07-d04-r1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const ps = [\n  { nombre: \"Ana\", baja: false },\n  { nombre: \"Leo\", baja: true },\n  { nombre: \"Eva\", baja: true },\n];\nconst p = ps.find((x) => x.baja);\nconsole.log(p.nombre);",
+      "opciones": [
+        {
+          "texto": "Leo",
+          "correcta": true,
+          "siEliges": "Eso es: Leo es el primero con baja en true, y find se para ahí."
+        },
+        {
+          "texto": "Leo\nEva",
+          "siEliges": "find devuelve solo el primero que cumple."
+        },
+        {
+          "texto": "Eva",
+          "siEliges": "find va en orden y se queda con el primero, no con el último."
+        },
+        {
+          "texto": "true",
+          "siEliges": "find devuelve la fila entera, y se escribe su nombre."
+        }
+      ],
+      "pistas": [
+        "La condición es x.baja: entra quien tiene baja en true.",
+        "Prueba las filas en orden.",
+        "find se para en la primera que cumple."
+      ],
+      "explicacion": "find devuelve un solo elemento, el primero. Mañana verás qué usar cuando los quieres todos."
+    },
+    {
+      "id": "s07-d04-r2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba Bufete Sur, el cliente con id 7.",
+      "codigo": "const clientes = [\n  { id: 3, nombre: \"Clínica Arga\" },\n  { id: 7, nombre: \"Bufete Sur\" },\n];\nconst c = clientes.find((x) =>\n  ___\n);\nconsole.log(c.nombre);",
+      "salidaEsperada": [
+        "Bufete Sur"
+      ],
+      "opciones": [
+        {
+          "texto": "x.id === 7",
+          "correcta": true,
+          "siEliges": "Correcto: compara el id de cada cliente con 7."
+        },
+        {
+          "texto": "x.id = 7",
+          "siEliges": "Un solo = no compara: guarda 7 en el id del primer cliente, y find se queda con él. Sale Clínica Arga."
+        },
+        {
+          "texto": "clientes.id === 7",
+          "siEliges": "La lista no tiene id: lo tiene cada cliente, x. No encuentra nada y se rompe."
+        }
+      ],
+      "pistas": [
+        "x es cada cliente, uno a uno.",
+        "Hay que comparar su id con 7.",
+        "Para comparar, ===."
+      ],
+      "explicacion": "Dentro de la flecha, x es el elemento que se está probando. La condición se escribe siempre sobre x."
+    },
+    {
+      "ref": "s07-rev-4"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s07-rev-x3"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s07-d04-n1",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const exps = [\n  { id: 1, estado: \"abierto\" },\n  { id: 2, estado: \"cerrado\" },\n];\nfunction estado(id) {\n  const e = exps.find((x) =>\n    x.id === id\n  );\n  if (e === undefined) {\n    return \"No existe\";\n  }\n  return e.estado;\n}\nconsole.log(estado(2));\nconsole.log(estado(5));",
+      "opciones": [
+        {
+          "texto": "cerrado\nNo existe",
+          "correcta": true,
+          "siEliges": "Eso es: el 2 existe y devuelve su estado; el 5 no, y find da undefined."
+        },
+        {
+          "texto": "cerrado\nundefined",
+          "siEliges": "Cuando e es undefined, la función devuelve «No existe» antes de llegar al último return."
+        },
+        {
+          "texto": "abierto\nNo existe",
+          "siEliges": "Busca el id 2, que está cerrado."
+        },
+        {
+          "texto": "cerrado\n❌ Error",
+          "siEliges": "El if comprueba undefined antes de leer e.estado: no se rompe."
+        }
+      ],
+      "pistas": [
+        "En la primera llamada, id vale 2.",
+        "En la segunda, id vale 5: ¿qué devuelve find?",
+        "Si e es undefined, el primer return termina la función."
+      ],
+      "explicacion": "Una función que busca y que sabe qué hacer cuando no encuentra: así es como debería escribirlo una IA."
+    },
+    "escribir": {
+      "id": "s07-d04-n2",
+      "semana": 7,
+      "concepto": "metodos-array",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Busca con find el primer cliente de Francia (pais «FR») y escribe su nombre. Si no hay ninguno, escribe «Ninguno».",
+      "datos": "const clientes = [\n  { nombre: \"Lex Sur\", pais: \"ES\" },\n  { nombre: \"Roux SA\", pais: \"FR\" },\n  { nombre: \"Petit SA\", pais: \"FR\" },\n];",
+      "inicial": "// Busca con find\n// Comprueba si existe",
+      "salidaEsperada": [
+        "Roux SA"
+      ],
+      "variantes": [
+        {
+          "datos": "const clientes = [\n  { nombre: \"Petit SA\", pais: \"FR\" },\n];",
+          "salidaEsperada": [
+            "Petit SA"
+          ]
+        },
+        {
+          "datos": "const clientes = [\n  { nombre: \"Lex Sur\", pais: \"ES\" },\n];",
+          "salidaEsperada": [
+            "Ninguno"
+          ]
+        }
+      ],
+      "solucion": "const c = clientes.find((x) =>\n  x.pais === \"FR\"\n);\nif (c === undefined) {\n  console.log(\"Ninguno\");\n} else {\n  console.log(c.nombre);\n}",
+      "pistas": [
+        "La condición de find compara x.pais con «FR».",
+        "Guarda lo que devuelve find y compruébalo con un if.",
+        "Si es undefined, «Ninguno»; si no, su nombre."
+      ],
+      "explicacion": "Sin el if, la variante sin clientes franceses rompería el programa al leer el nombre de undefined."
+    }
+  }
+}
