@@ -362,9 +362,9 @@ button.linea:hover { background: var(--pri-t); }
 .diff-git { margin: 0; display: flex; flex-direction: column; gap: 6px; }
 .diff-lineas { background: var(--code); border: 1px solid var(--borde); border-radius: var(--r-tarjeta); padding: 8px 0; overflow: hidden; font-family: var(--f-codigo); font-size: 15px; line-height: 1.75; }
 .diff-lineas > div { display: flex; padding: 0 12px; white-space: pre-wrap; word-break: break-word; }
-.diff-lineas .signo { flex: none; width: 1.4em; font-weight: 700; }
-.diff-lineas .mas { background: var(--ok-t); }
-.diff-lineas .mas .signo { color: var(--ok); }
-.diff-lineas .menos { background: var(--mal-t); }
-.diff-lineas .menos .signo { color: var(--mal); }
+.diff-lineas .signo { flex: none; width: 1ch; margin-right: 1ch; font-weight: 700; }
+.diff-lineas .mas { background: var(--dif-mas-t); }
+.diff-lineas .mas .signo { color: var(--dif-mas); }
+.diff-lineas .menos { background: var(--dif-menos-t); }
+.diff-lineas .menos .signo { color: var(--dif-menos); }
 

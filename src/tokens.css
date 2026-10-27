@@ -35,6 +35,11 @@
   --sx-cadena: #0F6A8A;    /* textos entre comillas, 5.9:1 sobre --code */
   --sx-comentario: var(--suave);
 
+  /* Diff (bloque «diff», semana 8): los mismos colores que GitHub, para que Daniel los reconozca allí.
+     No son --ok/--mal: aquí verde y rojo solo significan «añadido» y «quitado». */
+  --dif-mas: #1A7F37;   --dif-mas-t: #DAFBE1;     /* signo + 4.6:1 sobre el tinte */
+  --dif-menos: #CF222E; --dif-menos-t: #FFEBE9;   /* signo - 4.7:1 sobre el tinte */
+
   /* Consola (salida del programa): oscura en los dos modos */
   --consola: #15171C;
   --consola-txt: #E8EAEE;
@@ -60,6 +65,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-tema="claro"]) {
+    --dif-mas: #3FB950; --dif-mas-t: #12261E; --dif-menos: #FF7B72; --dif-menos-t: #2D1517;
     --sx-cadena: #7CCBE0;
     --fondo: #0F1115; --sup: #191C22; --code: #14161B;
     --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
@@ -70,6 +76,7 @@
   }
 }
 :root[data-tema="oscuro"] {
+  --dif-mas: #3FB950; --dif-mas-t: #12261E; --dif-menos: #FF7B72; --dif-menos-t: #2D1517;
   --sx-cadena: #7CCBE0;
   --fondo: #0F1115; --sup: #191C22; --code: #14161B;
   --tinta: #ECEEF2; --suave: #A6ADB9; --borde: #323844;
