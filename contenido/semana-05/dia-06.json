@@ -145,5 +145,73 @@
     {
       "ref": "s05-rev-x3"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d06-n1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Busca el mayor de unos saldos negativos. ¿Qué escribe este programa?",
+      "codigo": "const saldos = [-5, -2, -9];\nlet max = 0;\nfor (const s of saldos) {\n  if (s > max) {\n    max = s;\n  }\n}\nconsole.log(max);",
+      "opciones": [
+        {
+          "texto": "0",
+          "correcta": true,
+          "siEliges": "Eso es: max empieza en 0, y ningún saldo es mayor que 0. Nunca cambia."
+        },
+        {
+          "texto": "-2",
+          "siEliges": "Sería lo correcto, pero max empieza en 0 y -2 > 0 es false."
+        },
+        {
+          "texto": "-9",
+          "siEliges": "-9 es el menor, y además nunca supera a 0."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto vale max antes del bucle?",
+        "¿Algún saldo es mayor que 0?",
+        "Ninguno: max se queda como empezó."
+      ],
+      "explicacion": "Es un fallo real: empezar el máximo en 0 solo funciona si hay algún dato positivo. Lo seguro es empezar con el primero de la lista, saldos[0]."
+    },
+    "escribir": {
+      "id": "s05-d06-n2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho se fija un plazo interno de 30 días. Escribe cuántas solicitudes pasan de 30 días, «Fuera de plazo: 2», y cuántos días lleva la más antigua, «Máximo: 60».",
+      "datos": "const dias = [12, 45, 30, 60];",
+      "salidaEsperada": [
+        "Fuera de plazo: 2",
+        "Máximo: 60"
+      ],
+      "variantes": [
+        {
+          "datos": "const dias = [5];",
+          "salidaEsperada": [
+            "Fuera de plazo: 0",
+            "Máximo: 5"
+          ]
+        },
+        {
+          "datos": "const dias = [31, 90, 31];",
+          "salidaEsperada": [
+            "Fuera de plazo: 3",
+            "Máximo: 90"
+          ]
+        }
+      ],
+      "solucion": "let fuera = 0;\nlet max = dias[0];\nfor (const d of dias) {\n  if (d > 30) {\n    fuera = fuera + 1;\n  }\n  if (d > max) {\n    max = d;\n  }\n}\nconsole.log(\"Fuera de plazo:\", fuera);\nconsole.log(\"Máximo:\", max);",
+      "pistas": [
+        "Dos patrones en el mismo bucle: contar y el mayor.",
+        "El contador empieza en 0; el máximo, en el primer dato, dias[0].",
+        "Dentro, dos if separados: uno para contar y otro para el máximo."
+      ],
+      "explicacion": "Un solo recorrido puede hacer varias cosas a la vez. Con 30 justos no está fuera: «pasa de 30» es > 30."
+    }
+  }
 }

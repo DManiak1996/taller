@@ -148,5 +148,74 @@
       ],
       "explicacion": "Lo que no está es lo más caro de buscar en una lista: obliga a mirarlo todo."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d07-n1",
+      "semana": 5,
+      "concepto": "estructuras-datos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Buscar el 16 mirando uno a uno. ¿Qué escribe este programa?",
+      "codigo": "const lista = [4, 8, 15, 16, 23];\nlet i = 0;\nwhile (lista[i] !== 16) {\n  i++;\n}\nconsole.log(i + 1);",
+      "opciones": [
+        {
+          "texto": "4",
+          "correcta": true,
+          "siEliges": "Eso es: lo encuentra en la posición 3, después de mirar 4 datos."
+        },
+        {
+          "texto": "3",
+          "siEliges": "3 es la posición; los datos mirados son 4, porque se empieza en 0."
+        },
+        {
+          "texto": "16",
+          "siEliges": "Escribe cuántos ha mirado, no el dato."
+        },
+        {
+          "texto": "5",
+          "siEliges": "Para en cuanto lo encuentra: no mira el 23."
+        }
+      ],
+      "pistas": [
+        "¿En qué posición está el 16?",
+        "En la 3. El bucle para ahí.",
+        "Escribe i + 1."
+      ],
+      "explicacion": "Mirar uno a uno cuesta tantos pasos como la posición del dato, más uno. En una lista enorme, puede ser muchísimo."
+    },
+    "escribir": {
+      "id": "s05-d07-n2",
+      "semana": 5,
+      "concepto": "estructuras-datos",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Busca buscado en la lista mirando uno a uno con un while, y escribe cuántos datos has mirado hasta encontrarlo. buscado siempre está en la lista.",
+      "datos": "const lista = [7, 3, 9, 1];\nconst buscado = 9;",
+      "salidaEsperada": [
+        "3"
+      ],
+      "variantes": [
+        {
+          "datos": "const lista = [7, 3, 9, 1];\nconst buscado = 7;",
+          "salidaEsperada": [
+            "1"
+          ]
+        },
+        {
+          "datos": "const lista = [5, 5, 2];\nconst buscado = 2;",
+          "salidaEsperada": [
+            "3"
+          ]
+        }
+      ],
+      "solucion": "let i = 0;\nwhile (lista[i] !== buscado) {\n  i = i + 1;\n}\nconsole.log(i + 1);",
+      "pistas": [
+        "Un contador de posición que empieza en 0.",
+        "Mientras lista[i] no sea el buscado, avanza.",
+        "Al salir, i es su posición: los datos mirados son i + 1."
+      ],
+      "explicacion": "Si buscado no estuviera, este while no terminaría nunca. Con un diccionario se iría directo, en un paso."
+    }
+  }
 }

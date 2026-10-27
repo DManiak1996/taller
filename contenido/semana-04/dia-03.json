@@ -256,5 +256,74 @@
     {
       "ref": "s04-rev-x2"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d03-n1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Un acumulador que solo suma a veces. ¿Qué escribe este programa?",
+      "codigo": "let total = 0;\nfor (let i = 1; i <= 5; i++) {\n  if (i > 2) {\n    total = total + i;\n  }\n}\nconsole.log(total);",
+      "opciones": [
+        {
+          "texto": "12",
+          "correcta": true,
+          "siEliges": "Eso es: solo suma 3, 4 y 5."
+        },
+        {
+          "texto": "15",
+          "siEliges": "Solo suma cuando i > 2: 3 + 4 + 5."
+        },
+        {
+          "texto": "3\n7\n12",
+          "siEliges": "El console.log está fuera del bucle: escribe solo el final."
+        },
+        {
+          "texto": "5",
+          "siEliges": "total no se pisa: va sumando sobre lo que tenía."
+        }
+      ],
+      "pistas": [
+        "¿En qué vueltas se cumple el if?",
+        "Con i = 3, 4 y 5.",
+        "3 + 4 + 5."
+      ],
+      "explicacion": "Acumulador y filtro juntos: así se suman solo los casos que cumplen algo, como las multas de más de cierto importe."
+    },
+    "escribir": {
+      "id": "s04-d03-n2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Una penalización inventada: el día 1 de retraso son 100 €, el día 2 son 200 €, el día 3 son 300 €… Escribe el total acumulado para los días de retraso de arriba.",
+      "datos": "const dias = 4;",
+      "salidaEsperada": [
+        "1000"
+      ],
+      "variantes": [
+        {
+          "datos": "const dias = 1;",
+          "salidaEsperada": [
+            "100"
+          ]
+        },
+        {
+          "datos": "const dias = 3;",
+          "salidaEsperada": [
+            "600"
+          ]
+        }
+      ],
+      "solucion": "let total = 0;\nfor (let d = 1; d <= dias; d++) {\n  total = total + d * 100;\n}\nconsole.log(total);",
+      "pistas": [
+        "Un acumulador que empieza en 0, antes del bucle.",
+        "El día d suma d * 100.",
+        "total = total + d * 100; dentro, y console.log fuera."
+      ],
+      "explicacion": "100 + 200 + 300 + 400 = 1000. El acumulador suma algo distinto en cada vuelta, calculado con el contador."
+    }
+  }
 }

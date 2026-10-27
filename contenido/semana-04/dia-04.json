@@ -265,5 +265,70 @@
     {
       "ref": "s04-rev-x4"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d04-n1",
+      "semana": 4,
+      "concepto": "bucle-while",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Un saldo de 100 € que baja 30 € al mes. ¿Qué escribe este programa?",
+      "codigo": "let saldo = 100;\nlet meses = 0;\nwhile (saldo > 0) {\n  saldo = saldo - 30;\n  meses = meses + 1;\n}\nconsole.log(meses, saldo);",
+      "opciones": [
+        {
+          "texto": "4 -20",
+          "correcta": true,
+          "siEliges": "Eso es: 70, 40, 10 y -20. Con 10 todavía es > 0 y da otra vuelta."
+        },
+        {
+          "texto": "3 10",
+          "siEliges": "Con 10, ¿10 > 0? Sí: da otra vuelta y baja a -20."
+        },
+        {
+          "texto": "4 0",
+          "siEliges": "Resta de 30 en 30: de 10 pasa a -20, no a 0."
+        }
+      ],
+      "pistas": [
+        "Apunta saldo y meses después de cada vuelta.",
+        "70 y 1, 40 y 2, 10 y 3… ¿10 > 0?",
+        "Una vuelta más: -20 y 4."
+      ],
+      "explicacion": "Un while para cuando la condición es false, aunque se haya pasado del límite. Por eso el saldo acaba en negativo."
+    },
+    "escribir": {
+      "id": "s04-d04-n2",
+      "semana": 4,
+      "concepto": "bucle-while",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Duplica copias mientras sea menor que objetivo, y escribe cuántas veces has duplicado.",
+      "datos": "let copias = 1;\nconst objetivo = 10;",
+      "salidaEsperada": [
+        "4"
+      ],
+      "variantes": [
+        {
+          "datos": "let copias = 1;\nconst objetivo = 1;",
+          "salidaEsperada": [
+            "0"
+          ]
+        },
+        {
+          "datos": "let copias = 3;\nconst objetivo = 20;",
+          "salidaEsperada": [
+            "3"
+          ]
+        }
+      ],
+      "solucion": "let veces = 0;\nwhile (copias < objetivo) {\n  copias = copias * 2;\n  veces = veces + 1;\n}\nconsole.log(veces);",
+      "pistas": [
+        "No sabes cuántas vueltas habrá: es trabajo para while.",
+        "Dentro, duplica copias y cuenta una vez más.",
+        "Un contador veces que empieza en 0, y console.log(veces) al final."
+      ],
+      "explicacion": "1, 2, 4, 8 y 16: cuatro duplicaciones. Si ya se cumple el objetivo, el while no da ninguna vuelta y sale 0."
+    }
+  }
 }

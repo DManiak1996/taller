@@ -189,5 +189,75 @@
       ],
       "explicacion": "++ suma 1 y -- resta 1. Son atajos muy comunes en los bucles."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d02-n1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Mira bien qué se escribe en cada vuelta.",
+      "codigo": "for (let i = 0; i < 3; i++) {\n  console.log(i + 1);\n}",
+      "opciones": [
+        {
+          "texto": "1\n2\n3",
+          "correcta": true,
+          "siEliges": "Eso es: i vale 0, 1 y 2, y escribe i + 1."
+        },
+        {
+          "texto": "0\n1\n2",
+          "siEliges": "Escribe i + 1, no i."
+        },
+        {
+          "texto": "1\n2\n3\n4",
+          "siEliges": "i < 3: i solo vale 0, 1 y 2. Tres vueltas."
+        }
+      ],
+      "pistas": [
+        "¿Qué valores toma i?",
+        "0, 1 y 2: con 3, i < 3 es false.",
+        "Súmale 1 a cada uno."
+      ],
+      "explicacion": "Empezar en 0 y escribir i + 1 es muy común: el ordenador cuenta desde 0 y las personas desde 1."
+    },
+    "escribir": {
+      "id": "s04-d02-n2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe los números desde «desde» hasta «hasta», los dos incluidos, cada uno en su línea.",
+      "datos": "const desde = 3;\nconst hasta = 6;",
+      "salidaEsperada": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "variantes": [
+        {
+          "datos": "const desde = 1;\nconst hasta = 1;",
+          "salidaEsperada": [
+            "1"
+          ]
+        },
+        {
+          "datos": "const desde = 5;\nconst hasta = 7;",
+          "salidaEsperada": [
+            "5",
+            "6",
+            "7"
+          ]
+        }
+      ],
+      "solucion": "for (let i = desde; i <= hasta; i++) {\n  console.log(i);\n}",
+      "pistas": [
+        "El inicio del for no tiene por qué ser 0: puede ser una caja.",
+        "Empieza en desde y sigue mientras no pase de hasta.",
+        "for (let i = desde; i <= hasta; i++)"
+      ],
+      "explicacion": "Con < en vez de <=, el último se quedaría fuera. La variante de 1 a 1 lo pilla: tiene que salir una vez."
+    }
+  }
 }

@@ -233,5 +233,70 @@
     {
       "ref": "s05-rev-x4"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d04-n1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Este for empieza en 1 y compara cada dato con el anterior. ¿Qué escribe?",
+      "codigo": "const ids = [5, 10, 15];\nfor (let i = 1; i < ids.length; i++) {\n  console.log(ids[i] - ids[i - 1]);\n}",
+      "opciones": [
+        {
+          "texto": "5\n5",
+          "correcta": true,
+          "siEliges": "Eso es: empieza en la posición 1, así que da dos vueltas: 10 - 5 y 15 - 10."
+        },
+        {
+          "texto": "5\n5\n5",
+          "siEliges": "Empieza en 1, no en 0: solo hay dos vueltas."
+        },
+        {
+          "texto": "10\n15",
+          "siEliges": "Escribe la resta con el anterior, no el dato."
+        }
+      ],
+      "pistas": [
+        "¿Qué valores toma i?",
+        "1 y 2: con 3, i < 3 es false.",
+        "ids[1] - ids[0] y ids[2] - ids[1]."
+      ],
+      "explicacion": "Empezar en 1 evita pedir ids[-1] en la primera vuelta. Al revisar, comprueba que el inicio y el final encajan con lo que se lee dentro."
+    },
+    "escribir": {
+      "id": "s05-d04-n2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Con un for clásico, escribe cada posición y su dato, así: «0: 7».",
+      "datos": "const ids = [7, 3, 9];",
+      "salidaEsperada": [
+        "0: 7",
+        "1: 3",
+        "2: 9"
+      ],
+      "variantes": [
+        {
+          "datos": "const ids = [5];",
+          "salidaEsperada": [
+            "0: 5"
+          ]
+        },
+        {
+          "datos": "const ids = [];",
+          "salidaEsperada": []
+        }
+      ],
+      "solucion": "for (let i = 0; i < ids.length; i++) {\n  console.log(`${i}: ${ids[i]}`);\n}",
+      "pistas": [
+        "El contador recorre las posiciones: de 0 a length - 1.",
+        "Condición: i < ids.length. Dentro, una plantilla con i y con ids[i].",
+        "console.log(`${i}: ${ids[i]}`);"
+      ],
+      "explicacion": "Con <= saldría una línea de más, «3: undefined». Con la lista vacía no tiene que salir nada."
+    }
+  }
 }

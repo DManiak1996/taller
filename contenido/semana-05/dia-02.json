@@ -173,5 +173,74 @@
     {
       "ref": "s05-rev-x1"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d02-n1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const pasos = [\"a\", \"b\", \"c\"];\nconsole.log(pasos[pasos.length - 1]);\nconsole.log(pasos[pasos.length]);\nconsole.log(pasos[-1]);",
+      "opciones": [
+        {
+          "texto": "c\nundefined\nundefined",
+          "correcta": true,
+          "siEliges": "Eso es: el último está en length - 1, y ni la posición 3 ni la -1 existen."
+        },
+        {
+          "texto": "c\nundefined\nc",
+          "siEliges": "No hay posiciones negativas: [-1] no existe y da undefined."
+        },
+        {
+          "texto": "b\nc\nundefined",
+          "siEliges": "length es 3: la posición 2 es «c», y la 3 ya no existe."
+        },
+        {
+          "texto": "c\n❌ Error: la posición no existe",
+          "siEliges": "Pedir una posición que no existe no da error: da undefined."
+        }
+      ],
+      "pistas": [
+        "length vale 3. ¿Qué posiciones existen?",
+        "0, 1 y 2. Cualquier otra da undefined.",
+        "La 2 es «c»; la 3 y la -1 no existen."
+      ],
+      "explicacion": "Algunos lenguajes aceptan [-1] para el último, y una IA puede copiarlo. En TypeScript da undefined, sin avisar."
+    },
+    "escribir": {
+      "id": "s05-d02-n2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe el último nombre de la lista, sea cual sea su longitud.",
+      "datos": "const nombres = [\"Ana\", \"Leo\", \"Eva\"];",
+      "salidaEsperada": [
+        "Eva"
+      ],
+      "variantes": [
+        {
+          "datos": "const nombres = [\"Pau\"];",
+          "salidaEsperada": [
+            "Pau"
+          ]
+        },
+        {
+          "datos": "const nombres = [\"Ana\", \"Bea\"];",
+          "salidaEsperada": [
+            "Bea"
+          ]
+        }
+      ],
+      "solucion": "const ultima = nombres.length - 1;\nconsole.log(nombres[ultima]);",
+      "pistas": [
+        "La última posición depende de cuántos haya.",
+        "Si hay length datos, el último está en length - 1.",
+        "Guarda nombres.length - 1 en una caja y úsala como posición."
+      ],
+      "explicacion": "nombres[2] valdría solo para listas de tres. Con length - 1 vale para cualquiera."
+    }
+  }
 }

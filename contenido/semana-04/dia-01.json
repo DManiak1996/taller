@@ -256,5 +256,80 @@
     {
       "ref": "s04-rev-x1"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d01-n1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Un if dentro de un for. ¿Qué escribe este programa?",
+      "codigo": "for (let i = 1; i <= 5; i++) {\n  if (i > 3) {\n    console.log(i);\n  }\n}",
+      "opciones": [
+        {
+          "texto": "4\n5",
+          "correcta": true,
+          "siEliges": "Eso es: el bucle pasa por los cinco, pero solo escribe cuando i > 3."
+        },
+        {
+          "texto": "1\n2\n3",
+          "siEliges": "Escribe cuando i es mayor que 3, no cuando es menor."
+        },
+        {
+          "texto": "3\n4\n5",
+          "siEliges": "i > 3 no incluye el 3."
+        },
+        {
+          "texto": "1\n2\n3\n4\n5",
+          "siEliges": "El console.log está dentro del if: solo escribe si se cumple."
+        }
+      ],
+      "pistas": [
+        "El for da cinco vueltas. ¿En cuántas se cumple el if?",
+        "Solo cuando i vale más de 3.",
+        "4 y 5."
+      ],
+      "explicacion": "Un if dentro de un for filtra: el bucle mira todos y el if decide con cuáles hace algo."
+    },
+    "escribir": {
+      "id": "s04-d01-n2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con un for, escribe «Recordatorio 1», «Recordatorio 2»… hasta el número que diga n, cada uno en su línea.",
+      "datos": "const n = 3;",
+      "salidaEsperada": [
+        "Recordatorio 1",
+        "Recordatorio 2",
+        "Recordatorio 3"
+      ],
+      "variantes": [
+        {
+          "datos": "const n = 1;",
+          "salidaEsperada": [
+            "Recordatorio 1"
+          ]
+        },
+        {
+          "datos": "const n = 5;",
+          "salidaEsperada": [
+            "Recordatorio 1",
+            "Recordatorio 2",
+            "Recordatorio 3",
+            "Recordatorio 4",
+            "Recordatorio 5"
+          ]
+        }
+      ],
+      "solucion": "for (let i = 1; i <= n; i++) {\n  console.log(\"Recordatorio\", i);\n}",
+      "pistas": [
+        "El contador empieza en 1 y llega hasta n.",
+        "«Hasta n, incluido» es i <= n.",
+        "Dentro, console.log(\"Recordatorio\", i);"
+      ],
+      "explicacion": "El mismo bucle sirve para 1 o para 500 recordatorios: n decide cuántas vueltas."
+    }
+  }
 }
