@@ -256,5 +256,73 @@
       ],
       "explicacion": "Sumar con for…of es más corto que con el for clásico y da lo mismo."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d05-n1",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Un for…in y un for…of sobre la misma lista. ¿Qué escribe este programa?",
+      "codigo": "const letras = [\"x\", \"y\"];\nfor (const a in letras) {\n  console.log(a);\n}\nfor (const b of letras) {\n  console.log(b);\n}",
+      "opciones": [
+        {
+          "texto": "0\n1\nx\ny",
+          "correcta": true,
+          "siEliges": "Eso es: in da las posiciones y of da los datos."
+        },
+        {
+          "texto": "x\ny\nx\ny",
+          "siEliges": "for…in no da los datos, sino las posiciones."
+        },
+        {
+          "texto": "0\n1\n0\n1",
+          "siEliges": "for…of sí da los datos: x e y."
+        }
+      ],
+      "pistas": [
+        "Los dos bucles se parecen, pero uno da posiciones y el otro datos.",
+        "in: posiciones. of: datos.",
+        "Primero 0 y 1; después x e y."
+      ],
+      "explicacion": "Una sola letra de diferencia y un resultado distinto: es de los cambios más fáciles de pasar por alto al revisar."
+    },
+    "escribir": {
+      "id": "s05-d05-n2",
+      "semana": 5,
+      "concepto": "for-of",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con for…of, escribe solo las multas mayores de 90 y, al final, cuántas eran: «Mayores: 2».",
+      "datos": "const multas = [100, 50, 250];",
+      "salidaEsperada": [
+        "100",
+        "250",
+        "Mayores: 2"
+      ],
+      "variantes": [
+        {
+          "datos": "const multas = [10];",
+          "salidaEsperada": [
+            "Mayores: 0"
+          ]
+        },
+        {
+          "datos": "const multas = [91, 90];",
+          "salidaEsperada": [
+            "91",
+            "Mayores: 1"
+          ]
+        }
+      ],
+      "solucion": "let cuantas = 0;\nfor (const m of multas) {\n  if (m > 90) {\n    console.log(m);\n    cuantas = cuantas + 1;\n  }\n}\nconsole.log(\"Mayores:\", cuantas);",
+      "pistas": [
+        "Un for…of con un if dentro, y un contador creado antes del bucle.",
+        "Dentro del if, escribe la multa y suma 1 al contador.",
+        "El «Mayores:» va después del bucle."
+      ],
+      "explicacion": "Con 90 justos no cuenta: «mayores de 90» es > 90. Una de las variantes lo comprueba."
+    }
+  }
 }

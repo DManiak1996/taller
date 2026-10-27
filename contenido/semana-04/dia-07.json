@@ -207,5 +207,77 @@
       ],
       "explicacion": "1000 pasos contra 10: el mismo resultado, cien veces más trabajo."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d07-n1",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Cuántas veces se puede partir 100 por la mitad hasta quedar en 1 o menos?",
+      "codigo": "let n = 100;\nlet pasos = 0;\nwhile (n > 1) {\n  n = n / 2;\n  pasos++;\n}\nconsole.log(pasos);",
+      "opciones": [
+        {
+          "texto": "7",
+          "correcta": true,
+          "siEliges": "Eso es: 50, 25, 12.5, 6.25, 3.125, 1.5625 y 0.78125."
+        },
+        {
+          "texto": "6",
+          "siEliges": "Con 1.5625 todavía es > 1: hace falta otra vuelta."
+        },
+        {
+          "texto": "50",
+          "siEliges": "50 es la primera mitad, no el número de pasos."
+        },
+        {
+          "texto": "10",
+          "siEliges": "10 son los pasos para 1000, no para 100."
+        }
+      ],
+      "pistas": [
+        "La división no redondea: salen decimales.",
+        "50, 25, 12.5, 6.25, 3.125…",
+        "Sigue mientras n > 1."
+      ],
+      "explicacion": "Ni 1000 ni 100 son potencias de 2, así que no se llega justo a 1. Aun así, partir por la mitad reduce muy deprisa."
+    },
+    "escribir": {
+      "id": "s04-d07-n2",
+      "semana": 4,
+      "concepto": "algoritmos",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Compara dos algoritmos para buscar entre total expedientes. Escribe los pasos que hacen falta mirando uno a uno y, debajo, partiendo por la mitad hasta quedar en 1 o menos.",
+      "datos": "const total = 1000;",
+      "salidaEsperada": [
+        "1000",
+        "10"
+      ],
+      "variantes": [
+        {
+          "datos": "const total = 8;",
+          "salidaEsperada": [
+            "8",
+            "3"
+          ]
+        },
+        {
+          "datos": "const total = 1;",
+          "salidaEsperada": [
+            "1",
+            "0"
+          ]
+        }
+      ],
+      "solucion": "console.log(total);\nlet n = total;\nlet pasos = 0;\nwhile (n > 1) {\n  n = n / 2;\n  pasos = pasos + 1;\n}\nconsole.log(pasos);",
+      "pistas": [
+        "Mirando uno a uno, en el peor caso miras todos: total pasos.",
+        "Para la mitad, copia total en una caja let y pártela mientras sea > 1.",
+        "Cuenta las vueltas con otra caja que empiece en 0."
+      ],
+      "explicacion": "1000 frente a 10 con 1000 expedientes. Con un millón serían un millón frente a 20: ahí está la diferencia entre un algoritmo lento y uno rápido."
+    }
+  }
 }

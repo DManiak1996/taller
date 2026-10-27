@@ -191,5 +191,77 @@
       ],
       "explicacion": "Cada dato de la lista se usa como cualquier otra caja."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d01-n1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const horas = [72, 30, 15];\nconsole.log(horas[1] + horas.length);",
+      "opciones": [
+        {
+          "texto": "33",
+          "correcta": true,
+          "siEliges": "Eso es: horas[1] es el segundo, 30, y length es 3."
+        },
+        {
+          "texto": "75",
+          "siEliges": "[1] no es el primero: las posiciones empiezan en 0. horas[1] es 30."
+        },
+        {
+          "texto": "303",
+          "siEliges": "Los dos son números: + suma, no pega."
+        },
+        {
+          "texto": "31",
+          "siEliges": "length no es la última posición sino cuántos hay: 3."
+        }
+      ],
+      "pistas": [
+        "¿Qué dato está en la posición 1?",
+        "Las posiciones empiezan en 0: la 1 es el segundo, 30. Y length es el número de datos.",
+        "30 + 3."
+      ],
+      "explicacion": "horas[1] y horas.length son números como cualquier otro: se pueden sumar, comparar o guardar."
+    },
+    "escribir": {
+      "id": "s05-d01-n2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe el primer plazo de la lista y, debajo, cuántos plazos hay.",
+      "datos": "const plazos = [72, 30, 15];",
+      "salidaEsperada": [
+        "72",
+        "3"
+      ],
+      "variantes": [
+        {
+          "datos": "const plazos = [10];",
+          "salidaEsperada": [
+            "10",
+            "1"
+          ]
+        },
+        {
+          "datos": "const plazos = [5, 6, 7, 8];",
+          "salidaEsperada": [
+            "5",
+            "4"
+          ]
+        }
+      ],
+      "solucion": "console.log(plazos[0]);\nconsole.log(plazos.length);",
+      "pistas": [
+        "El primero está en una posición concreta, y el número de datos tiene su propia palabra.",
+        "El primero es plazos[0]. Cuántos hay: length.",
+        "console.log(plazos[0]); y console.log(plazos.length);"
+      ],
+      "explicacion": "Con [0] y length no hace falta saber qué hay en la lista ni cuántos datos tiene: el programa vale para cualquiera."
+    }
+  }
 }

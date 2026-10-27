@@ -141,5 +141,83 @@
     {
       "ref": "s04-rev-x3"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d06-n1",
+      "semana": 4,
+      "concepto": "bucle-while",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let n = 10;\nwhile (n !== 0) {\n  n = n - 3;\n}\nconsole.log(n);",
+      "lanzaError": true,
+      "opciones": [
+        {
+          "texto": "❌ No termina nunca",
+          "correcta": true,
+          "siEliges": "Eso es: 10, 7, 4, 1, -2… n se salta el 0 y la condición nunca es false."
+        },
+        {
+          "texto": "1",
+          "siEliges": "Con 1, ¿1 !== 0? Sí: sigue restando."
+        },
+        {
+          "texto": "0",
+          "siEliges": "De 3 en 3 desde 10, n nunca vale 0."
+        },
+        {
+          "texto": "-2",
+          "siEliges": "Para escribir algo tendría que salir del bucle, y no sale."
+        }
+      ],
+      "pistas": [
+        "Apunta n vuelta a vuelta.",
+        "10, 7, 4, 1… ¿vale 0 alguna vez?",
+        "Se lo salta: la condición siempre es true."
+      ],
+      "explicacion": "Con n > 0 en vez de n !== 0, pararía en -2. Una condición con > o < aguanta los saltos."
+    },
+    "escribir": {
+      "id": "s04-d06-n2",
+      "semana": 4,
+      "concepto": "bucle-while",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe los números desde 1, de 3 en 3 (1, 4, 7…), mientras no pasen de meta. Usa una condición que no se pueda saltar el límite.",
+      "datos": "const meta = 20;",
+      "salidaEsperada": [
+        "1",
+        "4",
+        "7",
+        "10",
+        "13",
+        "16",
+        "19"
+      ],
+      "variantes": [
+        {
+          "datos": "const meta = 1;",
+          "salidaEsperada": [
+            "1"
+          ]
+        },
+        {
+          "datos": "const meta = 7;",
+          "salidaEsperada": [
+            "1",
+            "4",
+            "7"
+          ]
+        }
+      ],
+      "solucion": "for (let i = 1; i <= meta; i += 3) {\n  console.log(i);\n}",
+      "pistas": [
+        "El paso es i += 3, que es lo mismo que i = i + 3.",
+        "Con !== meta no pararía si se salta el número. Hace falta <=.",
+        "for (let i = 1; i <= meta; i += 3)"
+      ],
+      "explicacion": "Con 20, el último es 19, y el siguiente, 22, ya no cumple <= 20. Con !== 20 no pararía nunca."
+    }
+  }
 }

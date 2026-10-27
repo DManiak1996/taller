@@ -171,5 +171,82 @@
       ],
       "explicacion": ">= incluye el límite; > lo deja fuera. Mira siempre si el último valor entra."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s04-d05-n1",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "for (let i = 10; i >= 0; i = i - 4) {\n  console.log(i);\n}",
+      "opciones": [
+        {
+          "texto": "10\n6\n2",
+          "correcta": true,
+          "siEliges": "Eso es: después del 2 vendría -2, y -2 >= 0 es false."
+        },
+        {
+          "texto": "10\n6\n2\n-2",
+          "siEliges": "-2 no cumple i >= 0: no llega a escribirse."
+        },
+        {
+          "texto": "10\n6\n2\n0",
+          "siEliges": "Va de 4 en 4 desde 10: nunca pasa por el 0."
+        },
+        {
+          "texto": "6\n2",
+          "siEliges": "El primer valor es el del inicio, 10."
+        }
+      ],
+      "pistas": [
+        "Empieza en 10 y resta 4 en cada vuelta.",
+        "10, 6, 2… ¿y después?",
+        "-2 no es >= 0."
+      ],
+      "explicacion": "Las tres preguntas de siempre: empieza en 10, para cuando baja de 0 y cambia de 4 en 4."
+    },
+    "escribir": {
+      "id": "s04-d05-n2",
+      "semana": 4,
+      "concepto": "bucle-for",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Cuenta atrás: escribe «Quedan 5», «Quedan 4»… hasta «Quedan 1» (empezando por el número de dias) y, al final, «Vencido».",
+      "datos": "const dias = 5;",
+      "salidaEsperada": [
+        "Quedan 5",
+        "Quedan 4",
+        "Quedan 3",
+        "Quedan 2",
+        "Quedan 1",
+        "Vencido"
+      ],
+      "variantes": [
+        {
+          "datos": "const dias = 2;",
+          "salidaEsperada": [
+            "Quedan 2",
+            "Quedan 1",
+            "Vencido"
+          ]
+        },
+        {
+          "datos": "const dias = 1;",
+          "salidaEsperada": [
+            "Quedan 1",
+            "Vencido"
+          ]
+        }
+      ],
+      "solucion": "for (let i = dias; i >= 1; i--) {\n  console.log(\"Quedan\", i);\n}\nconsole.log(\"Vencido\");",
+      "pistas": [
+        "Empieza en dias y baja de uno en uno.",
+        "Sigue mientras i >= 1, y resta con i--.",
+        "«Vencido» va fuera del bucle."
+      ],
+      "explicacion": "Al contar hacia atrás, la condición mira hacia abajo (>=) y el paso resta."
+    }
+  }
 }

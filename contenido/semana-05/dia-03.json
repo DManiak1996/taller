@@ -161,5 +161,68 @@
     {
       "ref": "s05-rev-x2"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s05-d03-n1",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const lista = [1, 2];\nlista.push(lista.length);\nlista[0] = 9;\nconsole.log(lista);",
+      "opciones": [
+        {
+          "texto": "[ 9, 2, 2 ]",
+          "correcta": true,
+          "siEliges": "Eso es: push añade length, que en ese momento es 2, y después el primero pasa a 9."
+        },
+        {
+          "texto": "[ 9, 2, 3 ]",
+          "siEliges": "push añade lo que vale length antes de crecer: 2."
+        },
+        {
+          "texto": "[ 1, 2, 2, 9 ]",
+          "siEliges": "lista[0] = 9 cambia el primero, no añade otro al final."
+        },
+        {
+          "texto": "❌ Error: lista es const",
+          "siEliges": "Con const no se puede cambiar la lista por otra, pero sí cambiar o añadir datos dentro."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto vale lista.length en la línea 2?",
+        "2: se añade un 2 al final. Luego la línea 3 cambia la posición 0.",
+        "[1, 2, 2] y luego el primero pasa a 9."
+      ],
+      "explicacion": "Lo de dentro de los paréntesis se calcula antes de añadir: por eso entra un 2 y no un 3."
+    },
+    "escribir": {
+      "id": "s05-d03-n2",
+      "semana": 5,
+      "concepto": "arrays",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Añade nuevo al final de la lista. Después escribe en una línea cuántos hay y quién es el último.",
+      "datos": "const lista = [\"Ana\"];\nconst nuevo = \"Luis\";",
+      "salidaEsperada": [
+        "2 Luis"
+      ],
+      "variantes": [
+        {
+          "datos": "const lista = [\"A\", \"B\"];\nconst nuevo = \"Eva\";",
+          "salidaEsperada": [
+            "3 Eva"
+          ]
+        }
+      ],
+      "solucion": "lista.push(nuevo);\nconst pos = lista.length - 1;\nconsole.log(lista.length, lista[pos]);",
+      "pistas": [
+        "Primero añade y después mira.",
+        "push añade al final. El último está en length - 1.",
+        "lista.push(nuevo); y después console.log con length y el último."
+      ],
+      "explicacion": "Si escribes antes de añadir, length aún no cuenta el nuevo. El orden de las líneas importa también con las listas."
+    }
+  }
 }
