@@ -6,6 +6,8 @@ interface Mision {
   id: string
   titulo: string
   semana: number
+  /** Revisión la marca al fusionar Daniel el PR de la misión. */
+  hecha: boolean
   comando: string
   cuerpo: string
 }
@@ -17,7 +19,7 @@ function leer(texto: string): Mision {
     const [k, ...v] = l.split(':')
     if (k && v.length) datos[k.trim()] = v.join(':').trim()
   }
-  return { id: datos.id ?? '', titulo: datos.titulo ?? '', semana: Number(datos.semana ?? 0), comando: datos.comando ?? '', cuerpo: (m?.[2] ?? texto).trim() }
+  return { id: datos.id ?? '', titulo: datos.titulo ?? '', semana: Number(datos.semana ?? 0), hecha: datos.hecha === 'true', comando: datos.comando ?? '', cuerpo: (m?.[2] ?? texto).trim() }
 }
 
 export const misiones = Object.values(ficheros)
@@ -57,7 +59,8 @@ export function Misiones({ volver, semana }: { volver: () => void; semana: numbe
         <p className="peq">Se hacen en el Mac o en la torre, con VS Code y la terminal, en tu repositorio privado «misiones».</p>
         {misiones.map((m) => {
           const parrafos = m.cuerpo.split(/\n\s*\n/)
-          if (semana <= m.semana)
+          // Una misión hecha se ve entera para repasarla, aunque su semana no haya terminado.
+          if (!m.hecha && semana <= m.semana)
             return (
               <section key={m.id} className="tarjeta md cerrada" aria-label={`${m.titulo}. Se abre al terminar la semana ${m.semana}.`}>
                 <p className="kicker" aria-hidden="true">
@@ -78,7 +81,14 @@ export function Misiones({ volver, semana }: { volver: () => void; semana: numbe
           return (
             <section key={m.id} className="tarjeta md">
               <p className="kicker">
-                {m.id} · <span className="pastilla pri">Ya puedes hacerla</span>
+                {m.id} ·{' '}
+                {m.hecha ? (
+                  <span className="pastilla ok">
+                    <Icono nombre="bien" tam={12} grosor={3.5} /> Hecha
+                  </span>
+                ) : (
+                  <span className="pastilla pri">Ya puedes hacerla</span>
+                )}
               </p>
               <p className="txt" style={{ fontWeight: 800, fontSize: 20 }}>
                 {m.titulo}
