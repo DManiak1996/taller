@@ -42,7 +42,9 @@ function Parrafo({ texto }: { texto: string }) {
   )
 }
 
-export function Misiones({ volver }: { volver: () => void }) {
+/** semana: la del próximo día que le toca (Infinity si ya lo ha hecho todo). Una misión de la semana N
+ * se abre al terminar esa semana del reto, es decir, cuando el próximo día ya es de una semana posterior. */
+export function Misiones({ volver, semana }: { volver: () => void; semana: number }) {
   return (
     <div className="app">
       <header className="top">
@@ -53,25 +55,46 @@ export function Misiones({ volver }: { volver: () => void }) {
       <main className="cuerpo">
         <h1 className="h1">Misiones</h1>
         <p className="peq">Se hacen en el Mac o en la torre, con VS Code y la terminal, en tu repositorio privado «misiones».</p>
-        {misiones.map((m) => (
-          <section key={m.id} className="tarjeta md">
-            <p className="kicker">
-              Semana {m.semana} · {m.id}
-            </p>
-            <p className="txt" style={{ fontWeight: 800, fontSize: 20 }}>
-              {m.titulo}
-            </p>
-            {m.cuerpo.split(/\n\s*\n/).map((p, i) => (
-              <Parrafo key={i} texto={p.replace(/\n/g, ' ')} />
-            ))}
-            {m.comando && (
-              <div className="consola">
-                <p className="consola-tit">Para empezar</p>
-                <div className="terminal-orden">{m.comando}</div>
-              </div>
-            )}
-          </section>
-        ))}
+        {misiones.map((m) => {
+          const parrafos = m.cuerpo.split(/\n\s*\n/)
+          if (semana <= m.semana)
+            return (
+              <section key={m.id} className="tarjeta md cerrada" aria-label={`${m.titulo}. Se abre al terminar la semana ${m.semana}.`}>
+                <p className="kicker" aria-hidden="true">
+                  {m.id}
+                </p>
+                <p className="txt" style={{ fontWeight: 800, fontSize: 20 }} aria-hidden="true">
+                  {m.titulo}
+                </p>
+                <div aria-hidden="true">
+                  <Parrafo texto={parrafos[0].replace(/\n/g, ' ')} />
+                </div>
+                <span className="cerrada-pie" aria-hidden="true">
+                  <Icono nombre="candado" tam={16} />
+                  <span className="pastilla suave">Se abre al terminar la semana {m.semana}</span>
+                </span>
+              </section>
+            )
+          return (
+            <section key={m.id} className="tarjeta md">
+              <p className="kicker">
+                {m.id} · <span className="pastilla pri">Ya puedes hacerla</span>
+              </p>
+              <p className="txt" style={{ fontWeight: 800, fontSize: 20 }}>
+                {m.titulo}
+              </p>
+              {parrafos.map((p, i) => (
+                <Parrafo key={i} texto={p.replace(/\n/g, ' ')} />
+              ))}
+              {m.comando && (
+                <div className="consola">
+                  <p className="consola-tit">Para empezar</p>
+                  <div className="terminal-orden">{m.comando}</div>
+                </div>
+              )}
+            </section>
+          )
+        })}
       </main>
     </div>
   )

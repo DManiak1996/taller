@@ -36,7 +36,7 @@ export default function App() {
     case 'cuenta':
       return <Cuenta volver={inicio} />
     case 'misiones':
-      return <Misiones volver={inicio} />
+      return <Misiones volver={inicio} semana={diaDeHoy(tienda.obtener())?.semana ?? Infinity} />
     case 'biblioteca':
       return (
         <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo el temario…</p>}>
