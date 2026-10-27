@@ -321,6 +321,7 @@ button.linea:hover { background: var(--pri-t); }
 .tarjeta.md.cerrada .cerrada-pie { padding-left: 0; }
 .cerrada-pie { display: flex; align-items: center; gap: 8px; color: var(--suave); padding-left: 40px; }
 .pastilla.suave { background: var(--fondo); color: var(--suave); border: 1px solid var(--borde); }
+.pastilla.ok { background: var(--ok-t); color: var(--ok); display: inline-flex; align-items: center; gap: 4px; }
 .pastilla.pri { background: var(--pri-t); color: var(--pri); }
 .docs { display: flex; flex-direction: column; gap: 12px; }
 .tarjeta.doc { flex-direction: row; align-items: center; gap: 12px; text-decoration: none; color: var(--tinta); }
