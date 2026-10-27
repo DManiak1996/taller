@@ -4,6 +4,7 @@ import { useProgreso } from '../progreso/almacen'
 import { hechoHoy, hoy, puedeSeguir, racha, repasoDeHoy } from '../progreso/modelo'
 import { Codigo, Icono, Texto } from '../ui/basicos'
 import { SemanaRacha } from './Cierre'
+import { notaPendiente } from './notaPendiente'
 
 const NOMBRE_DIA = new Intl.DateTimeFormat('es-ES', { weekday: 'long', timeZone: 'Europe/Madrid' })
 
@@ -27,7 +28,7 @@ function codigoDe(dia: DiaListo): string | undefined {
   return codigo?.split('\n').slice(0, 3).join('\n')
 }
 
-export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (siguienteDia?: boolean) => void; irA: (v: 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca') => void }) {
+export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (siguienteDia?: boolean) => void; irA: (v: 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca' | 'nota') => void }) {
   const p = useProgreso()
   const fechaHoy = hoy()
   const hecho = hechoHoy(p, fechaHoy)
@@ -39,6 +40,7 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
   const seguir = hecho && dia !== null && puedeSeguir(p, fechaHoy)
   const codigo = dia && codigoDe(dia)
   const dia1 = NOMBRE_DIA.format(new Date())
+  const pendientes = notaPendiente(p)
 
   return (
     <div className="app">
@@ -122,6 +124,12 @@ export function Inicio({ dia, empezar, irA }: { dia: DiaListo | null; empezar: (
             <Icono nombre="llaves" tam={hecho ? 20 : 18} />
             Zona libre
           </button>
+          {pendientes > 0 && (
+            <button type="button" className="atajo" onClick={() => irA('nota')} aria-label={`Para nota: ${pendientes} pendientes`}>
+              <Icono nombre="pista" tam={hecho ? 20 : 18} />
+              Para nota
+            </button>
+          )}
           <button type="button" className="atajo" onClick={() => irA('biblioteca')}>
             <Icono nombre="libro" tam={hecho ? 20 : 18} />
             Temario

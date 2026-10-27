@@ -29,7 +29,7 @@ export function elegirRetoDeRepaso(p: Progreso, concepto: string, excluir: Set<s
 
 type Paso = { tipo: 'leccion' } | { tipo: 'reto'; reto: Reto; n: number } | { tipo: 'repaso'; reto: Reto; chip: string } | { tipo: 'cierre' }
 
-export function Sesion({ dia, alSalir, alVerMapa }: { dia: DiaListo | null; alSalir: () => void; alVerMapa: () => void }) {
+export function Sesion({ dia, alSalir, alVerMapa, alParaNota }: { dia: DiaListo | null; alSalir: () => void; alVerMapa: () => void; alParaNota: () => void }) {
   const progreso = useProgreso()
   const fechaHoy = hoy()
 
@@ -77,7 +77,7 @@ export function Sesion({ dia, alSalir, alVerMapa }: { dia: DiaListo | null; alSa
         <RetoPantalla key={paso.reto.id} reto={paso.reto} kicker={`Reto ${paso.n} de ${dia?.retos.length ?? 3}`} alTerminar={guardar(paso.reto, 'reto')} />
       )}
       {paso.tipo === 'repaso' && <RetoPantalla key={'r' + paso.reto.id} reto={paso.reto} chip={paso.chip} alTerminar={guardar(paso.reto, 'repaso')} textoTerminar="Terminar" />}
-      {paso.tipo === 'cierre' && <Cierre dia={dia} conceptos={conceptosDeHoy} alSalir={alSalir} alVerMapa={alVerMapa} />}
+      {paso.tipo === 'cierre' && <Cierre dia={dia} conceptos={conceptosDeHoy} alSalir={alSalir} alVerMapa={alVerMapa} alParaNota={alParaNota} />}
     </div>
   )
 }

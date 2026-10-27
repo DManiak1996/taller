@@ -11,9 +11,12 @@ import { hechoHoy, hoy, puedeSeguir } from './progreso/modelo'
 // El editor (CodeMirror) solo se descarga al entrar en la zona libre.
 const ZonaLibre = lazy(() => import('./pantallas/ZonaLibre').then((m) => ({ default: m.ZonaLibre })))
 
+// «Para nota» también usa el editor.
+const ParaNota = lazy(() => import('./pantallas/ParaNota').then((m) => ({ default: m.ParaNota })))
+
 const Biblioteca = lazy(() => import('./pantallas/Biblioteca').then((m) => ({ default: m.Biblioteca })))
 
-type Vista = 'inicio' | 'sesion' | 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca'
+type Vista = 'inicio' | 'sesion' | 'mapa' | 'cuenta' | 'misiones' | 'libre' | 'biblioteca' | 'nota'
 
 export default function App() {
   const [vista, setVista] = useState<Vista>('inicio')
@@ -29,7 +32,7 @@ export default function App() {
       const p = tienda.obtener()
       const fecha = hoy()
       const conDia = !hechoHoy(p, fecha) || (seguir && puedeSeguir(p, fecha))
-      return <Sesion key={sesion} dia={conDia ? diaDeHoy(p) : null} alSalir={inicio} alVerMapa={() => setVista('mapa')} />
+      return <Sesion key={sesion} dia={conDia ? diaDeHoy(p) : null} alSalir={inicio} alVerMapa={() => setVista('mapa')} alParaNota={() => setVista('nota')} />
     }
     case 'mapa':
       return <Mapa volver={inicio} dia={diaDeHoy(tienda.obtener())} />
@@ -41,6 +44,12 @@ export default function App() {
       return (
         <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo el temario…</p>}>
           <Biblioteca volver={inicio} semana={diaDeHoy(tienda.obtener())?.semana ?? Infinity} />
+        </Suspense>
+      )
+    case 'nota':
+      return (
+        <Suspense fallback={<p className="peq" style={{ padding: 20 }}>Abriendo Para nota…</p>}>
+          <ParaNota volver={inicio} />
         </Suspense>
       )
     case 'libre':
