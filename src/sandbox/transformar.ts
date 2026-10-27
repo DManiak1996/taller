@@ -107,7 +107,16 @@ function instrumentarFuncion(f: Nodo, ambitos: Ambitos): Nodo {
   return f
 }
 
-// Busca funciones dentro de una expresión (por ejemplo, lista.forEach(x => { ... }))
+const esConsoleLog = (n: Nodo) =>
+  n.type === 'CallExpression' &&
+  n.callee.type === 'MemberExpression' &&
+  !n.callee.computed &&
+  n.callee.object.type === 'Identifier' &&
+  n.callee.object.name === 'console' &&
+  n.callee.property.name === 'log'
+
+// Busca funciones dentro de una expresión (por ejemplo, lista.forEach(x => { ... })).
+// Y console.log(a) pasa a console.__log(línea, a), para saber qué línea imprimió cada salida.
 function instrumentarExpresion(n: Nodo, ambitos: Ambitos): Nodo {
   if (!n || typeof n !== 'object') return n
   if (n.type === 'FunctionExpression' || n.type === 'ArrowFunctionExpression') return instrumentarFuncion(n, ambitos)
@@ -116,6 +125,10 @@ function instrumentarExpresion(n: Nodo, ambitos: Ambitos): Nodo {
     const v = n[clave]
     if (Array.isArray(v)) n[clave] = v.map((x) => instrumentarExpresion(x, ambitos))
     else if (v && typeof v === 'object' && typeof v.type === 'string') n[clave] = instrumentarExpresion(v, ambitos)
+  }
+  if (esConsoleLog(n)) {
+    n.callee.property = id('__log')
+    n.arguments.unshift(num(n.loc.start.line))
   }
   return n
 }

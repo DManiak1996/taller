@@ -15,6 +15,7 @@ export interface ErrorEjecucion {
 
 export interface Resultado {
   salida: string[]
+  lineasSalida?: number[] // la línea del código que imprimió cada línea de la salida
   pasos: PasoTraza[]
   pasosCortados: boolean
   error?: ErrorEjecucion

@@ -6,6 +6,7 @@ import type { PasoTraza, Resultado } from './tipos'
 
 export function crearEntorno(maxPasos: number, maxVueltas: number) {
   const salida: string[] = []
+  const lineasSalida: number[] = []
   const pasos: PasoTraza[] = []
   let lineaActual = 0
   let vueltas = 0
@@ -109,10 +110,17 @@ export function crearEntorno(maxPasos: number, maxVueltas: number) {
 
   // ---- Lo que el código instrumentado llama ----
 
+  function imprimir(n: number, args: unknown[]) {
+    if (salida.length >= 1000) return
+    salida.push(comoConsola(args))
+    lineasSalida.push(n)
+  }
+
   const consola = {
-    log: (...args: unknown[]) => {
-      if (salida.length < 1000) salida.push(comoConsola(args))
-    },
+    log: (...args: unknown[]) => imprimir(lineaActual, args),
+    // console.log(...) del código de Daniel llega aquí con su línea (ver transformar.ts): lineaActual
+    // no vale si un argumento llama a una función, porque entonces apunta a la última línea de esa función.
+    __log: (n: number, ...args: unknown[]) => imprimir(n, args),
   }
 
   function linea(n: number) {
@@ -210,7 +218,7 @@ export function crearEntorno(maxPasos: number, maxVueltas: number) {
   }
 
   function terminar(e?: unknown): Resultado {
-    const r: Resultado = { salida, pasos, pasosCortados }
+    const r: Resultado = { salida, lineasSalida, pasos, pasosCortados }
     if (e !== undefined) {
       if (e instanceof Error && e.name === 'BucleInfinito') {
         r.error = {
