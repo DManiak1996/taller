@@ -210,5 +210,74 @@
     {
       "ref": "s03-rev-x3"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d06-n1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const urgente = false;\nconst vip = true;\nconsole.log(urgente || vip);\nconsole.log(!urgente && vip);\nconsole.log(!vip || urgente);",
+      "opciones": [
+        {
+          "texto": "true\ntrue\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: || necesita uno, && necesita los dos, y ! da la vuelta."
+        },
+        {
+          "texto": "false\ntrue\nfalse",
+          "siEliges": "Con || basta con uno: vip es true."
+        },
+        {
+          "texto": "true\nfalse\nfalse",
+          "siEliges": "!urgente es true, y vip también: true && true."
+        },
+        {
+          "texto": "true\ntrue\ntrue",
+          "siEliges": "!vip es false, y urgente también: false || false."
+        }
+      ],
+      "pistas": [
+        "Primero aplica cada !, después el && o el ||.",
+        "!urgente es true; !vip es false.",
+        "false || true, true && true, false || false."
+      ],
+      "explicacion": "Para leer una condición con !, sustituye primero cada parte por su true o false. Luego es una cuenta de las de siempre."
+    },
+    "escribir": {
+      "id": "s03-d06-n2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Tu despacho mira con más cuidado los tratamientos con datos sensibles o de menores. Escribe «Revisar» si hay alguno de los dos, y «Normal» si no hay ninguno.",
+      "datos": "const sensibles = false;\nconst menores = true;",
+      "salidaEsperada": [
+        "Revisar"
+      ],
+      "variantes": [
+        {
+          "datos": "const sensibles = false;\nconst menores = false;",
+          "salidaEsperada": [
+            "Normal"
+          ]
+        },
+        {
+          "datos": "const sensibles = true;\nconst menores = false;",
+          "salidaEsperada": [
+            "Revisar"
+          ]
+        }
+      ],
+      "solucion": "if (sensibles || menores) {\n  console.log(\"Revisar\");\n} else {\n  console.log(\"Normal\");\n}",
+      "pistas": [
+        "Basta con que se cumpla una de las dos.",
+        "«Basta con una» es ||.",
+        "if (sensibles || menores) { … } else { … }"
+      ],
+      "explicacion": "Con && solo revisaría los que tienen las dos cosas a la vez, y se le escaparían casi todos."
+    }
+  }
 }

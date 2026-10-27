@@ -192,5 +192,68 @@
       ],
       "explicacion": "Las potencias de 2 en binario son un 1 seguido de ceros: 1, 10, 100, 1000."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d07-n1",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Recuerda: «A» es 65 y «B» es 66. ¿Qué escribe este programa?",
+      "codigo": "console.log((4).toString(2));\nconsole.log((8).toString(2));\nconsole.log(\"C\".charCodeAt(0));",
+      "opciones": [
+        {
+          "texto": "100\n1000\n67",
+          "correcta": true,
+          "siEliges": "Eso es: en binario, cada vez que doblas añades un cero, y la C va justo después de la B."
+        },
+        {
+          "texto": "100\n1000\n66",
+          "siEliges": "66 es la B. La C es la siguiente: 67."
+        },
+        {
+          "texto": "4\n8\nC",
+          "siEliges": "toString(2) escribe el número en ceros y unos, y charCodeAt da el número de la letra."
+        },
+        {
+          "texto": "100\n111\n67",
+          "siEliges": "8 en binario es 1000: un 1 y tres ceros, igual que 1000 en decimal es un 1 y tres ceros."
+        }
+      ],
+      "pistas": [
+        "En binario, 2 es 10 y 4 es 100.",
+        "Doblar en binario es añadir un cero. Y las letras van en orden.",
+        "8 es 1000, y la C es 66 + 1."
+      ],
+      "explicacion": "En decimal, multiplicar por 10 añade un cero; en binario, multiplicar por 2. Por eso los ordenadores cuentan en potencias de 2: 8, 16, 1024…"
+    },
+    "escribir": {
+      "id": "s02-d07-n2",
+      "semana": 2,
+      "concepto": "bits-texto",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe en una línea el número en decimal y, al lado, en binario. Con el de arriba sale «5 101».",
+      "datos": "const numero = 5;",
+      "salidaEsperada": [
+        "5 101"
+      ],
+      "variantes": [
+        {
+          "datos": "const numero = 12;",
+          "salidaEsperada": [
+            "12 1100"
+          ]
+        }
+      ],
+      "solucion": "const binario = numero.toString(2);\nconsole.log(numero, binario);",
+      "pistas": [
+        "toString(2) pasa un número a ceros y unos.",
+        "Con una caja no hacen falta los paréntesis de (5): basta numero.toString(2).",
+        "const binario = numero.toString(2); y un console.log con las dos cajas."
+      ],
+      "explicacion": "Los paréntesis de (5).toString(2) solo hacen falta con un número escrito a mano; con el nombre de una caja, no."
+    }
+  }
 }

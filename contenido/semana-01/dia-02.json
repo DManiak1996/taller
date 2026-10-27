@@ -176,5 +176,61 @@
       ],
       "explicacion": "En código, los números van sin comillas y sin puntos de miles. 20000000 es un número; \"20.000.000\" sería un texto que solo lo parece."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d02-n1",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "console.log(\"Paso 1\");\nconsole.log(2 + 3);\nconsole.log(Fin);\nconsole.log(\"Paso 4\");",
+      "lanzaError": true,
+      "opciones": [
+        {
+          "texto": "Paso 1\n5\n❌ Error: Fin no está definido",
+          "correcta": true,
+          "siEliges": "Eso es: 2 + 3 se calcula, y Fin sin comillas se busca como nombre. No existe, y ahí se para."
+        },
+        {
+          "texto": "Paso 1\n2 + 3\nFin\nPaso 4",
+          "siEliges": "Sin comillas no se copia: 2 + 3 se calcula, y Fin se busca como el nombre de algo."
+        },
+        {
+          "texto": "Paso 1\n5\nFin\nPaso 4",
+          "siEliges": "Fin va sin comillas: no es texto, es un nombre que el ordenador no conoce."
+        },
+        {
+          "texto": "❌ Error: Fin no está definido",
+          "siEliges": "Lo de antes del error sí se ejecuta: «Paso 1» y 5 llegan a salir."
+        }
+      ],
+      "pistas": [
+        "Mira qué líneas llevan comillas y cuáles no.",
+        "Sin comillas, los números se calculan y las palabras se buscan como nombres.",
+        "Fin no existe: el programa se para ahí y la línea 4 no llega."
+      ],
+      "explicacion": "Un error para el programa en su línea: lo de antes ya ha salido y lo de después no se ejecuta."
+    },
+    "escribir": {
+      "id": "s01-d02-n2",
+      "semana": 1,
+      "concepto": "texto-comillas",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe un programa que muestre la cuenta «72 + 48» tal cual y, en la línea de debajo, su resultado. El resultado lo tiene que calcular el ordenador.",
+      "salidaEsperada": [
+        "72 + 48",
+        "120"
+      ],
+      "solucion": "console.log(\"72 + 48\");\nconsole.log(72 + 48);",
+      "pistas": [
+        "Necesitas dos console.log: uno copia y el otro calcula.",
+        "Con comillas se copia; sin comillas se calcula.",
+        "El primero lleva \"72 + 48\" entre comillas; el segundo, 72 + 48 sin ellas."
+      ],
+      "explicacion": "Lo mismo, con o sin comillas, hace cosas distintas: con comillas es texto; sin ellas, una cuenta."
+    }
+  }
 }

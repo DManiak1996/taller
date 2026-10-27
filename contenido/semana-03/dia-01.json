@@ -176,5 +176,70 @@
     {
       "ref": "s03-rev-x4"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d01-n1",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const edad = 14;\nconsole.log(edad >= 14);\nconsole.log(edad > 14);\nconsole.log(\"14\" === edad);",
+      "opciones": [
+        {
+          "texto": "true\nfalse\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: >= incluye el 14, > no, y un texto nunca es === a un número."
+        },
+        {
+          "texto": "true\ntrue\nfalse",
+          "siEliges": "> no incluye el límite: 14 > 14 es false."
+        },
+        {
+          "texto": "true\nfalse\ntrue",
+          "siEliges": "=== compara también el tipo: \"14\" es texto y edad es número."
+        }
+      ],
+      "pistas": [
+        "Fíjate en el límite: ¿14 es mayor que 14?",
+        ">= incluye el límite; > no. Y === mira también el tipo.",
+        "true, false y false."
+      ],
+      "explicacion": "En los límites es donde fallan las condiciones. Para revisar una, pruébala justo con el valor del límite."
+    },
+    "escribir": {
+      "id": "s03-d01-n2",
+      "semana": 3,
+      "concepto": "comparaciones",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe true si las horas que han pasado superan el plazo, y false si no. Si han pasado justo las horas del plazo, aún no lo superan.",
+      "datos": "const plazo = 72;\nconst horas = 80;",
+      "salidaEsperada": [
+        "true"
+      ],
+      "variantes": [
+        {
+          "datos": "const plazo = 72;\nconst horas = 72;",
+          "salidaEsperada": [
+            "false"
+          ]
+        },
+        {
+          "datos": "const plazo = 48;\nconst horas = 30;",
+          "salidaEsperada": [
+            "false"
+          ]
+        }
+      ],
+      "solucion": "console.log(horas > plazo);",
+      "pistas": [
+        "Una comparación ya da true o false: basta con escribirla.",
+        "«Superar» es «mayor que», sin incluir el límite.",
+        "console.log(horas > plazo);"
+      ],
+      "explicacion": "Con >= fallaría la variante de 72 horas justas: el límite decide entre > y >=."
+    }
+  }
 }

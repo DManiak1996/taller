@@ -209,5 +209,64 @@
       ],
       "explicacion": "Lo mismo de toda la semana: el texto fijo entre comillas, el dato guardado por su nombre."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d07-n1",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const fichero = \"hola.ts\";\nconsole.log(\"node fichero\");\nconsole.log(\"node\", fichero);",
+      "opciones": [
+        {
+          "texto": "node fichero\nnode hola.ts",
+          "correcta": true,
+          "siEliges": "Eso es: en la línea 2, fichero está dentro de las comillas; en la 3, fuera."
+        },
+        {
+          "texto": "node hola.ts\nnode hola.ts",
+          "siEliges": "En la línea 2, fichero está dentro de las comillas: es texto, no la caja."
+        },
+        {
+          "texto": "node fichero\nnode fichero",
+          "siEliges": "En la línea 3, fichero va fuera de las comillas: es la caja, y guarda «hola.ts»."
+        }
+      ],
+      "pistas": [
+        "¿Dónde está la palabra fichero en cada línea, dentro o fuera de las comillas?",
+        "Dentro de las comillas es texto; fuera, la caja.",
+        "La línea 3 escribe node y lo que hay en la caja."
+      ],
+      "explicacion": "Dentro de las comillas, una palabra es solo texto, aunque se llame igual que una caja."
+    },
+    "escribir": {
+      "id": "s01-d07-n2",
+      "semana": 1,
+      "concepto": "terminal",
+      "tema": "neutro",
+      "tipo": "escribir",
+      "enunciado": "Escribe la orden que ejecutaría el fichero en la terminal del Mac, «node hola.ts», usando la constante fichero.",
+      "datos": "const fichero = \"hola.ts\";",
+      "salidaEsperada": [
+        "node hola.ts"
+      ],
+      "variantes": [
+        {
+          "datos": "const fichero = \"plazos.ts\";",
+          "salidaEsperada": [
+            "node plazos.ts"
+          ]
+        }
+      ],
+      "solucion": "console.log(\"node\", fichero);",
+      "pistas": [
+        "La orden es node, un espacio y el nombre del fichero.",
+        "Un console.log con dos cosas separadas por una coma: un texto y la caja.",
+        "console.log(\"node\", fichero);"
+      ],
+      "explicacion": "Así se ejecuta en el Mac cualquier fichero de TypeScript: node y su nombre."
+    }
+  }
 }

@@ -198,5 +198,70 @@
       ],
       "explicacion": "El resultado de una comparación se puede guardar en una caja, como cualquier otro dato."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d05-n1",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const edad = 15;\nconst tutor = true;\nconsole.log(edad >= 14 && tutor);\nconsole.log(edad >= 18 && tutor);\nconsole.log(edad > 10 && edad < 14);",
+      "opciones": [
+        {
+          "texto": "true\nfalse\nfalse",
+          "correcta": true,
+          "siEliges": "Eso es: && solo da true si se cumplen las dos partes."
+        },
+        {
+          "texto": "true\ntrue\nfalse",
+          "siEliges": "15 >= 18 es false, y con && basta un false para que todo sea false."
+        },
+        {
+          "texto": "true\nfalse\ntrue",
+          "siEliges": "15 > 10 es true, pero 15 < 14 es false: con && todo es false."
+        }
+      ],
+      "pistas": [
+        "Calcula cada parte por separado.",
+        "Con &&, un solo false lo tumba todo.",
+        "true && true, false && true, true && false."
+      ],
+      "explicacion": "Para revisar un &&, busca la parte que falla: basta con una para que el resultado sea false."
+    },
+    "escribir": {
+      "id": "s03-d05-n2",
+      "semana": 3,
+      "concepto": "logicos",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe «Cerrar expediente» solo si está firmado y pagado; si falta algo, «Pendiente».",
+      "datos": "const firmado = true;\nconst pagado = false;",
+      "salidaEsperada": [
+        "Pendiente"
+      ],
+      "variantes": [
+        {
+          "datos": "const firmado = true;\nconst pagado = true;",
+          "salidaEsperada": [
+            "Cerrar expediente"
+          ]
+        },
+        {
+          "datos": "const firmado = false;\nconst pagado = true;",
+          "salidaEsperada": [
+            "Pendiente"
+          ]
+        }
+      ],
+      "solucion": "if (firmado && pagado) {\n  console.log(\"Cerrar expediente\");\n} else {\n  console.log(\"Pendiente\");\n}",
+      "pistas": [
+        "Hacen falta las dos cosas a la vez.",
+        "«Las dos a la vez» es &&. Y firmado y pagado ya son true o false.",
+        "if (firmado && pagado) { … } else { … }"
+      ],
+      "explicacion": "Con || cerraría expedientes sin pagar. Para revisarlo, prueba un caso en el que falte solo una de las dos."
+    }
+  }
 }

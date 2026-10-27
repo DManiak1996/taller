@@ -171,5 +171,71 @@
     {
       "ref": "s01-rev-x3"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d05-n1",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "let fase = \"borrador\";\nconst autor = \"Laura\";\nconsole.log(fase);\nfase = \"final\";\nautor = \"Marta\";\nconsole.log(autor);",
+      "lanzaError": true,
+      "opciones": [
+        {
+          "texto": "borrador\n❌ Error: no se puede cambiar una const",
+          "correcta": true,
+          "siEliges": "Eso es: la línea 3 llega a escribir; la 5 intenta cambiar una const y el programa se para."
+        },
+        {
+          "texto": "borrador\nMarta",
+          "siEliges": "autor es const: la línea 5 no puede cambiarla."
+        },
+        {
+          "texto": "❌ Error: no se puede cambiar una const",
+          "siEliges": "Lo de antes del error sí sale: la línea 3 escribe «borrador»."
+        },
+        {
+          "texto": "borrador\nLaura",
+          "siEliges": "El programa no se salta la línea 5: falla en ella y se para."
+        }
+      ],
+      "pistas": [
+        "¿Cuál de las dos cajas es const?",
+        "Cambiar fase (let) vale; cambiar autor (const), no.",
+        "Falla en la línea 5, después de escribir «borrador»."
+      ],
+      "explicacion": "Con const, el fallo salta justo al intentar el cambio. En el editor, TypeScript te lo subrayaría antes de ejecutar."
+    },
+    "escribir": {
+      "id": "s01-d05-n2",
+      "semana": 1,
+      "concepto": "let",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Crea la variable estado con «abierta» y cámbiala a «cerrada»: elige bien entre const y let. Al final escribe el DNI y, debajo, el estado.",
+      "datos": "const dni = \"12345678Z\";",
+      "salidaEsperada": [
+        "12345678Z",
+        "cerrada"
+      ],
+      "variantes": [
+        {
+          "datos": "const dni = \"87654321X\";",
+          "salidaEsperada": [
+            "87654321X",
+            "cerrada"
+          ]
+        }
+      ],
+      "solucion": "let estado = \"abierta\";\nestado = \"cerrada\";\nconsole.log(dni);\nconsole.log(estado);",
+      "pistas": [
+        "¿Va a cambiar estado? Eso decide entre const y let.",
+        "Si cambia, let. Y para cambiarla: estado = \"cerrada\";",
+        "let estado = \"abierta\";, luego el cambio y dos console.log."
+      ],
+      "explicacion": "const para lo que no cambia, como el DNI, y let para lo que sí, como el estado. Con const estado, el programa fallaría al cambiarlo."
+    }
+  }
 }

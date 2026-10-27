@@ -207,5 +207,70 @@
     {
       "ref": "s02-rev-x3"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d03-n1",
+      "semana": 2,
+      "concepto": "texto-mas-numero",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Ve de izquierda a derecha.",
+      "codigo": "console.log(\"5\" + 3 + 2);\nconsole.log(5 + 3 + \"2\");",
+      "opciones": [
+        {
+          "texto": "532\n82",
+          "correcta": true,
+          "siEliges": "Eso es: en la línea 1 el texto va primero y todo se pega; en la 2, 5 + 3 suman 8 antes de llegar al texto."
+        },
+        {
+          "texto": "10\n10",
+          "siEliges": "En cuanto aparece un texto, + pega en vez de sumar."
+        },
+        {
+          "texto": "532\n532",
+          "siEliges": "En la línea 2, 5 + 3 son dos números: suman 8. Después se pega el \"2\"."
+        },
+        {
+          "texto": "82\n82",
+          "siEliges": "En la línea 1, \"5\" + 3 ya es texto: \"53\". Y luego + 2 pega otra vez."
+        }
+      ],
+      "pistas": [
+        "+ se hace de izquierda a derecha, de dos en dos.",
+        "Número + número suma; si uno de los dos es texto, pega.",
+        "Línea 1: \"53\" y luego \"532\". Línea 2: 8 y luego \"82\"."
+      ],
+      "explicacion": "El orden importa: el mismo + suma o pega según lo que tenga a cada lado en ese momento."
+    },
+    "escribir": {
+      "id": "s02-d03-n2",
+      "semana": 2,
+      "concepto": "texto-mas-numero",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con + y la constante numero, escribe el código del expediente, «EXP-145», sin espacio, y debajo el del siguiente, «EXP-146».",
+      "datos": "const numero = 145;",
+      "salidaEsperada": [
+        "EXP-145",
+        "EXP-146"
+      ],
+      "variantes": [
+        {
+          "datos": "const numero = 9;",
+          "salidaEsperada": [
+            "EXP-9",
+            "EXP-10"
+          ]
+        }
+      ],
+      "solucion": "console.log(\"EXP-\" + numero);\nconsole.log(\"EXP-\" + (numero + 1));",
+      "pistas": [
+        "Para pegar sin espacio, + en vez de la coma.",
+        "Para el siguiente hay que sumar 1 antes de pegar, y con un texto delante + pega.",
+        "Con paréntesis: \"EXP-\" + (numero + 1)."
+      ],
+      "explicacion": "Sin paréntesis saldría «EXP-1451»: + pega el 145 y después pega el 1. Es el fallo «\"5\" + 3» escondido dentro de una línea."
+    }
+  }
 }

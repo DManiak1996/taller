@@ -179,5 +179,70 @@
     {
       "ref": "s02-rev-x4"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d04-n1",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Mira bien qué comillas lleva cada línea.",
+      "codigo": "const a = 2;\nconst b = 3;\nconsole.log(`${a + b}`);\nconsole.log(`${a} + ${b}`);\nconsole.log(\"${a}\");",
+      "opciones": [
+        {
+          "texto": "5\n2 + 3\n${a}",
+          "correcta": true,
+          "siEliges": "Eso es: dentro de ${ } se calcula; fuera, se copia. Y con comillas normales no hay plantilla."
+        },
+        {
+          "texto": "5\n5\n2",
+          "siEliges": "En la línea 4, el + está fuera de ${ }: se copia como texto."
+        },
+        {
+          "texto": "5\n2 + 3\n2",
+          "siEliges": "La línea 5 usa comillas normales: ${a} solo funciona entre comillas invertidas."
+        },
+        {
+          "texto": "a + b\n2 + 3\n${a}",
+          "siEliges": "Dentro de ${ } se calcula: a + b da 5."
+        }
+      ],
+      "pistas": [
+        "Distingue lo que va dentro de ${ } de lo que va fuera.",
+        "Dentro se calcula; fuera es texto. Y la plantilla solo existe con comillas invertidas.",
+        "5, luego «2 + 3», y la línea 5 se copia tal cual."
+      ],
+      "explicacion": "Una plantilla mezcla texto fijo y cálculos. Si una IA usa comillas normales con ${ }, lo verás escrito tal cual en la pantalla."
+    },
+    "escribir": {
+      "id": "s02-d04-n2",
+      "semana": 2,
+      "concepto": "plantillas-texto",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con plantillas, escribe la referencia del expediente, «2026/145» (año, barra y número), y debajo la del siguiente, «2026/146».",
+      "datos": "const anio = 2026;\nconst numero = 145;",
+      "salidaEsperada": [
+        "2026/145",
+        "2026/146"
+      ],
+      "variantes": [
+        {
+          "datos": "const anio = 2027;\nconst numero = 9;",
+          "salidaEsperada": [
+            "2027/9",
+            "2027/10"
+          ]
+        }
+      ],
+      "solucion": "console.log(`${anio}/${numero}`);\nconsole.log(`${anio}/${numero + 1}`);",
+      "pistas": [
+        "Una plantilla va entre comillas invertidas, y cada dato dentro de ${ }.",
+        "La barra va fuera de ${ }, como texto. Dentro de ${ } también se puede sumar.",
+        "La segunda es `${anio}/${numero + 1}`."
+      ],
+      "explicacion": "Dentro de ${ } no hacen falta paréntesis: primero se calcula numero + 1 y después se mete en el texto. Con + y comillas normales habría que tener cuidado con el orden."
+    }
+  }
 }

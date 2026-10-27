@@ -210,5 +210,66 @@
     {
       "ref": "s01-rev-x4"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d03-n1",
+      "semana": 1,
+      "concepto": "nombres-variables",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const plazo = 72;\nconst Plazo = 48;\nconsole.log(plazo);\nconsole.log(\"Plazo\");",
+      "opciones": [
+        {
+          "texto": "72\nPlazo",
+          "correcta": true,
+          "siEliges": "Eso es: plazo y Plazo son dos cajas distintas, y \"Plazo\" con comillas es solo una palabra."
+        },
+        {
+          "texto": "72\n48",
+          "siEliges": "La línea 4 lleva comillas: escribe la palabra, no lo que hay en la caja."
+        },
+        {
+          "texto": "❌ Error: plazo ya existe",
+          "siEliges": "Para el ordenador, plazo y Plazo son nombres distintos: las mayúsculas cuentan."
+        }
+      ],
+      "pistas": [
+        "¿Son plazo y Plazo el mismo nombre?",
+        "Las mayúsculas cuentan: son dos cajas. Y mira las comillas de la línea 4.",
+        "La línea 3 escribe la caja plazo; la 4, una palabra."
+      ],
+      "explicacion": "Dos detalles que una IA puede liar: una mayúscula cambia el nombre, y las comillas convierten un nombre en simple texto."
+    },
+    "escribir": {
+      "id": "s01-d03-n2",
+      "semana": 1,
+      "concepto": "const",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Arriba tienes la constante cliente. Crea otra constante, plazo, con el número 30. Después escribe el cliente y, debajo, el plazo, usando sus nombres.",
+      "datos": "const cliente = \"Clínica Arga\";",
+      "salidaEsperada": [
+        "Clínica Arga",
+        "30"
+      ],
+      "variantes": [
+        {
+          "datos": "const cliente = \"Bufete Sur\";",
+          "salidaEsperada": [
+            "Bufete Sur",
+            "30"
+          ]
+        }
+      ],
+      "solucion": "const plazo = 30;\nconsole.log(cliente);\nconsole.log(plazo);",
+      "pistas": [
+        "Primero crea la caja; después úsala.",
+        "const plazo = 30; crea la caja. Para escribir una caja, su nombre va sin comillas.",
+        "Te faltan console.log(cliente); y console.log(plazo);"
+      ],
+      "explicacion": "Para eso sirven los nombres: el mismo programa vale para cualquier cliente. Si escribes «Clínica Arga» a mano, falla en cuanto el cliente cambia."
+    }
+  }
 }

@@ -191,5 +191,57 @@
       ],
       "explicacion": "El ordenador no se salta nada ni junta líneas repetidas: hace exactamente lo que pone, en orden."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s01-d01-n1",
+      "semana": 1,
+      "concepto": "console-log",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Fíjate bien en las comillas de la línea 2.",
+      "codigo": "console.log(\"Inicio\");\nconsole.log(\"console.log(1)\");\nconsole.log(\"Fin\");",
+      "opciones": [
+        {
+          "texto": "Inicio\nconsole.log(1)\nFin",
+          "correcta": true,
+          "siEliges": "Eso es: lo que va entre comillas se copia tal cual, aunque parezca una orden."
+        },
+        {
+          "texto": "Inicio\n1\nFin",
+          "siEliges": "Las comillas mandan: todo lo de dentro es texto, también «console.log»."
+        },
+        {
+          "texto": "Inicio\nFin",
+          "siEliges": "La línea 2 sí escribe algo: el texto que lleva entre comillas."
+        }
+      ],
+      "pistas": [
+        "Mira dónde empiezan y dónde acaban las comillas de la línea 2.",
+        "Lo que va entre comillas es texto: se copia sin ejecutarlo.",
+        "La línea 2 escribe las letras «console.log(1)»."
+      ],
+      "explicacion": "Las comillas convierten cualquier cosa en texto, incluso algo que parece una orden. El ordenador no mira dentro: lo copia."
+    },
+    "escribir": {
+      "id": "s01-d01-n2",
+      "semana": 1,
+      "concepto": "orden-ejecucion",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe un programa que muestre los pasos de una solicitud de acceso, cada uno en su línea y en este orden: Recibida, Comprobar identidad, Contestar.",
+      "salidaEsperada": [
+        "Recibida",
+        "Comprobar identidad",
+        "Contestar"
+      ],
+      "solucion": "console.log(\"Recibida\");\nconsole.log(\"Comprobar identidad\");\nconsole.log(\"Contestar\");",
+      "pistas": [
+        "Cada línea que sale viene de un console.log.",
+        "Necesitas tres console.log, uno por paso, con el texto entre comillas.",
+        "La primera línea es console.log(\"Recibida\"); y las otras dos siguen igual."
+      ],
+      "explicacion": "El ordenador va de arriba abajo: el orden de las líneas es el orden de lo que sale. Si no acierta, revisa mayúsculas, tildes y espacios, porque la comparación es exacta."
+    }
+  }
 }

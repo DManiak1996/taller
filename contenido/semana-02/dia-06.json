@@ -218,5 +218,68 @@
     {
       "ref": "s02-rev-x1"
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s02-d06-n1",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const a = \"10\";\nconst b = \"5\";\nconsole.log(a + b);\nconsole.log(Number(a) + Number(b));\nconsole.log(Number(\"diez\"));",
+      "opciones": [
+        {
+          "texto": "105\n15\nNaN",
+          "correcta": true,
+          "siEliges": "Eso es: los textos se pegan, los números se suman, y «diez» en letras no se puede convertir."
+        },
+        {
+          "texto": "15\n15\nNaN",
+          "siEliges": "a y b son textos: + los pega."
+        },
+        {
+          "texto": "105\n15\n10",
+          "siEliges": "Number solo entiende cifras: «diez» en letras da NaN."
+        },
+        {
+          "texto": "105\n105\nNaN",
+          "siEliges": "Number convierte cada texto en número antes de sumar."
+        }
+      ],
+      "pistas": [
+        "¿De qué tipo son a y b?",
+        "Dos textos se pegan; dos números se suman. Number convierte cifras, no palabras.",
+        "\"105\", luego 15, luego NaN."
+      ],
+      "explicacion": "NaN significa «no es un número». Si una suma da NaN, mira qué texto se ha intentado convertir."
+    },
+    "escribir": {
+      "id": "s02-d06-n2",
+      "semana": 2,
+      "concepto": "convertir-numero",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Las solicitudes de ayer y de hoy llegan de un formulario, como texto. Escribe «Total: 15».",
+      "datos": "const ayer = \"12\";\nconst hoy = \"3\";",
+      "salidaEsperada": [
+        "Total: 15"
+      ],
+      "variantes": [
+        {
+          "datos": "const ayer = \"7\";\nconst hoy = \"10\";",
+          "salidaEsperada": [
+            "Total: 17"
+          ]
+        }
+      ],
+      "solucion": "const numAyer = Number(ayer);\nconst numHoy = Number(hoy);\nconst total = numAyer + numHoy;\nconsole.log(\"Total:\", total);",
+      "pistas": [
+        "Si sumas ayer + hoy tal cual, sale \"123\": son textos.",
+        "Convierte cada uno con Number() antes de sumar.",
+        "const numAyer = Number(ayer); y lo mismo con hoy."
+      ],
+      "explicacion": "Todo lo que llega de un formulario es texto, aunque sean cifras. Convertirlo antes de calcular es el arreglo del fallo «\"5\" + 3»."
+    }
+  }
 }

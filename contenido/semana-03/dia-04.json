@@ -200,5 +200,74 @@
       ],
       "explicacion": "Aquí el orden es correcto: de la condición más exigente (30) a la menos (15)."
     }
-  ]
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s03-d04-n1",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa? Ojo con el orden de las preguntas.",
+      "codigo": "const n = 800;\nif (n > 100) {\n  console.log(\"Media\");\n} else if (n > 500) {\n  console.log(\"Alta\");\n} else {\n  console.log(\"Baja\");\n}",
+      "opciones": [
+        {
+          "texto": "Media",
+          "correcta": true,
+          "siEliges": "Eso es: la primera pregunta ya se cumple, y las demás ni se miran."
+        },
+        {
+          "texto": "Alta",
+          "siEliges": "Va en orden: n > 100 ya es true, así que no llega a preguntar n > 500."
+        },
+        {
+          "texto": "Media\nAlta",
+          "siEliges": "De un if, else if y else solo se ejecuta un camino."
+        },
+        {
+          "texto": "Baja",
+          "siEliges": "800 cumple la primera condición."
+        }
+      ],
+      "pistas": [
+        "Las preguntas se hacen de arriba abajo, y para en la primera que se cumple.",
+        "¿800 > 100?",
+        "Sí: escribe «Media» y no mira más."
+      ],
+      "explicacion": "El fallo es de orden: «Alta» nunca saldrá, porque todo lo que pasa de 500 ya pasa de 100. La pregunta más exigente va primero."
+    },
+    "escribir": {
+      "id": "s03-d04-n2",
+      "semana": 3,
+      "concepto": "if-else",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Clasifica un riesgo puntuado de 1 a 10: 8 o más, «Alto»; de 4 a 7, «Medio»; menos de 4, «Bajo».",
+      "datos": "const riesgo = 7;",
+      "salidaEsperada": [
+        "Medio"
+      ],
+      "variantes": [
+        {
+          "datos": "const riesgo = 8;",
+          "salidaEsperada": [
+            "Alto"
+          ]
+        },
+        {
+          "datos": "const riesgo = 3;",
+          "salidaEsperada": [
+            "Bajo"
+          ]
+        }
+      ],
+      "solucion": "if (riesgo >= 8) {\n  console.log(\"Alto\");\n} else if (riesgo >= 4) {\n  console.log(\"Medio\");\n} else {\n  console.log(\"Bajo\");\n}",
+      "pistas": [
+        "Tres caminos: if, else if y else.",
+        "Empieza por la pregunta más exigente: riesgo >= 8.",
+        "Después else if (riesgo >= 4), y el resto es «Bajo»."
+      ],
+      "explicacion": "Si llega al else if, ya se sabe que el riesgo es menor de 8: no hace falta preguntar «riesgo <= 7»."
+    }
+  }
 }
