@@ -145,6 +145,44 @@ Pistas: 1) Cuenta cuántos console.log hay. 2) Cada console.log se ejecuta una v
 
 Explicación: El ordenador no se salta nada ni junta líneas repetidas: hace exactamente lo que pone, en orden.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d01-n1` · concepto console-log
+
+¿Qué escribe este programa? Fíjate bien en las comillas de la línea 2.
+
+```ts
+console.log("Inicio");
+console.log("console.log(1)");
+console.log("Fin");
+```
+
+- ✅ `Inicio ⏎ console.log(1) ⏎ Fin`: Eso es: lo que va entre comillas se copia tal cual, aunque parezca una orden.
+- ▫️ `Inicio ⏎ 1 ⏎ Fin`: Las comillas mandan: todo lo de dentro es texto, también «console.log».
+- ▫️ `Inicio ⏎ Fin`: La línea 2 sí escribe algo: el texto que lleva entre comillas.
+
+Pistas: 1) Mira dónde empiezan y dónde acaban las comillas de la línea 2. 2) Lo que va entre comillas es texto: se copia sin ejecutarlo. 3) La línea 2 escribe las letras «console.log(1)».
+
+Explicación: Las comillas convierten cualquier cosa en texto, incluso algo que parece una orden. El ordenador no mira dentro: lo copia.
+
+#### Escribe el programa · `s01-d01-n2` · concepto orden-ejecucion
+
+Escribe un programa que muestre los pasos de una solicitud de acceso, cada uno en su línea y en este orden: Recibida, Comprobar identidad, Contestar.
+
+Tiene que salir: `Recibida` / `Comprobar identidad` / `Contestar`
+
+Solución:
+
+```ts
+console.log("Recibida");
+console.log("Comprobar identidad");
+console.log("Contestar");
+```
+
+Pistas: 1) Cada línea que sale viene de un console.log. 2) Necesitas tres console.log, uno por paso, con el texto entre comillas. 3) La primera línea es console.log("Recibida"); y las otras dos siguen igual.
+
+Explicación: El ordenador va de arriba abajo: el orden de las líneas es el orden de lo que sale. Si no acierta, revisa mayúsculas, tildes y espacios, porque la comparación es exacta.
+
 ---
 
 ## Día 2: El texto va entre comillas
@@ -288,6 +326,45 @@ Objetivo: `Multa máxima:` / `20000000` / `euros`
 Pistas: 1) Mira la segunda línea del objetivo: ¿lleva puntos? 2) Los números se escriben sin comillas y sin puntos de miles. 3) La que sobra es la que tiene "20.000.000" entre comillas.
 
 Explicación: En código, los números van sin comillas y sin puntos de miles. 20000000 es un número; "20.000.000" sería un texto que solo lo parece.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d02-n1` · concepto texto-comillas
+
+¿Qué escribe este programa?
+
+```ts
+console.log("Paso 1");
+console.log(2 + 3);
+console.log(Fin);
+console.log("Paso 4");
+```
+
+- ✅ `Paso 1 ⏎ 5 ⏎ ❌ Error: Fin no está definido`: Eso es: 2 + 3 se calcula, y Fin sin comillas se busca como nombre. No existe, y ahí se para.
+- ▫️ `Paso 1 ⏎ 2 + 3 ⏎ Fin ⏎ Paso 4`: Sin comillas no se copia: 2 + 3 se calcula, y Fin se busca como el nombre de algo.
+- ▫️ `Paso 1 ⏎ 5 ⏎ Fin ⏎ Paso 4`: Fin va sin comillas: no es texto, es un nombre que el ordenador no conoce.
+- ▫️ `❌ Error: Fin no está definido`: Lo de antes del error sí se ejecuta: «Paso 1» y 5 llegan a salir.
+
+Pistas: 1) Mira qué líneas llevan comillas y cuáles no. 2) Sin comillas, los números se calculan y las palabras se buscan como nombres. 3) Fin no existe: el programa se para ahí y la línea 4 no llega.
+
+Explicación: Un error para el programa en su línea: lo de antes ya ha salido y lo de después no se ejecuta.
+
+#### Escribe el programa · `s01-d02-n2` · concepto texto-comillas
+
+Escribe un programa que muestre la cuenta «72 + 48» tal cual y, en la línea de debajo, su resultado. El resultado lo tiene que calcular el ordenador.
+
+Tiene que salir: `72 + 48` / `120`
+
+Solución:
+
+```ts
+console.log("72 + 48");
+console.log(72 + 48);
+```
+
+Pistas: 1) Necesitas dos console.log: uno copia y el otro calcula. 2) Con comillas se copia; sin comillas se calcula. 3) El primero lleva "72 + 48" entre comillas; el segundo, 72 + 48 sin ellas.
+
+Explicación: Lo mismo, con o sin comillas, hace cosas distintas: con comillas es texto; sin ellas, una cuenta.
 
 ---
 
@@ -473,6 +550,55 @@ Pistas: 1) Compara la primera letra del nombre en cada línea. 2) El ordenador c
 
 Explicación: Al ejecutarlo sale `ReferenceError: responsable is not defined`. Para el ordenador, una mayúscula es una letra distinta. Por convención, en TypeScript las variables empiezan en minúscula.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d03-n1` · concepto nombres-variables
+
+¿Qué escribe este programa?
+
+```ts
+const plazo = 72;
+const Plazo = 48;
+console.log(plazo);
+console.log("Plazo");
+```
+
+- ✅ `72 ⏎ Plazo`: Eso es: plazo y Plazo son dos cajas distintas, y "Plazo" con comillas es solo una palabra.
+- ▫️ `72 ⏎ 48`: La línea 4 lleva comillas: escribe la palabra, no lo que hay en la caja.
+- ▫️ `❌ Error: plazo ya existe`: Para el ordenador, plazo y Plazo son nombres distintos: las mayúsculas cuentan.
+
+Pistas: 1) ¿Son plazo y Plazo el mismo nombre? 2) Las mayúsculas cuentan: son dos cajas. Y mira las comillas de la línea 4. 3) La línea 3 escribe la caja plazo; la 4, una palabra.
+
+Explicación: Dos detalles que una IA puede liar: una mayúscula cambia el nombre, y las comillas convierten un nombre en simple texto.
+
+#### Escribe el programa · `s01-d03-n2` · concepto const
+
+Arriba tienes la constante cliente. Crea otra constante, plazo, con el número 30. Después escribe el cliente y, debajo, el plazo, usando sus nombres.
+
+Datos (no se tocan):
+
+```ts
+const cliente = "Clínica Arga";
+```
+
+Tiene que salir: `Clínica Arga` / `30`
+
+Variantes ocultas:
+
+- `const cliente = "Bufete Sur";` → `Bufete Sur` / `30`
+
+Solución:
+
+```ts
+const plazo = 30;
+console.log(cliente);
+console.log(plazo);
+```
+
+Pistas: 1) Primero crea la caja; después úsala. 2) const plazo = 30; crea la caja. Para escribir una caja, su nombre va sin comillas. 3) Te faltan console.log(cliente); y console.log(plazo);
+
+Explicación: Para eso sirven los nombres: el mismo programa vale para cualquier cliente. Si escribes «Clínica Arga» a mano, falla en cuanto el cliente cambia.
+
 ---
 
 ## Día 4: Datos que cambian: let
@@ -648,6 +774,57 @@ Pistas: 1) Cuenta cuántos `console.log` hay. 2) Cada `console.log` imprime una 
 
 Explicación: Imprime solo `3`. La variable valía 1, pero la línea 2 la cambió antes de imprimirla. Y fíjate en que esta vez la IA tenía razón: no se trata de desconfiar de todo, sino de **comprobar**.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d04-n1` · concepto let
+
+¿Qué escribe este programa?
+
+```ts
+let estado = "recibida";
+estado = "en trámite";
+console.log(estado);
+estado = "resuelta";
+console.log("estado");
+console.log(estado);
+```
+
+- ✅ `en trámite ⏎ estado ⏎ resuelta`: Eso es: cada console.log escribe lo que hay en ese momento, y el de la línea 5 escribe una palabra.
+- ▫️ `recibida ⏎ estado ⏎ resuelta`: Antes del primer console.log, estado ya ha cambiado a «en trámite».
+- ▫️ `en trámite ⏎ resuelta ⏎ resuelta`: La línea 5 lleva comillas: escribe la palabra «estado».
+
+Pistas: 1) Apunta qué hay en la caja justo antes de cada console.log. 2) En la línea 3 ya vale «en trámite». Y la línea 5 lleva comillas. 3) en trámite, la palabra estado y resuelta.
+
+Explicación: Para seguir un let, apunta su valor línea a línea: cada console.log escribe el que tiene en ese momento.
+
+#### Escribe el programa · `s01-d04-n2` · concepto let
+
+Arriba tienes la variable estado. Escríbela, cámbiala a «resuelta» y vuelve a escribirla.
+
+Datos (no se tocan):
+
+```ts
+let estado = "recibida";
+```
+
+Tiene que salir: `recibida` / `resuelta`
+
+Variantes ocultas:
+
+- `let estado = "en trámite";` → `en trámite` / `resuelta`
+
+Solución:
+
+```ts
+console.log(estado);
+estado = "resuelta";
+console.log(estado);
+```
+
+Pistas: 1) Son tres pasos: escribir, cambiar y volver a escribir. 2) Para cambiarla no se repite let: el nombre, = y el valor nuevo. 3) En medio va estado = "resuelta";
+
+Explicación: El mismo console.log(estado) escribe cosas distintas según cuándo se ejecuta. Y let solo se escribe al crear la caja: si lo repites, el programa ni arranca.
+
 ---
 
 ## Día 5: const o let: elegir bien
@@ -817,6 +994,59 @@ Pistas: 1) El número de solicitudes tiene que cambiar. Mira cómo se creó la v
 
 Explicación: Al ejecutarlo sale `TypeError: Assignment to constant variable` y no se imprime nada. La regla de la semana: usa `const` por defecto y `let` solo cuando el valor vaya a cambiar.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d05-n1` · concepto const
+
+¿Qué escribe este programa?
+
+```ts
+let fase = "borrador";
+const autor = "Laura";
+console.log(fase);
+fase = "final";
+autor = "Marta";
+console.log(autor);
+```
+
+- ✅ `borrador ⏎ ❌ Error: no se puede cambiar una const`: Eso es: la línea 3 llega a escribir; la 5 intenta cambiar una const y el programa se para.
+- ▫️ `borrador ⏎ Marta`: autor es const: la línea 5 no puede cambiarla.
+- ▫️ `❌ Error: no se puede cambiar una const`: Lo de antes del error sí sale: la línea 3 escribe «borrador».
+- ▫️ `borrador ⏎ Laura`: El programa no se salta la línea 5: falla en ella y se para.
+
+Pistas: 1) ¿Cuál de las dos cajas es const? 2) Cambiar fase (let) vale; cambiar autor (const), no. 3) Falla en la línea 5, después de escribir «borrador».
+
+Explicación: Con const, el fallo salta justo al intentar el cambio. En el editor, TypeScript te lo subrayaría antes de ejecutar.
+
+#### Escribe el programa · `s01-d05-n2` · concepto let
+
+Crea la variable estado con «abierta» y cámbiala a «cerrada»: elige bien entre const y let. Al final escribe el DNI y, debajo, el estado.
+
+Datos (no se tocan):
+
+```ts
+const dni = "12345678Z";
+```
+
+Tiene que salir: `12345678Z` / `cerrada`
+
+Variantes ocultas:
+
+- `const dni = "87654321X";` → `87654321X` / `cerrada`
+
+Solución:
+
+```ts
+let estado = "abierta";
+estado = "cerrada";
+console.log(dni);
+console.log(estado);
+```
+
+Pistas: 1) ¿Va a cambiar estado? Eso decide entre const y let. 2) Si cambia, let. Y para cambiarla: estado = "cerrada"; 3) let estado = "abierta";, luego el cambio y dos console.log.
+
+Explicación: const para lo que no cambia, como el DNI, y let para lo que sí, como el estado. Con const estado, el programa fallaría al cambiarlo.
+
 ---
 
 ## Día 6: Mensajes con variables
@@ -969,6 +1199,55 @@ const titular = "Pedro";
 Pistas: 1) ¿En qué línea se crea titular? 2) Se ejecuta de arriba abajo: en la línea 2, titular todavía no existe. 3) Sale una línea y después el error.
 
 Explicación: Una caja solo existe desde la línea en que se crea. Usarla antes da error.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d06-n1` · concepto nombres-variables
+
+¿Qué escribe este programa? Lee los nombres letra a letra.
+
+```ts
+let total = 1;
+console.log("Total:", total);
+total = 2;
+console.log("Total:", Total);
+```
+
+- ✅ `Total: 1 ⏎ ❌ Error: Total no está definido`: Eso es: en la línea 4, Total con mayúscula no es la caja total, y no existe.
+- ▫️ `Total: 1 ⏎ Total: 2`: Mira la línea 4: Total, con mayúscula, no es la caja total.
+- ▫️ `Total: 1 ⏎ Total: Total`: Total va sin comillas: no es texto, es un nombre que no existe.
+
+Pistas: 1) Compara el nombre de la caja en las líneas 1 y 4. 2) total y Total son nombres distintos, y Total no se ha creado. 3) La línea 2 llega a escribir; la 4 falla.
+
+Explicación: Un nombre mal escrito es uno de los fallos más comunes. El ordenador no adivina: si no existe exactamente así, se para.
+
+#### Escribe el programa · `s01-d06-n2` · concepto console-log
+
+Escribe dos líneas con las constantes de arriba: «Solicitante: Laura» y, debajo, «Copias pedidas: 2».
+
+Datos (no se tocan):
+
+```ts
+const persona = "Laura";
+const total = 2;
+```
+
+Tiene que salir: `Solicitante: Laura` / `Copias pedidas: 2`
+
+Variantes ocultas:
+
+- `const persona = "Marta"; const total = 5;` → `Solicitante: Marta` / `Copias pedidas: 5`
+
+Solución:
+
+```ts
+console.log("Solicitante:", persona);
+console.log("Copias pedidas:", total);
+```
+
+Pistas: 1) Un console.log por línea, y dentro, un texto y una caja. 2) Separa con una coma el texto (con comillas) y la caja (sin comillas). La coma pone el espacio. 3) La primera es console.log("Solicitante:", persona);
+
+Explicación: La coma pone el espacio por ti. Si escribes «Laura» a mano, falla en cuanto cambia la persona.
 
 ---
 
@@ -1148,4 +1427,50 @@ Objetivo: `node hola.ts`
 Pistas: 1) El nombre del fichero ya está guardado en una caja. 2) Usa la caja: su nombre, sin comillas. 3) La caja se llama archivo.
 
 Explicación: Lo mismo de toda la semana: el texto fijo entre comillas, el dato guardado por su nombre.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s01-d07-n1` · concepto console-log
+
+¿Qué escribe este programa?
+
+```ts
+const fichero = "hola.ts";
+console.log("node fichero");
+console.log("node", fichero);
+```
+
+- ✅ `node fichero ⏎ node hola.ts`: Eso es: en la línea 2, fichero está dentro de las comillas; en la 3, fuera.
+- ▫️ `node hola.ts ⏎ node hola.ts`: En la línea 2, fichero está dentro de las comillas: es texto, no la caja.
+- ▫️ `node fichero ⏎ node fichero`: En la línea 3, fichero va fuera de las comillas: es la caja, y guarda «hola.ts».
+
+Pistas: 1) ¿Dónde está la palabra fichero en cada línea, dentro o fuera de las comillas? 2) Dentro de las comillas es texto; fuera, la caja. 3) La línea 3 escribe node y lo que hay en la caja.
+
+Explicación: Dentro de las comillas, una palabra es solo texto, aunque se llame igual que una caja.
+
+#### Escribe el programa · `s01-d07-n2` · concepto terminal
+
+Muestra en pantalla, con console.log, el texto de la orden «node hola.ts». El nombre del fichero no lo escribas a mano: sácalo de la constante fichero.
+
+Datos (no se tocan):
+
+```ts
+const fichero = "hola.ts";
+```
+
+Tiene que salir: `node hola.ts`
+
+Variantes ocultas:
+
+- `const fichero = "plazos.ts";` → `node plazos.ts`
+
+Solución:
+
+```ts
+console.log("node", fichero);
+```
+
+Pistas: 1) Aquí no se ejecuta nada: tu programa solo tiene que escribir el texto de la orden, como si se la dictara a la terminal. 2) Un console.log con dos cosas separadas por una coma: un texto y la caja. 3) console.log("node", fichero);
+
+Explicación: Con la caja, el programa sirve para cualquier fichero: si fichero vale "plazos.ts", sale «node plazos.ts» sin tocar nada más. La comprobación lo prueba con otro fichero; por eso escribir "node hola.ts" a mano no vale.
 

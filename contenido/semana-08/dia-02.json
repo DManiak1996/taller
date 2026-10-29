@@ -176,7 +176,7 @@
       "concepto": "git",
       "tema": "neutro",
       "tipo": "escribir",
-      "enunciado": "Imita a git branch: escribe cada rama en una línea, con «* » delante si es la actual y con dos espacios si no.",
+      "enunciado": "Imita a git branch: muestra en pantalla cada rama en una línea, con «* » delante si es la actual y con dos espacios si no.",
       "datos": "const ramas = [\"main\", \"informe\"];\nconst actual = \"informe\";",
       "inicial": "// Recorre las ramas\n// Elige el principio de cada línea",
       "salidaEsperada": [

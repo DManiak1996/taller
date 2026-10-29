@@ -177,7 +177,7 @@
       "concepto": "git",
       "tema": "neutro",
       "tipo": "escribir",
-      "enunciado": "Haz tu propio diff. antes y despues tienen las mismas posiciones. Si una línea es igual, escribe un espacio y la línea. Si cambia, escribe «-» con la vieja y, debajo, «+» con la nueva.",
+      "enunciado": "Haz tu propio diff. antes y despues tienen las mismas posiciones. Si una línea es igual, muestra en pantalla un espacio y la línea. Si cambia, muestra «-» con la vieja y, debajo, «+» con la nueva.",
       "datos": "const antes = [\"a\", \"b\", \"c\"];\nconst despues = [\"a\", \"B\", \"c\"];",
       "inicial": "// Recorre las posiciones con un for\n// Compara antes[i] y despues[i]",
       "salidaEsperada": [

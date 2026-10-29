@@ -349,7 +349,7 @@ Explicación: Repaso de la semana 7: const otra = main no copia. Una rama de Git
 
 #### Escribe el programa · `s08-d02-n2` · concepto git
 
-Imita a git branch: escribe cada rama en una línea, con «* » delante si es la actual y con dos espacios si no.
+Imita a git branch: muestra en pantalla cada rama en una línea, con «* » delante si es la actual y con dos espacios si no.
 
 Datos (no se tocan):
 
@@ -509,7 +509,7 @@ Explicación: GitHub resume cada cambio contando así las líneas + y −.
 
 #### Escribe el programa · `s08-d03-n2` · concepto git
 
-Haz tu propio diff. antes y despues tienen las mismas posiciones. Si una línea es igual, escribe un espacio y la línea. Si cambia, escribe «-» con la vieja y, debajo, «+» con la nueva.
+Haz tu propio diff. antes y despues tienen las mismas posiciones. Si una línea es igual, muestra en pantalla un espacio y la línea. Si cambia, muestra «-» con la vieja y, debajo, «+» con la nueva.
 
 Datos (no se tocan):
 
@@ -1361,7 +1361,7 @@ Explicación: Cada campo padre es una referencia a otro objeto. Git guarda la hi
 
 #### Escribe el programa · `s08-d07-n2` · concepto git
 
-Imita a git log --oneline: escribe el id y el mensaje de cada commit separados por un espacio. Al primero (el más nuevo) ponle «(HEAD -> main)» entre los dos.
+Imita a git log --oneline: muestra en pantalla el id y el mensaje de cada commit separados por un espacio. Al primero (el más nuevo) ponle «(HEAD -> main)» entre los dos.
 
 Datos (no se tocan):
 

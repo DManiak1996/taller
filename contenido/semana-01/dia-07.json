@@ -247,7 +247,7 @@
       "concepto": "terminal",
       "tema": "neutro",
       "tipo": "escribir",
-      "enunciado": "Escribe la orden que ejecutaría el fichero en la terminal del Mac, «node hola.ts», usando la constante fichero.",
+      "enunciado": "Muestra en pantalla, con console.log, el texto de la orden «node hola.ts». El nombre del fichero no lo escribas a mano: sácalo de la constante fichero.",
       "datos": "const fichero = \"hola.ts\";",
       "salidaEsperada": [
         "node hola.ts"
@@ -262,11 +262,11 @@
       ],
       "solucion": "console.log(\"node\", fichero);",
       "pistas": [
-        "La orden es node, un espacio y el nombre del fichero.",
+        "Aquí no se ejecuta nada: tu programa solo tiene que escribir el texto de la orden, como si se la dictara a la terminal.",
         "Un console.log con dos cosas separadas por una coma: un texto y la caja.",
         "console.log(\"node\", fichero);"
       ],
-      "explicacion": "Así se ejecuta en el Mac cualquier fichero de TypeScript: node y su nombre."
+      "explicacion": "Con la caja, el programa sirve para cualquier fichero: si fichero vale \"plazos.ts\", sale «node plazos.ts» sin tocar nada más. La comprobación lo prueba con otro fichero; por eso escribir \"node hola.ts\" a mano no vale."
     }
   }
 }
