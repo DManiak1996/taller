@@ -171,7 +171,7 @@
       "concepto": "git",
       "tema": "neutro",
       "tipo": "escribir",
-      "enunciado": "Imita a git log --oneline: escribe el id y el mensaje de cada commit separados por un espacio. Al primero (el más nuevo) ponle «(HEAD -> main)» entre los dos.",
+      "enunciado": "Imita a git log --oneline: muestra en pantalla el id y el mensaje de cada commit separados por un espacio. Al primero (el más nuevo) ponle «(HEAD -> main)» entre los dos.",
       "datos": "const log = [\n  { id: \"c3f9e21\", msg: \"Informe\" },\n  { id: \"a91c3e8\", msg: \"Inicio\" },\n];",
       "inicial": "// Recorre log con su posición\n// El de la posición 0 es especial",
       "salidaEsperada": [
