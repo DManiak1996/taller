@@ -1,0 +1,184 @@
+{
+  "id": "s09-d05",
+  "semana": 9,
+  "dia": 5,
+  "titulo": "Muchos plazos a la vez",
+  "objetivo": "Hoy aplicas tu calculadora a una lista entera de expedientes: los recorres, te quedas con los que corren prisa y sacas un pequeño informe.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un despacho no lleva un plazo: lleva muchos. Cada expediente es un **objeto** con su número, su tipo y el tiempo que ha pasado (`t`), y todos juntos van en una **lista**. Tus funciones no cambian: solo hay que llamarlas una vez por expediente."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 7, tipo: \"brecha\", t: 80 },\n  { id: 8, tipo: \"acceso\", t: 12 },\n  { id: 9, tipo: \"brecha\", t: 70 },\n];\nfor (const e of exps) {\n  const r = quedan(e.tipo, e.t);\n  console.log(e.id, estado(r));\n}",
+      "salida": [
+        "7 vencido",
+        "8 en plazo",
+        "9 urgente"
+      ],
+      "nota": "El 7 es una brecha de hace 80 horas: vencida. El 8 es una solicitud de acceso de hace 12 días: le quedan 18. El 9 es una brecha de hace 70 horas: quedan 2, urgente."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 7, tipo: \"brecha\", t: 80 },\n  { id: 8, tipo: \"acceso\", t: 12 },\n  { id: 9, tipo: \"brecha\", t: 70 },\n];\nconst resto = (e) =>\n  quedan(e.tipo, e.t);\nconst venc = exps.filter(\n  (e) => resto(e) < 0,\n);\nconsole.log(venc.map((e) => e.id));",
+      "salida": [
+        "[ 7 ]"
+      ],
+      "nota": "resto es una función de una línea que pide lo que queda de **un expediente**. Con ella, filter se queda con los vencidos y map saca solo sus números. Son las herramientas de la semana 7, ahora sobre tu propio programa."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Para saber qué está haciendo cada apartado de una EIPD, DeIure se queda primero con los agentes que están trabajando. Es un filter, como tu lista de vencidos.",
+      "codigo": "const working = own.filter(row => row.status === 'working');",
+      "fichero": "DeIure/src/lib/recorrido-agents.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d05-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst rs = [-2, 3, 40];\nconst es = rs.map(\n  (r) => estado(r),\n);\nconsole.log(es);",
+      "opciones": [
+        {
+          "texto": "[ 'vencido', 'urgente', 'en plazo' ]",
+          "correcta": true,
+          "siEliges": "Eso es: map aplica estado a cada número y devuelve una lista nueva, en el mismo orden."
+        },
+        {
+          "texto": "[ -2, 3, 40 ]",
+          "siEliges": "Eso es rs. es guarda lo que devuelve estado con cada número."
+        },
+        {
+          "texto": "[ 'vencido' ]",
+          "siEliges": "Eso haría filter. map devuelve tantos elementos como tiene la lista."
+        }
+      ],
+      "pistas": [
+        "map da una vuelta por cada número.",
+        "En cada vuelta guarda estado(r).",
+        "Tres números, tres palabras."
+      ],
+      "explicacion": "map transforma cada elemento y filter elige algunos. Aquí se transforma: cada resto pasa a ser una palabra."
+    },
+    {
+      "id": "s09-d05-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para contar los urgentes: los que no están vencidos, pero les quedan 5 o menos.",
+      "codigo": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst rs = [-2, 3, 40, 1];\nconst urg = rs.filter(\n  (r) => ___,\n);\nconsole.log(urg.length);",
+      "salidaEsperada": [
+        "2"
+      ],
+      "opciones": [
+        {
+          "texto": "estado(r) === \"urgente\"",
+          "correcta": true,
+          "siEliges": "Correcto: el 3 y el 1. Reutilizas la regla que ya escribiste."
+        },
+        {
+          "texto": "r <= 5",
+          "siEliges": "Eso también cuenta el -2, que no es urgente: está vencido. Daría 3."
+        },
+        {
+          "texto": "estado(r) = \"urgente\"",
+          "siEliges": "Con un solo = se intenta guardar un valor, no comparar. Da un error."
+        }
+      ],
+      "pistas": [
+        "Ya tienes una función que decide qué es urgente.",
+        "Compara lo que devuelve con «urgente».",
+        "Para comparar, ===."
+      ],
+      "explicacion": "Si repites la regla a mano (r <= 5) es fácil olvidar una parte. Llamar a estado garantiza que se aplica la misma regla en todo el programa."
+    },
+    {
+      "ref": "s09-rev-5"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s09-rev-x3"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d05-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Hay una errata en el nombre de un campo. ¿Qué escribe este programa?",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 7, tipo: \"brecha\", t: 80 },\n  { id: 9, tipo: \"brecha\", t: 70 },\n];\nfor (const e of exps) {\n  const r = quedan(e.tipo, e.horas);\n  console.log(e.id, estado(r));\n}",
+      "opciones": [
+        {
+          "texto": "7 en plazo\n9 en plazo",
+          "correcta": true,
+          "siEliges": "Eso es: e.horas no existe y da undefined. 72 - undefined es NaN, ningún if se cumple y todo sale «en plazo»."
+        },
+        {
+          "texto": "7 vencido\n9 urgente",
+          "siEliges": "Eso saldría con e.t. El campo se llama t, no horas."
+        },
+        {
+          "texto": "❌ Error",
+          "siEliges": "Leer un campo que no existe no da error: da undefined, y la cuenta sigue con NaN."
+        }
+      ],
+      "pistas": [
+        "¿Cómo se llama el campo del tiempo?",
+        "t. ¿Qué da e.horas?",
+        "undefined. ¿Y 72 - undefined?"
+      ],
+      "explicacion": "Una errata que no da error y deja todo «en plazo» es el peor fallo posible en una calculadora de plazos. Mañana lo blindas."
+    },
+    "escribir": {
+      "id": "s09-d05-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Muestra en pantalla los expedientes que no están en plazo, con el formato «Exp. 7: vencido». Al final, muestra cuántos son: «Avisos: 2».",
+      "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 7, tipo: \"brecha\", t: 80 },\n  { id: 8, tipo: \"acceso\", t: 12 },\n  { id: 9, tipo: \"brecha\", t: 70 },\n];",
+      "inicial": "// Un contador que empieza en 0\n// Recorre exps\n// Al final, los avisos",
+      "salidaEsperada": [
+        "Exp. 7: vencido",
+        "Exp. 9: urgente",
+        "Avisos: 2"
+      ],
+      "variantes": [
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 1, tipo: \"acceso\", t: 31 },\n  { id: 2, tipo: \"acceso\", t: 26 },\n  { id: 3, tipo: \"brecha\", t: 72 },\n];",
+          "salidaEsperada": [
+            "Exp. 1: vencido",
+            "Exp. 2: urgente",
+            "Exp. 3: urgente",
+            "Avisos: 3"
+          ]
+        },
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst exps = [\n  { id: 4, tipo: \"acceso\", t: 1 },\n];",
+          "salidaEsperada": [
+            "Avisos: 0"
+          ]
+        }
+      ],
+      "solucion": "let n = 0;\nfor (const e of exps) {\n  const r = quedan(e.tipo, e.t);\n  const s = estado(r);\n  if (s !== \"en plazo\") {\n    console.log(`Exp. ${e.id}: ${s}`);\n    n = n + 1;\n  }\n}\nconsole.log(\"Avisos:\", n);",
+      "pistas": [
+        "Calcula el estado de cada expediente con tus dos funciones.",
+        "Si no es «en plazo», muéstralo y suma 1 al contador.",
+        "El contador se declara con let antes del for y se muestra después."
+      ],
+      "explicacion": "Una variante no tiene ningún aviso: tiene que salir «Avisos: 0», y nada más."
+    }
+  }
+}

@@ -1,0 +1,205 @@
+{
+  "id": "s09-d04",
+  "semana": 9,
+  "dia": 4,
+  "titulo": "Probar tu calculadora",
+  "objetivo": "Hoy pruebas tu calculadora con tres clases de casos: el normal, el límite y el raro. Así descubres los fallos que con un solo ejemplo no se ven.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Tu calculadora ya funciona con 50 horas. ¿Y con 72 justas? ¿Y si alguien escribe «queja»? Probar un programa es como revisar un contrato: no basta con leer la cláusula que todo el mundo cumple, hay que mirar **los extremos y los casos raros**. Es ahí donde se esconden los fallos."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Tres clases de casos",
+      "pasos": [
+        {
+          "titulo": "Normal",
+          "texto": "El caso de todos los días: quedan 20 → «en plazo»."
+        },
+        {
+          "titulo": "Límite",
+          "texto": "Justo en la frontera: 0, 5 y 6. Con 0 aún no está vencido; con 5 es urgente y con 6 ya no."
+        },
+        {
+          "titulo": "Raro",
+          "texto": "Lo que no debería pasar, pero pasa: un tipo que no existe, un número negativo."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\ntest(\"normal\", () => {\n  expect(estado(20)).toBe(\"en plazo\");\n});\ntest(\"límite\", () => {\n  expect(estado(0)).toBe(\"urgente\");\n});\ntest(\"vencido\", () => {\n  expect(estado(-1)).toBe(\"vencido\");\n});",
+      "salida": [
+        "✓ normal",
+        "✓ límite",
+        "✓ vencido"
+      ],
+      "nota": "Un test por clase de caso. Lo que va en toBe sale de **la norma**, no de ejecutar el programa: el plazo de 72 horas del art. 33 incluye las 72 justas, así que con 0 todavía no está vencido."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\ntest(\"tipo raro\", () => {\n  const r = quedan(\"queja\", 5);\n  const e = estado(r);\n  expect(e).toBe(\"desconocido\");\n});",
+      "salida": [
+        "× tipo raro",
+        "  Expected: 'desconocido'",
+        "  Received: 'en plazo'"
+      ],
+      "nota": "Este test **falla, y está bien que falle**: descubre un agujero. Con un tipo que no existe, la resta da NaN, ningún if se cumple y sale «en plazo». Un test escrito antes del arreglo te dice qué tienes que arreglar. Lo arreglas el día 6."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure prueba sus tipos de evento igual: los válidos y también los raros, como un texto vacío, null o un número. test.each repite el mismo test con cada valor de la lista.",
+      "codigo": "test.each(['shared', '', null, 1])('rechaza un tipo inválido: %s', type => {\n  expect(calendarEventInputSchema.safeParse({ ...event, type }).success).toBe(false);",
+      "fichero": "DeIure/src/lib/__tests__/calendar-event-types.test.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d04-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Este estado tiene un fallo. ¿Qué escriben sus tests?",
+      "codigo": "function estado(resto) {\n  if (resto <= 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\ntest(\"normal\", () => {\n  expect(estado(20)).toBe(\"en plazo\");\n});\ntest(\"límite\", () => {\n  expect(estado(0)).toBe(\"urgente\");\n});",
+      "opciones": [
+        {
+          "texto": "✓ normal\n× límite\n  Expected: 'urgente'\n  Received: 'vencido'",
+          "correcta": true,
+          "siEliges": "Eso es: con <= 0, el 0 cuenta como vencido. El caso normal no lo nota; el límite sí."
+        },
+        {
+          "texto": "✓ normal\n✓ límite",
+          "siEliges": "Mira el primer if: resto <= 0. Con 0 se cumple y devuelve «vencido»."
+        },
+        {
+          "texto": "× normal\n  Expected: 'en plazo'\n  Received: 'urgente'\n✓ límite",
+          "siEliges": "20 no cumple ninguno de los dos if: devuelve «en plazo», y el test normal pasa."
+        }
+      ],
+      "pistas": [
+        "Compara el primer if con el de la lección.",
+        "Aquí es <= 0, no < 0.",
+        "¿Qué devuelve estado(0)?"
+      ],
+      "explicacion": "Si solo hubieras probado el caso normal, el fallo habría pasado. Los fallos de plazos viven en los límites."
+    },
+    {
+      "id": "s09-d04-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa el test con lo que dice la norma: 72 horas justas desde la brecha.",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\ntest(\"72 justas\", () => {\n  const r = quedan(\"brecha\", 72);\n  expect(estado(r)).toBe(___);\n});",
+      "salidaEsperada": [
+        "✓ 72 justas"
+      ],
+      "opciones": [
+        {
+          "texto": "\"urgente\"",
+          "correcta": true,
+          "siEliges": "Correcto: quedan 0 horas. Aún no está vencido, pero es urgente."
+        },
+        {
+          "texto": "\"vencido\"",
+          "siEliges": "El plazo de 72 horas del art. 33 incluye las 72 justas: con 0 todavía se está a tiempo."
+        },
+        {
+          "texto": "\"en plazo\"",
+          "siEliges": "Quedan 0 horas, y 0 <= 5: es urgente."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto vale r?",
+        "0. ¿Es menor que 0?",
+        "No. ¿Es 5 o menos?"
+      ],
+      "explicacion": "Lo que espera un test se decide con la norma en la mano. Si lo copias de lo que sale al ejecutar, el test dará por bueno cualquier fallo."
+    },
+    {
+      "ref": "s09-rev-4"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d04-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Este estado tiene el fallo del 0. ¿Qué escriben estos tests?",
+      "codigo": "function estado(resto) {\n  if (resto <= 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\ntest(\"normal\", () => {\n  expect(estado(20)).toBe(\"en plazo\");\n});\ntest(\"vencido\", () => {\n  expect(estado(-3)).toBe(\"vencido\");\n});",
+      "opciones": [
+        {
+          "texto": "✓ normal\n✓ vencido",
+          "correcta": true,
+          "siEliges": "Eso es: los dos pasan. Ninguno prueba el 0, así que el fallo sigue ahí, escondido."
+        },
+        {
+          "texto": "✓ normal\n× vencido\n  Expected: 'vencido'\n  Received: 'urgente'",
+          "siEliges": "-3 <= 0 se cumple: devuelve «vencido» y el test pasa."
+        },
+        {
+          "texto": "× normal\n  Expected: 'en plazo'\n  Received: 'vencido'\n✓ vencido",
+          "siEliges": "20 no cumple ningún if: devuelve «en plazo»."
+        }
+      ],
+      "pistas": [
+        "Calcula estado(20) con este código.",
+        "Ahora estado(-3).",
+        "¿Algún test usa el 0?"
+      ],
+      "explicacion": "Todo verde no quiere decir que esté bien: quiere decir que lo que has probado está bien. Si falta el caso límite, el fallo pasa."
+    },
+    "escribir": {
+      "id": "s09-d04-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe tres tests para estado: «en plazo» comprueba estado(20), «límite» comprueba estado(0) y «vencido» comprueba estado(-1). Lo que esperas sale de la norma.",
+      "datos": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}",
+      "inicial": "// test(nombre, () => {\n//   expect(…).toBe(…);\n// });",
+      "salidaEsperada": [
+        "✓ en plazo",
+        "✓ límite",
+        "✓ vencido"
+      ],
+      "variantes": [
+        {
+          "datos": "function estado(resto) {\n  if (resto <= 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}",
+          "salidaEsperada": [
+            "✓ en plazo",
+            "× límite",
+            "  Expected: 'urgente'",
+            "  Received: 'vencido'",
+            "✓ vencido"
+          ]
+        },
+        {
+          "datos": "function estado(resto) {\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  return \"en plazo\";\n}",
+          "salidaEsperada": [
+            "✓ en plazo",
+            "✓ límite",
+            "× vencido",
+            "  Expected: 'vencido'",
+            "  Received: 'urgente'"
+          ]
+        }
+      ],
+      "solucion": "test(\"en plazo\", () => {\n  expect(estado(20)).toBe(\"en plazo\");\n});\ntest(\"límite\", () => {\n  expect(estado(0)).toBe(\"urgente\");\n});\ntest(\"vencido\", () => {\n  expect(estado(-1)).toBe(\"vencido\");\n});",
+      "pistas": [
+        "Un test por caso, con el nombre que pide el enunciado.",
+        "Con 0 todavía no está vencido: es urgente.",
+        "Con -1 sí está vencido."
+      ],
+      "explicacion": "Las variantes ocultas usan dos estado rotos: el del 0 y el de los if en otro orden. Tus tests tienen que cazar los dos."
+    }
+  }
+}

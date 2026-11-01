@@ -1,0 +1,180 @@
+{
+  "id": "s09-d01",
+  "semana": 9,
+  "dia": 1,
+  "titulo": "Tu calculadora de plazos: primero, el plan",
+  "objetivo": "Esta semana construyes tu primer programa propio, una calculadora de plazos del RGPD. Hoy aprendes a planificarlo antes de escribir código: qué entra, qué sale y qué pasos hay en medio.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Un programa propio no empieza en el teclado, sino en papel. Es como un dictamen: primero los **hechos** (los datos que entran), después la **norma** (las reglas) y al final la **conclusión** (lo que sale). Si no sabes decir en una frase qué debe hacer tu programa, todavía no es momento de escribirlo."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "La calculadora de plazos",
+      "pasos": [
+        {
+          "titulo": "Entrada",
+          "texto": "Qué plazo es (una brecha o una solicitud de acceso) y cuánto tiempo ha pasado."
+        },
+        {
+          "titulo": "Reglas",
+          "texto": "Brecha: el plazo de 72 horas del art. 33. Acceso: el art. 12.3 da un mes; tu despacho se fija un plazo interno de 30 días."
+        },
+        {
+          "titulo": "Cálculo",
+          "texto": "Cuánto queda: el límite menos lo que ha pasado."
+        },
+        {
+          "titulo": "Salida",
+          "texto": "«en plazo», «urgente» o «vencido»."
+        }
+      ]
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "// Entrada: horas desde la brecha\nconst horas = 50;\n// Cálculo: cuántas quedan\nconst quedan = 72 - horas;\n// Salida\nconsole.log(`Quedan ${quedan} h`);",
+      "salida": [
+        "Quedan 22 h"
+      ],
+      "nota": "Primero se escribe el plan como **comentarios** y después, debajo de cada uno, el código. Es la primera versión: solo sirve para brechas, pero funciona. Mañana la mejoras."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Las reglas de DeIure piden lo mismo a los agentes de IA antes de escribir nada: decir en una frase qué problema real resuelve el cambio. Si la frase sale floja, no se escribe.",
+      "codigo": "1. **Test de problema real.** Antes de proponer o aceptar un microcorte/feature, nombra en UNA frase qué problema real de un usuario resuelve.",
+      "fichero": "CLAUDE.md"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d01-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "ordenar",
+      "enunciado": "Ordena el plan hecho código: entrada, cálculo, decisión y salida.",
+      "lineas": [
+        "const horas = 80;",
+        "const quedan = 72 - horas;",
+        "const vencido = quedan < 0;",
+        "console.log(vencido);"
+      ],
+      "salidaEsperada": [
+        "true"
+      ],
+      "pistas": [
+        "Cada línea usa algo de la anterior.",
+        "Primero el dato; después lo que se calcula con él.",
+        "La salida va siempre al final."
+      ],
+      "explicacion": "Cuando cada paso usa el resultado del anterior, solo hay un orden posible. Es el mismo orden del plan."
+    },
+    {
+      "id": "s09-d01-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Han pasado 72 horas justas desde la brecha. ¿Qué escribe este programa?",
+      "codigo": "const horas = 72;\nconst quedan = 72 - horas;\nif (quedan < 0) {\n  console.log(\"Vencido\");\n} else {\n  console.log(`Quedan ${quedan} h`);\n}",
+      "opciones": [
+        {
+          "texto": "Quedan 0 h",
+          "correcta": true,
+          "siEliges": "Eso es: 0 no es menor que 0. Con 72 horas justas todavía se está en el plazo de 72 horas del art. 33."
+        },
+        {
+          "texto": "Vencido",
+          "siEliges": "quedan vale 0, y 0 < 0 es false: entra en el else."
+        },
+        {
+          "texto": "Quedan 72 h",
+          "siEliges": "quedan es 72 menos las horas pasadas: 0."
+        }
+      ],
+      "pistas": [
+        "Calcula quedan.",
+        "Vale 0. ¿Es 0 < 0?",
+        "No: entra en el else."
+      ],
+      "explicacion": "El primer caso que hay que pensar en una calculadora de plazos es el propio límite."
+    },
+    {
+      "ref": "s09-rev-1"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d01-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Han pasado 72 horas justas, que todavía están dentro del plazo. Completa la condición para que escriba «En plazo».",
+      "codigo": "const horas = 72;\nconst quedan = 72 - horas;\nif (quedan ___ 0) {\n  console.log(\"Vencido\");\n} else {\n  console.log(\"En plazo\");\n}",
+      "salidaEsperada": [
+        "En plazo"
+      ],
+      "opciones": [
+        {
+          "texto": "<",
+          "correcta": true,
+          "siEliges": "Correcto: vencido solo si queda menos de 0. Con 0 aún se está a tiempo."
+        },
+        {
+          "texto": "<=",
+          "siEliges": "Con <=, 0 cuenta como vencido: las 72 horas justas se darían por perdidas."
+        },
+        {
+          "texto": "===",
+          "siEliges": "Con ===, solo saldría «Vencido» con 0 justo, y no con 80 horas."
+        }
+      ],
+      "pistas": [
+        "¿Cuánto vale quedan con 72 horas?",
+        "0. Y con 0 todavía se está a tiempo.",
+        "La condición de vencido tiene que dejar fuera el 0."
+      ],
+      "explicacion": "< o <=: un solo carácter decide si el último momento del plazo cuenta. Es el fallo más típico de las calculadoras de plazos."
+    },
+    "escribir": {
+      "id": "s09-d01-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Primera versión de tu calculadora. Con las horas pasadas desde una brecha, muestra «Quedan 22 h» si queda tiempo, o «Vencido hace 8 h» si se ha pasado de 72.",
+      "datos": "const horas = 50;",
+      "inicial": "// Cálculo: cuántas quedan\n// Salida: quedan o vencido",
+      "salidaEsperada": [
+        "Quedan 22 h"
+      ],
+      "variantes": [
+        {
+          "datos": "const horas = 80;",
+          "salidaEsperada": [
+            "Vencido hace 8 h"
+          ]
+        },
+        {
+          "datos": "const horas = 72;",
+          "salidaEsperada": [
+            "Quedan 0 h"
+          ]
+        }
+      ],
+      "solucion": "const quedan = 72 - horas;\nif (quedan < 0) {\n  const n = horas - 72;\n  console.log(\"Vencido hace\", n, \"h\");\n} else {\n  console.log(\"Quedan\", quedan, \"h\");\n}",
+      "pistas": [
+        "Empieza por el cálculo: 72 menos las horas.",
+        "Un if con dos salidas. Vencido solo si queda menos de 0.",
+        "Si está vencido, las horas de retraso son horas - 72."
+      ],
+      "explicacion": "Con 72 horas justas tiene que salir «Quedan 0 h»: una de las variantes lo comprueba."
+    }
+  }
+}
