@@ -842,6 +842,25 @@ Pistas: 1) ¿Qué imprime? ¿Sale el 22? 2) El hueco de una plantilla se escribe
 
 Explicación: Imprime `Quedan {horas} horas`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves.
 
+#### Repaso 4 · ¿Quién tiene razón? (Revisión) · `s02-rev-x6` · concepto texto-mas-numero
+
+Tres líneas que se parecen mucho. La IA y Marta discuten qué imprime cada una. ¿Quién tiene razón?
+
+```ts
+console.log("72" + "48");
+console.log("72 + 48");
+console.log(72 + 48);
+```
+
+- La IA: Las tres imprimen `120`. (Las tres suman 72 y 48.)
+- Marta: `7248`, `72 + 48` y `120`. (La primera pega dos textos, la segunda es un solo texto que se escribe tal cual, y solo la tercera suma números.)
+
+Correcta: Marta
+
+Pistas: 1) Marca con el dedo dónde empiezan y acaban las comillas en cada línea. 2) Lo que va entre comillas se escribe tal cual, signos incluidos. 3) `+` entre dos textos los pega; entre dos números, los suma.
+
+Explicación: Imprime `7248`, `72 + 48` y `120`. Primera: dos textos que se pegan. Segunda: un único texto, que sale tal cual, con su `+` y sus espacios. Tercera: dos números que se suman. Para enseñar la operación y el resultado: una plantilla, `` `72 + 48 = ${72 + 48}` ``, que imprime `72 + 48 = 120`.
+
 ### Para nota
 
 #### Reto difícil · ¿Qué imprime? · `s02-d04-n1` · concepto plantillas-texto
@@ -1503,6 +1522,25 @@ console.log((8).toString(2));
 Pistas: 1) Las cifras valen 1, 2, 4, 8… de derecha a izquierda. 2) El 8 es justo una de esas cifras. 3) Un 1 en la posición del 8 y ceros en el resto.
 
 Explicación: Las potencias de 2 en binario son un 1 seguido de ceros: 1, 10, 100, 1000.
+
+#### Repaso 3 · Caza el fallo (Revisión) · `s02-rev-x5` · concepto texto-mas-numero
+
+Le pediste a la IA: «Suma las horas de los dos turnos y escribe Total: 15». Sale `Total: 87`. Toca la línea que está mal.
+
+```ts
+const manana = 8;
+const tarde = 7;
+const texto = "Total: ";
+console.log(texto + manana + tarde);
+```
+
+- ✅ `El `+` va de izquierda a derecha: `"Total: " + 8` ya es un texto, y después pega el 7. Con paréntesis se suma primero: `texto + (manana + tarde)`.`: Exacto. En cuanto aparece un texto, cada `+` que viene detrás pega en vez de sumar.
+- ▫️ `Hay que poner los números entre comillas: `"8"` y `"7"`.`: Así serían textos y pegaría seguro. Los números ya son números; el problema es el orden en que se hacen los `+`.
+- ▫️ `Falta convertirlos con `Number()`.`: `manana` y `tarde` ya son números. `Number()` sirve para textos que llegan de un formulario. Mira qué se junta primero.
+
+Pistas: 1) ¿Qué `+` se hace primero? 2) `"Total: " + 8` da un texto: `"Total: 8"`. 3) ¿Qué pasa al hacer texto + 7?
+
+Explicación: Imprime `Total: 87`. Los `+` se hacen de izquierda a derecha, y en cuanto uno toca un texto, el resultado es texto. Con paréntesis, `(manana + tarde)` se suma antes. Otra forma clara: una plantilla, `` `Total: ${manana + tarde}` ``.
 
 ### Para nota
 
