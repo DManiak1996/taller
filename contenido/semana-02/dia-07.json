@@ -191,6 +191,9 @@
         "Un 1 en la posición del 8 y ceros en el resto."
       ],
       "explicacion": "Las potencias de 2 en binario son un 1 seguido de ceros: 1, 10, 100, 1000."
+    },
+    {
+      "ref": "s02-rev-x5"
     }
   ],
   "paraNota": {

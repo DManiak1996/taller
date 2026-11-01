@@ -373,5 +373,73 @@
       "Compara `{horas}` con `${horas}`."
     ],
     "explicacion": "Imprime `Quedan {horas} horas`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves."
+  },
+  {
+    "id": "s02-rev-x5",
+    "tipo": "fallo",
+    "semana": 2,
+    "concepto": "texto-mas-numero",
+    "tema": "neutro",
+    "enunciado": "Le pediste a la IA: «Suma las horas de los dos turnos y escribe Total: 15». Sale `Total: 87`. Toca la línea que está mal.",
+    "codigo": "const manana = 8;\nconst tarde = 7;\nconst texto = \"Total: \";\nconsole.log(texto + manana + tarde);",
+    "lineasFallo": [
+      4
+    ],
+    "opciones": [
+      {
+        "texto": "El `+` va de izquierda a derecha: `\"Total: \" + 8` ya es un texto, y después pega el 7. Con paréntesis se suma primero: `texto + (manana + tarde)`.",
+        "correcta": true,
+        "siEliges": "Exacto. En cuanto aparece un texto, cada `+` que viene detrás pega en vez de sumar."
+      },
+      {
+        "texto": "Hay que poner los números entre comillas: `\"8\"` y `\"7\"`.",
+        "siEliges": "Así serían textos y pegaría seguro. Los números ya son números; el problema es el orden en que se hacen los `+`."
+      },
+      {
+        "texto": "Falta convertirlos con `Number()`.",
+        "siEliges": "`manana` y `tarde` ya son números. `Number()` sirve para textos que llegan de un formulario. Mira qué se junta primero."
+      }
+    ],
+    "arreglo": "const manana = 8;\nconst tarde = 7;\nconst texto = \"Total: \";\nconsole.log(texto + (manana + tarde));",
+    "pistas": [
+      "¿Qué `+` se hace primero?",
+      "`\"Total: \" + 8` da un texto: `\"Total: 8\"`.",
+      "¿Qué pasa al hacer texto + 7?"
+    ],
+    "explicacion": "Imprime `Total: 87`. Los `+` se hacen de izquierda a derecha, y en cuanto uno toca un texto, el resultado es texto. Con paréntesis, `(manana + tarde)` se suma antes. Otra forma clara: una plantilla, `` `Total: ${manana + tarde}` ``."
+  },
+  {
+    "id": "s02-rev-x6",
+    "tipo": "razon",
+    "semana": 2,
+    "concepto": "texto-mas-numero",
+    "tema": "neutro",
+    "enunciado": "Tres líneas que se parecen mucho. La IA y Marta discuten qué imprime cada una. ¿Quién tiene razón?",
+    "codigo": "console.log(\"72\" + \"48\");\nconsole.log(\"72 + 48\");\nconsole.log(72 + 48);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Las tres imprimen `120`.",
+        "porque": "Las tres suman 72 y 48."
+      },
+      {
+        "quien": "Marta",
+        "dice": "`7248`, `72 + 48` y `120`.",
+        "porque": "La primera pega dos textos, la segunda es un solo texto que se escribe tal cual, y solo la tercera suma números."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Solo la tercera suma. Entre comillas, `72` es un texto: la primera pega dos textos y la segunda escribe lo que hay dentro de las comillas, letra a letra.",
+      "Marta": "Correcto. Para que se vea «72 + 48» en pantalla, todo va dentro de unas comillas. Para que salga 120, sin comillas.",
+      "ninguno": "Una de las dos acierta. Fíjate en dónde empiezan y acaban las comillas de cada línea."
+    },
+    "comprobar": true,
+    "pistas": [
+      "Marca con el dedo dónde empiezan y acaban las comillas en cada línea.",
+      "Lo que va entre comillas se escribe tal cual, signos incluidos.",
+      "`+` entre dos textos los pega; entre dos números, los suma."
+    ],
+    "explicacion": "Imprime `7248`, `72 + 48` y `120`. Primera: dos textos que se pegan. Segunda: un único texto, que sale tal cual, con su `+` y sus espacios. Tercera: dos números que se suman. Para enseñar la operación y el resultado: una plantilla, `` `72 + 48 = ${72 + 48}` ``, que imprime `72 + 48 = 120`."
   }
 ]
