@@ -1,0 +1,203 @@
+{
+  "id": "s09-d06",
+  "semana": 9,
+  "dia": 6,
+  "titulo": "Revisar tu propio programa",
+  "objetivo": "Hoy revisas tu calculadora como revisarías un escrito tuyo antes de enviarlo: buscas la regla que no encaja, el dato raro y lo que sobra.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Revisar tu propio programa es como releer un escrito tuyo con los ojos de la otra parte. Tres preguntas: **¿la regla vale igual para todos los casos?**, **¿qué pasa con un dato raro?** y **¿sobra algo?** La primera ya da una sorpresa."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst r = quedan(\"brecha\", 60);\nconsole.log(r, estado(r));",
+      "salida": [
+        "12 en plazo"
+      ],
+      "nota": "Quedan 12 horas para notificar a la autoridad, ¿y sale «en plazo»? El 5 de estado tenía sentido para una solicitud (5 días), no para una brecha (5 horas). **Un mismo número para dos unidades**: otro número mágico, escondido."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nfunction estado(tipo, pasado) {\n  const lim = limites[tipo];\n  if (lim === undefined) {\n    return \"desconocido\";\n  }\n  if (typeof pasado !== \"number\") {\n    return \"dato erróneo\";\n  }\n  const r = lim - pasado;\n  if (r < 0) {\n    return \"vencido\";\n  }\n  if (r <= avisos[tipo]) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(\"brecha\", 60));\nconsole.log(estado(\"queja\", 5));\nconsole.log(estado(\"brecha\", \"x\"));",
+      "salida": [
+        "urgente",
+        "desconocido",
+        "dato erróneo"
+      ],
+      "nota": "Versión 2. Una segunda tabla dice cuándo avisar en cada tipo: tu despacho decide avisar con 24 horas o menos en una brecha y con 5 días o menos en una solicitud. estado recibe el tipo y lo pasado, y comprueba **primero** los datos raros: el tipo que no existe y el tiempo que no es un número."
+    },
+    {
+      "tipo": "texto",
+      "texto": "La tercera pregunta: ¿sobra algo? Comprueba solo lo que **puede pasar de verdad**. Un tipo mal escrito, sí: lo teclea una persona. Que la tabla limites esté vacía, no: la escribes tú. Revisar no es solo añadir comprobaciones; también es **quitar** las que no protegen de nada."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Las reglas de DeIure piden a los agentes de IA lo mismo: no defenderse de lo imposible y no escribir de más.",
+      "codigo": "- Sin error handling para escenarios imposibles.\n- Si escribes 200 líneas y podrían ser 50, reescribe.",
+      "fichero": "CLAUDE.md"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d06-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "elegir",
+      "enunciado": "La IA dice: «Solo he cambiado el umbral de urgente para que dependa del tipo». ¿Es verdad?",
+      "bloque": {
+        "tipo": "diff",
+        "fichero": "plazos.ts",
+        "lineas": [
+          "   const r = lim - pasado;",
+          "-  if (r < 0) {",
+          "+  if (r <= 0) {",
+          "     return \"vencido\";",
+          "   }",
+          "-  if (r <= 5) {",
+          "+  if (r <= avisos[tipo]) {",
+          "     return \"urgente\";",
+          "   }"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "No: también ha cambiado el vencido",
+          "correcta": true,
+          "siEliges": "Eso es: < 0 pasa a <= 0, y las 72 horas justas saldrían «vencido». Ese cambio no se había pedido."
+        },
+        {
+          "texto": "Sí: solo ha cambiado el umbral",
+          "siEliges": "Hay dos pares de − y +. El primero toca la condición de vencido."
+        },
+        {
+          "texto": "No: ha borrado el vencido",
+          "siEliges": "El return «vencido» no lleva marca: sigue ahí."
+        }
+      ],
+      "pistas": [
+        "¿Cuántas líneas llevan −?",
+        "Dos. Una es la del umbral.",
+        "Compara la otra carácter a carácter."
+      ],
+      "explicacion": "Revisa siempre el diff contra lo que se dice que se ha hecho. Un carácter de más en una condición cambia el último día de un plazo."
+    },
+    {
+      "id": "s09-d06-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Con la versión 2, ¿qué escribe este programa?",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nfunction estado(tipo, pasado) {\n  const lim = limites[tipo];\n  if (lim === undefined) {\n    return \"desconocido\";\n  }\n  if (typeof pasado !== \"number\") {\n    return \"dato erróneo\";\n  }\n  const r = lim - pasado;\n  if (r < 0) {\n    return \"vencido\";\n  }\n  if (r <= avisos[tipo]) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(\"brecha\", 48));\nconsole.log(estado(\"acceso\", 25));\nconsole.log(estado(\"acceso\", 24));",
+      "opciones": [
+        {
+          "texto": "urgente\nurgente\nen plazo",
+          "correcta": true,
+          "siEliges": "Eso es: quedan 24 horas (24 <= 24), 5 días (5 <= 5) y 6 días (6 > 5)."
+        },
+        {
+          "texto": "en plazo\nurgente\nen plazo",
+          "siEliges": "Con 48 horas quedan 24, y el aviso de la brecha es 24 o menos: urgente."
+        },
+        {
+          "texto": "urgente\nurgente\nurgente",
+          "siEliges": "Con 24 días quedan 6, y el aviso del acceso es 5 o menos."
+        }
+      ],
+      "pistas": [
+        "Calcula lo que queda en cada caso.",
+        "24 horas, 5 días y 6 días.",
+        "Compara cada uno con su aviso: 24 para la brecha y 5 para el acceso."
+      ],
+      "explicacion": "Los tres casos están justo en la frontera de su aviso. Si estos tres salen bien, el resto también."
+    },
+    {
+      "ref": "s09-rev-6"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s09-rev-x4"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d06-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Desde un formulario, el tiempo puede llegar como texto: \"40\". Completa la comprobación para que salga «en plazo» y después «dato erróneo».",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nfunction estado(tipo, pasado) {\n  const lim = limites[tipo];\n  if (lim === undefined) {\n    return \"desconocido\";\n  }\n  if (typeof pasado ___ \"number\") {\n    return \"dato erróneo\";\n  }\n  const r = lim - pasado;\n  if (r < 0) {\n    return \"vencido\";\n  }\n  if (r <= avisos[tipo]) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(\"brecha\", 40));\nconsole.log(estado(\"brecha\", \"40\"));",
+      "salidaEsperada": [
+        "en plazo",
+        "dato erróneo"
+      ],
+      "opciones": [
+        {
+          "texto": "!==",
+          "correcta": true,
+          "siEliges": "Correcto: si el tiempo no es un número, se avisa. 40 pasa y \"40\" no."
+        },
+        {
+          "texto": "===",
+          "siEliges": "Al revés: el 40 de verdad saldría «dato erróneo» y el texto «en plazo»."
+        },
+        {
+          "texto": "<",
+          "siEliges": "< no sirve para comparar tipos: ningún caso entra, y el texto \"40\" sale «en plazo» como si nada."
+        }
+      ],
+      "pistas": [
+        "typeof pasado da «number» o «string».",
+        "Quieres avisar cuando NO es un número.",
+        "«Distinto de» se escribe !==."
+      ],
+      "explicacion": "72 - \"40\" da 32 sin ningún error: JavaScript convierte el texto en número al restar. Por eso hay que comprobarlo a mano."
+    },
+    "escribir": {
+      "id": "s09-d06-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe estado(tipo, pasado) con las dos tablas: «desconocido» si el tipo no está en limites, «vencido», «urgente» si quedan avisos[tipo] o menos, o «en plazo». Después muestra cada caso así: «brecha 60: urgente».",
+      "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nconst casos = [\n  { tipo: \"brecha\", t: 60 },\n  { tipo: \"acceso\", t: 12 },\n  { tipo: \"queja\", t: 3 },\n];",
+      "inicial": "// function estado(tipo, pasado) { … }\n// Recorre casos",
+      "salidaEsperada": [
+        "brecha 60: urgente",
+        "acceso 12: en plazo",
+        "queja 3: desconocido"
+      ],
+      "variantes": [
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nconst casos = [\n  { tipo: \"brecha\", t: 72 },\n  { tipo: \"brecha\", t: 73 },\n  { tipo: \"acceso\", t: 25 },\n];",
+          "salidaEsperada": [
+            "brecha 72: urgente",
+            "brecha 73: vencido",
+            "acceso 25: urgente"
+          ]
+        },
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst avisos = {\n  brecha: 24,\n  acceso: 5,\n};\nconst casos = [\n  { tipo: \"brecha\", t: 47 },\n  { tipo: \"acceso\", t: 31 },\n];",
+          "salidaEsperada": [
+            "brecha 47: en plazo",
+            "acceso 31: vencido"
+          ]
+        }
+      ],
+      "solucion": "function estado(tipo, pasado) {\n  const lim = limites[tipo];\n  if (lim === undefined) {\n    return \"desconocido\";\n  }\n  const r = lim - pasado;\n  if (r < 0) {\n    return \"vencido\";\n  }\n  if (r <= avisos[tipo]) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nfor (const k of casos) {\n  const s = estado(k.tipo, k.t);\n  console.log(`${k.tipo} ${k.t}:`, s);\n}",
+      "pistas": [
+        "Lo primero en estado: busca el límite y comprueba si es undefined.",
+        "Después calcula lo que queda y compáralo con 0 y con avisos[tipo].",
+        "En el for, llama a estado con k.tipo y k.t."
+      ],
+      "explicacion": "Es tu calculadora completa. Las variantes prueban las fronteras: 72 horas justas, una hora de más y 5 días justos."
+    }
+  }
+}

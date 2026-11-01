@@ -1,0 +1,180 @@
+{
+  "id": "s09-d03",
+  "semana": 9,
+  "dia": 3,
+  "titulo": "El cálculo, en funciones",
+  "objetivo": "Hoy conviertes el cálculo en dos funciones pequeñas, quedan y estado, que se pueden usar con cualquier plazo y encadenar.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nconsole.log(quedan(\"brecha\", 50));\nconsole.log(quedan(\"acceso\", 31));",
+      "salida": [
+        "22",
+        "-1"
+      ],
+      "nota": "quedan busca el límite en la tabla y le resta lo pasado. Un resultado negativo quiere decir que el plazo se ha pasado."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(-1));\nconsole.log(estado(0));\nconsole.log(estado(20));",
+      "salida": [
+        "vencido",
+        "urgente",
+        "en plazo"
+      ],
+      "nota": "estado traduce un número a una palabra. Con 0 todavía no está vencido, pero es urgente. Y **el orden de los if importa**: primero se descarta lo vencido y después lo urgente."
+    },
+    {
+      "tipo": "texto",
+      "texto": "Cada función hace una sola cosa y tiene un nombre que lo dice: es la descomposición de la semana 6. Se encadenan como `estado(quedan(\"brecha\", 70))`: primero se calcula lo de dentro (2) y luego lo de fuera («urgente»). Si algo sale mal, puedes probar cada pieza por separado."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "Al compartir una carpeta, DeIure traduce un estado interno a un texto con una función pequeña de varios return, igual que tu estado. El primer if que se cumple decide.",
+      "codigo": "if (state === 'review_pending') return 'Pendiente de aprobación';\nif (state === 'compensating') return 'Recuperando la carpeta…';\nreturn 'Compartiendo…';",
+      "fichero": "DeIure/src/lib/desktop/sharing-progress.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d03-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst r = quedan(\"brecha\", 70);\nconsole.log(r, estado(r));",
+      "opciones": [
+        {
+          "texto": "2 urgente",
+          "correcta": true,
+          "siEliges": "Eso es: quedan 2 horas, y 2 <= 5."
+        },
+        {
+          "texto": "2 en plazo",
+          "siEliges": "2 es menor o igual que 5: es urgente."
+        },
+        {
+          "texto": "70 urgente",
+          "siEliges": "r es lo que queda (72 - 70), no lo pasado."
+        }
+      ],
+      "pistas": [
+        "Calcula primero r.",
+        "r vale 2.",
+        "¿Qué devuelve estado(2)?"
+      ],
+      "explicacion": "Guardar el resultado intermedio en r deja ver los dos datos: el número y la palabra."
+    },
+    {
+      "id": "s09-d03-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "hueco",
+      "enunciado": "Completa para que escriba «vencido»: una brecha de hace 80 horas.",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nfunction quedan(tipo, pasado) {\n  return limites[tipo] - pasado;\n}\nfunction estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconst r = quedan(___);\nconsole.log(estado(r));",
+      "salidaEsperada": [
+        "vencido"
+      ],
+      "opciones": [
+        {
+          "texto": "\"brecha\", 80",
+          "correcta": true,
+          "siEliges": "Correcto: quedan -8 horas, y estado(-8) es «vencido»."
+        },
+        {
+          "texto": "80, \"brecha\"",
+          "siEliges": "Los argumentos van al revés: limites[80] no existe y la resta da NaN. Ningún if se cumple y sale «en plazo». Sin error."
+        },
+        {
+          "texto": "\"brecha\", 70",
+          "siEliges": "Con 70 horas aún quedan 2: es urgente, no vencido."
+        }
+      ],
+      "pistas": [
+        "estado necesita lo que queda.",
+        "Lo calcula quedan, con el tipo primero y lo pasado después.",
+        "Comprueba el orden de los argumentos."
+      ],
+      "explicacion": "Con los argumentos al revés no salta ningún error: sale una respuesta tranquilizadora y falsa. Por eso se prueba."
+    },
+    {
+      "ref": "s09-rev-3"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d03-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Aquí los if de estado están en otro orden. ¿Qué escribe?",
+      "codigo": "function estado(resto) {\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(-3));",
+      "opciones": [
+        {
+          "texto": "urgente",
+          "correcta": true,
+          "siEliges": "Eso es: -3 <= 5 es true, y el primer return termina la función. El «vencido» no llega nunca."
+        },
+        {
+          "texto": "vencido",
+          "siEliges": "El primer if ya se cumple con -3: devuelve «urgente» y no sigue."
+        },
+        {
+          "texto": "en plazo",
+          "siEliges": "-3 <= 5 es true: entra en el primer if."
+        }
+      ],
+      "pistas": [
+        "¿Qué if se comprueba primero?",
+        "¿-3 es menor o igual que 5?",
+        "return termina la función."
+      ],
+      "explicacion": "Con este orden, ningún plazo sale nunca «vencido». Un fallo así solo se ve probando un número negativo."
+    },
+    "escribir": {
+      "id": "s09-d03-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Escribe tu función estado(resto): «vencido» si es menor que 0, «urgente» si es 5 o menos y «en plazo» si no. Después muestra cada caso de la lista con su estado: «20: en plazo».",
+      "datos": "const casos = [20, 3, -1];",
+      "inicial": "// function estado(resto) { … }\n// Recorre casos",
+      "salidaEsperada": [
+        "20: en plazo",
+        "3: urgente",
+        "-1: vencido"
+      ],
+      "variantes": [
+        {
+          "datos": "const casos = [0, 5, 6];",
+          "salidaEsperada": [
+            "0: urgente",
+            "5: urgente",
+            "6: en plazo"
+          ]
+        },
+        {
+          "datos": "const casos = [-10];",
+          "salidaEsperada": [
+            "-10: vencido"
+          ]
+        }
+      ],
+      "solucion": "function estado(resto) {\n  if (resto < 0) {\n    return \"vencido\";\n  }\n  if (resto <= 5) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nfor (const r of casos) {\n  console.log(`${r}: ${estado(r)}`);\n}",
+      "pistas": [
+        "Tres posibles resultados: tres return.",
+        "Primero descarta lo vencido (menor que 0) y después lo urgente.",
+        "Dentro del for, llama a estado con cada caso."
+      ],
+      "explicacion": "Las variantes prueban los límites: 0 y 5 son urgentes y 6 ya está en plazo."
+    }
+  }
+}

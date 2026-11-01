@@ -167,6 +167,20 @@ Más en el [Tema 11](tema-11-objetos.md).
 Más en el [Tema 12](tema-12-git-tests.md).
 </details>
 
+<details>
+<summary>Semana 9: tu propio programa</summary>
+
+- Escribir primero el plan en comentarios (entradas, salida y pasos) y comprobar que cada línea hace lo que dice su paso.
+- Probar cada tipo, no solo el primero, y los datos raros: una mayúscula o un espacio de más en la clave, horas negativas. ¿Qué debe pasar con ellos?
+- En una cadena de `if` con tramos: ¿se puede llegar a cada rama? Se pregunta del tramo más estrecho al más amplio.
+- ¿Hay datos preparados que nunca se usan, o textos escritos a mano que deberían salir de los datos?
+- En cada variable: ¿es una lista o un solo dato? `filter` siempre da una lista.
+- Si la misma IA escribe el código y el test, lo que espera el test lo decides tú, porque eres quien conoce la regla.
+- Eficiencia: ¿hay un bucle dentro de otro? Da n × n pasos. ¿Hace falta? Para buscar uno, `find` se para antes; con una clave, el objeto lo encuentra en un paso.
+
+Más en el [Tema 13](tema-13-programa-propio.md).
+</details>
+
 ## Documentación oficial
 
 - [¿Qué ha salido mal? Corrigiendo JavaScript](https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting/What_went_wrong) (guía de MDN sobre errores de sintaxis y de lógica), en español.

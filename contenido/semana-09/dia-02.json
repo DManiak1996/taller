@@ -1,0 +1,178 @@
+{
+  "id": "s09-d02",
+  "semana": 9,
+  "dia": 2,
+  "titulo": "Las reglas, en un objeto",
+  "objetivo": "Hoy aprendes a sacar los números de las reglas a un objeto, para que la calculadora sirva para varios plazos y que cambiar una regla sea cambiarla en un solo sitio.",
+  "conceptos": [
+    "programa-propio"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Ayer el 72 iba escrito dentro del cálculo. Un número suelto así se llama **número mágico**: nadie sabe de dónde sale y, si cambia la norma, hay que buscarlo por todo el código. Mejor guardar las reglas en un **objeto**: la clave es el tipo de plazo y el valor, su límite. Es tu tabla de normas."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipo = \"brecha\";\nconsole.log(limites[tipo]);\nconsole.log(limites.acceso);",
+      "salida": [
+        "72",
+        "30"
+      ],
+      "nota": "Con corchetes, la clave sale de una variable: así el mismo código sirve para cualquier tipo. brecha va en horas y acceso en días (el plazo interno de tu despacho; el art. 12.3 da un mes)."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipo = \"queja\";\nconst lim = limites[tipo];\nif (lim === undefined) {\n  console.log(`No conozco «${tipo}»`);\n}",
+      "salida": [
+        "No conozco «queja»"
+      ],
+      "nota": "Un tipo que no está en la tabla da undefined. Tu programa tiene que decidir qué hacer entonces; si no, seguirá calculando con undefined y saldrá NaN."
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure guarda así cuánto tiempo conserva la clave que permite saber quién era un usuario dado de baja: tres años, con la norma en la que se apoya al lado (el art. 78 de la LOPDGDD, la prescripción de las sanciones). Después la clave se destruye y los datos quedan anonimizados. Es una constante con nombre, no un 3 suelto en mitad del cálculo.",
+      "codigo": "/** LOPDGDD Art.78 — statute of limitations for sanctions */\nconst RETENTION_YEARS = 3;",
+      "fichero": "DeIure/src/lib/pseudonymization.ts"
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d02-r1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const unidades = {\n  brecha: \"horas\",\n  acceso: \"días\",\n};\nconst t = \"acceso\";\nconsole.log(`En ${unidades[t]}`);",
+      "opciones": [
+        {
+          "texto": "En días",
+          "correcta": true,
+          "siEliges": "Eso es: t vale «acceso», y unidades[t] da su valor."
+        },
+        {
+          "texto": "En horas",
+          "siEliges": "t vale «acceso», no «brecha»."
+        },
+        {
+          "texto": "En undefined",
+          "siEliges": "Eso pasaría con unidades.t. Con corchetes se usa lo que guarda t."
+        }
+      ],
+      "pistas": [
+        "¿Qué vale t?",
+        "«acceso».",
+        "unidades[t] es lo mismo que unidades[\"acceso\"]."
+      ],
+      "explicacion": "Una tabla por cada dato de las reglas: límites, unidades… Mañana las usará una función."
+    },
+    {
+      "id": "s09-d02-r2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "neutro",
+      "tipo": "hueco",
+      "enunciado": "Completa para que avise de que «queja» no está en la tabla.",
+      "codigo": "const limites = { brecha: 72 };\nconst tipo = \"queja\";\nif (limites[tipo] === ___) {\n  console.log(\"Tipo desconocido\");\n}",
+      "salidaEsperada": [
+        "Tipo desconocido"
+      ],
+      "opciones": [
+        {
+          "texto": "undefined",
+          "correcta": true,
+          "siEliges": "Correcto: una clave que no existe da undefined."
+        },
+        {
+          "texto": "null",
+          "siEliges": "Una clave que no existe da undefined, no null. Son distintos y === lo nota."
+        },
+        {
+          "texto": "0",
+          "siEliges": "No da 0: da undefined. Y el 0 podría ser un límite de verdad."
+        }
+      ],
+      "pistas": [
+        "¿Qué da leer una clave que no existe?",
+        "Lo viste en la semana 7, con la errata en la clave.",
+        "undefined."
+      ],
+      "explicacion": "Comprobar undefined antes de usar un dato de una tabla evita los NaN silenciosos."
+    },
+    {
+      "ref": "s09-rev-2"
+    }
+  ],
+  "repaso": [],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d02-n1",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "¿Qué escribe este programa?",
+      "codigo": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipos = [\"acceso\", \"queja\"];\nfor (const t of tipos) {\n  console.log(t, limites[t]);\n}",
+      "opciones": [
+        {
+          "texto": "acceso 30\nqueja undefined",
+          "correcta": true,
+          "siEliges": "Eso es: queja no está en la tabla, y sale undefined sin ningún error."
+        },
+        {
+          "texto": "acceso 30\nqueja 0",
+          "siEliges": "Una clave que no existe da undefined, no 0."
+        },
+        {
+          "texto": "acceso 30",
+          "siEliges": "El bucle da dos vueltas: también escribe la de queja."
+        },
+        {
+          "texto": "acceso 30\n❌ Error",
+          "siEliges": "Leer una clave que no existe no da error: da undefined."
+        }
+      ],
+      "pistas": [
+        "El bucle da una vuelta por tipo.",
+        "En cada vuelta lee limites[t].",
+        "¿Qué da una clave que no existe?"
+      ],
+      "explicacion": "Ni un error ni un aviso: por eso tu programa tiene que comprobar el undefined él solo."
+    },
+    "escribir": {
+      "id": "s09-d02-n2",
+      "semana": 9,
+      "concepto": "programa-propio",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con la tabla limites, muestra «brecha: quedan 22»: el tipo y lo que queda. Si el tipo no está en la tabla, muestra «Desconocido: queja» con el tipo que sea.",
+      "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipo = \"brecha\";\nconst pasado = 50;",
+      "inicial": "// Busca el límite en la tabla\n// ¿Existe? Si no, avisa",
+      "salidaEsperada": [
+        "brecha: quedan 22"
+      ],
+      "variantes": [
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipo = \"acceso\";\nconst pasado = 12;",
+          "salidaEsperada": [
+            "acceso: quedan 18"
+          ]
+        },
+        {
+          "datos": "const limites = {\n  brecha: 72,\n  acceso: 30,\n};\nconst tipo = \"queja\";\nconst pasado = 5;",
+          "salidaEsperada": [
+            "Desconocido: queja"
+          ]
+        }
+      ],
+      "solucion": "const lim = limites[tipo];\nif (lim === undefined) {\n  console.log(\"Desconocido:\", tipo);\n} else {\n  const q = lim - pasado;\n  console.log(`${tipo}: quedan ${q}`);\n}",
+      "pistas": [
+        "Guarda limites[tipo] en una variable.",
+        "Si es undefined, avisa; si no, calcula.",
+        "Lo que queda es el límite menos lo pasado."
+      ],
+      "explicacion": "El mismo código sirve para los dos plazos y para el que no existe. Si mañana cambia una regla, solo se toca la tabla."
+    }
+  }
+}

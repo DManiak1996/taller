@@ -1,0 +1,217 @@
+{
+  "id": "s09-d07",
+  "semana": 9,
+  "dia": 7,
+  "pildora": true,
+  "titulo": "Píldora: cuántos pasos da tu programa cuando la lista crece",
+  "objetivo": "Hoy aprendes a medir la eficiencia de un programa contando sus pasos: uno por elemento, uno por cada pareja o uno solo. Y, como comando de la semana, los permisos de un fichero y sudo.",
+  "conceptos": [
+    "eficiencia"
+  ],
+  "leccion": [
+    {
+      "tipo": "texto",
+      "texto": "Con 3 expedientes, cualquier programa es rápido. Con 30.000, no. La eficiencia no se mide en segundos, sino en **pasos**: cuántas veces trabaja el programa **cuando la lista crece**. Es como buscar un expediente en el archivo: puedes abrir carpeta por carpeta o ir directo a la etiqueta del archivador."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = [80, 12, 70, 5];\nlet pasos = 0;\nfor (const h of horas) {\n  pasos = pasos + 1;\n}\nconsole.log(\"Pasos:\", pasos);",
+      "salida": [
+        "Pasos: 4"
+      ],
+      "nota": "Un bucle da **un paso por elemento**. Con 4 horas, 4 pasos; con 1.000, 1.000. Si la lista se duplica, los pasos se duplican. Es lo normal y está bien."
+    },
+    {
+      "tipo": "codigo",
+      "codigo": "const horas = [80, 12, 70, 5];\nlet pasos = 0;\nfor (const a of horas) {\n  for (const b of horas) {\n    pasos = pasos + 1;\n  }\n}\nconsole.log(\"Pasos:\", pasos);",
+      "salida": [
+        "Pasos: 16"
+      ],
+      "nota": "Un bucle **dentro** de otro da un paso por cada **pareja**: 4 × 4 = 16. Con 1.000 elementos, un millón de pasos. A veces hace falta (comparar cada expediente con todos los demás), pero si sobra, es el fallo de eficiencia más típico de una IA."
+    },
+    {
+      "tipo": "esquema",
+      "titulo": "Cuántos pasos, con 1.000 expedientes",
+      "pasos": [
+        {
+          "titulo": "Un bucle",
+          "texto": "1.000 pasos: uno por elemento."
+        },
+        {
+          "titulo": "Un bucle dentro de otro",
+          "texto": "1.000 × 1.000 = un millón de pasos."
+        },
+        {
+          "titulo": "find",
+          "texto": "Se para en cuanto encuentra lo que busca: si está el primero, 1 paso; si no está, 1.000."
+        },
+        {
+          "titulo": "Buscar por clave",
+          "texto": "limites[tipo] va directo, sin recorrer nada: 1 paso, sea la tabla del tamaño que sea."
+        }
+      ]
+    },
+    {
+      "tipo": "deiure",
+      "texto": "DeIure guarda la actividad de cada apartado de una EIPD en un Map, una tabla con clave. Para saber cómo va un apartado no recorre todos: va directo a su clave, como tu limites[tipo].",
+      "codigo": "const result = new Map<string, SectionActivity>();",
+      "fichero": "DeIure/src/lib/recorrido-agents.ts"
+    },
+    {
+      "tipo": "terminal",
+      "orden": "ls -l hola.sh",
+      "salida": [
+        "-rw-r--r--  1 daniel  staff  10  1 nov 10:00 hola.sh"
+      ],
+      "nota": "**Comando de la semana: chmod y sudo.** Las letras del principio son los **permisos**: r leer, w escribir, x ejecutar, para ti, tu grupo y todos. Aquí no hay ninguna x: el guion no se puede ejecutar. `chmod +x hola.sh` se la da. `sudo` ejecuta una orden **como administrador**: te pide la contraseña y puede tocarlo todo, también romper el sistema. Regla: nunca pongas sudo delante de una orden que no entiendes, y menos si te la propone una IA. Las reglas de DeIure dicen lo mismo: los agentes de IA no ejecutan sudo. **Minirreto en tu Mac:** `echo \"echo Hola\" > hola.sh`, `./hola.sh` (sale «permission denied»), `chmod +x hola.sh` y otra vez `./hola.sh`."
+    }
+  ],
+  "retos": [
+    {
+      "id": "s09-d07-r1",
+      "semana": 9,
+      "concepto": "eficiencia",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Aquí los dos bucles van uno detrás de otro, no uno dentro de otro. ¿Qué escribe?",
+      "codigo": "const horas = [80, 12, 70];\nlet pasos = 0;\nfor (const a of horas) {\n  pasos = pasos + 1;\n}\nfor (const b of horas) {\n  pasos = pasos + 1;\n}\nconsole.log(pasos);",
+      "opciones": [
+        {
+          "texto": "6",
+          "correcta": true,
+          "siEliges": "Eso es: 3 pasos y después otros 3. Seguidos, se suman."
+        },
+        {
+          "texto": "9",
+          "siEliges": "Eso sería con un bucle dentro de otro. Aquí el segundo empieza cuando acaba el primero."
+        },
+        {
+          "texto": "3",
+          "siEliges": "Hay dos bucles, y cada uno da 3 pasos."
+        }
+      ],
+      "pistas": [
+        "¿Está el segundo for dentro del primero?",
+        "No: va después.",
+        "3 + 3."
+      ],
+      "explicacion": "Bucles seguidos se suman y bucles anidados se multiplican. Con 1.000 elementos: 2.000 pasos frente a un millón."
+    },
+    {
+      "id": "s09-d07-r2",
+      "semana": 9,
+      "concepto": "eficiencia",
+      "tema": "neutro",
+      "tipo": "elegir",
+      "enunciado": "Has creado hola.sh y al ejecutarlo sale esto. ¿Qué haces?",
+      "bloque": {
+        "tipo": "terminal",
+        "orden": "./hola.sh",
+        "salida": [
+          "zsh: permission denied: ./hola.sh"
+        ]
+      },
+      "opciones": [
+        {
+          "texto": "chmod +x hola.sh, y probar otra vez",
+          "correcta": true,
+          "siEliges": "Eso es: al fichero le falta el permiso de ejecutar, la x."
+        },
+        {
+          "texto": "sudo ./hola.sh",
+          "siEliges": "sudo no le da la x al fichero: te da poderes de administrador que aquí no necesitas. Nunca lo uses para saltarte un error que no entiendes."
+        },
+        {
+          "texto": "Borrarlo y escribirlo otra vez",
+          "siEliges": "Un fichero nuevo nace igual, sin la x. Lo que falta es el permiso."
+        }
+      ],
+      "pistas": [
+        "«permission denied»: falta un permiso.",
+        "¿Cuál? El de ejecutar.",
+        "Se da con chmod."
+      ],
+      "explicacion": "Un error de permisos se arregla dando el permiso justo que falta, no con sudo."
+    },
+    {
+      "ref": "s09-rev-7"
+    }
+  ],
+  "repaso": [
+    {
+      "ref": "s09-rev-x1"
+    },
+    {
+      "ref": "s09-rev-x2"
+    }
+  ],
+  "paraNota": {
+    "reto": {
+      "id": "s09-d07-n1",
+      "semana": 9,
+      "concepto": "eficiencia",
+      "tema": "rgpd",
+      "tipo": "predecir",
+      "enunciado": "Se cuenta cuántas veces mira find. ¿Qué escribe este programa?",
+      "codigo": "const ids = [4, 8, 15, 16, 23];\nlet pasos = 0;\nconst e = ids.find((id) => {\n  pasos = pasos + 1;\n  return id > 10;\n});\nconsole.log(e, \"en\", pasos, \"pasos\");",
+      "opciones": [
+        {
+          "texto": "15 en 3 pasos",
+          "correcta": true,
+          "siEliges": "Eso es: mira el 4, el 8 y el 15, y con el 15 se para. Los otros dos ni los mira."
+        },
+        {
+          "texto": "15 en 5 pasos",
+          "siEliges": "find no sigue mirando: se para en cuanto encuentra el primero que cumple."
+        },
+        {
+          "texto": "[ 15, 16, 23 ] en 5 pasos",
+          "siEliges": "Eso se parece a filter. find devuelve solo el primero, y se para ahí."
+        }
+      ],
+      "pistas": [
+        "¿Cuál es el primer id mayor que 10?",
+        "El 15, el tercero.",
+        "find se para en cuanto lo encuentra."
+      ],
+      "explicacion": "find es tan rápido como pronto encuentre: lo que busques más a menudo, cuanto antes en la lista."
+    },
+    "escribir": {
+      "id": "s09-d07-n2",
+      "semana": 9,
+      "concepto": "eficiencia",
+      "tema": "rgpd",
+      "tipo": "escribir",
+      "enunciado": "Con una sola vuelta por la lista, cuenta las brechas vencidas (más de 72 horas) y los pasos que das. Muestra en pantalla «Vencidas: 2» y después «Pasos: 4».",
+      "datos": "const horas = [80, 12, 96, 70];",
+      "inicial": "// Dos contadores que empiezan en 0\n// Un solo for",
+      "salidaEsperada": [
+        "Vencidas: 2",
+        "Pasos: 4"
+      ],
+      "variantes": [
+        {
+          "datos": "const horas = [73];",
+          "salidaEsperada": [
+            "Vencidas: 1",
+            "Pasos: 1"
+          ]
+        },
+        {
+          "datos": "const horas = [10, 20, 30, 40, 50, 72];",
+          "salidaEsperada": [
+            "Vencidas: 0",
+            "Pasos: 6"
+          ]
+        }
+      ],
+      "solucion": "let venc = 0;\nlet pasos = 0;\nfor (const h of horas) {\n  pasos = pasos + 1;\n  if (h > 72) {\n    venc = venc + 1;\n  }\n}\nconsole.log(\"Vencidas:\", venc);\nconsole.log(\"Pasos:\", pasos);",
+      "pistas": [
+        "Un contador para las vencidas y otro para los pasos.",
+        "Los pasos suben en cada vuelta; las vencidas, solo si h > 72.",
+        "Muestra los dos al final, fuera del for."
+      ],
+      "explicacion": "Con un bucle dentro de otro, los pasos saldrían al cuadrado (16 en vez de 4). Una variante acaba en 72 justas: no está vencida."
+    }
+  }
+}

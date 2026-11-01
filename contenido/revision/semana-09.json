@@ -1,0 +1,365 @@
+[
+  {
+    "id": "s09-rev-1",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "La IA escribió primero el plan en comentarios y después el código. Han pasado 50 horas desde que conociste la brecha y tenían que quedar 22. Sale `-22`. Toca la línea que no sigue el plan.",
+    "codigo": "// Entrada: horas pasadas\n// Salida: horas que quedan\n// Paso: 72 menos las pasadas\nconst pasadas = 50;\nconst quedan = pasadas - 72;\nconsole.log(quedan);",
+    "lineasFallo": [5],
+    "opciones": [
+      {
+        "texto": "El plan dice «72 menos las pasadas», y el código hace «pasadas menos 72». Tenía que ser `72 - pasadas`.",
+        "correcta": true,
+        "siEliges": "Exacto. El plan estaba bien; el código no lo sigue. Por eso se escribe primero: para poder comparar."
+      },
+      {
+        "texto": "Los comentarios sobran: el programa no los usa.",
+        "siEliges": "El programa no los ejecuta, pero a ti te dicen qué debería hacer. Gracias a ellos se ve el fallo."
+      },
+      {
+        "texto": "`quedan` tenía que ser `let`.",
+        "siEliges": "`quedan` no cambia después, así que `const` está bien. Compara la línea 5 con el paso del plan."
+      }
+    ],
+    "arreglo": "// Entrada: horas pasadas\n// Salida: horas que quedan\n// Paso: 72 menos las pasadas\nconst pasadas = 50;\nconst quedan = 72 - pasadas;\nconsole.log(quedan);",
+    "pistas": [
+      "Lee el paso del plan, en la línea 3.",
+      "Ahora lee la cuenta de la línea 5. ¿Dicen lo mismo?",
+      "En una resta, el orden importa."
+    ],
+    "explicacion": "Imprime `-22`. El plan en comentarios (entradas, salida y pasos) sirve de vara de medir: cada línea de código tiene que hacer lo que dice su paso. Al revisar, pon el plan y el código uno al lado del otro."
+  },
+  {
+    "id": "s09-rev-2",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Las reglas de la calculadora: 72 horas para la brecha (el plazo del art. 33) y 30 días para una solicitud (el plazo interno que se fija tu despacho). Al pedir el límite, el programa se rompe. Toca la línea que está mal.",
+    "codigo": "const reglas = {\n  brecha: { limite: 72 },\n  solicitud: { limite: 30 },\n};\nconst tipo = \"Brecha\";\nconsole.log(reglas[tipo].limite);",
+    "lineasFallo": [5],
+    "opciones": [
+      {
+        "texto": "La clave es `brecha`, en minúscula. `reglas[\"Brecha\"]` no existe, da `undefined`, y de `undefined` no se puede leer `.limite`.",
+        "correcta": true,
+        "siEliges": "Exacto. Una mayúscula cambia la clave. Es un «dato raro» de los que hay que probar."
+      },
+      {
+        "texto": "Con la clave en una variable hay que usar el punto: `reglas.tipo`.",
+        "siEliges": "Al revés: `reglas.tipo` buscaría una clave llamada «tipo». Con una variable, corchetes, como está."
+      },
+      {
+        "texto": "Un objeto no puede tener otros objetos dentro.",
+        "siEliges": "Puede: `brecha` guarda el objeto `{ limite: 72 }`. Mira el valor de `tipo`."
+      }
+    ],
+    "arreglo": "const reglas = {\n  brecha: { limite: 72 },\n  solicitud: { limite: 30 },\n};\nconst tipo = \"brecha\";\nconsole.log(reglas[tipo].limite);",
+    "lanzaError": true,
+    "pistas": [
+      "¿Qué devuelve `reglas[tipo]`?",
+      "Compara `tipo` con las claves del objeto, letra a letra.",
+      "¿Se puede leer `.limite` de `undefined`?"
+    ],
+    "explicacion": "Da `TypeError: Cannot read properties of undefined`. `\"Brecha\"` no es `\"brecha\"`, así que `reglas[tipo]` da `undefined`. En tu programa, el tipo lo escribe una persona: piensa qué debe pasar si llega mal escrito."
+  },
+  {
+    "id": "s09-rev-3",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Si quedan menos de 0 horas, vencido; si quedan menos de 24, urgente; si no, en plazo». Con -5 horas sale `urgente`. Toca la línea que está mal.",
+    "codigo": "function estado(quedan) {\n  if (quedan < 24) {\n    return \"urgente\";\n  } else if (quedan < 0) {\n    return \"vencido\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(-5));",
+    "lineasFallo": [2],
+    "opciones": [
+      {
+        "texto": "El orden está mal: -5 también es menor que 24, así que entra en «urgente» y nunca llega a «vencido». Hay que preguntar primero por `quedan < 0`.",
+        "correcta": true,
+        "siEliges": "Exacto. En una cadena de `if`, gana la primera condición que se cumple. «vencido» no se alcanzaba nunca."
+      },
+      {
+        "texto": "Tenía que ser `quedan <= 24`.",
+        "siEliges": "Eso cambia qué pasa con 24 justas, pero -5 seguiría saliendo «urgente». El problema es el orden."
+      },
+      {
+        "texto": "Falta un `else` antes de `return \"en plazo\"`.",
+        "siEliges": "Ese `return` ya solo se alcanza si no se cumple ninguna condición. Mira qué condición atrapa al -5."
+      }
+    ],
+    "arreglo": "function estado(quedan) {\n  if (quedan < 0) {\n    return \"vencido\";\n  } else if (quedan < 24) {\n    return \"urgente\";\n  }\n  return \"en plazo\";\n}\nconsole.log(estado(-5));",
+    "pistas": [
+      "¿Es -5 menor que 24?",
+      "En una cadena de `if`, ¿cuál se ejecuta si se cumplen dos?",
+      "¿Hay algún valor que pueda llegar a «vencido»?"
+    ],
+    "explicacion": "Imprime `urgente`. Cualquier número menor que 0 también es menor que 24, así que la rama «vencido» no se alcanza nunca. Con tramos, se pregunta del más estrecho al más amplio. Al revisar, busca una rama a la que no se pueda llegar."
+  },
+  {
+    "id": "s09-rev-4",
+    "tipo": "razon",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "La IA escribió la función y también su test, y sale en verde. La IA y Marta discuten. ¿Quién tiene razón?",
+    "codigo": "function enPlazo(pasadas) {\n  return pasadas < 72;\n}\ntest(\"72 h justas: fuera\", () => {\n  expect(enPlazo(72)).toBe(false);\n});",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Pasa, así que `enPlazo` está bien.",
+        "porque": "El test comprueba justo el límite, que es donde están los fallos."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Pasa, pero la función y el test están mal.",
+        "porque": "El plazo de 72 horas del art. 33 incluye las 72 horas justas. El test espera lo mismo que hace el código, y los dos se equivocan igual."
+      }
+    ],
+    "correcta": "Marta",
+    "siEliges": {
+      "La IA": "Prueba el límite, sí, pero espera la respuesta equivocada. Si el test y el código se equivocan igual, sale verde.",
+      "Marta": "Correcto. Un test solo vale si lo que espera es correcto. Esa parte la pones tú, que conoces la regla.",
+      "ninguno": "Una de las dos acierta. ¿Qué tendría que devolver `enPlazo(72)`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿El test pasa o falla?",
+      "Con 72 horas justas, ¿se está en plazo?",
+      "¿Qué pasa si el código y el test cometen el mismo error?"
+    ],
+    "explicacion": "Sale `✓`, y aun así los dos están mal: el plazo de 72 horas del art. 33 incluye las 72 horas justas. Cuando la misma IA escribe el código y los tests, puede equivocarse igual en ambos. Lo que espera cada test (el `toBe(...)`) lo decides tú, porque eres quien conoce la regla."
+  },
+  {
+    "id": "s09-rev-5",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Di qué expedientes están fuera de plazo». Tenía que salir `Fuera: 2,3`. Sale `Fuera: undefined`. Toca la línea que está mal.",
+    "codigo": "const exps = [\n  { id: 1, quedan: 10 },\n  { id: 2, quedan: -3 },\n  { id: 3, quedan: -8 },\n];\nconst fuera = exps.filter((e) =>\n  e.quedan < 0\n);\nconsole.log(`Fuera: ${fuera.id}`);",
+    "lineasFallo": [9],
+    "opciones": [
+      {
+        "texto": "`fuera` es una lista, no un expediente: no tiene `.id`. Primero hay que sacar los ids con `map`.",
+        "correcta": true,
+        "siEliges": "Exacto. `filter` siempre devuelve una lista, aunque tenga uno solo o ninguno."
+      },
+      {
+        "texto": "Tenía que ser `find` en vez de `filter`.",
+        "siEliges": "`find` daría solo el primero, el 2. Se piden todos los que están fuera, así que `filter` está bien."
+      },
+      {
+        "texto": "La condición tenía que ser `e.quedan > 0`.",
+        "siEliges": "Fuera de plazo son los que tienen menos de 0, así que la condición está bien. Mira qué es `fuera`."
+      }
+    ],
+    "arreglo": "const exps = [\n  { id: 1, quedan: 10 },\n  { id: 2, quedan: -3 },\n  { id: 3, quedan: -8 },\n];\nconst fuera = exps.filter((e) =>\n  e.quedan < 0\n);\nconst ids = fuera.map((e) => e.id);\nconsole.log(`Fuera: ${ids}`);",
+    "pistas": [
+      "¿Qué devuelve `filter`: un expediente o una lista?",
+      "¿Tiene una lista una clave `id`?",
+      "¿Qué método pasa de una lista de expedientes a una lista de ids?"
+    ],
+    "explicacion": "Imprime `Fuera: undefined`, porque una lista no tiene `.id`. Con `map` se saca la lista de ids, y dentro de una plantilla una lista se escribe separada por comas: `Fuera: 2,3`. Al revisar, pregúntate en cada variable si es una lista o un solo dato."
+  },
+  {
+    "id": "s09-rev-6",
+    "tipo": "razon",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Revisas tu propia calculadora con un dato raro: alguien ha escrito -5 horas. La IA y Marta discuten qué pasa. ¿Quién tiene razón?",
+    "codigo": "function quedan(pasadas) {\n  return 72 - pasadas;\n}\nconsole.log(quedan(-5));",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "No pueden haber pasado -5 horas."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `77`, sin avisar de nada.",
+        "porque": "Para JavaScript es una resta normal: 72 - (-5) = 77."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. El programa no sabe que el dato es absurdo: eso tienes que comprobarlo tú, con un `if`.",
+      "Marta": "Tú sabes que no tiene sentido, pero JavaScript no: hace la resta y da 77.",
+      "ninguno": "Esta vez sí acierta una. ¿Cuánto es 72 menos -5?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Comprueba la función si el dato tiene sentido?",
+      "Restar un negativo es sumar.",
+      "¿Cuánto es 72 + 5?"
+    ],
+    "explicacion": "Imprime `77`: más horas de las que da el plazo, sin ningún aviso. Un programa solo comprueba lo que le pides. Al revisar el tuyo, prueba datos raros (negativos, cero, un tipo mal escrito) y decide qué debe pasar, por ejemplo con `if (pasadas < 0)` y un mensaje."
+  },
+  {
+    "id": "s09-rev-7",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "eficiencia",
+    "tema": "rgpd",
+    "enunciado": "Le pediste a la IA: «Cuenta los expedientes vencidos y cuántos pasos das». El resultado es correcto (2), pero da 16 pasos para 4 expedientes. Toca la línea que sobra.",
+    "codigo": "const quedan = [3, -1, 7, -2];\nlet pasos = 0;\nlet fuera = 0;\nfor (const q of quedan) {\n  for (const otro of quedan) {\n    pasos++;\n    if (otro === q && q < 0) {\n      fuera++;\n    }\n  }\n}\nconsole.log(fuera, pasos);",
+    "lineasFallo": [5],
+    "opciones": [
+      {
+        "texto": "El segundo bucle no hace falta: para cada expediente vuelve a recorrer la lista entera. Con 4 da 16 pasos; con 1000, un millón.",
+        "correcta": true,
+        "siEliges": "Exacto. Basta un bucle y `if (q < 0)`: 4 pasos para 4 expedientes."
+      },
+      {
+        "texto": "`pasos++` está mal colocado: hay que quitarlo.",
+        "siEliges": "Quitarlo no reduce los pasos; solo dejarías de contarlos. Lo que los multiplica es otra línea."
+      },
+      {
+        "texto": "Hay que usar `filter` y el programa irá más rápido.",
+        "siEliges": "`filter` también mira cada dato una vez, como un bucle sencillo. Lo que sobra es el bucle de dentro."
+      }
+    ],
+    "arreglo": "const quedan = [3, -1, 7, -2];\nlet pasos = 0;\nlet fuera = 0;\nfor (const q of quedan) {\n  pasos++;\n  if (q < 0) {\n    fuera++;\n  }\n}\nconsole.log(fuera, pasos);",
+    "pistas": [
+      "¿Cuántas vueltas da el bucle de dentro por cada vuelta del de fuera?",
+      "4 vueltas × 4 vueltas son 16 pasos.",
+      "¿Hace falta comparar cada expediente con todos los demás para saber si está vencido?"
+    ],
+    "explicacion": "Imprime `2 16`; arreglado, `2 4`. El resultado es el mismo, pero un bucle dentro de otro da n × n pasos: 16 con 4 expedientes y un millón con 1000. Es el fallo de la semana, porque no se ve en las pruebas pequeñas. Cuando veas un bucle dentro de otro, pregúntate si de verdad hace falta."
+  },
+  {
+    "id": "s09-rev-x1",
+    "tipo": "razon",
+    "semana": 9,
+    "concepto": "eficiencia",
+    "tema": "neutro",
+    "enunciado": "La IA y Marta discuten cuántos pasos cuenta este código. ¿Quién tiene razón?",
+    "codigo": "const ids = [4, 8, 15, 16];\nlet pasos = 0;\nfor (const a of ids) {\n  for (const b of ids) {\n    pasos++;\n  }\n}\nconsole.log(pasos);",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `4`.",
+        "porque": "La lista tiene 4 datos."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Imprime `8`.",
+        "porque": "Hay dos bucles de 4: 4 + 4."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Serían 4 con un solo bucle. Aquí, por cada vuelta del de fuera, el de dentro da 4 vueltas.",
+      "Marta": "Sería 4 + 4 si los bucles fueran uno detrás de otro. Uno dentro de otro se multiplica: 4 × 4.",
+      "ninguno": "Exacto. Imprime `16`: un bucle dentro de otro da n × n pasos."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Los bucles van uno detrás de otro o uno dentro de otro?",
+      "Por cada vuelta del de fuera, el de dentro da todas las suyas.",
+      "¿Cuánto es 4 × 4?"
+    ],
+    "explicacion": "Imprime `16`. Dos bucles seguidos suman (4 + 4), y uno dentro de otro multiplica (4 × 4). Con 1000 datos, la diferencia es enorme: 2000 pasos frente a un millón."
+  },
+  {
+    "id": "s09-rev-x2",
+    "tipo": "razon",
+    "semana": 9,
+    "concepto": "eficiencia",
+    "tema": "neutro",
+    "enunciado": "Se cuenta cuántas veces mira `find` antes de dar el resultado. La IA y Marta discuten qué imprime. ¿Quién tiene razón?",
+    "codigo": "const quedan = [10, -3, 5, -8];\nlet pasos = 0;\nconst v = quedan.find((q) => {\n  pasos++;\n  return q < 0;\n});\nconsole.log(v, pasos);",
+    "opiniones": [
+      {
+        "quien": "Marta",
+        "dice": "Imprime `-3 4`.",
+        "porque": "`find` recorre la lista entera y luego da el primero que cumple."
+      },
+      {
+        "quien": "La IA",
+        "dice": "Imprime `-3 2`.",
+        "porque": "`find` se para en cuanto encuentra uno: mira el 10, mira el -3 y termina."
+      }
+    ],
+    "correcta": "La IA",
+    "siEliges": {
+      "La IA": "Correcto. `find` deja de buscar en cuanto encuentra uno. `filter`, en cambio, siempre mira todos.",
+      "Marta": "`find` no sigue buscando: en cuanto encuentra uno, termina. Solo mira 2.",
+      "ninguno": "Esta vez sí acierta una. ¿En qué dato se para `find`?"
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Cuál es el primer número menor que 0?",
+      "¿En qué posición está?",
+      "¿Sigue mirando `find` después de encontrarlo?"
+    ],
+    "explicacion": "Imprime `-3 2`. `find` se para en el primero que cumple, así que con suerte da muy pocos pasos. `filter` siempre mira toda la lista. Si solo necesitas uno, `find` es más rápido."
+  },
+  {
+    "id": "s09-rev-x3",
+    "tipo": "fallo",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Tu despacho se fija un plazo interno de 30 días para responder a una solicitud. La IA ha escrito el informe y sale `Quedan 20 horas`. Toca la línea que está mal.",
+    "codigo": "const limite = {\n  brecha: 72,\n  solicitud: 30,\n};\nconst unidad = {\n  brecha: \"horas\",\n  solicitud: \"días\",\n};\nfunction informe(tipo, pasado) {\n  const q = limite[tipo] - pasado;\n  return `Quedan ${q} horas`;\n}\nconsole.log(informe(\"solicitud\", 10));",
+    "lineasFallo": [11],
+    "opciones": [
+      {
+        "texto": "La unidad está escrita a mano: siempre dice «horas». Tiene que salir de `unidad[tipo]`.",
+        "correcta": true,
+        "siEliges": "Exacto. La IA preparó `unidad` y luego no la usó. Un dato que no se usa es una pista."
+      },
+      {
+        "texto": "La resta está al revés: `pasado - limite[tipo]`.",
+        "siEliges": "Así saldría -20. Lo que queda es el límite menos lo pasado, como está. Fíjate en la palabra del final."
+      },
+      {
+        "texto": "`limite` tiene que guardar 30 días en horas: 720.",
+        "siEliges": "Se puede, pero entonces habría que pasar también lo pasado a horas. Lo sencillo es usar la unidad de cada tipo."
+      }
+    ],
+    "arreglo": "const limite = {\n  brecha: 72,\n  solicitud: 30,\n};\nconst unidad = {\n  brecha: \"horas\",\n  solicitud: \"días\",\n};\nfunction informe(tipo, pasado) {\n  const q = limite[tipo] - pasado;\n  const u = unidad[tipo];\n  return `Quedan ${q} ${u}`;\n}\nconsole.log(informe(\"solicitud\", 10));",
+    "pistas": [
+      "¿En qué unidad va el plazo de una solicitud?",
+      "¿Se usa en algún sitio el objeto `unidad`?",
+      "¿Qué palabra de la plantilla está escrita a mano?"
+    ],
+    "explicacion": "Imprime `Quedan 20 horas`, pero son 20 días. La IA preparó el objeto `unidad` y después escribió «horas» a mano. Con la brecha parecía correcto, y solo falla con otro tipo. Al revisar, busca datos preparados que nunca se usan y prueba cada tipo, no solo el primero."
+  },
+  {
+    "id": "s09-rev-x4",
+    "tipo": "razon",
+    "semana": 9,
+    "concepto": "programa-propio",
+    "tema": "rgpd",
+    "enunciado": "Alguien escribe el tipo con un espacio de más al final. La IA y Marta discuten qué pasa. ¿Quién tiene razón?",
+    "codigo": "const limite = { brecha: 72 };\nfunction quedan(tipo, pasadas) {\n  return limite[tipo] - pasadas;\n}\nconsole.log(quedan(\"brecha \", 50));",
+    "opiniones": [
+      {
+        "quien": "La IA",
+        "dice": "Imprime `22`.",
+        "porque": "El espacio no importa: sigue siendo «brecha»."
+      },
+      {
+        "quien": "Marta",
+        "dice": "Da un error.",
+        "porque": "La clave `\"brecha \"` no existe en el objeto."
+      }
+    ],
+    "correcta": "ninguno",
+    "siEliges": {
+      "La IA": "Para JavaScript, `\"brecha \"` y `\"brecha\"` son claves distintas. El espacio cuenta.",
+      "Marta": "La clave no existe, pero eso no da error: da `undefined`, y `undefined - 50` da `NaN`.",
+      "ninguno": "Exacto. Imprime `NaN`: `limite[\"brecha \"]` es `undefined`, y una cuenta con `undefined` da `NaN`."
+    },
+    "comprobar": true,
+    "pistas": [
+      "¿Es `\"brecha \"` la misma clave que `\"brecha\"`?",
+      "¿Qué da una clave que no existe?",
+      "¿Cuánto es `undefined - 50`?"
+    ],
+    "explicacion": "Imprime `NaN`. La clave con espacio no existe, `limite[tipo]` da `undefined`, y la resta da `NaN` (no es un número). Ni error ni aviso. Sigue la pista hacia atrás: `NaN` lleva a `undefined`, y `undefined`, a la clave."
+  }
+]
