@@ -1,17 +1,28 @@
 # Avisos del taller. Este repositorio es público: el script nunca imprime datos, solo «ok».
-# Las horas de cron van en UTC; el script mira la hora de Madrid y no avisa dos veces el mismo día,
-# así funciona igual en horario de verano y de invierno aunque GitHub se retrase un poco.
+# Quien lo lanza a su hora es Supabase (pg_cron, ver supabase/avisos.sql), con workflow_dispatch: los horarios de
+# GitHub llegan con horas de retraso o no llegan. Los de aquí abajo quedan de respaldo. El script mira la hora
+# de Madrid y no avisa dos veces el mismo día, así que da igual cuántas veces se lance.
 name: Avisos
 
 on:
   schedule:
-    - cron: '7 18,19 * * *'   # aviso de las 20:00 (Madrid), solo si hoy no hay reto hecho
-    - cron: '13 17,18 * * 0'  # domingo 19:00 (Madrid): resumen de la semana en el repo misiones
+    - cron: '17 18,19,20 * * *' # respaldo del aviso de las 20:00 (Madrid), solo si hoy no hay reto hecho
+    - cron: '23 18,19,20 * * 0' # respaldo del resumen del domingo 19:00 (Madrid) en el repo misiones
   workflow_dispatch:
     inputs:
       modo:
         description: recordatorio o resumen
+        type: choice
+        options: [recordatorio, resumen]
         default: recordatorio
+      semana:
+        description: 'Solo para el resumen de una semana ya pasada, por ejemplo 2026-S44 (vacío: la última)'
+        required: false
+        default: ''
+
+concurrency:
+  group: avisos
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -34,11 +45,12 @@ jobs:
         env:
           TALLER_CLAVE: ${{ secrets.TALLER_CLAVE }}
           MISIONES_TOKEN: ${{ secrets.MISIONES_TOKEN }}
-          MODO: ${{ github.event_name == 'workflow_dispatch' && inputs.modo || (github.event.schedule == '13 17,18 * * 0' && 'resumen' || 'recordatorio') }}
-        run: node /tmp/avisos/avisos.mjs "$MODO"
+          MODO: ${{ github.event_name == 'workflow_dispatch' && inputs.modo || (github.event.schedule == '23 18,19,20 * * 0' && 'resumen' || 'recordatorio') }}
+          SEMANA: ${{ github.event_name == 'workflow_dispatch' && inputs.semana || '' }}
+        run: node /tmp/avisos/avisos.mjs "$MODO" "$SEMANA"
       - name: Mantener activo el workflow
         # GitHub apaga los workflows programados tras 60 días sin actividad en el repositorio.
-        if: github.event.schedule == '13 17,18 * * 0'
+        if: github.event.schedule == '23 18,19,20 * * 0' || inputs.modo == 'resumen'
         env:
           GH_TOKEN: ${{ github.token }}
         run: gh api -X PUT "repos/${{ github.repository }}/actions/workflows/avisos.yml/enable" > /dev/null && echo ok
