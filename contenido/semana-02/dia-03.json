@@ -205,6 +205,40 @@
       "explicacion": "Con dos textos, + siempre pega, aunque los textos parezcan números."
     },
     {
+      "id": "s02-d03-x3",
+      "semana": 2,
+      "concepto": "texto-mas-numero",
+      "tema": "neutro",
+      "tipo": "predecir",
+      "enunciado": "Tres líneas casi iguales. Mira dónde están las comillas. ¿Qué escribe este programa?",
+      "codigo": "console.log(\"72 + 48\");\nconsole.log(\"72\" + \"48\");\nconsole.log(72 + 48);",
+      "opciones": [
+        {
+          "texto": "72 + 48\n7248\n120",
+          "correcta": true,
+          "siEliges": "Eso es: la primera es un solo texto y sale tal cual; la segunda son dos textos y + los pega; la tercera son números y + suma."
+        },
+        {
+          "texto": "72 + 48\n120\n120",
+          "siEliges": "En la segunda, cada número lleva sus comillas: son dos textos, y + los pega."
+        },
+        {
+          "texto": "120\n7248\n120",
+          "siEliges": "En la primera, las comillas encierran toda la cuenta: es un texto y sale tal cual."
+        },
+        {
+          "texto": "72 + 48\n72 + 48\n120",
+          "siEliges": "En la segunda, el + está fuera de las comillas: es una orden de pegar, no un trozo de texto."
+        }
+      ],
+      "pistas": [
+        "Cuenta cuántos textos hay en cada línea: lo que va entre un par de comillas es un texto.",
+        "La primera tiene un texto; la segunda, dos textos con un + entre ellos; la tercera, ninguno.",
+        "Un texto se escribe tal cual; texto + texto pega; número + número suma."
+      ],
+      "explicacion": "Lo que está dentro de las comillas no se calcula: se escribe tal cual. El + solo actúa fuera de las comillas, y entonces pega textos o suma números."
+    },
+    {
       "ref": "s02-rev-x3"
     }
   ],

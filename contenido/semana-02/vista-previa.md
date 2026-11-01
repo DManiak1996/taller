@@ -152,6 +152,55 @@ Pistas: 1) console.log escribe dos cosas separadas por un espacio. 2) La primera
 
 Explicación: Un boolean se escribe como true o false, y su tipo es boolean.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d01-n1` · concepto tipos
+
+¿Qué escribe este programa?
+
+```ts
+const a = "30";
+const b = 30;
+console.log(typeof a, typeof b);
+console.log(typeof "true");
+```
+
+- ✅ `string number ⏎ string`: Eso es: lo que va entre comillas es texto, aunque sean cifras o la palabra true.
+- ▫️ `number number ⏎ string`: a lleva comillas: aunque sean cifras, es texto.
+- ▫️ `string number ⏎ boolean`: "true" lleva comillas: es texto, no un booleano.
+- ▫️ `30 30 ⏎ true`: typeof no escribe el dato, sino su tipo.
+
+Pistas: 1) typeof escribe el tipo, no el dato. 2) Las comillas deciden: con ellas, siempre es texto (string). 3) a es string, b es number, y "true" es string.
+
+Explicación: Las comillas mandan sobre lo que haya dentro: "30" y "true" son textos. Es justo lo que hay que mirar cuando una IA compara un número con un texto.
+
+#### Escribe el programa · `s02-d01-n2` · concepto tipos
+
+Escribe en una línea el tipo de dato y, detrás, el propio dato. Con el de arriba sale «number 72».
+
+Datos (no se tocan):
+
+```ts
+const dato = 72;
+```
+
+Tiene que salir: `number 72`
+
+Variantes ocultas:
+
+- `const dato = "72";` → `string 72`
+- `const dato = true;` → `boolean true`
+
+Solución:
+
+```ts
+console.log(typeof dato, dato);
+```
+
+Pistas: 1) Dos cosas en un console.log, separadas por una coma. 2) La primera es el tipo: typeof delante del nombre. 3) console.log(typeof dato, dato);
+
+Explicación: El mismo programa sirve para cualquier dato. Fíjate en que "72" y 72 se escriben igual en la consola: solo typeof los distingue.
+
 ---
 
 ## Día 2: Calcular con números
@@ -324,6 +373,62 @@ Pistas: 1) ¿Qué imprime? ¿Se parece a 72? 2) `+` suma, `-` resta, `*` multipl
 
 Explicación: Imprime `27` en lugar de `72`. Un símbolo equivocado y el resultado no tiene nada que ver. Por eso las 72 horas del artículo 33 son un buen caso de prueba: sabes de memoria cuánto tiene que salir.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d02-n1` · concepto operaciones
+
+¿Qué escribe este programa?
+
+```ts
+console.log(2 + 3 * 4);
+console.log((2 + 3) * 4);
+console.log(10 / 4);
+```
+
+- ✅ `14 ⏎ 20 ⏎ 2.5`: Eso es: primero multiplica, salvo que haya paréntesis, y la división da decimales con punto.
+- ▫️ `20 ⏎ 20 ⏎ 2.5`: Sin paréntesis, la multiplicación va primero: 3 * 4, y luego + 2.
+- ▫️ `14 ⏎ 20 ⏎ 2`: La división no redondea: 10 / 4 es 2.5.
+- ▫️ `14 ⏎ 20 ⏎ 2,5`: Los decimales se escriben con punto, no con coma.
+
+Pistas: 1) ¿Qué se calcula antes, la suma o la multiplicación? 2) Primero * y /, después + y -. Los paréntesis van antes que todo. 3) 2 + 12, luego 5 * 4, luego 10 / 4.
+
+Explicación: Las mismas reglas que en el colegio, con una diferencia: los decimales llevan punto.
+
+#### Escribe el programa · `s02-d02-n2` · concepto operaciones
+
+Calcula el coste de un encargo: horas por tarifa. Escribe el total y, debajo, la mitad, que se cobra por adelantado.
+
+Datos (no se tocan):
+
+```ts
+const horas = 3;
+const tarifa = 150;
+```
+
+Empieza con:
+
+```ts
+// 1. El total
+// 2. La mitad
+```
+
+Tiene que salir: `450` / `225`
+
+Variantes ocultas:
+
+- `const horas = 2; const tarifa = 100;` → `200` / `100`
+
+Solución:
+
+```ts
+console.log(horas * tarifa);
+console.log(horas * tarifa / 2);
+```
+
+Pistas: 1) Multiplicar es * y dividir es /. 2) El total es horas * tarifa. La mitad, ese total dividido entre 2. 3) console.log(horas * tarifa); y otro igual con / 2 al final.
+
+Explicación: horas * tarifa / 2 no necesita paréntesis: * y / van de izquierda a derecha. Si escribes 450 a mano, falla con otro encargo.
+
 ---
 
 ## Día 3: Cuando + pega en vez de sumar
@@ -476,7 +581,26 @@ Pistas: 1) ¿Qué tipo tienen a y b? 2) Los dos son texto. Texto + texto pega. 3
 
 Explicación: Con dos textos, + siempre pega, aunque los textos parezcan números.
 
-#### Repaso 3 · ¿Quién tiene razón? (Revisión) · `s02-rev-x3` · concepto texto-mas-numero
+#### Repaso 3 · ¿Qué imprime? · `s02-d03-x3` · concepto texto-mas-numero
+
+Tres líneas casi iguales. Mira dónde están las comillas. ¿Qué escribe este programa?
+
+```ts
+console.log("72 + 48");
+console.log("72" + "48");
+console.log(72 + 48);
+```
+
+- ✅ `72 + 48 ⏎ 7248 ⏎ 120`: Eso es: la primera es un solo texto y sale tal cual; la segunda son dos textos y + los pega; la tercera son números y + suma.
+- ▫️ `72 + 48 ⏎ 120 ⏎ 120`: En la segunda, cada número lleva sus comillas: son dos textos, y + los pega.
+- ▫️ `120 ⏎ 7248 ⏎ 120`: En la primera, las comillas encierran toda la cuenta: es un texto y sale tal cual.
+- ▫️ `72 + 48 ⏎ 72 + 48 ⏎ 120`: En la segunda, el + está fuera de las comillas: es una orden de pegar, no un trozo de texto.
+
+Pistas: 1) Cuenta cuántos textos hay en cada línea: lo que va entre un par de comillas es un texto. 2) La primera tiene un texto; la segunda, dos textos con un + entre ellos; la tercera, ninguno. 3) Un texto se escribe tal cual; texto + texto pega; número + número suma.
+
+Explicación: Lo que está dentro de las comillas no se calcula: se escribe tal cual. El + solo actúa fuera de las comillas, y entonces pega textos o suma números.
+
+#### Repaso 4 · ¿Quién tiene razón? (Revisión) · `s02-rev-x3` · concepto texto-mas-numero
 
 La IA y Marta discuten qué imprime esta línea. ¿Quién tiene razón?
 
@@ -492,6 +616,53 @@ Correcta: La IA
 Pistas: 1) Hazlo paso a paso, de izquierda a derecha. 2) Número + número suma. Número + texto pega. 3) ¿Cuánto es `1 + 2`? Y ahora, ¿qué pasa al juntarlo con `"3"`?
 
 Explicación: Imprime `33`. Primero `1 + 2` da 3 (dos números: suma). Después `3 + "3"` da `"33"` (hay un texto: pega). El orden importa, y por eso con datos mezclados es mejor usar plantillas o convertir con `Number()`.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d03-n1` · concepto texto-mas-numero
+
+¿Qué escribe este programa? Ve de izquierda a derecha.
+
+```ts
+console.log("5" + 3 + 2);
+console.log(5 + 3 + "2");
+```
+
+- ✅ `532 ⏎ 82`: Eso es: en la línea 1 el texto va primero y todo se pega; en la 2, 5 + 3 suman 8 antes de llegar al texto.
+- ▫️ `10 ⏎ 10`: En cuanto aparece un texto, + pega en vez de sumar.
+- ▫️ `532 ⏎ 532`: En la línea 2, 5 + 3 son dos números: suman 8. Después se pega el "2".
+- ▫️ `82 ⏎ 82`: En la línea 1, "5" + 3 ya es texto: "53". Y luego + 2 pega otra vez.
+
+Pistas: 1) + se hace de izquierda a derecha, de dos en dos. 2) Número + número suma; si uno de los dos es texto, pega. 3) Línea 1: "53" y luego "532". Línea 2: 8 y luego "82".
+
+Explicación: El orden importa: el mismo + suma o pega según lo que tenga a cada lado en ese momento.
+
+#### Escribe el programa · `s02-d03-n2` · concepto texto-mas-numero
+
+Con + y la constante numero, escribe el código del expediente, «EXP-145», sin espacio, y debajo el del siguiente, «EXP-146».
+
+Datos (no se tocan):
+
+```ts
+const numero = 145;
+```
+
+Tiene que salir: `EXP-145` / `EXP-146`
+
+Variantes ocultas:
+
+- `const numero = 9;` → `EXP-9` / `EXP-10`
+
+Solución:
+
+```ts
+console.log("EXP-" + numero);
+console.log("EXP-" + (numero + 1));
+```
+
+Pistas: 1) Para pegar sin espacio, + en vez de la coma. 2) Para el siguiente hay que sumar 1 antes de pegar, y con un texto delante + pega. 3) Con paréntesis: "EXP-" + (numero + 1).
+
+Explicación: Sin paréntesis saldría «EXP-1451»: + pega el 145 y después pega el 1. Es el fallo «"5" + 3» escondido dentro de una línea.
 
 ---
 
@@ -671,6 +842,57 @@ Pistas: 1) ¿Qué imprime? ¿Sale el 22? 2) El hueco de una plantilla se escribe
 
 Explicación: Imprime `Quedan {horas} horas`, con las llaves a la vista. El hueco de una plantilla necesita las tres piezas: comillas invertidas, `$` y llaves.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d04-n1` · concepto plantillas-texto
+
+¿Qué escribe este programa? Mira bien qué comillas lleva cada línea.
+
+```ts
+const a = 2;
+const b = 3;
+console.log(`${a + b}`);
+console.log(`${a} + ${b}`);
+console.log("${a}");
+```
+
+- ✅ `5 ⏎ 2 + 3 ⏎ ${a}`: Eso es: dentro de ${ } se calcula; fuera, se copia. Y con comillas normales no hay plantilla.
+- ▫️ `5 ⏎ 5 ⏎ 2`: En la línea 4, el + está fuera de ${ }: se copia como texto.
+- ▫️ `5 ⏎ 2 + 3 ⏎ 2`: La línea 5 usa comillas normales: ${a} solo funciona entre comillas invertidas.
+- ▫️ `a + b ⏎ 2 + 3 ⏎ ${a}`: Dentro de ${ } se calcula: a + b da 5.
+
+Pistas: 1) Distingue lo que va dentro de ${ } de lo que va fuera. 2) Dentro se calcula; fuera es texto. Y la plantilla solo existe con comillas invertidas. 3) 5, luego «2 + 3», y la línea 5 se copia tal cual.
+
+Explicación: Una plantilla mezcla texto fijo y cálculos. Si una IA usa comillas normales con ${ }, lo verás escrito tal cual en la pantalla.
+
+#### Escribe el programa · `s02-d04-n2` · concepto plantillas-texto
+
+Con plantillas, escribe la referencia del expediente, «2026/145» (año, barra y número), y debajo la del siguiente, «2026/146».
+
+Datos (no se tocan):
+
+```ts
+const anio = 2026;
+const numero = 145;
+```
+
+Tiene que salir: `2026/145` / `2026/146`
+
+Variantes ocultas:
+
+- `const anio = 2027; const numero = 9;` → `2027/9` / `2027/10`
+
+Solución:
+
+```ts
+console.log(`${anio}/${numero}`);
+console.log(`${anio}/${numero + 1}`);
+```
+
+Pistas: 1) Una plantilla va entre comillas invertidas, y cada dato dentro de ${ }. 2) La barra va fuera de ${ }, como texto. Dentro de ${ } también se puede sumar. 3) La segunda es `${anio}/${numero + 1}`.
+
+Explicación: Dentro de ${ } no hacen falta paréntesis: primero se calcula numero + 1 y después se mete en el texto. Con + y comillas normales habría que tener cuidado con el orden.
+
 ---
 
 ## Día 5: Datos, cálculo y mensaje
@@ -823,6 +1045,65 @@ Objetivo: `Racha: 7 días`
 Pistas: 1) Hay que sumar uno a lo que ya hay. 2) Los dos tienen que ser números para que + sume. 3) El 1 va sin comillas.
 
 Explicación: El fallo de la semana, escondido: un 1 entre comillas convierte la suma en pegar.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d05-n1` · concepto operaciones
+
+Un plazo de 72 horas, del que ya se han usado 50. ¿Qué escribe este programa?
+
+```ts
+const plazo = 72;
+const usado = 50;
+console.log(`${plazo - usado} h`);
+console.log(`${plazo - usado / 2} h`);
+```
+
+- ✅ `22 h ⏎ 47 h`: Eso es: en la línea 4, la división va primero: 72 - 25.
+- ▫️ `22 h ⏎ 11 h`: Dentro de ${ } valen las reglas de siempre: / antes que -. Para dividir la resta haría falta un paréntesis.
+- ▫️ `22 h ⏎ 72 - 25 h`: Dentro de ${ } se calcula, no se copia.
+
+Pistas: 1) Dentro de ${ } se calcula con las reglas de siempre. 2) ¿Qué va antes, la resta o la división? 3) Línea 4: usado / 2 es 25, y 72 - 25.
+
+Explicación: Una plantilla no cambia las reglas del cálculo. Si una IA quería la mitad de lo que queda, le faltan paréntesis: `${(plazo - usado) / 2}`.
+
+#### Escribe el programa · `s02-d05-n2` · concepto plantillas-texto
+
+Escribe cuántas horas quedan del plazo y, debajo, en cuántas horas se llega a su mitad: «Quedan 52 h» y «Mitad en 16 h».
+
+Datos (no se tocan):
+
+```ts
+const plazo = 72;
+const pasadas = 20;
+```
+
+Empieza con:
+
+```ts
+// 1. Calcula lo que queda
+// 2. Calcula cuánto falta a la mitad
+// 3. Escribe las dos líneas
+```
+
+Tiene que salir: `Quedan 52 h` / `Mitad en 16 h`
+
+Variantes ocultas:
+
+- `const plazo = 48; const pasadas = 10;` → `Quedan 38 h` / `Mitad en 14 h`
+
+Solución:
+
+```ts
+const quedan = plazo - pasadas;
+const mitad = plazo / 2 - pasadas;
+console.log(`Quedan ${quedan} h`);
+console.log(`Mitad en ${mitad} h`);
+```
+
+Pistas: 1) Guarda cada cálculo en su propia caja antes de escribir. 2) Quedan: plazo - pasadas. La mitad del plazo es plazo / 2, y hay que restarle lo que ya ha pasado. 3) const mitad = plazo / 2 - pasadas; y luego dos plantillas.
+
+Explicación: Calcular primero en cajas con nombre y escribir después hace el programa más fácil de leer y de revisar. Así está escrito casi todo DeIure.
 
 ---
 
@@ -1003,6 +1284,59 @@ Pistas: 1) `Number()` convierte cifras escritas como texto, como `"72"`. 2) Cuan
 
 Explicación: Imprime `NaN` (*Not a Number*). Ojo: no da error, así que el programa sigue y cualquier cálculo con `NaN` da `NaN`. Cuando conviertas un dato de fuera, comprueba que de verdad sale un número.
 
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d06-n1` · concepto convertir-numero
+
+¿Qué escribe este programa?
+
+```ts
+const a = "10";
+const b = "5";
+console.log(a + b);
+console.log(Number(a) + Number(b));
+console.log(Number("diez"));
+```
+
+- ✅ `105 ⏎ 15 ⏎ NaN`: Eso es: los textos se pegan, los números se suman, y «diez» en letras no se puede convertir.
+- ▫️ `15 ⏎ 15 ⏎ NaN`: a y b son textos: + los pega.
+- ▫️ `105 ⏎ 15 ⏎ 10`: Number solo entiende cifras: «diez» en letras da NaN.
+- ▫️ `105 ⏎ 105 ⏎ NaN`: Number convierte cada texto en número antes de sumar.
+
+Pistas: 1) ¿De qué tipo son a y b? 2) Dos textos se pegan; dos números se suman. Number convierte cifras, no palabras. 3) "105", luego 15, luego NaN.
+
+Explicación: NaN significa «no es un número». Si una suma da NaN, mira qué texto se ha intentado convertir.
+
+#### Escribe el programa · `s02-d06-n2` · concepto convertir-numero
+
+Las solicitudes de ayer y de hoy llegan de un formulario, como texto. Escribe «Total: 15».
+
+Datos (no se tocan):
+
+```ts
+const ayer = "12";
+const hoy = "3";
+```
+
+Tiene que salir: `Total: 15`
+
+Variantes ocultas:
+
+- `const ayer = "7"; const hoy = "10";` → `Total: 17`
+
+Solución:
+
+```ts
+const numAyer = Number(ayer);
+const numHoy = Number(hoy);
+const total = numAyer + numHoy;
+console.log("Total:", total);
+```
+
+Pistas: 1) Si sumas ayer + hoy tal cual, sale "123": son textos. 2) Convierte cada uno con Number() antes de sumar. 3) const numAyer = Number(ayer); y lo mismo con hoy.
+
+Explicación: Todo lo que llega de un formulario es texto, aunque sean cifras. Convertirlo antes de calcular es el arreglo del fallo «"5" + 3».
+
 ---
 
 ## Día 7: Píldora: ceros, unos y tildes (píldora de informática)
@@ -1169,4 +1503,52 @@ console.log((8).toString(2));
 Pistas: 1) Las cifras valen 1, 2, 4, 8… de derecha a izquierda. 2) El 8 es justo una de esas cifras. 3) Un 1 en la posición del 8 y ceros en el resto.
 
 Explicación: Las potencias de 2 en binario son un 1 seguido de ceros: 1, 10, 100, 1000.
+
+### Para nota
+
+#### Reto difícil · ¿Qué imprime? · `s02-d07-n1` · concepto bits-texto
+
+Recuerda: «A» es 65 y «B» es 66. ¿Qué escribe este programa?
+
+```ts
+console.log((4).toString(2));
+console.log((8).toString(2));
+console.log("C".charCodeAt(0));
+```
+
+- ✅ `100 ⏎ 1000 ⏎ 67`: Eso es: en binario, cada vez que doblas añades un cero, y la C va justo después de la B.
+- ▫️ `100 ⏎ 1000 ⏎ 66`: 66 es la B. La C es la siguiente: 67.
+- ▫️ `4 ⏎ 8 ⏎ C`: toString(2) escribe el número en ceros y unos, y charCodeAt da el número de la letra.
+- ▫️ `100 ⏎ 111 ⏎ 67`: 8 en binario es 1000: un 1 y tres ceros, igual que 1000 en decimal es un 1 y tres ceros.
+
+Pistas: 1) En binario, 2 es 10 y 4 es 100. 2) Doblar en binario es añadir un cero. Y las letras van en orden. 3) 8 es 1000, y la C es 66 + 1.
+
+Explicación: En decimal, multiplicar por 10 añade un cero; en binario, multiplicar por 2. Por eso los ordenadores cuentan en potencias de 2: 8, 16, 1024…
+
+#### Escribe el programa · `s02-d07-n2` · concepto bits-texto
+
+Escribe en una línea el número en decimal y, al lado, en binario. Con el de arriba sale «5 101».
+
+Datos (no se tocan):
+
+```ts
+const numero = 5;
+```
+
+Tiene que salir: `5 101`
+
+Variantes ocultas:
+
+- `const numero = 12;` → `12 1100`
+
+Solución:
+
+```ts
+const binario = numero.toString(2);
+console.log(numero, binario);
+```
+
+Pistas: 1) toString(2) pasa un número a ceros y unos. 2) Con una caja no hacen falta los paréntesis de (5): basta numero.toString(2). 3) const binario = numero.toString(2); y un console.log con las dos cajas.
+
+Explicación: Los paréntesis de (5).toString(2) solo hacen falta con un número escrito a mano; con el nombre de una caja, no.
 
